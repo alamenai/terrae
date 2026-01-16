@@ -189,7 +189,7 @@ function ISSTrackingExample() {
   useEffect(() => {
     const fetchISSPosition = async () => {
       try {
-        const response = await fetch("http://api.open-notify.org/iss-now.json");
+        const response = await fetch("https://api.open-notify.org/iss-now.json");
         const data = await response.json();
         const newPosition = {
           latitude: parseFloat(data.iss_position.latitude),
