@@ -8,8 +8,13 @@
       "type": "registry:ui",
       "title": "Map",
       "description": "Core Mapbox-powered map component with theme support.",
-      "dependencies": ["mapbox-gl", "next-themes"],
-      "devDependencies": ["@types/mapbox-gl"],
+      "dependencies": [
+        "mapbox-gl",
+        "next-themes"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
       "registryDependencies": [],
       "files": [
         {
@@ -31,7 +36,7 @@
       "css": {
         "@layer base": {
           ".mapboxgl-popup-content": {
-             "@apply bg-transparent! shadow-none! p-0! rounded-none!": {}
+            "@apply bg-transparent! shadow-none! p-0! rounded-none!": {}
           },
           ".mapboxgl-popup-tip": {
             "@apply hidden!": {}
@@ -44,9 +49,16 @@
       "type": "registry:ui",
       "title": "Map Marker",
       "description": "Customizable map markers with popup support.",
-      "dependencies": ["mapbox-gl", "lucide-react"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl",
+        "lucide-react"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/marker.tsx",
@@ -60,9 +72,15 @@
       "type": "registry:ui",
       "title": "Map Popup",
       "description": "Info popups and tooltips for map locations.",
-      "dependencies": ["mapbox-gl"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/popup.tsx",
@@ -76,9 +94,16 @@
       "type": "registry:ui",
       "title": "Map Controls",
       "description": "Interactive map controls (zoom, fullscreen, etc).",
-      "dependencies": ["mapbox-gl", "lucide-react"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl",
+        "lucide-react"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/controls.tsx",
@@ -92,9 +117,15 @@
       "type": "registry:ui",
       "title": "Map Circle Cluster",
       "description": "Marker clustering with circle visualization.",
-      "dependencies": ["mapbox-gl"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/circle-cluster.tsx",
@@ -108,9 +139,15 @@
       "type": "registry:ui",
       "title": "Map Marker Animated",
       "description": "Animated marker that moves along a path with trail visualization.",
-      "dependencies": ["mapbox-gl"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/marker-animated.tsx",
@@ -124,9 +161,15 @@
       "type": "registry:ui",
       "title": "Map Line",
       "description": "Static routes and paths on the map.",
-      "dependencies": ["mapbox-gl"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/line.tsx",
@@ -140,9 +183,15 @@
       "type": "registry:ui",
       "title": "Map Line Animated",
       "description": "Animated path and route animations on the map.",
-      "dependencies": ["mapbox-gl"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/line-animated.tsx",
@@ -156,9 +205,15 @@
       "type": "registry:ui",
       "title": "Map Animated Pulse",
       "description": "Pulsing dot animation for map markers.",
-      "dependencies": ["mapbox-gl"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/animated-pulse.tsx",
@@ -172,9 +227,15 @@
       "type": "registry:ui",
       "title": "Map Rain",
       "description": "Animated rain effect layer.",
-      "dependencies": ["mapbox-gl"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/rain.tsx",
@@ -188,9 +249,15 @@
       "type": "registry:ui",
       "title": "Map Raster Video",
       "description": "Video overlay layers on the map.",
-      "dependencies": ["mapbox-gl"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/raster-video.tsx",
@@ -204,9 +271,15 @@
       "type": "registry:ui",
       "title": "Map Image",
       "description": "Image overlay layers on the map.",
-      "dependencies": ["mapbox-gl"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/image.tsx",
@@ -220,9 +293,15 @@
       "type": "registry:ui",
       "title": "Map Mini Map",
       "description": "Minimap overview navigation component.",
-      "dependencies": ["mapbox-gl"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/mini-map.tsx",
@@ -236,9 +315,15 @@
       "type": "registry:ui",
       "title": "Map Compare",
       "description": "Side-by-side map comparison component.",
-      "dependencies": ["mapbox-gl"],
-      "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["map"],
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
       "files": [
         {
           "path": "src/registry/map/map-compare.tsx",

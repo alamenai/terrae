@@ -50,34 +50,56 @@ Then edit `.env.local` with your actual access token:
 NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your_token_here
 ```
 
-### 4. Install Components Individually
+### 4. Install Components
 
-Just like shadcn/ui, you can install components one at a time using the CLI:
+Just like shadcn/ui, you can install components using the CLI:
 
-```bash
-# Install the base map component first
-npx shadcn@latest add https://terrae.vercel.app/registry map
-
-# Then add the components you need
-npx shadcn@latest add https://terrae.vercel.app/registry map-marker
-npx shadcn@latest add https://terrae.vercel.app/registry map-popup
-npx shadcn@latest add https://terrae.vercel.app/registry map-controls
-npx shadcn@latest add https://terrae.vercel.app/registry map-circle-cluster
-npx shadcn@latest add https://terrae.vercel.app/registry map-line
-npx shadcn@latest add https://terrae.vercel.app/registry map-line-animated
-npx shadcn@latest add https://terrae.vercel.app/registry map-animated-pulse
-npx shadcn@latest add https://terrae.vercel.app/registry map-image
-npx shadcn@latest add https://terrae.vercel.app/registry map-mini-map
-npx shadcn@latest add https://terrae.vercel.app/registry map-rain
-npx shadcn@latest add https://terrae.vercel.app/registry map-raster-video
-npx shadcn@latest add https://terrae.vercel.app/registry map-compare
-```
-
-Or install all components at once:
+#### Method 1: Direct URL (Recommended)
 
 ```bash
-npx shadcn@latest add https://terrae.vercel.app/registry -a
+# Install any component directly
+npx shadcn@latest add https://terrae.vercel.app/maps/map.json
+npx shadcn@latest add https://terrae.vercel.app/maps/map-marker.json
+npx shadcn@latest add https://terrae.vercel.app/maps/map-line.json
 ```
+
+Dependencies are automatically resolved!
+
+#### Method 2: Using Namespace (Optional)
+
+Add Terrae registry to your `components.json`:
+
+```json
+{
+  "registries": {
+    "@terrae": "https://terrae.vercel.app/maps/{name}.json"
+  }
+}
+```
+
+Then install with cleaner syntax:
+
+```bash
+npx shadcn@latest add @terrae/map
+npx shadcn@latest add @terrae/map-marker @terrae/map-line
+```
+
+#### Available Components
+
+- `map` - Core map component
+- `map-marker` - Customizable markers
+- `map-marker-animated` - Animated markers
+- `map-marker-cluster` - Marker clustering
+- `map-line` - Lines and routes
+- `map-polygon` - Polygon overlays  
+- `map-popup` - Popups and tooltips
+- `map-tooltip` - Simple tooltips
+- `map-controls` - Map controls
+- `map-heatmap` - Heatmap visualization
+- `map-3d-building` - 3D buildings
+- `mini-map` - Mini map overview
+- `map-compare` - Side-by-side comparison
+- `draw-control` - Drawing tools
 
 ## Quick Start
 

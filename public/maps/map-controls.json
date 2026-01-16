@@ -11,7 +11,7 @@
     "@types/mapbox-gl"
   ],
   "registryDependencies": [
-    "map"
+    "https://terrae.vercel.app/maps/map.json"
   ],
   "files": [
     {
