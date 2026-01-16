@@ -1,0 +1,65 @@
+"use client";
+
+import { Globe } from "lucide-react";
+
+import { Separator } from "@/components/ui/separator";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { cn } from "@/lib/utils";
+
+interface HeaderProps {
+  className?: string;
+  leftContent?: React.ReactNode;
+  actions?: React.ReactNode;
+}
+
+export function Header({ className, leftContent, actions }: HeaderProps) {
+  const navItems = [
+    { href: "/docs/story", label: "Story" },
+    { href: "/docs", label: "Docs" },
+    { href: "/docs/comparison", label: "Comparison" },
+    { href: "/docs/components", label: "Components" },
+    { href: "/docs/examples", label: "Examples" },
+    { href: "/docs/ideas", label: "Ideas" },
+    { href: "/docs/weeklog", label: "Weeklog" },
+  ];
+
+  const handleLogoClick = () => {
+    window.location.href = "/";
+  };
+
+  return (
+    <header className={cn("w-full px-2 sm:px-6 py-3 sm:py-4", className)}>
+      <nav className="flex items-center justify-between gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-8 min-w-0 flex-1">
+          {leftContent}
+          <button
+            onClick={handleLogoClick}
+            className="flex items-center gap-1.5 hover:opacity-80 transition-opacity shrink-0 cursor-pointer group"
+            title="Back to home"
+          >
+            <Globe className="size-4 sm:size-5 group-hover:scale-110 transition-transform" />
+            <span className="font-semibold tracking-tight hidden sm:inline text-sm sm:text-base">terrae</span>
+          </button>
+          <div className="hidden lg:flex items-center gap-3 xl:gap-6 text-xs sm:text-sm">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap ${
+                  item.label === "Weeklog" ? "bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-semibold" : ""
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center gap-1.5 sm:gap-2 h-4 flex-shrink-0">
+          {actions}
+          <Separator orientation="vertical" className="hidden sm:block" />
+          <ThemeToggle />
+        </div>
+      </nav>
+    </header>
+  );
+}
