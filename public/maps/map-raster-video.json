@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "map-raster-video",
+  "title": "Map Raster Video",
+  "description": "Video overlay layers on the map.",
+  "dependencies": [
+    "mapbox-gl"
+  ],
+  "devDependencies": [
+    "@types/mapbox-gl"
+  ],
+  "registryDependencies": [
+    "map"
+  ],
+  "files": [
+    {
+      "path": "src/registry/map/raster-video.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useRef, useState } from \"react\";\nimport { useMap } from \"./hooks\";\n\ntype MapRasterVideoProps = {\n  /** Unique identifier for the raster video */\n  id: string;\n  /** Array of video URLs (provide multiple formats for browser compatibility) */\n  urls: string[];\n  /** Four corner coordinates [topLeft, topRight, bottomRight, bottomLeft] as [lng, lat] pairs */\n  coordinates: [[number, number], [number, number], [number, number], [number, number]];\n  /** Layer opacity (0-1) */\n  opacity?: number;\n  /** Auto-play video on load */\n  autoplay?: boolean;\n  /** Loop video playback */\n  loop?: boolean;\n  /** Mute video audio */\n  muted?: boolean;\n};\n\nexport function MapRasterVideo({\n  id,\n  urls,\n  coordinates,\n  opacity = 1,\n  autoplay = false,\n  loop = true,\n  muted = true,\n}: MapRasterVideoProps) {\n  const { map, isLoaded } = useMap();\n  const initializedRef = useRef(false);\n  const [isPlaying, setIsPlaying] = useState(autoplay);\n\n  useEffect(() => {\n    if (!isLoaded || !map || initializedRef.current) return;\n\n    try {\n      // Add video source\n      map.addSource(id, {\n        type: \"video\",\n        urls,\n        coordinates,\n      } as any);\n\n      // Add raster layer\n      map.addLayer({\n        id,\n        type: \"raster\",\n        source: id,\n        paint: {\n          \"raster-opacity\": opacity,\n        },\n      });\n\n      // Set video properties and control playback\n      const source = map.getSource(id) as any;\n      if (source && source.getVideo) {\n        const video = source.getVideo();\n        if (video) {\n          video.loop = loop;\n          video.muted = muted;\n\n          if (autoplay) {\n            source.play();\n          }\n        }\n      }\n\n      initializedRef.current = true;\n    } catch (error) {\n      console.error(\"Error adding raster video:\", error);\n    }\n\n    return () => {\n      if (map && map.getStyle()) {\n        try {\n          if (map.getLayer(id)) {\n            map.removeLayer(id);\n          }\n          if (map.getSource(id)) {\n            map.removeSource(id);\n          }\n        } catch (error) {\n          console.error(\"Error cleaning up raster video:\", error);\n        }\n      }\n      initializedRef.current = false;\n    };\n  }, [map, isLoaded, id, urls, coordinates, opacity, autoplay, loop, muted]);\n\n  // Expose play/pause methods via ref if needed\n  useEffect(() => {\n    if (!map || !initializedRef.current) return;\n\n    const source = map.getSource(id) as any;\n    if (!source) return;\n\n    if (isPlaying) {\n      source.play?.();\n    } else {\n      source.pause?.();\n    }\n  }, [map, id, isPlaying]);\n\n  return null;\n}\n\n/**\n * Hook to control video playback\n * @param layerId - The raster video ID\n * @returns Object with play, pause, and toggle methods\n */\nexport function useRasterVideoControl(layerId: string) {\n  const { map } = useMap();\n  const [isPlaying, setIsPlaying] = useState(false);\n\n  const play = () => {\n    if (!map) return;\n    const source = map.getSource(layerId) as any;\n    source?.play?.();\n    setIsPlaying(true);\n  };\n\n  const pause = () => {\n    if (!map) return;\n    const source = map.getSource(layerId) as any;\n    source?.pause?.();\n    setIsPlaying(false);\n  };\n\n  const toggle = () => {\n    if (isPlaying) {\n      pause();\n    } else {\n      play();\n    }\n  };\n\n  return { play, pause, toggle, isPlaying };\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/map/raster-video.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

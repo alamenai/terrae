@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "map-mini-map",
+  "title": "Map Mini Map",
+  "description": "Minimap overview navigation component.",
+  "dependencies": [
+    "mapbox-gl"
+  ],
+  "devDependencies": [
+    "@types/mapbox-gl"
+  ],
+  "registryDependencies": [
+    "map"
+  ],
+  "files": [
+    {
+      "path": "src/registry/map/mini-map.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useRef, useState } from \"react\";\nimport mapboxgl from \"mapbox-gl\";\nimport { useMap } from \"./hooks\";\nimport { cn } from \"@/lib/utils\";\n\ntype MapMiniMapProps = {\n  position?: \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\";\n  width?: number;\n  height?: number;\n  zoomOffset?: number;\n  style?: string;\n  boxColor?: string;\n  boxBorderWidth?: number;\n};\n\nexport function MapMiniMap({\n  position = \"bottom-right\",\n  width = 200,\n  height = 150,\n  zoomOffset = -4,\n  style,\n  boxColor = \"#3b82f6\",\n  boxBorderWidth = 2,\n}: MapMiniMapProps) {\n  const { map: mainMap, isLoaded } = useMap();\n  const containerRef = useRef<HTMLDivElement>(null);\n  const miniMapRef = useRef<mapboxgl.Map | null>(null);\n  const [miniMapLoaded, setMiniMapLoaded] = useState(false);\n\n  const positionClasses = {\n    \"top-left\": \"top-4 left-4\",\n    \"top-right\": \"top-4 right-4\",\n    \"bottom-left\": \"bottom-4 left-4\",\n    \"bottom-right\": \"bottom-4 right-4\",\n  };\n\n  useEffect(() => {\n    if (!mainMap || !isLoaded || !containerRef.current) return;\n\n    const miniMap = new mapboxgl.Map({\n      container: containerRef.current,\n      style: style || mainMap.getStyle(),\n      center: mainMap.getCenter(),\n      zoom: Math.max(0, mainMap.getZoom() + zoomOffset),\n      interactive: false,\n      attributionControl: false,\n      logoPosition: \"bottom-left\",\n    });\n\n    miniMap.on(\"load\", () => {\n      miniMap.addSource(\"viewport-box\", {\n        type: \"geojson\",\n        data: {\n          type: \"Feature\",\n          properties: {},\n          geometry: { type: \"Polygon\", coordinates: [[]] },\n        },\n      });\n\n      miniMap.addLayer({\n        id: \"viewport-box-fill\",\n        type: \"fill\",\n        source: \"viewport-box\",\n        paint: { \"fill-color\": boxColor, \"fill-opacity\": 0.1 },\n      });\n\n      miniMap.addLayer({\n        id: \"viewport-box-outline\",\n        type: \"line\",\n        source: \"viewport-box\",\n        paint: { \"line-color\": boxColor, \"line-width\": boxBorderWidth },\n      });\n\n      setMiniMapLoaded(true);\n    });\n\n    miniMapRef.current = miniMap;\n\n    return () => {\n      miniMap.remove();\n      miniMapRef.current = null;\n      setMiniMapLoaded(false);\n    };\n  }, [mainMap, isLoaded, style, zoomOffset, boxColor, boxBorderWidth]);\n\n  useEffect(() => {\n    if (!mainMap || !miniMapRef.current || !miniMapLoaded) return;\n\n    const updateMiniMap = () => {\n      const miniMap = miniMapRef.current;\n      if (!miniMap) return;\n\n      miniMap.setCenter(mainMap.getCenter());\n      miniMap.setZoom(Math.max(0, mainMap.getZoom() + zoomOffset));\n\n      const bounds = mainMap.getBounds();\n      if (!bounds) return;\n\n      const nw = bounds.getNorthWest();\n      const ne = bounds.getNorthEast();\n      const se = bounds.getSouthEast();\n      const sw = bounds.getSouthWest();\n\n      const boxSource = miniMap.getSource(\"viewport-box\") as mapboxgl.GeoJSONSource;\n      boxSource?.setData({\n        type: \"Feature\",\n        properties: {},\n        geometry: {\n          type: \"Polygon\",\n          coordinates: [[[nw.lng, nw.lat], [ne.lng, ne.lat], [se.lng, se.lat], [sw.lng, sw.lat], [nw.lng, nw.lat]]],\n        },\n      });\n    };\n\n    mainMap.on(\"move\", updateMiniMap);\n    mainMap.on(\"zoom\", updateMiniMap);\n    updateMiniMap();\n\n    return () => {\n      mainMap.off(\"move\", updateMiniMap);\n      mainMap.off(\"zoom\", updateMiniMap);\n    };\n  }, [mainMap, miniMapLoaded, zoomOffset]);\n\n  return (\n    <div className={cn(\"absolute z-100\", positionClasses[position])}>\n      <div\n        ref={containerRef}\n        className=\"rounded-lg overflow-hidden border-2 border-border shadow-lg\"\n        style={{ width, height }}\n      />\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/map/mini-map.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

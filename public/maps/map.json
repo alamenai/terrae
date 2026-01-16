@@ -1,0 +1,45 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "map",
+  "title": "Map",
+  "description": "Core Mapbox-powered map component with theme support.",
+  "dependencies": [
+    "mapbox-gl",
+    "next-themes"
+  ],
+  "devDependencies": [
+    "@types/mapbox-gl"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "src/registry/map/map.tsx",
+      "content": "\"use client\";\n\nimport { useTheme } from \"next-themes\";\nimport {\n  createContext,\n  useEffect,\n  useMemo,\n  useRef,\n  useState,\n  type ReactNode,\n} from \"react\";\nimport mapboxgl from \"mapbox-gl\";\nimport \"mapbox-gl/dist/mapbox-gl.css\";\nimport { defaultMapStyles, type MapContextValue } from \"./types\";\n\nexport const MapContext = createContext<MapContextValue | null>(null);\n\nconst DefaultLoader = () => (\n  <div className=\"absolute inset-0 flex items-center justify-center bg-muted\">\n    <div className=\"flex gap-1\">\n      <span className=\"size-1.5 rounded-full bg-muted-foreground/60 animate-pulse\" />\n      <span className=\"size-1.5 rounded-full bg-muted-foreground/60 animate-pulse [animation-delay:150ms]\" />\n      <span className=\"size-1.5 rounded-full bg-muted-foreground/60 animate-pulse [animation-delay:300ms]\" />\n    </div>\n  </div>\n);\n\ntype MapProps = {\n  children?: ReactNode;\n  /** Mapbox access token. Required. */\n  accessToken: string;\n  /** Custom loading component */\n  loader?: ReactNode;\n  /** Single map style (overrides theme-based styles) */\n  style?: string;\n  /** Map styles for light and dark themes (ignored if style is set) */\n  styles?: {\n    light?: string;\n    dark?: string;\n  };\n  /** Initial map center [longitude, latitude] */\n  center?: [number, number];\n  /** Initial zoom level */\n  zoom?: number;\n  /** Map bearing (rotation) */\n  bearing?: number;\n  /** Map pitch (tilt) */\n  pitch?: number;\n  /** Map projection. Use \"globe\" for 3D globe view or \"mercator\" for flat map (default: \"mercator\") */\n  projection?: \"globe\" | \"mercator\" | \"naturalEarth\" | \"equalEarth\" | \"winkelTripel\" | mapboxgl.Projection;\n  /** Minimum zoom level */\n  minZoom?: number;\n  /** Maximum zoom level */\n  maxZoom?: number;\n  /** Maximum bounds */\n  maxBounds?: [[number, number], [number, number]];\n};\n\nexport function Map({\n  children,\n  accessToken,\n  loader,\n  style,\n  styles,\n  center = [0, 0],\n  zoom = 2,\n  bearing = 0,\n  pitch = 0,\n  projection,\n  minZoom,\n  maxZoom,\n  maxBounds,\n}: MapProps) {\n  const containerRef = useRef<HTMLDivElement>(null);\n  const mapRef = useRef<mapboxgl.Map | null>(null);\n  const [isLoaded, setIsLoaded] = useState(false);\n  const [error, setError] = useState<string | null>(null);\n  const { resolvedTheme } = useTheme();\n  const initializedRef = useRef(false);\n\n  const mapStyles = useMemo(\n    () => ({\n      dark: styles?.dark ?? defaultMapStyles.dark,\n      light: styles?.light ?? defaultMapStyles.light,\n    }),\n    [styles]\n  );\n\n  // Initialize map once\n  useEffect(() => {\n    if (initializedRef.current) return;\n    if (!containerRef.current) return;\n    if (!accessToken) {\n      setError(\"Mapbox access token is required. Add NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN to your .env.local file and restart the dev server.\");\n      return;\n    }\n\n    initializedRef.current = true;\n    mapboxgl.accessToken = accessToken;\n\n    const mapStyle = style || (resolvedTheme === \"dark\" ? mapStyles.dark : mapStyles.light);\n\n    try {\n      const mapInstance = new mapboxgl.Map({\n        container: containerRef.current,\n        style: mapStyle,\n        center,\n        zoom,\n        bearing,\n        pitch,\n        projection,\n        minZoom,\n        maxZoom,\n        maxBounds,\n        attributionControl: false,\n      });\n\n      mapInstance.on(\"load\", () => {\n        setIsLoaded(true);\n      });\n\n      mapInstance.on(\"error\", (e: any) => {\n        console.error(\"Mapbox error:\", e);\n        setError(\"Failed to load map\");\n      });\n\n      mapRef.current = mapInstance;\n\n      return () => {\n        mapInstance.remove();\n        mapRef.current = null;\n        setIsLoaded(false);\n        initializedRef.current = false;\n      };\n    } catch (err) {\n      console.error(\"Error creating Mapbox map:\", err);\n      setError(\"Failed to create map\");\n      initializedRef.current = false;\n    }\n  }, [accessToken, style, styles, center, zoom, bearing, pitch, projection, minZoom, maxZoom, maxBounds, resolvedTheme, mapStyles]);\n\n  const contextValue = useMemo(\n    () => ({\n      map: mapRef.current,\n      isLoaded,\n    }),\n    [isLoaded]\n  );\n\n  if (error) {\n    return (\n      <div className=\"relative w-full h-full\">\n        <div className=\"absolute inset-0 flex items-center justify-center\">\n          <div className=\"text-destructive text-sm\">{error}</div>\n        </div>\n      </div>\n    );\n  }\n\n  return (\n    <MapContext.Provider value={contextValue}>\n      <div ref={containerRef} className=\"relative w-full h-full\">\n        {!isLoaded && (loader || <DefaultLoader />)}\n        {/* SSR-safe: children render only when map exists on client */}\n        {mapRef.current && children}\n      </div>\n    </MapContext.Provider>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/map/map.tsx"
+    },
+    {
+      "path": "src/registry/map/types.ts",
+      "content": "import { type RefObject } from \"react\";\nimport type mapboxgl from \"mapbox-gl\";\n\nexport type MapContextValue = {\n  map: mapboxgl.Map | null;\n  isLoaded: boolean;\n};\n\nexport type MarkerContextValue = {\n  markerRef: RefObject<mapboxgl.Marker | null>;\n  markerElementRef: RefObject<HTMLDivElement | null>;\n  map: mapboxgl.Map | null;\n  isReady: boolean;\n};\n\nexport const defaultMapStyles = {\n  light: \"mapbox://styles/mapbox/light-v11\",\n  dark: \"mapbox://styles/mapbox/dark-v11\",\n};\n",
+      "type": "registry:ui",
+      "target": "components/ui/map/types.ts"
+    },
+    {
+      "path": "src/registry/map/hooks.ts",
+      "content": "import { useContext } from \"react\";\nimport { MapContext } from \"./map\";\n\nexport function useMap() {\n  const context = useContext(MapContext);\n  if (!context) {\n    return { map: null, isLoaded: false };\n  }\n  return context;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/map/hooks.ts"
+    }
+  ],
+  "css": {
+    "@layer base": {
+      ".mapboxgl-popup-content": {
+        "@apply bg-transparent! shadow-none! p-0! rounded-none!": {}
+      },
+      ".mapboxgl-popup-tip": {
+        "@apply hidden!": {}
+      }
+    }
+  },
+  "type": "registry:ui"
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "map-compare",
+  "title": "Map Compare",
+  "description": "Side-by-side map comparison component.",
+  "dependencies": [
+    "mapbox-gl"
+  ],
+  "devDependencies": [
+    "@types/mapbox-gl"
+  ],
+  "registryDependencies": [
+    "map"
+  ],
+  "files": [
+    {
+      "path": "src/registry/map/map-compare.tsx",
+      "content": "\"use client\";\n\nimport { Map } from \"./map\";\nimport type { ReactNode } from \"react\";\n\ntype MapCompareProps = {\n  /** Mapbox access token. Required. */\n  accessToken: string;\n  /** Custom loading component */\n  loader?: ReactNode;\n  /** Style for the before (left) map */\n  beforeStyle?: string;\n  /** Style for the after (right) map */\n  afterStyle?: string;\n  /** Initial map center [longitude, latitude] */\n  center?: [number, number];\n  /** Initial zoom level */\n  zoom?: number;\n  /** Map bearing (rotation) */\n  bearing?: number;\n  /** Map pitch (tilt) */\n  pitch?: number;\n  /** Map projection */\n  projection?: \"globe\" | \"mercator\" | \"naturalEarth\" | \"equalEarth\" | \"winkelTripel\";\n  /** Initial split position (0-100) */\n  defaultSize?: number;\n};\n\nexport function MapCompare({\n  accessToken,\n  loader,\n  beforeStyle,\n  afterStyle,\n  center = [0, 0],\n  zoom = 2,\n  bearing = 0,\n  pitch = 0,\n  projection,\n  defaultSize = 50,\n}: MapCompareProps) {\n  return (\n    <div className=\"relative w-full h-full flex\">\n      <div className=\"relative h-full\" style={{ width: `${defaultSize}%` }}>\n        <div className=\"absolute top-3 left-3 z-10 bg-background/95 backdrop-blur-sm border rounded px-2 py-1 text-xs font-medium\">\n          Before\n        </div>\n        <Map\n          accessToken={accessToken}\n          center={center}\n          zoom={zoom}\n          bearing={bearing}\n          pitch={pitch}\n          projection={projection}\n          style={beforeStyle}\n          loader={loader}\n        />\n      </div>\n\n      <div className=\"relative h-full\" style={{ width: `${100 - defaultSize}%` }}>\n        <div className=\"absolute top-3 right-3 z-10 bg-background/95 backdrop-blur-sm border rounded px-2 py-1 text-xs font-medium\">\n          After\n        </div>\n        <Map\n          accessToken={accessToken}\n          center={center}\n          zoom={zoom}\n          bearing={bearing}\n          pitch={pitch}\n          projection={projection}\n          style={afterStyle}\n          loader={loader}\n        />\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/map/map-compare.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}
