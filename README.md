@@ -1,8 +1,11 @@
-# Terrae
+<div align="center">
+  <h1>Terrae</h1>
+  <p><strong>Map library for Design Engineers</strong></p>
 
-**Beautiful Mapbox GL components, made simple.**
-
-Free and open-source map components built with [React](https://react.dev), [TypeScript](https://www.typescriptlang.org), [Tailwind CSS](https://tailwindcss.com/), and [Mapbox GL JS](https://www.mapbox.com/). Perfect companion for [shadcn/ui](https://github.com/shadcn-ui/ui). Pronounced **"TER-ray"**.
+  <p>
+    Beautiful map components built with <a href="https://react.dev">React</a>, <a href="https://www.typescriptlang.org">TypeScript</a>, <a href="https://tailwindcss.com/">Tailwind CSS</a>, and <a href="https://www.mapbox.com/">Mapbox GL JS</a>. Perfect companion for <a href="https://ui.shadcn.com">shadcn/ui</a>. Pronounced <strong>"TER-ray"</strong>.
+  </p>
+</div>
 
 ---
 
