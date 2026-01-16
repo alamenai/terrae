@@ -59,9 +59,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-  },
   openGraph: {
     type: "website",
     locale: "en_US",
