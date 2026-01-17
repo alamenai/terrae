@@ -13,7 +13,12 @@ export type MarkerContextValue = {
   isReady: boolean;
 };
 
-export const defaultMapStyles = {
+export type MapThemeStyles = {
+  light?: string;
+  dark?: string;
+};
+
+export const defaultMapStyles: Required<MapThemeStyles> = {
   light: "mapbox://styles/mapbox/light-v11",
   dark: "mapbox://styles/mapbox/dark-v11",
 };

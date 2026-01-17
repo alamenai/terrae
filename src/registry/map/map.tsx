@@ -11,7 +11,7 @@ import {
 } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { defaultMapStyles, type MapContextValue } from "./types";
+import { defaultMapStyles, type MapContextValue, type MapThemeStyles } from "./types";
 
 export const MapContext = createContext<MapContextValue | null>(null);
 
@@ -34,10 +34,7 @@ type MapProps = {
   /** Single map style (overrides theme-based styles) */
   style?: string;
   /** Map styles for light and dark themes (ignored if style is set) */
-  styles?: {
-    light?: string;
-    dark?: string;
-  };
+  styles?: MapThemeStyles;
   /** Initial map center [longitude, latitude] */
   center?: [number, number];
   /** Initial zoom level */
