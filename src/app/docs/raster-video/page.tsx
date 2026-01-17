@@ -122,26 +122,68 @@ function VideoControls() {
         <p>
           The coordinates array must contain exactly four corner points in this order:
         </p>
-        <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground mt-2">
-          <li><strong>Top Left</strong> - Northwest corner [longitude, latitude]</li>
-          <li><strong>Top Right</strong> - Northeast corner [longitude, latitude]</li>
-          <li><strong>Bottom Right</strong> - Southeast corner [longitude, latitude]</li>
-          <li><strong>Bottom Left</strong> - Southwest corner [longitude, latitude]</li>
-        </ol>
-        <p className="mt-2 text-sm text-muted-foreground">
-          These coordinates define where the video should appear on the map and how it should be
-          oriented and stretched.
-        </p>
+        <div className="rounded-md border mt-4">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Index</TableHead>
+                <TableHead>Position</TableHead>
+                <TableHead>Description</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-mono">0</TableCell>
+                <TableCell>Top Left</TableCell>
+                <TableCell className="text-muted-foreground">Northwest corner [longitude, latitude]</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">1</TableCell>
+                <TableCell>Top Right</TableCell>
+                <TableCell className="text-muted-foreground">Northeast corner [longitude, latitude]</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">2</TableCell>
+                <TableCell>Bottom Right</TableCell>
+                <TableCell className="text-muted-foreground">Southeast corner [longitude, latitude]</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">3</TableCell>
+                <TableCell>Bottom Left</TableCell>
+                <TableCell className="text-muted-foreground">Southwest corner [longitude, latitude]</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
       </DocsSection>
 
       <DocsSection title="Video Format Support">
-        <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground mt-2">
-          <li>Provide multiple video formats (MP4, WebM) for browser compatibility</li>
-          <li>MP4 (H.264) is widely supported across all browsers</li>
-          <li>WebM provides better compression and is preferred for web</li>
-          <li>Videos should be optimized for web playback (compressed, appropriate resolution)</li>
-          <li>Consider file size - large videos may impact performance</li>
-        </ul>
+        <div className="rounded-md border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Format</TableHead>
+                <TableHead>Browser Support</TableHead>
+                <TableHead>Notes</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell><DocsCode>MP4 (H.264)</DocsCode></TableCell>
+                <TableCell className="text-muted-foreground">All browsers</TableCell>
+                <TableCell className="text-muted-foreground">Widely supported, recommended as fallback</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell><DocsCode>WebM (VP8/VP9)</DocsCode></TableCell>
+                <TableCell className="text-muted-foreground">Chrome, Firefox, Edge</TableCell>
+                <TableCell className="text-muted-foreground">Better compression, preferred for web</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Provide multiple formats for browser compatibility. Videos should be optimized for web playback with appropriate compression and resolution.
+        </p>
       </DocsSection>
 
       <DocsSection title="Important Notes">
