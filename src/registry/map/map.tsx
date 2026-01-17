@@ -4,7 +4,6 @@ import { useTheme } from "next-themes";
 import {
   createContext,
   useEffect,
-  useMemo,
   useRef,
   useState,
   type ReactNode,
@@ -15,49 +14,43 @@ import { defaultMapStyles, type MapContextValue, type MapThemeStyles, type MapPr
 
 export const MapContext = createContext<MapContextValue | null>(null);
 
+const DEFAULT_CENTER: MapCoordinates = [0, 0];
+const DEFAULT_ZOOM = 2;
+const DEFAULT_BEARING = 0;
+const DEFAULT_PITCH = 0;
+
 type MapProps = {
-  children?: ReactNode;
-  /** Mapbox access token. Required. */
   accessToken: string;
-  /** Custom loading component */
+  children?: ReactNode;
   loader?: ReactNode;
-  /** Single map style (overrides theme-based styles) */
+  // Overrides theme-based styles when set
   style?: string;
-  /** Map styles for light and dark themes (ignored if style is set) */
   styles?: MapThemeStyles;
-  /** Initial map center [longitude, latitude] */
   center?: MapCoordinates;
-  /** Initial zoom level */
   zoom?: number;
-  /** Map bearing (rotation) */
   bearing?: number;
-  /** Map pitch (tilt) */
   pitch?: number;
-  /** Map projection. Use "globe" for 3D globe view or "mercator" for flat map (default: "mercator") */
   projection?: MapProjection;
-  /** Minimum zoom level */
   minZoom?: number;
-  /** Maximum zoom level */
   maxZoom?: number;
-  /** Maximum bounds [southwest, northeast] */
   maxBounds?: MapBounds;
 };
 
-export function Map({
-  children,
+export const Map = ({
   accessToken,
+  children,
   loader,
   style,
   styles,
-  center = [0, 0],
-  zoom = 2,
-  bearing = 0,
-  pitch = 0,
+  center = DEFAULT_CENTER,
+  zoom = DEFAULT_ZOOM,
+  bearing = DEFAULT_BEARING,
+  pitch = DEFAULT_PITCH,
   projection,
   minZoom,
   maxZoom,
   maxBounds,
-}: MapProps) {
+}: MapProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -65,18 +58,55 @@ export function Map({
   const { resolvedTheme } = useTheme();
   const initializedRef = useRef(false);
 
-  const mapStyles = useMemo(
-    () => ({
-      dark: styles?.dark ?? defaultMapStyles.dark,
-      light: styles?.light ?? defaultMapStyles.light,
-    }),
-    [styles]
-  );
+  const getMapStyle = () => {
+    if (style) {
+      return style;
+    }
+    const darkStyle = styles?.dark ?? defaultMapStyles.dark;
+    const lightStyle = styles?.light ?? defaultMapStyles.light;
 
-  // Initialize map once
+    return resolvedTheme === "dark" ? darkStyle : lightStyle;
+  };
+
+  const createMapInstance = (container: HTMLDivElement) => {
+    return new mapboxgl.Map({
+      container,
+      style: getMapStyle(),
+      center,
+      zoom,
+      bearing,
+      pitch,
+      projection,
+      minZoom,
+      maxZoom,
+      maxBounds,
+      attributionControl: false,
+    });
+  };
+
+  const handleMapLoad = () => {
+    setIsLoaded(true);
+  };
+
+  const handleMapError = (e: mapboxgl.ErrorEvent) => {
+    console.error("Mapbox error:", e.error);
+    setError("Failed to load map");
+  };
+
+  const cleanupMap = (mapInstance: mapboxgl.Map) => {
+    mapInstance.remove();
+    mapRef.current = null;
+    setIsLoaded(false);
+    initializedRef.current = false;
+  };
+
   useEffect(() => {
-    if (initializedRef.current) return;
-    if (!containerRef.current) return;
+    if (initializedRef.current) {
+      return;
+    }
+    if (!containerRef.current) {
+      return;
+    }
     if (!accessToken) {
       setError("Mapbox access token is required. Add NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN to your .env.local file and restart the dev server.");
       return;
@@ -85,54 +115,66 @@ export function Map({
     initializedRef.current = true;
     mapboxgl.accessToken = accessToken;
 
-    const mapStyle = style || (resolvedTheme === "dark" ? mapStyles.dark : mapStyles.light);
-
     try {
-      const mapInstance = new mapboxgl.Map({
-        container: containerRef.current,
-        style: mapStyle,
-        center,
-        zoom,
-        bearing,
-        pitch,
-        projection,
-        minZoom,
-        maxZoom,
-        maxBounds,
-        attributionControl: false,
-      });
-
-      mapInstance.on("load", () => {
-        setIsLoaded(true);
-      });
-
-      mapInstance.on("error", (e: mapboxgl.ErrorEvent) => {
-        console.error("Mapbox error:", e.error);
-        setError("Failed to load map");
-      });
-
+      const mapInstance = createMapInstance(containerRef.current);
+      mapInstance.on("load", handleMapLoad);
+      mapInstance.on("error", handleMapError);
       mapRef.current = mapInstance;
 
       return () => {
-        mapInstance.remove();
-        mapRef.current = null;
-        setIsLoaded(false);
-        initializedRef.current = false;
+        cleanupMap(mapInstance);
       };
     } catch (err) {
       console.error("Error creating Mapbox map:", err);
       setError("Failed to create map");
       initializedRef.current = false;
     }
-  }, [accessToken, style, styles, center, zoom, bearing, pitch, projection, minZoom, maxZoom, maxBounds, resolvedTheme, mapStyles]);
+  }, []);
 
-  const contextValue = useMemo(
-    () => ({
-      map: mapRef.current,
-      isLoaded,
-    }),
-    [isLoaded]
-  );
+  useEffect(() => {
+    if (!mapRef.current || !isLoaded) {
+      return;
+    }
+
+    mapRef.current.setStyle(getMapStyle());
+  }, [style, styles, resolvedTheme]);
+
+  useEffect(() => {
+    if (!mapRef.current || !isLoaded) {
+      return;
+    }
+
+    mapRef.current.setCenter(center);
+  }, [center]);
+
+  useEffect(() => {
+    if (!mapRef.current || !isLoaded) {
+      return;
+    }
+
+    mapRef.current.setZoom(zoom);
+  }, [zoom]);
+
+  useEffect(() => {
+    if (!mapRef.current || !isLoaded) {
+      return;
+    }
+
+    mapRef.current.setBearing(bearing);
+  }, [bearing]);
+
+  useEffect(() => {
+    if (!mapRef.current || !isLoaded) {
+      return;
+    }
+
+    mapRef.current.setPitch(pitch);
+  }, [pitch]);
+
+  const contextValue: MapContextValue = {
+    map: mapRef.current,
+    isLoaded,
+  };
 
   if (error) {
     return (
@@ -148,12 +190,11 @@ export function Map({
     <MapContext.Provider value={contextValue}>
       <div ref={containerRef} className="relative w-full h-full">
         {!isLoaded && (loader || <DefaultLoader />)}
-        {/* SSR-safe: children render only when map exists on client */}
         {mapRef.current && children}
       </div>
     </MapContext.Provider>
   );
-}
+};
 
 const DefaultLoader = () => (
   <div className="absolute inset-0 flex items-center justify-center bg-muted">
