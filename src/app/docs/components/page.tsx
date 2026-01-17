@@ -210,7 +210,7 @@ export default function ComponentsPage() {
       title="Components"
       description="A comprehensive collection of map components for building interactive experiences."
       prev={{ title: "Comparison", href: "/docs/comparison" }}
-      next={{ title: "Reference", href: "/docs/api-reference" }}
+      next={{ title: "Hooks", href: "/docs/hooks" }}
     >
       <DocsSection title="Core Components">
         <p className="text-muted-foreground mb-6">

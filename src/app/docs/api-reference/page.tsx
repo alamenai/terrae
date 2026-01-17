@@ -45,14 +45,12 @@ const anatomyCode = `<Map>
   <MapRain />
 </Map>`;
 
-const useMapCode = `const { map, isLoaded } = useMap();`;
-
 export default function ApiReferencePage() {
   return (
     <DocsLayout
       title="Reference"
       description="Complete reference for all map components and their props."
-      prev={{ title: "Components", href: "/docs/components" }}
+      prev={{ title: "Hooks", href: "/docs/hooks" }}
       next={{ title: "Map", href: "/docs/basic-map" }}
     >
       <DocsNote>
@@ -141,26 +139,6 @@ export default function ApiReferencePage() {
             },
           ]}
         />
-      </DocsSection>
-
-      {/* useMap */}
-      <DocsSection title="useMap">
-        <p>
-          A hook that provides access to the Mapbox map instance and loading
-          state. Must be used within a <DocsCode>Map</DocsCode> component.
-        </p>
-        <CodeBlock code={useMapCode} language="tsx" showCopyButton={false} />
-        <p>
-          Returns <DocsCode>map</DocsCode> (
-          <DocsLink
-            href="https://docs.mapbox.com/mapbox-gl-js/api/map/"
-            external
-          >
-            Mapbox.Map
-          </DocsLink>
-          ) and <DocsCode>isLoaded</DocsCode> (boolean) tells you if the map is
-          loaded and ready to use.
-        </p>
       </DocsSection>
 
       {/* MapControls */}
@@ -1093,108 +1071,6 @@ export function RainMapExample() {
         </div>
       </DocsSection>
 
-      {/* Hooks */}
-      <DocsSection title="Hooks">
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-lg font-semibold mb-2">
-              useLineAnimatedControl
-            </h3>
-            <p className="text-sm text-muted-foreground mb-3">
-              Hook to control animated line playback programmatically.
-            </p>
-            <CodeBlock
-              code={`import { Map, MapLineAnimated, useLineAnimatedControl } from "@/registry/map";
-
-export function AnimatedRouteExample() {
-  const { start, stop, toggle, isPlaying } = useLineAnimatedControl();
-
-  const route = [
-    [-74.006, 40.7128],
-    [-73.9857, 40.7484],
-    [-73.9772, 40.7527],
-  ];
-
-  return (
-    <div className="relative h-full">
-      <Map
-        accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!}
-        center={[-74.006, 40.7128]}
-        zoom={12}
-      >
-        <MapLineAnimated
-          id="route"
-          coordinates={route}
-          autoStart={false}
-        />
-      </Map>
-
-      <div className="absolute top-4 left-4 space-x-2">
-        <button onClick={start}>Start</button>
-        <button onClick={stop}>Stop</button>
-        <button onClick={toggle}>
-          {isPlaying ? "Pause" : "Play"}
-        </button>
-      </div>
-    </div>
-  );
-}`}
-              language="tsx"
-              showCopyButton={false}
-            />
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-2">
-              useRasterVideoControl
-            </h3>
-            <p className="text-sm text-muted-foreground mb-3">
-              Hook to control video playback for MapRasterVideo layers.
-            </p>
-            <CodeBlock
-              code={`import { Map, MapRasterVideo, useRasterVideoControl } from "@/registry/map";
-
-export function VideoMapExample() {
-  const { play, pause, toggle, isPlaying } = useRasterVideoControl("video-layer");
-
-  const videoCoordinates: [[number, number], [number, number], [number, number], [number, number]] = [
-    [-122.51596391201019, 37.56238816766053],
-    [-122.51467645168304, 37.56410183312965],
-    [-122.51309394836426, 37.563391708549425],
-    [-122.51423120498657, 37.56161849366671],
-  ];
-
-  return (
-    <div className="relative h-full">
-      <Map
-        accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!}
-        center={[-122.514, 37.562]}
-        zoom={17}
-      >
-        <MapRasterVideo
-          id="video-layer"
-          urls={["https://example.com/video.mp4"]}
-          coordinates={videoCoordinates}
-          autoplay={false}
-        />
-      </Map>
-
-      <div className="absolute top-4 left-4 space-x-2">
-        <button onClick={play}>Play</button>
-        <button onClick={pause}>Pause</button>
-        <button onClick={toggle}>
-          {isPlaying ? "Pause" : "Play"}
-        </button>
-      </div>
-    </div>
-  );
-}`}
-              language="tsx"
-              showCopyButton={false}
-            />
-          </div>
-        </div>
-      </DocsSection>
     </DocsLayout>
   );
 }

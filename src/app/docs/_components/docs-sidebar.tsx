@@ -24,6 +24,7 @@ import {
   Sparkles,
   BookMarked,
   Map as MapIcon,
+  Anchor,
 } from "lucide-react";
 
 import {
@@ -57,6 +58,7 @@ const navigation = [
       { title: "Installation", href: "/docs/installation", icon: Code },
       { title: "Comparison", href: "/docs/comparison", icon: Scale },
       { title: "Components", href: "/docs/components", icon: Layers },
+      { title: "Hooks", href: "/docs/hooks", icon: Anchor },
       { title: "Reference", href: "/docs/api-reference", icon: Braces },
     ],
   },
