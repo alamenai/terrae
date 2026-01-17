@@ -57,7 +57,7 @@ export function InteractiveMapExample() {
         </div>
       </div>
 
-      <div className="h-full w-full relative">
+      <div className="h-[400px] w-full relative">
         <div className="absolute top-3 left-3 z-10 bg-background/95 backdrop-blur-md rounded-lg p-3 border border-border/50 shadow-lg">
           <div className="flex gap-4 text-sm">
             <div>
