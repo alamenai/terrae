@@ -45,3 +45,6 @@ Components are installed individually via CLI and placed in the project's regist
 - Embrace TypeScript for type safety
 - Use declarative React patterns
 - Support theme customization
+
+## Git Commits
+- Do not add `Co-Authored-By` lines to commit messages
