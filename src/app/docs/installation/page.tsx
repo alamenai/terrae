@@ -84,7 +84,7 @@ export default function InstallationPage() {
           Start with the base map component:
         </p>
         <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
-        
+
         <p className="mt-4">
           Then add the specific components you need. For example, to add markers:
         </p>
@@ -96,6 +96,15 @@ export default function InstallationPage() {
 
         <DocsNote>
           <strong className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">Tip:</strong> Dependencies are automatically resolved! Just install the components you need.
+        </DocsNote>
+
+        <DocsNote>
+          <strong className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">Heads up:</strong> A simpler command is coming soon! Once{" "}
+          <DocsLink href="https://github.com/shadcn-ui/ui/pull/9358" external>
+            this pull request
+          </DocsLink>{" "}
+          is approved, you&apos;ll be able to install components with:{" "}
+          <DocsCode>npx shadcn@latest add terrae/map</DocsCode>
         </DocsNote>
       </DocsSection>
 
