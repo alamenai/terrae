@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Minus, Plus, Locate, Maximize, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMap } from "./hooks";
@@ -99,13 +99,13 @@ export function MapControls({
 export function MapZoom() {
   const { map } = useMap();
 
-  const handleZoomIn = useCallback(() => {
+  const handleZoomIn = () => {
     map?.zoomTo(map.getZoom() + ZOOM_STEP, { duration: ZOOM_DURATION });
-  }, [map]);
+  };
 
-  const handleZoomOut = useCallback(() => {
+  const handleZoomOut = () => {
     map?.zoomTo(map.getZoom() - ZOOM_STEP, { duration: ZOOM_DURATION });
-  }, [map]);
+  };
 
   return (
     <ControlGroup>
@@ -146,9 +146,9 @@ export function MapOrientation() {
     };
   }, [isLoaded, map]);
 
-  const handleResetBearing = useCallback(() => {
+  const handleResetBearing = () => {
     map?.resetNorthPitch({ duration: ZOOM_DURATION });
-  }, [map]);
+  };
 
   return (
     <ControlGroup>
@@ -173,7 +173,7 @@ export function MapGeolocate({ onLocate }: MapGeolocateProps = {}) {
   const { map } = useMap();
   const [isLocating, setIsLocating] = useState(false);
 
-  const handleLocate = useCallback(() => {
+  const handleLocate = () => {
     setIsLocating(true);
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -196,7 +196,7 @@ export function MapGeolocate({ onLocate }: MapGeolocateProps = {}) {
         }
       );
     }
-  }, [map, onLocate]);
+  };
 
   return (
     <ControlGroup>
@@ -218,7 +218,7 @@ export function MapGeolocate({ onLocate }: MapGeolocateProps = {}) {
 export function MapFullscreen() {
   const { map } = useMap();
 
-  const handleFullscreen = useCallback(() => {
+  const handleFullscreen = () => {
     const container = map?.getContainer();
     if (!container) {
       return;
@@ -228,7 +228,7 @@ export function MapFullscreen() {
     } else {
       container.requestFullscreen();
     }
-  }, [map]);
+  };
 
   return (
     <ControlGroup>
