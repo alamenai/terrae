@@ -79,7 +79,9 @@ export function MapControls({
 }: MapControlsProps) {
   const { isLoaded } = useMap();
 
-  if (!isLoaded) return null;
+  if (!isLoaded) {
+    return null;
+  }
 
   return (
     <div
@@ -122,7 +124,9 @@ export function MapOrientation() {
   const compassRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    if (!isLoaded || !map || !compassRef.current) return;
+    if (!isLoaded || !map || !compassRef.current) {
+      return;
+    }
 
     const compass = compassRef.current;
 
@@ -216,7 +220,9 @@ export function MapFullscreen() {
 
   const handleFullscreen = useCallback(() => {
     const container = map?.getContainer();
-    if (!container) return;
+    if (!container) {
+      return;
+    }
     if (document.fullscreenElement) {
       document.exitFullscreen();
     } else {
