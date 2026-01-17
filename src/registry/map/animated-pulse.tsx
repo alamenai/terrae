@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useMap } from "./hooks";
+import type { MapCoordinates } from "./types";
 
 type MapAnimatedPulseProps = {
   /** Unique identifier for the pulsing animation */
@@ -9,7 +10,7 @@ type MapAnimatedPulseProps = {
   /** Pulse size in pixels */
   size: number;
   /** Coordinates [longitude, latitude] for pulse position */
-  coordinates: [number, number];
+  coordinates: MapCoordinates;
   /** Inner circle color */
   color?: string;
   /** Outer pulsing circle color */

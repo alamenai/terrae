@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef } from "react";
 import { useMap } from "./hooks";
+import type { MapCoordinates } from "./types";
 
 type MapCircleClusterProps<
   P extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJsonProperties
@@ -21,12 +22,12 @@ type MapCircleClusterProps<
   /** Callback when an unclustered point is clicked */
   onPointClick?: (
     feature: GeoJSON.Feature<GeoJSON.Point, P>,
-    coordinates: [number, number]
+    coordinates: MapCoordinates
   ) => void;
   /** Callback when a cluster is clicked. If not provided, zooms into the cluster */
   onClusterClick?: (
     clusterId: number,
-    coordinates: [number, number],
+    coordinates: MapCoordinates,
     pointCount: number
   ) => void;
 };

@@ -2,12 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useMap } from "./hooks";
+import type { MapPath } from "./types";
 
 type MapMarkerAnimatedProps = {
   /** Unique identifier for the marker */
   id: string;
   /** Array of coordinates [[lng, lat], ...] defining the path */
-  coordinates: Array<[number, number]>;
+  coordinates: MapPath;
   /** Marker color */
   color?: string;
   /** Marker size (radius in pixels) */

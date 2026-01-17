@@ -4,12 +4,13 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import mapboxgl from "mapbox-gl";
 import { useMap } from "./hooks";
+import type { MapPath } from "./types";
 
 type MapLineAnimatedProps = {
   /** Unique identifier for the line */
   id: string;
   /** Array of coordinates [[lng, lat], ...] */
-  coordinates: Array<[number, number]>;
+  coordinates: MapPath;
   /** Line color */
   color?: string;
   /** Line width */

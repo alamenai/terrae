@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useMap } from "./hooks";
+import type { MapImageCorners } from "./types";
 
 type MapRasterVideoProps = {
   /** Unique identifier for the raster video */
@@ -9,7 +10,7 @@ type MapRasterVideoProps = {
   /** Array of video URLs (provide multiple formats for browser compatibility) */
   urls: string[];
   /** Four corner coordinates [topLeft, topRight, bottomRight, bottomLeft] as [lng, lat] pairs */
-  coordinates: [[number, number], [number, number], [number, number], [number, number]];
+  coordinates: MapImageCorners;
   /** Layer opacity (0-1) */
   opacity?: number;
   /** Auto-play video on load */

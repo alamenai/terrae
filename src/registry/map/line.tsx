@@ -3,10 +3,11 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect, useId, useRef } from "react";
 import { useMap } from "./hooks";
+import type { MapPath } from "./types";
 
 type MapLineProps = {
   /** Array of [longitude, latitude] coordinate pairs defining the line */
-  coordinates: [number, number][];
+  coordinates: MapPath;
   /** Line color as CSS color value (default: "#4285F4") */
   color?: string;
   /** Line width in pixels (default: 3) */

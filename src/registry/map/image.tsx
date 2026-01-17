@@ -2,11 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import { useMap } from "./hooks";
+import type { MapImageCorners } from "./types";
 
 type MapImageProps = {
   id: string;
   url: string;
-  coordinates: [[number, number], [number, number], [number, number], [number, number]];
+  coordinates: MapImageCorners;
   opacity?: number;
 };
 

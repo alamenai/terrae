@@ -14,6 +14,7 @@ import mapboxgl from "mapbox-gl";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMap } from "./hooks";
+import type { MapCoordinates } from "./types";
 
 type MarkerContextValue = {
   markerRef: React.RefObject<mapboxgl.Marker | null>;
@@ -34,7 +35,7 @@ function useMarkerContext() {
 
 type MapMarkerProps = {
   /** Coordinates [longitude, latitude] for marker position */
-  coordinates: [number, number];
+  coordinates: MapCoordinates;
   /** Marker subcomponents (MarkerContent, MarkerPopup, MarkerTooltip, MarkerLabel) */
   children: ReactNode;
   /** Callback when symbol is clicked */

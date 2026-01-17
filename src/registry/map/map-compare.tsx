@@ -2,6 +2,7 @@
 
 import { Map } from "./map";
 import type { ReactNode } from "react";
+import type { MapProjection, MapCoordinates } from "./types";
 
 type MapCompareProps = {
   /** Mapbox access token. Required. */
@@ -13,7 +14,7 @@ type MapCompareProps = {
   /** Style for the after (right) map */
   afterStyle?: string;
   /** Initial map center [longitude, latitude] */
-  center?: [number, number];
+  center?: MapCoordinates;
   /** Initial zoom level */
   zoom?: number;
   /** Map bearing (rotation) */
@@ -21,7 +22,7 @@ type MapCompareProps = {
   /** Map pitch (tilt) */
   pitch?: number;
   /** Map projection */
-  projection?: "globe" | "mercator" | "naturalEarth" | "equalEarth" | "winkelTripel";
+  projection?: MapProjection;
   /** Initial split position (0-100) */
   defaultSize?: number;
 };

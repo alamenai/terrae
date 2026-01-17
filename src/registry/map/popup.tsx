@@ -7,10 +7,11 @@ import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMap } from "./hooks";
+import type { MapCoordinates } from "./types";
 
 type MapPopupProps = {
   /** Coordinates [longitude, latitude] for popup position */
-  coordinates: [number, number];
+  coordinates: MapCoordinates;
   /** Callback when popup is closed */
   onClose?: () => void;
   /** Popup content */

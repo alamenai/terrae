@@ -11,7 +11,7 @@ import {
 } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { defaultMapStyles, type MapContextValue, type MapThemeStyles } from "./types";
+import { defaultMapStyles, type MapContextValue, type MapThemeStyles, type MapProjection, type MapCoordinates, type MapBounds } from "./types";
 
 export const MapContext = createContext<MapContextValue | null>(null);
 
@@ -36,7 +36,7 @@ type MapProps = {
   /** Map styles for light and dark themes (ignored if style is set) */
   styles?: MapThemeStyles;
   /** Initial map center [longitude, latitude] */
-  center?: [number, number];
+  center?: MapCoordinates;
   /** Initial zoom level */
   zoom?: number;
   /** Map bearing (rotation) */
@@ -44,13 +44,13 @@ type MapProps = {
   /** Map pitch (tilt) */
   pitch?: number;
   /** Map projection. Use "globe" for 3D globe view or "mercator" for flat map (default: "mercator") */
-  projection?: "globe" | "mercator" | "naturalEarth" | "equalEarth" | "winkelTripel" | mapboxgl.Projection;
+  projection?: MapProjection;
   /** Minimum zoom level */
   minZoom?: number;
   /** Maximum zoom level */
   maxZoom?: number;
-  /** Maximum bounds */
-  maxBounds?: [[number, number], [number, number]];
+  /** Maximum bounds [southwest, northeast] */
+  maxBounds?: MapBounds;
 };
 
 export function Map({
