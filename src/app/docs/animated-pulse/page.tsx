@@ -64,10 +64,7 @@ export default function AnimatedPulsePage() {
       </ComponentPreview>
 
       <DocsSection title="Properties">
-        <p>
-          The MapAnimatedPulse component accepts these props:
-        </p>
-        <div className="mt-4 rounded-md border">
+        <div className="rounded-md border">
           <Table>
             <TableHeader>
               <TableRow>
