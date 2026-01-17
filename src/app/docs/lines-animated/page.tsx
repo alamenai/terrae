@@ -172,27 +172,27 @@ export default function AnimatedLinesPage() {
       <DocsSection title="Use Cases">
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm">Delivery Tracking</h4>
+            <h4 className="font-medium text-sm text-foreground">Delivery Tracking</h4>
             <p className="text-xs text-muted-foreground mt-1">Progressive route display for logistics and delivery tracking</p>
           </div>
           <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm">Turn-by-Turn Directions</h4>
+            <h4 className="font-medium text-sm text-foreground">Turn-by-Turn Directions</h4>
             <p className="text-xs text-muted-foreground mt-1">Animated path reveal for navigation and directions</p>
           </div>
           <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm">Storytelling Tours</h4>
+            <h4 className="font-medium text-sm text-foreground">Storytelling Tours</h4>
             <p className="text-xs text-muted-foreground mt-1">Journey progression for tours and storytelling applications</p>
           </div>
           <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm">Fleet Management</h4>
+            <h4 className="font-medium text-sm text-foreground">Fleet Management</h4>
             <p className="text-xs text-muted-foreground mt-1">Vehicle path history and real-time fleet visualization</p>
           </div>
           <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm">Sports Tracking</h4>
+            <h4 className="font-medium text-sm text-foreground">Sports Tracking</h4>
             <p className="text-xs text-muted-foreground mt-1">Running, cycling, and activity route visualization</p>
           </div>
           <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm">Trip Playback</h4>
+            <h4 className="font-medium text-sm text-foreground">Trip Playback</h4>
             <p className="text-xs text-muted-foreground mt-1">Historical route playback for trips and travels</p>
           </div>
         </div>
