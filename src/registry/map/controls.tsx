@@ -8,8 +8,8 @@ import { useMap } from "./hooks";
 type MapControlPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
 type MapControlsProps = {
-  position?: MapControlPosition;
   children: ReactNode;
+  position?: MapControlPosition;
   className?: string;
 };
 
@@ -41,21 +41,23 @@ const POSITION_CLASSES: Record<MapControlPosition, string> = {
   "bottom-left": "bottom-2 left-2",
   "bottom-right": "bottom-10 right-2",
 };
+const DEFAULT_DISABLED = false;
+const DEFAULT_GEOLOCATE_PROPS: MapGeolocateProps = {};
 
-function ControlGroup({ children }: { children: ReactNode }) {
+const ControlGroup = ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex flex-col rounded-md border border-border bg-background shadow-sm overflow-hidden [&>button:not(:last-child)]:border-b [&>button:not(:last-child)]:border-border">
       {children}
     </div>
   );
-}
+};
 
-function ControlButton({
+const ControlButton = ({
   onClick,
   label,
   children,
-  disabled = false,
-}: ControlButtonProps) {
+  disabled = DEFAULT_DISABLED,
+}: ControlButtonProps) => {
   return (
     <button
       onClick={onClick}
@@ -70,13 +72,13 @@ function ControlButton({
       {children}
     </button>
   );
-}
+};
 
-export function MapControls({
-  position = DEFAULT_POSITION,
+export const MapControls = ({
   children,
+  position = DEFAULT_POSITION,
   className,
-}: MapControlsProps) {
+}: MapControlsProps) => {
   const { isLoaded } = useMap();
 
   if (!isLoaded) {
@@ -94,9 +96,9 @@ export function MapControls({
       {children}
     </div>
   );
-}
+};
 
-export function MapZoom() {
+export const MapZoom = () => {
   const { map } = useMap();
 
   const handleZoomIn = () => {
@@ -117,9 +119,9 @@ export function MapZoom() {
       </ControlButton>
     </ControlGroup>
   );
-}
+};
 
-export function MapOrientation() {
+export const MapOrientation = () => {
   const { map, isLoaded } = useMap();
   const compassRef = useRef<SVGSVGElement>(null);
 
@@ -167,9 +169,9 @@ export function MapOrientation() {
       </ControlButton>
     </ControlGroup>
   );
-}
+};
 
-export function MapGeolocate({ onLocate }: MapGeolocateProps = {}) {
+export const MapGeolocate = ({ onLocate }: MapGeolocateProps = DEFAULT_GEOLOCATE_PROPS) => {
   const { map } = useMap();
   const [isLocating, setIsLocating] = useState(false);
 
@@ -213,9 +215,9 @@ export function MapGeolocate({ onLocate }: MapGeolocateProps = {}) {
       </ControlButton>
     </ControlGroup>
   );
-}
+};
 
-export function MapFullscreen() {
+export const MapFullscreen = () => {
   const { map } = useMap();
 
   const handleFullscreen = () => {
@@ -237,4 +239,4 @@ export function MapFullscreen() {
       </ControlButton>
     </ControlGroup>
   );
-}
+};
