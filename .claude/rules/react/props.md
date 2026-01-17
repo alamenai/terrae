@@ -1,5 +1,45 @@
 # React Props Guidelines
 
+## Props Type Extraction
+- Extract complex prop types into their own named types
+- Don't use inline object types or complex structures directly in props
+- Create separate types for nested objects, arrays of objects, or function signatures
+- This improves readability, reusability, and makes refactoring easier
+
+```typescript
+// ✅ Good - extracted complex types
+type User = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+type FilterOptions = {
+  status: "active" | "inactive";
+  role: "admin" | "user";
+};
+
+type UserListProps = {
+  users: User[];
+  onUserSelect: (user: User) => void;
+  filters?: FilterOptions;
+};
+
+// ❌ Avoid - inline complex types
+type UserListProps = {
+  users: Array<{
+    id: string;
+    name: string;
+    email: string;
+  }>;
+  onUserSelect: (user: { id: string; name: string; email: string }) => void;
+  filters?: {
+    status: "active" | "inactive";
+    role: "admin" | "user";
+  };
+};
+```
+
 ## Props Documentation
 - Avoid commenting props - use clear, self-documenting prop names instead
 - Only add `//` comments above props when absolutely necessary for clarification
