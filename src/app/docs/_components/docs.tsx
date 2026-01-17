@@ -83,12 +83,13 @@ export function DocsLayout({
 // DocsSection - Content section with optional title
 interface DocsSectionProps {
   title?: string;
+  id?: string;
   children: React.ReactNode;
 }
 
-export function DocsSection({ title, children }: DocsSectionProps) {
+export function DocsSection({ title, id, children }: DocsSectionProps) {
   return (
-    <section className="space-y-4 sm:space-y-5">
+    <section id={id} className="space-y-4 sm:space-y-5">
       {title && (
         <h2 className="text-lg sm:text-xl font-semibold tracking-tight">{title}</h2>
       )}
