@@ -80,7 +80,7 @@ export function Hero() {
         <Button
           asChild
           size="lg"
-          className="rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:opacity-90 w-full sm:w-auto px-8"
+          className="rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white hover:opacity-90 w-full sm:w-auto px-8"
         >
           <Link href="/docs">
             Get Started <ArrowRight className="size-4 ml-2" />
