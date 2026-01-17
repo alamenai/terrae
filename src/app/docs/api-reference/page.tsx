@@ -276,19 +276,19 @@ export default function ApiReferencePage() {
             },
             {
               name: "onDragStart",
-              type: "(lngLat: {lng, lat}) => void",
+              type: "(lngLat: LngLatCoordinates) => void",
               description:
                 "Callback when marker drag starts (requires draggable: true).",
             },
             {
               name: "onDrag",
-              type: "(lngLat: {lng, lat}) => void",
+              type: "(lngLat: LngLatCoordinates) => void",
               description:
                 "Callback during marker drag (requires draggable: true).",
             },
             {
               name: "onDragEnd",
-              type: "(lngLat: {lng, lat}) => void",
+              type: "(lngLat: LngLatCoordinates) => void",
               description:
                 "Callback when marker drag ends (requires draggable: true).",
             },
