@@ -42,11 +42,8 @@ export default function VideoPage() {
         <VideoLayerExample />
       </ComponentPreview>
 
-      <DocsSection title="Component Properties">
-        <p>
-          The MapVideoLayer component accepts these props:
-        </p>
-        <div className="mt-4 rounded-md border">
+      <DocsSection title="Properties">
+        <div className="rounded-md border">
           <Table>
             <TableHeader>
               <TableRow>
