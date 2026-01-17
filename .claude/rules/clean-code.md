@@ -25,6 +25,21 @@
 - Avoid noise comments (`// constructor`, `// default`)
 - Never leave commented-out code - delete it
 - Acceptable comments: legal, informative, explanation of intent, clarification, TODOs, warnings
+- Use `//` comments on their own line above the code, not beside it
+- Avoid `/* */` for single-line comments - use `//` instead
+
+```typescript
+// ✅ Good - comment above the line
+// Timeout in milliseconds
+const timeout = 5000;
+
+// ❌ Avoid - comment beside the line
+const timeout = 5000; // milliseconds
+
+// ❌ Avoid - block comment for single line
+/* Timeout in milliseconds */
+const timeout = 5000;
+```
 
 ## Formatting (The Newspaper Metaphor)
 - Code should read like a newspaper: headline (name), synopsis (high-level), then details
