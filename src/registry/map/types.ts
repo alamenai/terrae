@@ -1,15 +1,15 @@
 import { type RefObject } from "react";
-import type mapboxgl from "mapbox-gl";
+import type { Map, Marker } from "mapbox-gl";
 
 export type MapContextValue = {
-  map: mapboxgl.Map | null;
+  map: Map | null;
   isLoaded: boolean;
 };
 
 export type MarkerContextValue = {
-  markerRef: RefObject<mapboxgl.Marker | null>;
+  markerRef: RefObject<Marker | null>;
   markerElementRef: RefObject<HTMLDivElement | null>;
-  map: mapboxgl.Map | null;
+  map: Map | null;
   isReady: boolean;
 };
 
