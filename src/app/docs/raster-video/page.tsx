@@ -105,8 +105,7 @@ export default function VideoPage() {
         <p>
           Use the <DocsCode>useVideoControl</DocsCode> hook to control video playback:
         </p>
-        <pre className="mt-2 p-3 bg-muted rounded-md text-sm overflow-x-auto">
-{`import { useVideoControl } from "@/registry/map";
+        <CodeBlock code={`import { useVideoControl } from "@/registry/map";
 
 function VideoControls() {
   const { play, pause, toggle, isPlaying } = useVideoControl("video-id");
@@ -116,8 +115,7 @@ function VideoControls() {
       {isPlaying ? "Pause" : "Play"}
     </button>
   );
-}`}
-        </pre>
+}`} />
       </DocsSection>
 
       <DocsSection title="Coordinate Format">

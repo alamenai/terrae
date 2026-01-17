@@ -70,8 +70,7 @@ export default function HeatmapsPage() {
           The heatmap color gradient is defined using interpolation expressions. Colors transition
           based on <DocsCode>heatmap-density</DocsCode> values from 0 to 1:
         </p>
-        <pre className="mt-2 p-3 bg-muted rounded-md text-sm overflow-x-auto">
-{`"heatmap-color": [
+        <CodeBlock language="json" code={`"heatmap-color": [
   "interpolate",
   ["linear"],
   ["heatmap-density"],
@@ -81,8 +80,7 @@ export default function HeatmapsPage() {
   0.6, "rgb(253,219,199)",       // Light orange
   0.8, "rgb(239,138,98)",        // Orange
   1, "rgb(178,24,43)"            // Red at max density
-]`}
-        </pre>
+]`} />
       </DocsSection>
 
       <DocsSection title="Best Practices">
