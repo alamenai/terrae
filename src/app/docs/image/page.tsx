@@ -23,9 +23,9 @@ export default function ImagePage() {
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
         <p className="mt-4">Then install the image component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map-image`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-image.json`} language="bash" />
       </DocsSection>
 
       <DocsSection title="Basic Example">

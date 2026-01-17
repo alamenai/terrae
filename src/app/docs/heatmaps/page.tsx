@@ -26,7 +26,7 @@ export default function HeatmapsPage() {
 
       <DocsSection title="Installation">
         <p>The heatmap functionality is included in the base map component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={heatmapSource}>

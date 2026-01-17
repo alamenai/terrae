@@ -83,19 +83,19 @@ export default function InstallationPage() {
         <p>
           Start with the base map component:
         </p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
         
         <p className="mt-4">
           Then add the specific components you need. For example, to add markers:
         </p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map-marker`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-marker.json`} language="bash" />
 
         <p className="mt-4">
           Visit the <DocsLink href="/docs/components">components page</DocsLink> to see all available components and their installation commands.
         </p>
 
         <DocsNote>
-          <strong className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">Tip:</strong> Install all components at once with <DocsCode>npx shadcn@latest add https://terrae.vercel.app/registry -a</DocsCode>
+          <strong className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">Tip:</strong> Dependencies are automatically resolved! Just install the components you need.
         </DocsNote>
       </DocsSection>
 

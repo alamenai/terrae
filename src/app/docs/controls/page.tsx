@@ -27,9 +27,9 @@ export default function ControlsPage() {
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
         <p className="mt-4">Then install the controls component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map-controls`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-controls.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={controlsSource}>

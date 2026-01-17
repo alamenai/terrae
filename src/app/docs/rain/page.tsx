@@ -31,9 +31,9 @@ export default function RainPage() {
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
         <p className="mt-4">Then install the rain effect component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map-rain`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-rain.json`} language="bash" />
         <p className="mt-2">
           This example uses <DocsCode>createZoomInterpolation()</DocsCode> to gradually reveal
           the rain effect as users zoom in, preventing it from being visible at lower zoom levels.

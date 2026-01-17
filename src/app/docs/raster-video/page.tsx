@@ -29,9 +29,9 @@ export default function VideoPage() {
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
         <p className="mt-4">Then install the video layer component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map-raster-video`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-raster-video.json`} language="bash" />
         <p className="mt-2">
           Use the <DocsCode>useVideoControl</DocsCode> hook to control video playback
           with play, pause, and toggle functions.

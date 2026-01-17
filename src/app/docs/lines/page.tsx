@@ -35,9 +35,9 @@ export default function LinesPage() {
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
         <p className="mt-4">Then install the line component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map-line`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-line.json`} language="bash" />
       </DocsSection>
 
       <DocsSection title="Basic Line">

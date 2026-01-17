@@ -32,7 +32,7 @@ export default function BasicMapPage() {
       next={{ title: "Controls", href: "/docs/controls" }}
     >
       <DocsSection title="Installation">
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={basicMapSource}>

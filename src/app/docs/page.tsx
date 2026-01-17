@@ -112,9 +112,9 @@ export default function IntroductionPage() {
           Similar to shadcn/ui, Terrae lets you install components individually. Start with the base{" "}
           <DocsCode>map</DocsCode> component, then add only the features you need:
         </p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map
-npx shadcn@latest add https://terrae.vercel.app/registry map-marker
-npx shadcn@latest add https://terrae.vercel.app/registry map-controls`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json
+npx shadcn@latest add https://terrae.vercel.app/maps/map-marker.json
+npx shadcn@latest add https://terrae.vercel.app/maps/map-controls.json`} language="bash" />
         <p className="mt-4">
           <DocsLink href="/docs/installation">
             View all available components →

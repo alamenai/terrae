@@ -40,7 +40,7 @@ const components: ComponentItem[] = [
     description: "Core map component with Mapbox GL integration and theme support",
     icon: Map,
     category: "core",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map.json",
   },
   {
     title: "Controls",
@@ -48,7 +48,7 @@ const components: ComponentItem[] = [
     description: "Navigation, zoom, fullscreen, and custom map controls",
     icon: Settings,
     category: "core",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-controls",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-controls.json",
   },
   {
     title: "Marker",
@@ -56,7 +56,7 @@ const components: ComponentItem[] = [
     description: "Customizable markers with popups and interactive content",
     icon: MapPin,
     category: "core",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-marker",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-marker.json",
   },
   {
     title: "Popup",
@@ -64,7 +64,7 @@ const components: ComponentItem[] = [
     description: "Info popups and tooltips for map annotations",
     icon: MessageSquare,
     category: "core",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-popup",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-popup.json",
   },
   {
     title: "MiniMap",
@@ -72,7 +72,7 @@ const components: ComponentItem[] = [
     description: "Overview map showing current viewport context",
     icon: MapIcon,
     category: "features",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-mini-map",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/mini-map.json",
   },
   {
     title: "Lines",
@@ -80,7 +80,7 @@ const components: ComponentItem[] = [
     description: "Draw static lines and paths for routes and directions",
     icon: Route,
     category: "features",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-line",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-line.json",
   },
   {
     title: "Animated Lines",
@@ -88,7 +88,7 @@ const components: ComponentItem[] = [
     description: "Animated path visualization with customizable timing",
     icon: Play,
     category: "features",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-line-animated",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-line-animated.json",
   },
   {
     title: "Animated Markers",
@@ -96,7 +96,7 @@ const components: ComponentItem[] = [
     description: "Animate markers along paths for real-time tracking",
     icon: Play,
     category: "features",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-marker-animated",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-marker-animated.json",
   },
   {
     title: "Circle Clusters",
@@ -104,7 +104,7 @@ const components: ComponentItem[] = [
     description: "Marker clustering for large datasets",
     icon: Layers,
     category: "features",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-circle-cluster",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-marker-cluster.json",
   },
   {
     title: "Compare",
@@ -112,7 +112,7 @@ const components: ComponentItem[] = [
     description: "Side-by-side map comparison with slider",
     icon: ArrowLeftRight,
     category: "features",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-compare",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-compare.json",
   },
   {
     title: "Image",
@@ -120,7 +120,7 @@ const components: ComponentItem[] = [
     description: "Overlay images on specific map coordinates",
     icon: Image,
     category: "features",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-image",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-image.json",
   },
   {
     title: "Video",
@@ -128,7 +128,7 @@ const components: ComponentItem[] = [
     description: "Overlay video content on map coordinates",
     icon: Video,
     category: "features",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-raster-video",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-raster-video.json",
   },
   {
     title: "Rain Effect",
@@ -136,7 +136,7 @@ const components: ComponentItem[] = [
     description: "Weather overlay with rain animation effects",
     icon: CloudRain,
     category: "features",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-rain",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-rain.json",
   },
   {
     title: "Animated Pulse",
@@ -144,7 +144,7 @@ const components: ComponentItem[] = [
     description: "Pulsing dot animations for highlighting markers",
     icon: Sparkles,
     category: "features",
-    installCommand: "npx shadcn@latest add https://terrae.vercel.app/registry map-animated-pulse",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-marker-animated.json",
   },
 ];
 

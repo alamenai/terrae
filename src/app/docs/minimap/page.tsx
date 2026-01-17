@@ -25,9 +25,9 @@ export default function MiniMapPage() {
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
         <p className="mt-4">Then install the minimap component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/registry map-mini-map`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/mini-map.json`} language="bash" />
       </DocsSection>
 
       <DocsSection title="Basic Example">
