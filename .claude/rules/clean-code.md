@@ -21,12 +21,14 @@
 ## Comments
 - Code should be self-documenting - good code needs few comments
 - Don't comment bad code, rewrite it
+- Don't add comments when the variable or function name already explains what it does
 - Avoid redundant comments that repeat what code says
 - Avoid noise comments (`// constructor`, `// default`)
 - Never leave commented-out code - delete it
 - Acceptable comments: legal, informative, explanation of intent, clarification, TODOs, warnings
 - Use `//` comments on their own line above the code, not beside it
 - Avoid `/* */` for single-line comments - use `//` instead
+- **In JSX**: Must use `{/* */}` syntax, but still avoid unnecessary comments
 
 ```typescript
 // ✅ Good - comment above the line
@@ -39,6 +41,14 @@ const timeout = 5000; // milliseconds
 // ❌ Avoid - block comment for single line
 /* Timeout in milliseconds */
 const timeout = 5000;
+
+// ✅ Good - JSX comment only when necessary
+{/* Portal to body for z-index stacking */}
+{createPortal(content, document.body)}
+
+// ❌ Avoid - unnecessary JSX comment
+{/* Render children */}
+{children}
 ```
 
 ## Formatting (The Newspaper Metaphor)
