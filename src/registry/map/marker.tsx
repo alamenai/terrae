@@ -13,13 +13,97 @@ import mapboxgl from "mapbox-gl";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMap } from "./hooks";
-import type { MapCoordinates } from "./types";
+import type { MapCoordinates, LngLatCoordinates } from "./types";
 
 type MarkerContextValue = {
   markerRef: React.RefObject<mapboxgl.Marker | null>;
   markerElementRef: React.RefObject<HTMLDivElement | null>;
   map: mapboxgl.Map | null;
-  isReady: boolean;
+  isMounted: boolean;
+};
+
+type MapMarkerProps = {
+  coordinates: MapCoordinates;
+  children: ReactNode;
+  onClick?: (e: MouseEvent) => void;
+  onMouseEnter?: (e: MouseEvent) => void;
+  onMouseLeave?: (e: MouseEvent) => void;
+  onDragStart?: (lngLat: LngLatCoordinates) => void;
+  onDrag?: (lngLat: LngLatCoordinates) => void;
+  onDragEnd?: (lngLat: LngLatCoordinates) => void;
+  draggable?: boolean;
+  offset?: [number, number];
+  rotation?: number;
+  rotationAlignment?: "map" | "viewport" | "auto";
+  pitchAlignment?: "map" | "viewport" | "auto";
+};
+
+type MarkerCallbacks = {
+  onClick?: (e: MouseEvent) => void;
+  onMouseEnter?: (e: MouseEvent) => void;
+  onMouseLeave?: (e: MouseEvent) => void;
+  onDragStart?: (lngLat: LngLatCoordinates) => void;
+  onDrag?: (lngLat: LngLatCoordinates) => void;
+  onDragEnd?: (lngLat: LngLatCoordinates) => void;
+};
+
+type MarkerContentProps = {
+  children?: ReactNode;
+  className?: string;
+};
+
+type MarkerPopupProps = {
+  children: ReactNode;
+  className?: string;
+  closeButton?: boolean;
+  offset?: number | [number, number];
+  maxWidth?: string;
+};
+
+type MarkerTooltipProps = {
+  children: ReactNode;
+  className?: string;
+  offset?: number | [number, number];
+  maxWidth?: string;
+};
+
+type MarkerLabelProps = {
+  children: ReactNode;
+  className?: string;
+  position?: "top" | "bottom";
+};
+
+type MarkerLabelPosition = "top" | "bottom";
+
+type MarkerStatusColor = "green" | "red" | "yellow" | "blue";
+
+type MarkerAvatarProps = {
+  src: string;
+  alt: string;
+  size?: number;
+  online?: boolean;
+  statusColor?: MarkerStatusColor;
+  className?: string;
+};
+
+const DEFAULT_DRAGGABLE = false;
+const DEFAULT_CLOSE_BUTTON = false;
+const DEFAULT_POPUP_OFFSET = 16;
+const DEFAULT_TOOLTIP_OFFSET = 16;
+const DEFAULT_LABEL_POSITION: MarkerLabelPosition = "top";
+const DEFAULT_AVATAR_SIZE = 40;
+const DEFAULT_STATUS_COLOR: MarkerStatusColor = "green";
+
+const LABEL_POSITION_CLASSES: Record<MarkerLabelPosition, string> = {
+  top: "bottom-full mb-1",
+  bottom: "top-full mt-1",
+};
+
+const STATUS_COLORS: Record<MarkerStatusColor, string> = {
+  green: "bg-green-500",
+  red: "bg-red-500",
+  yellow: "bg-yellow-500",
+  blue: "bg-blue-500",
 };
 
 const MarkerContext = createContext<MarkerContextValue | null>(null);
@@ -32,31 +116,7 @@ const useMarkerContext = () => {
   return context;
 };
 
-const DEFAULT_DRAGGABLE = false;
-const DEFAULT_CLOSE_BUTTON = false;
-const DEFAULT_POPUP_OFFSET = 16;
-const DEFAULT_TOOLTIP_OFFSET = 16;
-const DEFAULT_LABEL_POSITION = "top";
-const DEFAULT_AVATAR_SIZE = 40;
-const DEFAULT_STATUS_COLOR = "green";
-
-type MapMarkerProps = {
-  coordinates: MapCoordinates;
-  children: ReactNode;
-  onClick?: (e: MouseEvent) => void;
-  onMouseEnter?: (e: MouseEvent) => void;
-  onMouseLeave?: (e: MouseEvent) => void;
-  onDragStart?: (lngLat: { lng: number; lat: number }) => void;
-  onDrag?: (lngLat: { lng: number; lat: number }) => void;
-  onDragEnd?: (lngLat: { lng: number; lat: number }) => void;
-  draggable?: boolean;
-  offset?: [number, number];
-  rotation?: number;
-  rotationAlignment?: "map" | "viewport" | "auto";
-  pitchAlignment?: "map" | "viewport" | "auto";
-};
-
-export function MapMarker({
+export const MapMarker = ({
   coordinates,
   children,
   onClick,
@@ -65,32 +125,22 @@ export function MapMarker({
   onDragStart,
   onDrag,
   onDragEnd,
-  draggable = false,
+  draggable = DEFAULT_DRAGGABLE,
   offset,
   rotation,
   rotationAlignment,
   pitchAlignment,
-}: MapMarkerProps) {
+}: MapMarkerProps) => {
   const { map, isLoaded } = useMap();
   const markerRef = useRef<mapboxgl.Marker | null>(null);
   const markerElementRef = useRef<HTMLDivElement | null>(null);
-  const [isReady, setIsReady] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  const handleClickCallback = useCallback((e: MouseEvent) => onClick?.(e), [onClick]);
-  const handleMouseEnterCallback = useCallback((e: MouseEvent) => onMouseEnter?.(e), [onMouseEnter]);
-  const handleMouseLeaveCallback = useCallback((e: MouseEvent) => onMouseLeave?.(e), [onMouseLeave]);
-  const handleDragStartCallback = useCallback(() => {
-    const lngLat = markerRef.current?.getLngLat();
-    if (lngLat) onDragStart?.({ lng: lngLat.lng, lat: lngLat.lat });
-  }, [onDragStart]);
-  const handleDragCallback = useCallback(() => {
-    const lngLat = markerRef.current?.getLngLat();
-    if (lngLat) onDrag?.({ lng: lngLat.lng, lat: lngLat.lat });
-  }, [onDrag]);
-  const handleDragEndCallback = useCallback(() => {
-    const lngLat = markerRef.current?.getLngLat();
-    if (lngLat) onDragEnd?.({ lng: lngLat.lng, lat: lngLat.lat });
-  }, [onDragEnd]);
+  const callbacksRef = useRef<MarkerCallbacks>({ onClick, onMouseEnter, onMouseLeave, onDragStart, onDrag, onDragEnd });
+
+  useEffect(() => {
+    callbacksRef.current = { onClick, onMouseEnter, onMouseLeave, onDragStart, onDrag, onDragEnd };
+  }, [onClick, onMouseEnter, onMouseLeave, onDragStart, onDrag, onDragEnd]);
 
   useEffect(() => {
     if (!map || !isLoaded || !map.getContainer?.() || !map.getCanvasContainer?.()) {
@@ -113,52 +163,128 @@ export function MapMarker({
 
     markerRef.current = marker;
 
-    container.addEventListener("click", handleClickCallback);
-    container.addEventListener("mouseenter", handleMouseEnterCallback);
-    container.addEventListener("mouseleave", handleMouseLeaveCallback);
+    const handleClick = (e: MouseEvent) => {
+      callbacksRef.current.onClick?.(e);
+    };
 
-    marker.on("dragstart", handleDragStartCallback);
-    marker.on("drag", handleDragCallback);
-    marker.on("dragend", handleDragEndCallback);
+    const handleMouseEnter = (e: MouseEvent) => {
+      callbacksRef.current.onMouseEnter?.(e);
+    };
 
-    setIsReady(true);
+    const handleMouseLeave = (e: MouseEvent) => {
+      callbacksRef.current.onMouseLeave?.(e);
+    };
+
+    const handleDragStart = () => {
+      const lngLat = markerRef.current?.getLngLat();
+      if (lngLat) {
+        callbacksRef.current.onDragStart?.({ lng: lngLat.lng, lat: lngLat.lat });
+      }
+    };
+
+    const handleDrag = () => {
+      const lngLat = markerRef.current?.getLngLat();
+      if (lngLat) {
+        callbacksRef.current.onDrag?.({ lng: lngLat.lng, lat: lngLat.lat });
+      }
+    };
+
+    const handleDragEnd = () => {
+      const lngLat = markerRef.current?.getLngLat();
+      if (lngLat) {
+        callbacksRef.current.onDragEnd?.({ lng: lngLat.lng, lat: lngLat.lat });
+      }
+    };
+
+    container.addEventListener("click", handleClick);
+    container.addEventListener("mouseenter", handleMouseEnter);
+    container.addEventListener("mouseleave", handleMouseLeave);
+
+    marker.on("dragstart", handleDragStart);
+    marker.on("drag", handleDrag);
+    marker.on("dragend", handleDragEnd);
+
+    setIsMounted(true);
 
     return () => {
-      container.removeEventListener("click", handleClickCallback);
-      container.removeEventListener("mouseenter", handleMouseEnterCallback);
-      container.removeEventListener("mouseleave", handleMouseLeaveCallback);
+      container.removeEventListener("click", handleClick);
+      container.removeEventListener("mouseenter", handleMouseEnter);
+      container.removeEventListener("mouseleave", handleMouseLeave);
 
-      marker.off("dragstart", handleDragStartCallback);
-      marker.off("drag", handleDragCallback);
-      marker.off("dragend", handleDragEndCallback);
+      marker.off("dragstart", handleDragStart);
+      marker.off("drag", handleDrag);
+      marker.off("dragend", handleDragEnd);
 
       marker.remove();
       markerRef.current = null;
       markerElementRef.current = null;
-      setIsReady(false);
+      setIsMounted(false);
     };
-  }, [map, isLoaded, draggable, offset, rotation, rotationAlignment, pitchAlignment, handleClickCallback, handleMouseEnterCallback, handleMouseLeaveCallback, handleDragStartCallback, handleDragCallback, handleDragEndCallback]);
+  }, [map, isLoaded]);
 
   useEffect(() => {
-    markerRef.current?.setLngLat(coordinates);
+    if (!markerRef.current) {
+      return;
+    }
+
+    markerRef.current.setLngLat(coordinates);
   }, [coordinates]);
 
   useEffect(() => {
-    markerRef.current?.setDraggable(draggable);
+    if (!markerRef.current) {
+      return;
+    }
+
+    markerRef.current.setDraggable(draggable);
   }, [draggable]);
+
+  useEffect(() => {
+    if (!markerRef.current) {
+      return;
+    }
+
+    if (offset) {
+      markerRef.current.setOffset(offset);
+    }
+  }, [offset]);
+
+  useEffect(() => {
+    if (!markerRef.current) {
+      return;
+    }
+
+    if (rotation !== undefined) {
+      markerRef.current.setRotation(rotation);
+    }
+  }, [rotation]);
+
+  useEffect(() => {
+    if (!markerRef.current) {
+      return;
+    }
+
+    if (rotationAlignment) {
+      markerRef.current.setRotationAlignment(rotationAlignment);
+    }
+  }, [rotationAlignment]);
+
+  useEffect(() => {
+    if (!markerRef.current) {
+      return;
+    }
+
+    if (pitchAlignment) {
+      markerRef.current.setPitchAlignment(pitchAlignment);
+    }
+  }, [pitchAlignment]);
 
   return (
     <MarkerContext.Provider
-      value={{ markerRef, markerElementRef, map, isReady }}
+      value={{ markerRef, markerElementRef, map, isMounted }}
     >
       {children}
     </MarkerContext.Provider>
   );
-}
-
-type MarkerContentProps = {
-  children?: ReactNode;
-  className?: string;
 };
 
 const DefaultMarkerIcon = () => {
@@ -168,9 +294,9 @@ const DefaultMarkerIcon = () => {
 };
 
 export const MarkerContent = ({ children, className }: MarkerContentProps) => {
-  const { markerElementRef, isReady } = useMarkerContext();
+  const { markerElementRef, isMounted } = useMarkerContext();
 
-  if (!isReady || !markerElementRef.current) {
+  if (!isMounted || !markerElementRef.current) {
     return null;
   }
 
@@ -182,14 +308,6 @@ export const MarkerContent = ({ children, className }: MarkerContentProps) => {
   );
 };
 
-type MarkerPopupProps = {
-  children: ReactNode;
-  className?: string;
-  closeButton?: boolean;
-  offset?: number | [number, number];
-  maxWidth?: string;
-};
-
 export const MarkerPopup = ({
   children,
   className,
@@ -197,13 +315,13 @@ export const MarkerPopup = ({
   offset = DEFAULT_POPUP_OFFSET,
   maxWidth,
 }: MarkerPopupProps) => {
-  const { markerRef, isReady } = useMarkerContext();
+  const { markerRef, isMounted } = useMarkerContext();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const popupRef = useRef<mapboxgl.Popup | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (!isReady || !markerRef.current) {
+    if (!isMounted || !markerRef.current) {
       return;
     }
 
@@ -228,7 +346,7 @@ export const MarkerPopup = ({
       containerRef.current = null;
       setMounted(false);
     };
-  }, [isReady, offset, maxWidth]);
+  }, [isMounted, offset, maxWidth]);
 
   const handleClose = () => {
     popupRef.current?.remove();
@@ -262,26 +380,19 @@ export const MarkerPopup = ({
   );
 };
 
-type MarkerTooltipProps = {
-  children: ReactNode;
-  className?: string;
-  offset?: number | [number, number];
-  maxWidth?: string;
-};
-
 export const MarkerTooltip = ({
   children,
   className,
   offset = DEFAULT_TOOLTIP_OFFSET,
   maxWidth,
 }: MarkerTooltipProps) => {
-  const { markerRef, markerElementRef, map, isReady } = useMarkerContext();
+  const { markerRef, markerElementRef, map, isMounted } = useMarkerContext();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const popupRef = useRef<mapboxgl.Popup | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (!isReady || !markerRef.current || !markerElementRef.current || !map) {
+    if (!isMounted || !markerRef.current || !markerElementRef.current || !map) {
       return;
     }
 
@@ -322,7 +433,7 @@ export const MarkerTooltip = ({
       containerRef.current = null;
       setMounted(false);
     };
-  }, [isReady, map, offset, maxWidth]);
+  }, [isMounted, map, offset, maxWidth]);
 
   if (!mounted || !containerRef.current) {
     return null;
@@ -339,17 +450,6 @@ export const MarkerTooltip = ({
     </div>,
     containerRef.current
   );
-};
-
-type MarkerLabelProps = {
-  children: ReactNode;
-  className?: string;
-  position?: "top" | "bottom";
-};
-
-const LABEL_POSITION_CLASSES = {
-  top: "bottom-full mb-1",
-  bottom: "top-full mt-1",
 };
 
 export const MarkerLabel = ({
@@ -369,22 +469,6 @@ export const MarkerLabel = ({
       {children}
     </div>
   );
-};
-
-type MarkerAvatarProps = {
-  src: string;
-  alt: string;
-  size?: number;
-  online?: boolean;
-  statusColor?: "green" | "red" | "yellow" | "blue";
-  className?: string;
-};
-
-const STATUS_COLORS = {
-  green: "bg-green-500",
-  red: "bg-red-500",
-  yellow: "bg-yellow-500",
-  blue: "bg-blue-500",
 };
 
 export const MarkerAvatar = ({

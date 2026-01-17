@@ -2,16 +2,19 @@
 
 import { useState } from "react";
 import { Map, MapMarker, MarkerContent, MarkerPopup } from "@/registry/map";
+import type { LngLatCoordinates } from "@/registry/map/types";
 import { MapPin } from "lucide-react";
+
+const DEFAULT_MARKER_POSITION: LngLatCoordinates = {
+  lng: -73.98,
+  lat: 40.75,
+};
 
 export function DraggableMarkerExample() {
   const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
-  const [draggableMarker, setDraggableMarker] = useState({
-    lng: -73.98,
-    lat: 40.75,
-  });
+  const [draggableMarker, setDraggableMarker] = useState<LngLatCoordinates>(DEFAULT_MARKER_POSITION);
 
-  const handleMarkerDragEnd = (lngLat: { lng: number; lat: number }) => {
+  const handleMarkerDragEnd = (lngLat: LngLatCoordinates) => {
     setDraggableMarker({ lng: lngLat.lng, lat: lngLat.lat });
   };
 
