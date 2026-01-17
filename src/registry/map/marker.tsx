@@ -19,6 +19,8 @@ type MarkerContextValue = {
   markerRef: React.RefObject<mapboxgl.Marker | null>;
   markerElementRef: React.RefObject<HTMLDivElement | null>;
   map: mapboxgl.Map | null;
+  // State triggers re-render when marker element is ready.
+  // Refs don't cause re-renders, so children would see null without this.
   isMounted: boolean;
 };
 
