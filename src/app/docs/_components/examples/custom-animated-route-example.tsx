@@ -19,8 +19,8 @@ export function CustomAnimatedRouteExample() {
   ];
 
   return (
-    <div className="space-y-4">
-      <div className="p-4 border rounded-lg bg-muted/50">
+    <div className="flex flex-col h-full">
+      <div className="p-4 border-b bg-muted/50">
         <div className="space-y-2">
           <Label htmlFor="duration">
             Duration: <span className="font-mono text-muted-foreground">{duration[0]}ms</span>
@@ -36,7 +36,7 @@ export function CustomAnimatedRouteExample() {
         </div>
       </div>
 
-      <div className="h-full w-full">
+      <div className="flex-1 min-h-0">
         <Map
           accessToken={accessToken}
           center={[-122.4144, 37.7819]}

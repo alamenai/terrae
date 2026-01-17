@@ -4,7 +4,7 @@ export function StyleCompareExample() {
   const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
 
   return (
-    <div className="h-100 w-full">
+    <div className="h-full w-full">
       <MapCompare
         accessToken={accessToken}
         center={[-122.4194, 37.7749]}

@@ -30,7 +30,7 @@ export function CustomAnimatedIconExample() {
   ];
 
   return (
-    <div className="h-100 w-full">
+    <div className="h-full w-full">
       <Map
         accessToken={accessToken}
         center={[-95, 37]}

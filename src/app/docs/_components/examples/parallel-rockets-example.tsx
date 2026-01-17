@@ -61,7 +61,7 @@ export function ParallelRocketsExample() {
   ];
 
   return (
-    <div className="h-100 w-full">
+    <div className="h-full w-full">
       <Map
         accessToken={accessToken}
         center={[-122.425, 37.7775]}

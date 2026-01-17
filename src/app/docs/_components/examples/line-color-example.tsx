@@ -29,8 +29,8 @@ export function LineColorExample() {
   ];
 
   return (
-    <div className="space-y-4">
-      <div className="p-4 border rounded-lg bg-muted/50">
+    <div className="flex flex-col h-full">
+      <div className="p-4 border-b bg-muted/50">
         <div className="space-y-2">
           <Label>Line Color</Label>
           <div className="flex gap-2 flex-wrap">
@@ -56,7 +56,7 @@ export function LineColorExample() {
         </div>
       </div>
 
-      <div className="h-100 w-full relative">
+      <div className="flex-1 min-h-0 relative">
         <div className="absolute top-3 left-3 z-10 bg-background/95 backdrop-blur-md rounded-lg p-3 border border-border/50 shadow-lg">
           <div className="flex gap-4 text-sm">
             <div>

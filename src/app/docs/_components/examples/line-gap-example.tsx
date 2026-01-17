@@ -23,8 +23,8 @@ export function LineGapExample() {
                       gapLength[0] <= 5 ? "Normal" : "Wide";
 
   return (
-    <div className="space-y-4">
-      <div className="p-4 border rounded-lg bg-muted/50">
+    <div className="flex flex-col h-full">
+      <div className="p-4 border-b bg-muted/50">
         <div className="space-y-2">
           <Label htmlFor="gap-length">
             Gap Length: <span className="font-mono text-muted-foreground">{gapLength[0]}px</span>
@@ -40,7 +40,7 @@ export function LineGapExample() {
         </div>
       </div>
 
-      <div className="h-100 w-full relative">
+      <div className="flex-1 min-h-0 relative">
         <div className="absolute top-3 left-3 z-10 bg-background/95 backdrop-blur-md rounded-lg p-3 border border-border/50 shadow-lg">
           <div className="flex gap-4 text-sm">
             <div>

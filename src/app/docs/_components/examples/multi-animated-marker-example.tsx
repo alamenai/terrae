@@ -39,7 +39,7 @@ export function MultiAnimatedMarkerExample() {
   ];
 
   return (
-    <div className="h-100 w-full">
+    <div className="h-full w-full">
       <Map
         accessToken={accessToken}
         center={[-73.9712, 40.7731]}
