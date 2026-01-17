@@ -1,5 +1,52 @@
 # React Component Structure Guidelines
 
+## File Structure
+- Place all type definitions at the top of the file, before constants and components
+- Order types from most general to most specific
+- Group related types together
+
+```typescript
+// ✅ Good - types at the top
+type User = {
+  id: string;
+  name: string;
+};
+
+type UserCardProps = {
+  user: User;
+  onSelect: (id: string) => void;
+};
+
+const DEFAULT_USER: User = {
+  id: "1",
+  name: "John",
+};
+
+const UserCard = ({ user, onSelect }: UserCardProps) => {
+  // ...
+};
+
+// ❌ Avoid - types scattered
+const DEFAULT_USER = {
+  id: "1",
+  name: "John",
+};
+
+type UserCardProps = {
+  user: User;
+  onSelect: (id: string) => void;
+};
+
+const UserCard = ({ user, onSelect }: UserCardProps) => {
+  // ...
+};
+
+type User = {
+  id: string;
+  name: string;
+};
+```
+
 ## Component Structure
 - Follow the Stepdown Rule: parent components before child components
 - Order component internals consistently:
