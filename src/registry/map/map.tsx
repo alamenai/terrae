@@ -15,16 +15,6 @@ import { defaultMapStyles, type MapContextValue, type MapThemeStyles, type MapPr
 
 export const MapContext = createContext<MapContextValue | null>(null);
 
-const DefaultLoader = () => (
-  <div className="absolute inset-0 flex items-center justify-center bg-muted">
-    <div className="flex gap-1">
-      <span className="size-1.5 rounded-full bg-muted-foreground/60 animate-pulse" />
-      <span className="size-1.5 rounded-full bg-muted-foreground/60 animate-pulse [animation-delay:150ms]" />
-      <span className="size-1.5 rounded-full bg-muted-foreground/60 animate-pulse [animation-delay:300ms]" />
-    </div>
-  </div>
-);
-
 type MapProps = {
   children?: ReactNode;
   /** Mapbox access token. Required. */
@@ -116,8 +106,8 @@ export function Map({
         setIsLoaded(true);
       });
 
-      mapInstance.on("error", (e: any) => {
-        console.error("Mapbox error:", e);
+      mapInstance.on("error", (e: mapboxgl.ErrorEvent) => {
+        console.error("Mapbox error:", e.error);
         setError("Failed to load map");
       });
 
@@ -164,3 +154,13 @@ export function Map({
     </MapContext.Provider>
   );
 }
+
+const DefaultLoader = () => (
+  <div className="absolute inset-0 flex items-center justify-center bg-muted">
+    <div className="flex gap-1">
+      <span className="size-1.5 rounded-full bg-muted-foreground/60 animate-pulse" />
+      <span className="size-1.5 rounded-full bg-muted-foreground/60 animate-pulse [animation-delay:150ms]" />
+      <span className="size-1.5 rounded-full bg-muted-foreground/60 animate-pulse [animation-delay:300ms]" />
+    </div>
+  </div>
+);
