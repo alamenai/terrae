@@ -5,23 +5,44 @@ import { Minus, Plus, Locate, Maximize, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMap } from "./hooks";
 
+type MapControlPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+
 type MapControlsProps = {
-  /** Position of the controls on the map (default: "bottom-right") */
-  position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
-  /** Control components (MapZoom, MapOrientation, MapGeolocate, MapFullscreen) */
+  position?: MapControlPosition;
   children: ReactNode;
-  /** Additional CSS classes for the controls container */
   className?: string;
 };
 
-const positionClasses = {
+type ControlButtonProps = {
+  onClick: () => void;
+  label: string;
+  children: ReactNode;
+  disabled?: boolean;
+};
+
+type MapGeolocateProps = {
+  onLocate?: (coords: GeolocationCoordinates) => void;
+};
+
+type GeolocationCoordinates = {
+  longitude: number;
+  latitude: number;
+};
+
+const DEFAULT_POSITION: MapControlPosition = "bottom-right";
+const ZOOM_STEP = 1;
+const ZOOM_DURATION = 300;
+const GEOLOCATE_ZOOM = 14;
+const GEOLOCATE_DURATION = 1500;
+
+const POSITION_CLASSES: Record<MapControlPosition, string> = {
   "top-left": "top-2 left-2",
   "top-right": "top-2 right-2",
   "bottom-left": "bottom-2 left-2",
   "bottom-right": "bottom-10 right-2",
 };
 
-function ControlGroup({ children }: { children: React.ReactNode }) {
+function ControlGroup({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col rounded-md border border-border bg-background shadow-sm overflow-hidden [&>button:not(:last-child)]:border-b [&>button:not(:last-child)]:border-border">
       {children}
@@ -34,12 +55,7 @@ function ControlButton({
   label,
   children,
   disabled = false,
-}: {
-  onClick: () => void;
-  label: string;
-  children: React.ReactNode;
-  disabled?: boolean;
-}) {
+}: ControlButtonProps) {
   return (
     <button
       onClick={onClick}
@@ -57,7 +73,7 @@ function ControlButton({
 }
 
 export function MapControls({
-  position = "bottom-right",
+  position = DEFAULT_POSITION,
   children,
   className,
 }: MapControlsProps) {
@@ -69,7 +85,7 @@ export function MapControls({
     <div
       className={cn(
         "absolute z-10 flex flex-col gap-1.5",
-        positionClasses[position],
+        POSITION_CLASSES[position],
         className
       )}
     >
@@ -82,11 +98,11 @@ export function MapZoom() {
   const { map } = useMap();
 
   const handleZoomIn = useCallback(() => {
-    map?.zoomTo(map.getZoom() + 1, { duration: 300 });
+    map?.zoomTo(map.getZoom() + ZOOM_STEP, { duration: ZOOM_DURATION });
   }, [map]);
 
   const handleZoomOut = useCallback(() => {
-    map?.zoomTo(map.getZoom() - 1, { duration: 300 });
+    map?.zoomTo(map.getZoom() - ZOOM_STEP, { duration: ZOOM_DURATION });
   }, [map]);
 
   return (
@@ -127,7 +143,7 @@ export function MapOrientation() {
   }, [isLoaded, map]);
 
   const handleResetBearing = useCallback(() => {
-    map?.resetNorthPitch({ duration: 300 });
+    map?.resetNorthPitch({ duration: ZOOM_DURATION });
   }, [map]);
 
   return (
@@ -149,35 +165,30 @@ export function MapOrientation() {
   );
 }
 
-type MapGeolocateProps = {
-  /** Callback with user coordinates when located */
-  onLocate?: (coords: { longitude: number; latitude: number }) => void;
-};
-
 export function MapGeolocate({ onLocate }: MapGeolocateProps = {}) {
   const { map } = useMap();
-  const [waitingForLocation, setWaitingForLocation] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
 
   const handleLocate = useCallback(() => {
-    setWaitingForLocation(true);
+    setIsLocating(true);
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          const coords = {
+          const coords: GeolocationCoordinates = {
             longitude: pos.coords.longitude,
             latitude: pos.coords.latitude,
           };
           map?.flyTo({
             center: [coords.longitude, coords.latitude],
-            zoom: 14,
-            duration: 1500,
+            zoom: GEOLOCATE_ZOOM,
+            duration: GEOLOCATE_DURATION,
           });
           onLocate?.(coords);
-          setWaitingForLocation(false);
+          setIsLocating(false);
         },
         (error) => {
           console.error("Error getting location:", error);
-          setWaitingForLocation(false);
+          setIsLocating(false);
         }
       );
     }
@@ -188,9 +199,9 @@ export function MapGeolocate({ onLocate }: MapGeolocateProps = {}) {
       <ControlButton
         onClick={handleLocate}
         label="Find my location"
-        disabled={waitingForLocation}
+        disabled={isLocating}
       >
-        {waitingForLocation ? (
+        {isLocating ? (
           <Loader2 className="size-4 animate-spin" />
         ) : (
           <Locate className="size-4" />
