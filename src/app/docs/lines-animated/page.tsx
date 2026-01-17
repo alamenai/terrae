@@ -170,24 +170,32 @@ export default function AnimatedLinesPage() {
       </DocsSection>
 
       <DocsSection title="Use Cases">
-        <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground mt-2">
-          <li>Delivery and logistics tracking with progressive route display</li>
-          <li>Turn-by-turn directions with animated path reveal</li>
-          <li>Tour and storytelling applications showing journey progression</li>
-          <li>Fleet management showing vehicle path history</li>
-          <li>Sports tracking showing running/cycling routes</li>
-          <li>Historical route playback for trips and travels</li>
-          <li>Onboarding tutorials with animated map interactions</li>
-        </ul>
-      </DocsSection>
-
-      <DocsSection title="Future Ideas">
-        <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground mt-2">
-          <li>3D vertical animations (e.g., rocket launches from ground to sky using line-z-offset)</li>
-          <li>Custom marker icons during animation</li>
-          <li>Easing functions for non-linear animation curves</li>
-          <li>Synchronization controls for multiple animated lines</li>
-        </ul>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Delivery Tracking</h4>
+            <p className="text-xs text-muted-foreground mt-1">Progressive route display for logistics and delivery tracking</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Turn-by-Turn Directions</h4>
+            <p className="text-xs text-muted-foreground mt-1">Animated path reveal for navigation and directions</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Storytelling Tours</h4>
+            <p className="text-xs text-muted-foreground mt-1">Journey progression for tours and storytelling applications</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Fleet Management</h4>
+            <p className="text-xs text-muted-foreground mt-1">Vehicle path history and real-time fleet visualization</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Sports Tracking</h4>
+            <p className="text-xs text-muted-foreground mt-1">Running, cycling, and activity route visualization</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Trip Playback</h4>
+            <p className="text-xs text-muted-foreground mt-1">Historical route playback for trips and travels</p>
+          </div>
+        </div>
       </DocsSection>
 
       <DocsSection title="Performance Tips">

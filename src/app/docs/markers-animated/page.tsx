@@ -146,15 +146,32 @@ export default function AnimatedMarkersPage() {
       </ComponentPreview>
 
       <DocsSection title="Use Cases">
-        <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground mt-2">
-          <li>Real-time delivery tracking and ETAs</li>
-          <li>Ride-sharing vehicle location updates</li>
-          <li>Fleet management and logistics</li>
-          <li>Historical route playback (showing past trips)</li>
-          <li>Running/cycling activity visualization</li>
-          <li>Flight path animations</li>
-          <li>Guided tours and storytelling</li>
-        </ul>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Delivery Tracking</h4>
+            <p className="text-xs text-muted-foreground mt-1">Real-time delivery tracking with ETAs and live updates</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Ride-Sharing</h4>
+            <p className="text-xs text-muted-foreground mt-1">Live vehicle location updates for ride-sharing apps</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Fleet Management</h4>
+            <p className="text-xs text-muted-foreground mt-1">Track and visualize fleet vehicles in real-time</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Trip Playback</h4>
+            <p className="text-xs text-muted-foreground mt-1">Historical route playback for past trips and travels</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Activity Tracking</h4>
+            <p className="text-xs text-muted-foreground mt-1">Running, cycling, and sports activity visualization</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-4">
+            <h4 className="font-medium text-sm">Flight Tracking</h4>
+            <p className="text-xs text-muted-foreground mt-1">Animate aircraft along flight paths and routes</p>
+          </div>
+        </div>
       </DocsSection>
 
       <DocsSection title="Performance Tips">
