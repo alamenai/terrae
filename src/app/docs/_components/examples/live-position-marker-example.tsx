@@ -53,8 +53,17 @@ export function LivePositionMarkerExample() {
   useEffect(() => {
     const fetchISSPosition = async () => {
       try {
-        const response = await fetch("https://api.open-notify.org/iss-now.json");
+        const response = await fetch("/api/iss");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
+        
+        if (!data.iss_position) {
+          console.error("Invalid API response:", data);
+          return;
+        }
+        
         const newPosition = {
           latitude: parseFloat(data.iss_position.latitude),
           longitude: parseFloat(data.iss_position.longitude),
