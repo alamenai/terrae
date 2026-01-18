@@ -1,6 +1,19 @@
 #!/bin/sh
 
-echo "🔨 Running build before commit..."
+echo "🎨 Formatting staged files..."
+echo ""
+
+if npx lint-staged; then
+  echo ""
+  echo "✅ Formatting complete!"
+else
+  echo ""
+  echo "❌ Formatting failed!"
+  exit 1
+fi
+
+echo ""
+echo "🔨 Running build..."
 echo ""
 
 if npm run build; then
