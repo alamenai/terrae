@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo "🔨 Running build before commit..."
+echo ""
+
+if npm run build; then
+  echo ""
+  echo "✅ Build successful! Proceeding with commit."
+  exit 0
+else
+  echo ""
+  echo "❌ Build failed! Please fix the errors before committing."
+  exit 1
+fi
