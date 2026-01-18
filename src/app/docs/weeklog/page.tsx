@@ -1,28 +1,28 @@
-import { Metadata } from "next";
+import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Weeklog",
-  description: "Follow along with Terrae's weekend development journey. Weekly updates, new features, and improvements crafted during weekend coding sessions.",
-};
+  description:
+    "Follow along with Terrae's weekend development journey. Weekly updates, new features, and improvements crafted during weekend coding sessions.",
+}
 
 export default function WeeklogPage() {
   const weeklogs = [
     {
       title: "Hello, Terrae! 🚀",
-      date: "Sunday, January 19, 2026",
+      date: "Sunday, January 18, 2026",
       announcement: true,
     },
-  ];
+  ]
 
   return (
     <>
       <div className="mb-12">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">
-          Weekend Development Log
-        </h1>
+        <h1 className="text-4xl font-bold tracking-tight mb-4">Weekend Development Log</h1>
         <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl">
-          Welcome to the Terrae weeklog. Every weekend, I dedicate time to building and improving this library.
-          Here you'll find detailed updates on new features, improvements, and fixes shipped during each weekend development session.
+          Welcome to the Terrae weeklog. Every weekend, I dedicate time to building and improving this library. Here
+          you'll find detailed updates on new features, improvements, and fixes shipped during each weekend development
+          session.
         </p>
       </div>
 
@@ -41,8 +41,9 @@ export default function WeeklogPage() {
 
             <div className="max-w-2xl mx-auto space-y-6 text-foreground/90">
               <p className="text-lg leading-relaxed">
-                I'm excited to introduce Terrae—a modern, declarative map library built for design engineers who want beautiful, 
-                interactive maps without the complexity. Built with React, TypeScript, shadcn/ui, and Mapbox GL JS.
+                I'm excited to introduce Terrae—a modern, declarative map library built for design engineers who want
+                beautiful, interactive maps without the complexity. Built with React, TypeScript, shadcn/ui, and Mapbox
+                GL JS.
               </p>
               <div className="text-left space-y-4 pt-4">
                 <h3 className="text-xl font-semibold">What's included in the initial release:</h3>
@@ -52,7 +53,7 @@ export default function WeeklogPage() {
                   <li>Popups and tooltips</li>
                   <li>Navigation controls (zoom, rotation, fullscreen)</li>
                   <li>MiniMap for context overview</li>
-                  <li>Lines and animated route paths</li>
+                  <li>Lines and animated route paths with dashed line support</li>
                   <li>Animated markers with path following</li>
                   <li>Animated pulse effects</li>
                   <li>Circle clusters for data visualization</li>
@@ -62,8 +63,8 @@ export default function WeeklogPage() {
                 </ul>
               </div>
               <p className="text-base text-muted-foreground pt-4">
-                This is just the beginning. More components, features, and improvements are coming in future weekend updates.
-                Thank you for being part of this journey!
+                This is just the beginning. More components, features, and improvements are coming in future weekend
+                updates. Thank you for being part of this journey!
               </p>
             </div>
           </div>
@@ -73,17 +74,14 @@ export default function WeeklogPage() {
       <div className="mt-16 p-8 rounded-3xl border border-dashed bg-muted/20 text-center space-y-3">
         <h3 className="text-xl font-semibold">Want to shape the future of Terrae?</h3>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Your feedback and ideas help guide development priorities. Share your suggestions, feature requests,
-          or use cases on the{" "}
-          <a
-            href="/docs/ideas"
-            className="text-primary hover:underline font-medium"
-          >
+          Your feedback and ideas help guide development priorities. Share your suggestions, feature requests, or use
+          cases on the{" "}
+          <a href="/docs/ideas" className="text-primary hover:underline font-medium">
             ideas page
           </a>
           .
         </p>
       </div>
     </>
-  );
+  )
 }
