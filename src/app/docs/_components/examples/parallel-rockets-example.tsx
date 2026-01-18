@@ -1,18 +1,18 @@
-"use client";
+"use client"
 
-import { Map, MapLineAnimated } from "@/registry/map";
-import { Rocket } from "lucide-react";
+import { Map, MapLineAnimated } from "@/registry/map"
+import { Rocket } from "lucide-react"
 
-export function ParallelRocketsExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+export const ParallelRocketsExample = () => {
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 
-  const rocketIconStyle = { filter: 'drop-shadow(0 0 2px rgba(0,0,0,0.3))' };
+  const rocketIconStyle = { filter: "drop-shadow(0 0 2px rgba(0,0,0,0.3))" }
 
   // Four parallel routes going in the same direction (west to east)
   const routes = [
     {
       id: "rocket-1",
-      coordinates: [
+      path: [
         [-122.5, 37.77],
         [-122.45, 37.77],
         [-122.4, 37.77],
@@ -24,7 +24,7 @@ export function ParallelRocketsExample() {
     },
     {
       id: "rocket-2",
-      coordinates: [
+      path: [
         [-122.5, 37.775],
         [-122.45, 37.775],
         [-122.4, 37.775],
@@ -36,7 +36,7 @@ export function ParallelRocketsExample() {
     },
     {
       id: "rocket-3",
-      coordinates: [
+      path: [
         [-122.5, 37.78],
         [-122.45, 37.78],
         [-122.4, 37.78],
@@ -48,7 +48,7 @@ export function ParallelRocketsExample() {
     },
     {
       id: "rocket-4",
-      coordinates: [
+      path: [
         [-122.5, 37.785],
         [-122.45, 37.785],
         [-122.4, 37.785],
@@ -58,20 +58,16 @@ export function ParallelRocketsExample() {
       duration: 3600,
       icon: <Rocket className="size-6 text-amber-500 rotate-45" style={rocketIconStyle} />,
     },
-  ];
+  ]
 
   return (
     <div className="h-full w-full">
-      <Map
-        accessToken={accessToken}
-        center={[-122.425, 37.7775]}
-        zoom={12}
-      >
+      <Map accessToken={accessToken} center={[-122.425, 37.7775]} zoom={12}>
         {routes.map((route) => (
           <MapLineAnimated
             key={route.id}
             id={route.id}
-            coordinates={route.coordinates}
+            path={route.path}
             color={route.color}
             width={4}
             duration={route.duration}
@@ -81,5 +77,5 @@ export function ParallelRocketsExample() {
         ))}
       </Map>
     </div>
-  );
+  )
 }

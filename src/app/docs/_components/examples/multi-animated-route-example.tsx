@@ -1,13 +1,13 @@
-import { Map, MapLineAnimated } from "@/registry/map";
+import { Map, MapLineAnimated } from "@/registry/map"
 
-export function MultiAnimatedRouteExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+export const MultiAnimatedRouteExample = () => {
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 
   // Multiple delivery routes in NYC
   const routes = [
     {
       id: "route-1",
-      coordinates: [
+      path: [
         [-74.006, 40.7128],
         [-74.015, 40.7089],
         [-74.008, 40.7058],
@@ -17,7 +17,7 @@ export function MultiAnimatedRouteExample() {
     },
     {
       id: "route-2",
-      coordinates: [
+      path: [
         [-73.995, 40.7228],
         [-73.985, 40.7189],
         [-73.978, 40.7158],
@@ -27,7 +27,7 @@ export function MultiAnimatedRouteExample() {
     },
     {
       id: "route-3",
-      coordinates: [
+      path: [
         [-74.016, 40.7328],
         [-74.006, 40.7289],
         [-73.996, 40.7258],
@@ -35,20 +35,16 @@ export function MultiAnimatedRouteExample() {
       color: "#f59e0b",
       duration: 4000,
     },
-  ];
+  ]
 
   return (
     <div className="h-full w-full">
-      <Map
-        accessToken={accessToken}
-        center={[-74.001, 40.719]}
-        zoom={12.5}
-      >
+      <Map accessToken={accessToken} center={[-74.001, 40.719]} zoom={12.5}>
         {routes.map((route) => (
           <MapLineAnimated
             key={route.id}
             id={route.id}
-            coordinates={route.coordinates}
+            path={route.path}
             color={route.color}
             duration={route.duration}
             markerColor={route.color}
@@ -56,5 +52,5 @@ export function MultiAnimatedRouteExample() {
         ))}
       </Map>
     </div>
-  );
+  )
 }

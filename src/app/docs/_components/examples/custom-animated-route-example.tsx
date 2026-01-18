@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Map, MapLineAnimated } from "@/registry/map";
-import { Slider } from "@/components/ui/slider";
-import { Label } from "@/components/ui/label";
+import { useState } from "react"
+import { Map, MapLineAnimated } from "@/registry/map"
+import { Slider } from "@/components/ui/slider"
+import { Label } from "@/components/ui/label"
 
-export function CustomAnimatedRouteExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
-  const [duration, setDuration] = useState([3000]);
+export const CustomAnimatedRouteExample = () => {
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
+  const [duration, setDuration] = useState([3000])
 
   // Delivery route across San Francisco
   const route: Array<[number, number]> = [
@@ -16,7 +16,7 @@ export function CustomAnimatedRouteExample() {
     [-122.4094, 37.7849],
     [-122.3994, 37.7889],
     [-122.4094, 37.7949],
-  ];
+  ]
 
   return (
     <div className="flex flex-col h-full">
@@ -25,26 +25,15 @@ export function CustomAnimatedRouteExample() {
           <Label htmlFor="duration">
             Duration: <span className="font-mono text-muted-foreground">{duration[0]}ms</span>
           </Label>
-          <Slider
-            id="duration"
-            min={1000}
-            max={10000}
-            step={500}
-            value={duration}
-            onValueChange={setDuration}
-          />
+          <Slider id="duration" min={1000} max={10000} step={500} value={duration} onValueChange={setDuration} />
         </div>
       </div>
 
       <div className="flex-1 min-h-0">
-        <Map
-          accessToken={accessToken}
-          center={[-122.4144, 37.7819]}
-          zoom={13}
-        >
+        <Map accessToken={accessToken} center={[-122.4144, 37.7819]} zoom={13}>
           <MapLineAnimated
             id="custom-route"
-            coordinates={route}
+            path={route}
             color="#10b981"
             width={6}
             duration={duration[0]}
@@ -53,5 +42,5 @@ export function CustomAnimatedRouteExample() {
         </Map>
       </div>
     </div>
-  );
+  )
 }

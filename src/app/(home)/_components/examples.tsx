@@ -1,21 +1,29 @@
-"use client";
+"use client"
 
-import { useState, useEffect, memo } from "react";
-import { Map, MapMarker, MarkerContent, MarkerAvatar, MapLineAnimated, MapClusterLayer, MapMiniMap } from "@/registry/map";
-import { Code, Satellite, Activity, Navigation, Ambulance, Users, Map as MapIcon, Globe } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState, useEffect, memo } from "react"
+import {
+  Map,
+  MapMarker,
+  MarkerContent,
+  MarkerAvatar,
+  MapLineAnimated,
+  MapClusterLayer,
+  MapMiniMap,
+} from "@/registry/map"
+import { Code, Satellite, Activity, Navigation, Ambulance, Users, Map as MapIcon, Globe } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface ISSPosition {
-  latitude: number;
-  longitude: number;
-  timestamp: number;
+  latitude: number
+  longitude: number
+  timestamp: number
 }
 
 interface CovidData {
-  country: string;
-  cases: number;
-  lat: number;
-  lng: number;
+  country: string
+  cases: number
+  lat: number
+  lng: number
 }
 
 const openSourceHubs = [
@@ -29,35 +37,105 @@ const openSourceHubs = [
   { lng: 12.4964, lat: 41.9028, city: "Rome", projects: 623, size: 8 },
   { lng: -3.7038, lat: 40.4168, city: "Madrid", projects: 512, size: 7 },
   { lng: 18.0686, lat: 59.3293, city: "Stockholm", projects: 445, size: 7 },
-];
+]
 
 // Online developers around the world
 const onlineDevelopers = [
-  { lng: -122.4194, lat: 37.7749, name: "Sarah Chen", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah", online: true, city: "San Francisco" },
-  { lng: -74.006, lat: 40.7128, name: "Marcus Johnson", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus", online: true, city: "New York" },
-  { lng: -0.1276, lat: 51.5074, name: "Emma Wilson", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma", online: true, city: "London" },
-  { lng: 13.405, lat: 52.52, name: "Lukas Schmidt", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lukas", online: false, city: "Berlin" },
-  { lng: 2.3522, lat: 48.8566, name: "Marie Dubois", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marie", online: true, city: "Paris" },
-  { lng: 139.6917, lat: 35.6895, name: "Yuki Tanaka", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Yuki", online: true, city: "Tokyo" },
-  { lng: -122.3321, lat: 47.6062, name: "Alex Rivera", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex", online: false, city: "Seattle" },
-  { lng: 12.4964, lat: 41.9028, name: "Sofia Rossi", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sofia", online: true, city: "Rome" },
-  { lng: -3.7038, lat: 40.4168, name: "Carlos García", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos", online: true, city: "Madrid" },
-  { lng: 18.0686, lat: 59.3293, name: "Erik Andersson", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Erik", online: false, city: "Stockholm" },
-];
+  {
+    lng: -122.4194,
+    lat: 37.7749,
+    name: "Sarah Chen",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+    online: true,
+    city: "San Francisco",
+  },
+  {
+    lng: -74.006,
+    lat: 40.7128,
+    name: "Marcus Johnson",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
+    online: true,
+    city: "New York",
+  },
+  {
+    lng: -0.1276,
+    lat: 51.5074,
+    name: "Emma Wilson",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma",
+    online: true,
+    city: "London",
+  },
+  {
+    lng: 13.405,
+    lat: 52.52,
+    name: "Lukas Schmidt",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lukas",
+    online: false,
+    city: "Berlin",
+  },
+  {
+    lng: 2.3522,
+    lat: 48.8566,
+    name: "Marie Dubois",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marie",
+    online: true,
+    city: "Paris",
+  },
+  {
+    lng: 139.6917,
+    lat: 35.6895,
+    name: "Yuki Tanaka",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Yuki",
+    online: true,
+    city: "Tokyo",
+  },
+  {
+    lng: -122.3321,
+    lat: 47.6062,
+    name: "Alex Rivera",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+    online: false,
+    city: "Seattle",
+  },
+  {
+    lng: 12.4964,
+    lat: 41.9028,
+    name: "Sofia Rossi",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sofia",
+    online: true,
+    city: "Rome",
+  },
+  {
+    lng: -3.7038,
+    lat: 40.4168,
+    name: "Carlos García",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos",
+    online: true,
+    city: "Madrid",
+  },
+  {
+    lng: 18.0686,
+    lat: 59.3293,
+    name: "Erik Andersson",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Erik",
+    online: false,
+    city: "Stockholm",
+  },
+]
 
 // Scenic route from Golden Gate Bridge to Fisherman's Wharf
 const animatedRouteCoordinates: [number, number][] = [
   [-122.4783, 37.8199], // Golden Gate Bridge
-  [-122.4770, 37.8085],
-  [-122.4730, 37.8020],
-  [-122.4650, 37.8000],
-  [-122.4580, 37.8030],
-  [-122.4500, 37.8050],
-  [-122.4420, 37.8070],
-  [-122.4350, 37.8080],
-  [-122.4280, 37.8090],
-  [-122.4194, 37.8080], // Fisherman's Wharf
-];
+  [-122.477, 37.8085],
+  [-122.473, 37.802],
+  [-122.465, 37.8],
+  [-122.458, 37.803],
+  [-122.45, 37.805],
+  [-122.442, 37.807],
+  [-122.435, 37.808],
+  [-122.428, 37.809],
+  [-122.4194, 37.808], // Fisherman's Wharf
+]
 
 // Generate polling stations across US swing states for 2026 elections
 const generatePollingStations = () => {
@@ -69,7 +147,7 @@ const generatePollingStations = () => {
     { name: "Wisconsin", center: [-89.6165, 44.2685], count: 90 },
     { name: "Nevada", center: [-116.4194, 38.8026], count: 70 },
     { name: "North Carolina", center: [-79.0193, 35.7596], count: 110 },
-  ];
+  ]
 
   const features = states.flatMap((state) =>
     Array.from({ length: state.count }, (_, i) => ({
@@ -81,24 +159,21 @@ const generatePollingStations = () => {
       },
       geometry: {
         type: "Point" as const,
-        coordinates: [
-          state.center[0] + (Math.random() - 0.5) * 4,
-          state.center[1] + (Math.random() - 0.5) * 3,
-        ],
+        coordinates: [state.center[0] + (Math.random() - 0.5) * 4, state.center[1] + (Math.random() - 0.5) * 3],
       },
     }))
-  );
+  )
 
   return {
     type: "FeatureCollection" as const,
     features,
-  };
-};
+  }
+}
 
 interface ExampleCardProps {
-  label: string;
-  className?: string;
-  children: React.ReactNode;
+  label: string
+  className?: string
+  children: React.ReactNode
 }
 
 function ExampleCard({ label, className, children }: ExampleCardProps) {
@@ -114,23 +189,21 @@ function ExampleCard({ label, className, children }: ExampleCardProps) {
       </div>
       {children}
     </div>
-  );
+  )
 }
 
 interface InfoPanelProps {
-  title: string;
-  children: React.ReactNode;
+  title: string
+  children: React.ReactNode
 }
 
 function InfoPanel({ title, children }: InfoPanelProps) {
   return (
     <div className="absolute top-3 right-3 z-10 bg-background/95 backdrop-blur-md rounded-xl p-3 border border-border/50 shadow-lg text-sm">
-      <div className="tracking-wider text-[10px] text-muted-foreground uppercase mb-1">
-        {title}
-      </div>
+      <div className="tracking-wider text-[10px] text-muted-foreground uppercase mb-1">{title}</div>
       {children}
     </div>
-  );
+  )
 }
 
 // Info panel component - updates independently
@@ -150,8 +223,8 @@ const ISSInfoPanel = memo(({ position }: { position: ISSPosition | null }) => (
       <div className="text-muted-foreground">Loading...</div>
     )}
   </InfoPanel>
-));
-ISSInfoPanel.displayName = "ISSInfoPanel";
+))
+ISSInfoPanel.displayName = "ISSInfoPanel"
 
 // Satellite marker component - only position updates
 const ISSSatelliteMarker = memo(({ position }: { position: ISSPosition }) => (
@@ -165,63 +238,58 @@ const ISSSatelliteMarker = memo(({ position }: { position: ISSPosition }) => (
       </div>
     </MarkerContent>
   </MapMarker>
-));
-ISSSatelliteMarker.displayName = "ISSSatelliteMarker";
+))
+ISSSatelliteMarker.displayName = "ISSSatelliteMarker"
 
 // Static map container - never re-renders, centered on ISS
 const ISSMapContainer = memo(({ center, children }: { center: [number, number]; children: React.ReactNode }) => (
-  <Map
-    accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""}
-    center={center}
-    zoom={1}
-    projection="globe"
-  >
+  <Map accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""} center={center} zoom={1} projection="globe">
     {children}
   </Map>
-));
-ISSMapContainer.displayName = "ISSMapContainer";
+))
+ISSMapContainer.displayName = "ISSMapContainer"
 
 // Separate component for ISS tracking to prevent re-renders of parent
 function ISSTrackingExample() {
-  const [issPosition, setIssPosition] = useState<ISSPosition | null>(null);
-  const [initialCenter, setInitialCenter] = useState<[number, number] | null>(null);
+  const [issPosition, setIssPosition] = useState<ISSPosition | null>(null)
+  const [initialCenter, setInitialCenter] = useState<[number, number] | null>(null)
 
   useEffect(() => {
     const fetchISSPosition = async () => {
       try {
-        const response = await fetch("/api/iss");
+        const response = await fetch("/api/iss")
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}`)
         }
-        const data = await response.json();
-        
+        const data = await response.json()
+
         if (!data.iss_position) {
-          console.error("Invalid API response:", data);
-          return;
+          console.error("Invalid API response:", data)
+          return
         }
-        
+
         const newPosition = {
           latitude: parseFloat(data.iss_position.latitude),
           longitude: parseFloat(data.iss_position.longitude),
           timestamp: data.timestamp,
-        };
+        }
 
-        setIssPosition(newPosition);
+        setIssPosition(newPosition)
 
         // Set initial center only once
         if (!initialCenter) {
-          setInitialCenter([newPosition.longitude, newPosition.latitude]);
+          setInitialCenter([newPosition.longitude, newPosition.latitude])
         }
       } catch (error) {
-        console.error("Failed to fetch ISS position:", error);
+        console.error("Failed to fetch ISS position:", error)
       }
-    };
+    }
 
-    fetchISSPosition();
-    const interval = setInterval(fetchISSPosition, 5000);
+    fetchISSPosition()
+    const interval = setInterval(fetchISSPosition, 5000)
 
-    return () => clearInterval(interval);
-  }, [initialCenter]);
+    return () => clearInterval(interval)
+  }, [initialCenter])
 
   return (
     <div className="w-full h-full relative">
@@ -240,7 +308,7 @@ function ISSTrackingExample() {
         </div>
       )}
     </div>
-  );
+  )
 }
 
 // Separate component for COVID data to prevent re-renders
@@ -252,12 +320,12 @@ const STATIC_COVID_DATA: CovidData[] = [
   { country: "India", cases: 45000000, lat: 20.5937, lng: 78.9629 },
   { country: "Japan", cases: 22000000, lat: 36.2048, lng: 138.2529 },
   { country: "Germany", cases: 35000000, lat: 51.1657, lng: 10.4515 },
-  { country: "Brazil", cases: 34000000, lat: -14.2350, lng: -51.9253 },
-  { country: "United Kingdom", cases: 24000000, lat: 55.3781, lng: -3.4360 },
+  { country: "Brazil", cases: 34000000, lat: -14.235, lng: -51.9253 },
+  { country: "United Kingdom", cases: 24000000, lat: 55.3781, lng: -3.436 },
   { country: "France", cases: 33000000, lat: 46.2276, lng: 2.2137 },
-  { country: "Russia", cases: 21000000, lat: 61.5240, lng: 105.3188 },
+  { country: "Russia", cases: 21000000, lat: 61.524, lng: 105.3188 },
   { country: "South Korea", cases: 31000000, lat: 35.9078, lng: 127.7669 },
-];
+]
 
 /**
  * Alternative implementation for live COVID data via API
@@ -296,13 +364,13 @@ const STATIC_COVID_DATA: CovidData[] = [
  */
 
 function CovidTrackingExample() {
-  const [covidData, setCovidData] = useState<CovidData[]>(STATIC_COVID_DATA);
+  const [covidData, setCovidData] = useState<CovidData[]>(STATIC_COVID_DATA)
 
   useEffect(() => {
     // Using static data by default for reliability
     // To enable live API data fetching, uncomment the line below:
     // fetchLiveCovidData().then(setCovidData);
-  }, []);
+  }, [])
 
   return (
     <div className="w-full h-full relative">
@@ -322,13 +390,9 @@ function CovidTrackingExample() {
         )}
       </InfoPanel>
 
-      <Map
-        accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""}
-        center={[0, 20]}
-        zoom={1}
-      >
+      <Map accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""} center={[0, 20]} zoom={1}>
         {covidData.map((country, index) => {
-          const size = 16 - index * 1.2;
+          const size = 16 - index * 1.2
           return (
             <MapMarker key={country.country} coordinates={[country.lng, country.lat]}>
               <MarkerContent>
@@ -347,22 +411,18 @@ function CovidTrackingExample() {
                 </div>
               </MarkerContent>
             </MapMarker>
-          );
+          )
         })}
       </Map>
     </div>
-  );
+  )
 }
 
 export function Examples() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {/* Widget 1: Open Source Projects */}
-      <ExampleCard
-        label="Open Source Hubs"
-        className="h-80 sm:h-96 lg:h-[28rem]"
-        
-      >
+      <ExampleCard label="Open Source Hubs" className="h-80 sm:h-96 lg:h-[28rem]">
         <div className="w-full h-full relative">
           <InfoPanel title="Active Projects">
             <div className="text-2xl font-semibold leading-tight">12,847</div>
@@ -373,11 +433,7 @@ export function Examples() {
             </div>
           </InfoPanel>
 
-          <Map
-            accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""}
-            center={[0, 30]}
-            zoom={1.5}
-          >
+          <Map accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""} center={[0, 30]} zoom={1.5}>
             {openSourceHubs.map((loc) => (
               <MapMarker key={loc.city} coordinates={[loc.lng, loc.lat]}>
                 <MarkerContent>
@@ -410,15 +466,11 @@ export function Examples() {
       </ExampleCard>
 
       {/* Widget 2: Online Developers */}
-      <ExampleCard
-        label="Online Developers"
-        className="h-80 sm:h-96 lg:h-[28rem]"
-        
-      >
+      <ExampleCard label="Online Developers" className="h-80 sm:h-96 lg:h-[28rem]">
         <div className="w-full h-full relative">
           <InfoPanel title="Active Now">
             <div className="text-2xl font-semibold leading-tight">
-              {onlineDevelopers.filter(d => d.online).length}
+              {onlineDevelopers.filter((d) => d.online).length}
             </div>
             <div className="flex items-center gap-1 mt-1">
               <Users className="size-3 text-emerald-500" />
@@ -426,11 +478,7 @@ export function Examples() {
             </div>
           </InfoPanel>
 
-          <Map
-            accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""}
-            center={[0, 30]}
-            zoom={1.5}
-          >
+          <Map accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""} center={[0, 30]} zoom={1.5}>
             {onlineDevelopers.map((dev) => (
               <MapMarker key={dev.name} coordinates={[dev.lng, dev.lat]}>
                 <MarkerContent>
@@ -449,30 +497,20 @@ export function Examples() {
       </ExampleCard>
 
       {/* Widget 3: ISS Live Tracking */}
-      <ExampleCard label="ISS Live Tracking" className="h-80 sm:h-96 lg:h-[28rem]" >
+      <ExampleCard label="ISS Live Tracking" className="h-80 sm:h-96 lg:h-[28rem]">
         <ISSTrackingExample />
       </ExampleCard>
 
       {/* Widget 4: COVID-19 Cases */}
-      <ExampleCard
-        label="COVID-19 Global Cases"
-        className="h-80 sm:h-96 lg:h-[28rem]"
-        
-      >
+      <ExampleCard label="COVID-19 Global Cases" className="h-80 sm:h-96 lg:h-[28rem]">
         <CovidTrackingExample />
       </ExampleCard>
 
       {/* Widget 5: Animated Route */}
-      <ExampleCard
-        label="Animated Route"
-        className="h-80 sm:h-96 lg:h-[28rem]"
-        
-      >
+      <ExampleCard label="Animated Route" className="h-80 sm:h-96 lg:h-[28rem]">
         <div className="w-full h-full relative">
           <InfoPanel title="Route Animation">
-            <div className="font-medium mt-1">
-              Golden Gate → Wharf
-            </div>
+            <div className="font-medium mt-1">Golden Gate → Wharf</div>
             <div className="flex items-center gap-1 mt-1">
               <Navigation className="size-3 text-orange-500" />
               <span className="text-xs text-muted-foreground">5.2 mi</span>
@@ -481,13 +519,13 @@ export function Examples() {
 
           <Map
             accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""}
-            center={[-122.4483, 37.8140]}
+            center={[-122.4483, 37.814]}
             zoom={12.5}
             pitch={45}
           >
             <MapLineAnimated
               id="animated-route-demo"
-              coordinates={animatedRouteCoordinates}
+              path={animatedRouteCoordinates}
               color="#f97316"
               width={5}
               duration={12000}
@@ -507,16 +545,10 @@ export function Examples() {
       </ExampleCard>
 
       {/* Widget 6: Ambulance Tracking */}
-      <ExampleCard
-        label="Emergency Response"
-        className="h-80 sm:h-96 lg:h-[28rem]"
-        
-      >
+      <ExampleCard label="Emergency Response" className="h-80 sm:h-96 lg:h-[28rem]">
         <div className="w-full h-full relative">
           <InfoPanel title="Emergency Status">
-            <div className="font-medium mt-1">
-              The ambulance is on way to you
-            </div>
+            <div className="font-medium mt-1">The ambulance is on way to you</div>
             <div className="flex items-center gap-1 mt-1">
               <Ambulance className="size-3 text-red-500" />
               <span className="text-xs text-muted-foreground">ETA: 8 min</span>
@@ -525,20 +557,20 @@ export function Examples() {
 
           <Map
             accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""}
-            center={[-122.400, 37.785]}
+            center={[-122.4, 37.785]}
             zoom={13}
             pitch={30}
           >
             <MapLineAnimated
               id="ambulance-route"
-              coordinates={[
-                [-122.420, 37.775],
+              path={[
+                [-122.42, 37.775],
                 [-122.415, 37.778],
-                [-122.410, 37.780],
+                [-122.41, 37.78],
                 [-122.405, 37.782],
-                [-122.400, 37.785],
+                [-122.4, 37.785],
                 [-122.395, 37.787],
-                [-122.390, 37.790],
+                [-122.39, 37.79],
               ]}
               color="#ef4444"
               width={4}
@@ -559,27 +591,17 @@ export function Examples() {
       </ExampleCard>
 
       {/* Widget 7: MiniMap */}
-      <ExampleCard
-        label="MiniMap Overview"
-        className="h-80 sm:h-96 lg:h-[28rem]"
-        
-      >
+      <ExampleCard label="MiniMap Overview" className="h-80 sm:h-96 lg:h-[28rem]">
         <div className="w-full h-full relative">
           <InfoPanel title="Navigation">
-            <div className="font-medium mt-1">
-              Overview Map
-            </div>
+            <div className="font-medium mt-1">Overview Map</div>
             <div className="flex items-center gap-1 mt-1">
               <MapIcon className="size-3 text-teal-500" />
               <span className="text-xs text-muted-foreground">Context view</span>
             </div>
           </InfoPanel>
 
-          <Map
-            accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""}
-            center={[-74.006, 40.7128]}
-            zoom={14}
-          >
+          <Map accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""} center={[-74.006, 40.7128]} zoom={14}>
             <MapMarker coordinates={[-74.006, 40.7128]}>
               <MarkerContent>
                 <div className="relative flex items-center justify-center">
@@ -596,10 +618,7 @@ export function Examples() {
       </ExampleCard>
 
       {/* CTA Card: Help Make Terrae Better */}
-      <ExampleCard
-        label="Contribute"
-        className="h-80 sm:h-96 lg:h-[28rem]"
-      >
+      <ExampleCard label="Contribute" className="h-80 sm:h-96 lg:h-[28rem]">
         <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
           <div className="space-y-6">
             <Globe className="w-12 h-12 text-primary mx-auto" />
@@ -621,5 +640,5 @@ export function Examples() {
         </div>
       </ExampleCard>
     </div>
-  );
+  )
 }
