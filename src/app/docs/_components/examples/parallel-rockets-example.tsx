@@ -73,6 +73,7 @@ export const ParallelRocketsExample = () => {
             duration={route.duration}
             markerColor="transparent"
             markerIcon={route.icon}
+            markerBorderless
           />
         ))}
       </Map>
