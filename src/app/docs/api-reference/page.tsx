@@ -651,6 +651,11 @@ export default function ApiReferencePage() {
               description: "Line opacity (0 to 1).",
             },
             {
+              name: "dashArray",
+              type: "[number, number]",
+              description: "Dash pattern [dash length, gap length] for dashed lines.",
+            },
+            {
               name: "duration",
               type: "number",
               default: "3000",

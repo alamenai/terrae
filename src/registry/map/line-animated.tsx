@@ -12,6 +12,7 @@ type MapLineAnimatedProps = {
   color?: string
   width?: number
   opacity?: number
+  dashArray?: [number, number]
   duration?: number
   showMarker?: boolean
   markerColor?: string
@@ -39,6 +40,7 @@ export const MapLineAnimated = ({
   color = DEFAULT_COLOR,
   width = DEFAULT_WIDTH,
   opacity = DEFAULT_OPACITY,
+  dashArray,
   duration = DEFAULT_DURATION,
   showMarker = DEFAULT_SHOW_MARKER,
   markerColor = DEFAULT_MARKER_COLOR,
@@ -100,6 +102,7 @@ export const MapLineAnimated = ({
         "line-color": color,
         "line-width": width,
         "line-opacity": opacity,
+        ...(dashArray && { "line-dasharray": dashArray }),
       },
     })
   }
@@ -235,6 +238,18 @@ export const MapLineAnimated = ({
     }
     map.setPaintProperty(lineLayerId, "line-opacity", opacity)
   }, [map, lineLayerId, opacity])
+
+  useEffect(() => {
+    if (!map || !initializedRef.current) {
+      return
+    }
+    if (!map.getLayer(lineLayerId)) {
+      return
+    }
+    if (dashArray) {
+      map.setPaintProperty(lineLayerId, "line-dasharray", dashArray)
+    }
+  }, [map, lineLayerId, dashArray])
 
   useEffect(() => {
     if (!map || !initializedRef.current) {

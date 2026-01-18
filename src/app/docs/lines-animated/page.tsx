@@ -3,6 +3,7 @@ import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { BasicAnimatedRouteExample } from "../_components/examples/basic-animated-route-example"
 import { CustomAnimatedRouteExample } from "../_components/examples/custom-animated-route-example"
+import { DashedAnimatedRouteExample } from "../_components/examples/dashed-animated-route-example"
 import { MultiAnimatedRouteExample } from "../_components/examples/multi-animated-route-example"
 import { ParallelRocketsExample } from "../_components/examples/parallel-rockets-example"
 import { CyclistRouteExample } from "../_components/examples/cyclist-route-example"
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 const AnimatedLinesPage = () => {
   const basicSource = getExampleSource("basic-animated-route-example.tsx")
   const customSource = getExampleSource("custom-animated-route-example.tsx")
+  const dashedSource = getExampleSource("dashed-animated-route-example.tsx")
   const multiSource = getExampleSource("multi-animated-route-example.tsx")
   const rocketsSource = getExampleSource("parallel-rockets-example.tsx")
   const cyclistSource = getExampleSource("cyclist-route-example.tsx")
@@ -51,6 +53,17 @@ const AnimatedLinesPage = () => {
 
       <ComponentPreview code={customSource}>
         <CustomAnimatedRouteExample />
+      </ComponentPreview>
+
+      <DocsSection title="Dashed Lines">
+        <p>
+          Create dashed animated lines using the <DocsCode>dashArray</DocsCode> prop. The array defines the pattern as
+          [dash length, gap length] in pixels.
+        </p>
+      </DocsSection>
+
+      <ComponentPreview code={dashedSource}>
+        <DashedAnimatedRouteExample />
       </ComponentPreview>
 
       <DocsSection title="Multiple Lines">
@@ -138,6 +151,14 @@ const AnimatedLinesPage = () => {
                 <TableCell className="text-muted-foreground">number</TableCell>
                 <TableCell className="text-muted-foreground">1</TableCell>
                 <TableCell>Route line opacity (0-1)</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>dashArray</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">[number, number]</TableCell>
+                <TableCell className="text-muted-foreground">-</TableCell>
+                <TableCell>Dash pattern [dash length, gap length] for dashed lines</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>
