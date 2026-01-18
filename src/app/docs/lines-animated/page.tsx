@@ -6,6 +6,7 @@ import { CustomAnimatedRouteExample } from "../_components/examples/custom-anima
 import { DashedAnimatedRouteExample } from "../_components/examples/dashed-animated-route-example"
 import { MultiAnimatedRouteExample } from "../_components/examples/multi-animated-route-example"
 import { ParallelRocketsExample } from "../_components/examples/parallel-rockets-example"
+import { CheckpointsAnimatedRouteExample } from "../_components/examples/checkpoints-animated-route-example"
 import { CyclistRouteExample } from "../_components/examples/cyclist-route-example"
 import { getExampleSource } from "@/lib/get-example-source"
 import { Metadata } from "next"
@@ -21,6 +22,7 @@ const AnimatedLinesPage = () => {
   const dashedSource = getExampleSource("dashed-animated-route-example.tsx")
   const multiSource = getExampleSource("multi-animated-route-example.tsx")
   const rocketsSource = getExampleSource("parallel-rockets-example.tsx")
+  const checkpointsSource = getExampleSource("checkpoints-animated-route-example.tsx")
   const cyclistSource = getExampleSource("cyclist-route-example.tsx")
 
   return (
@@ -87,6 +89,18 @@ const AnimatedLinesPage = () => {
 
       <ComponentPreview code={rocketsSource}>
         <ParallelRocketsExample />
+      </ComponentPreview>
+
+      <DocsSection title="With Checkpoints">
+        <p>
+          Animate a route with checkpoint markers that get checked off as the line reaches them. Uses the{" "}
+          <DocsCode>onComplete</DocsCode> callback to reset and loop the animation. Useful for delivery tracking,
+          multi-stop routes, or progress visualizations.
+        </p>
+      </DocsSection>
+
+      <ComponentPreview code={checkpointsSource}>
+        <CheckpointsAnimatedRouteExample />
       </ComponentPreview>
 
       <DocsSection title="Dynamic Routes with OSRM">
