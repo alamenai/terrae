@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import {
   BookOpen,
   Code,
@@ -25,7 +25,8 @@ import {
   BookMarked,
   Map as MapIcon,
   Anchor,
-} from "lucide-react";
+  type LucideIcon,
+} from "lucide-react"
 
 import {
   Sidebar,
@@ -39,9 +40,22 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
   useSidebar,
-} from "@/components/ui/sidebar";
+} from "@/components/ui/sidebar"
+import { NewBadge, UpdatedBadge, type BadgeVariant } from "./docs"
 
-const navigation = [
+type NavItem = {
+  title: string
+  href: string
+  icon: LucideIcon
+  badge?: BadgeVariant
+}
+
+type NavGroup = {
+  title: string
+  items: NavItem[]
+}
+
+const navigation: NavGroup[] = [
   {
     title: "Explore",
     items: [
@@ -65,7 +79,7 @@ const navigation = [
   {
     title: "Core",
     items: [
-      { title: "Map", href: "/docs/basic-map", icon: Globe },
+      { title: "Map", href: "/docs/basic-map", icon: Globe, badge: "updated" },
       { title: "Controls", href: "/docs/controls", icon: Settings },
       { title: "Marker", href: "/docs/markers", icon: MapPin },
       { title: "Popup", href: "/docs/popups", icon: MessageSquare },
@@ -87,11 +101,11 @@ const navigation = [
       { title: "Heatmaps", href: "/docs/heatmaps", icon: Flame },
     ],
   },
-];
+]
 
 export function DocsSidebar() {
-  const pathname = usePathname();
-  const { setOpenMobile } = useSidebar();
+  const pathname = usePathname()
+  const { setOpenMobile } = useSidebar()
 
   return (
     <Sidebar className="border-r border-t-0 bg-transparent **:data-[sidebar=sidebar]:bg-transparent sticky top-[64px] h-[calc(100vh-64px)] self-start">
@@ -121,12 +135,14 @@ export function DocsSidebar() {
                       <Link
                         href={item.href}
                         onClick={() => setOpenMobile(false)}
-                        className="group"
+                        className="group flex items-center gap-2"
                       >
                         <item.icon className="size-4 group-data-[active=true]:text-purple-500" />
                         <span className="line-clamp-1 group-data-[active=true]:font-semibold group-data-[active=true]:text-transparent group-data-[active=true]:bg-gradient-to-r group-data-[active=true]:from-blue-500 group-data-[active=true]:via-purple-500 group-data-[active=true]:to-pink-500 group-data-[active=true]:bg-clip-text">
                           {item.title}
                         </span>
+                        {item.badge === "new" && <NewBadge />}
+                        {item.badge === "updated" && <UpdatedBadge />}
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -137,7 +153,7 @@ export function DocsSidebar() {
         ))}
       </SidebarContent>
     </Sidebar>
-  );
+  )
 }
 
 export function MobileSidebarTrigger() {
@@ -145,5 +161,5 @@ export function MobileSidebarTrigger() {
     <div className="md:hidden">
       <SidebarTrigger />
     </div>
-  );
+  )
 }

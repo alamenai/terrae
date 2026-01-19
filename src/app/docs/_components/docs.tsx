@@ -1,47 +1,32 @@
-import Link from "next/link";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { cn } from "@/lib/utils";
+import Link from "next/link"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { cn } from "@/lib/utils"
 
 // DocsHeader - Page title and description
 interface DocsHeaderProps {
-  title: string;
-  description: string;
+  title: string
+  description: string
 }
 
 export function DocsHeader({ title, description }: DocsHeaderProps) {
   return (
     <div className="space-y-2 sm:space-y-3">
       <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">{title}</h1>
-      <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-        {description}
-      </p>
+      <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">{description}</p>
     </div>
-  );
+  )
 }
 
 // DocsLayout - Full page wrapper with nav
 interface DocsLayoutProps {
-  title: string;
-  description: string;
-  children: React.ReactNode;
-  prev?: { title: string; href: string };
-  next?: { title: string; href: string };
+  title: string
+  description: string
+  children: React.ReactNode
+  prev?: { title: string; href: string }
+  next?: { title: string; href: string }
 }
 
-export function DocsLayout({
-  title,
-  description,
-  children,
-  prev,
-  next,
-}: DocsLayoutProps) {
+export function DocsLayout({ title, description, children, prev, next }: DocsLayoutProps) {
   return (
     <div>
       <DocsHeader title={title} description={description} />
@@ -77,32 +62,36 @@ export function DocsLayout({
         </div>
       )}
     </div>
-  );
+  )
 }
 
 // DocsSection - Content section with optional title
-interface DocsSectionProps {
-  title?: string;
-  id?: string;
-  children: React.ReactNode;
+type DocsSectionProps = {
+  title?: string
+  id?: string
+  badge?: React.ReactNode
+  children: React.ReactNode
 }
 
-export function DocsSection({ title, id, children }: DocsSectionProps) {
+export const DocsSection = ({ title, id, badge, children }: DocsSectionProps) => {
   return (
     <section id={id} className="space-y-4 sm:space-y-5">
       {title && (
-        <h2 className="text-lg sm:text-xl font-semibold tracking-tight">{title}</h2>
+        <h2 className="text-lg sm:text-xl font-semibold tracking-tight flex items-center gap-2">
+          {title}
+          {badge}
+        </h2>
       )}
       <div className="text-sm sm:text-base text-muted-foreground leading-7 space-y-3 sm:space-y-4 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:space-y-2">
         {children}
       </div>
     </section>
-  );
+  )
 }
 
 // DocsNote - Highlighted note/callout
 interface DocsNoteProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export function DocsNote({ children }: DocsNoteProps) {
@@ -110,14 +99,14 @@ export function DocsNote({ children }: DocsNoteProps) {
     <div className="rounded-2xl sm:rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 px-3 sm:px-5 py-3 sm:py-4 leading-relaxed text-xs sm:text-sm text-foreground [&>strong]:text-foreground [&>strong]:font-semibold">
       {children}
     </div>
-  );
+  )
 }
 
 // DocsLink - Styled link
 interface DocsLinkProps {
-  href: string;
-  children: React.ReactNode;
-  external?: boolean;
+  href: string
+  children: React.ReactNode
+  external?: boolean
 }
 
 export function DocsLink({ href, children, external }: DocsLinkProps) {
@@ -130,37 +119,52 @@ export function DocsLink({ href, children, external }: DocsLinkProps) {
     >
       {children}
     </Link>
-  );
+  )
 }
 
 // DocsCode - Inline code
-export function DocsCode({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+export function DocsCode({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <code
-      className={cn(
-        "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm",
-        className
-      )}
-    >
+    <code className={cn("relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm", className)}>
       {children}
     </code>
-  );
+  )
+}
+
+// DocsBadge - Animated gradient badge for new/updated features
+export type BadgeVariant = "new" | "updated"
+
+type DocsBadgeProps = {
+  variant?: BadgeVariant
+}
+
+export const DocsBadge = ({ variant = "new" }: DocsBadgeProps) => {
+  const label = variant === "new" ? "New" : "Updated"
+
+  return (
+    <span className="relative inline-flex items-center justify-center px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded-full overflow-hidden">
+      <span className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient-x" />
+      <span className="relative text-white">{label}</span>
+    </span>
+  )
+}
+
+export const NewBadge = () => {
+  return <DocsBadge variant="new" />
+}
+
+export const UpdatedBadge = () => {
+  return <DocsBadge variant="updated" />
 }
 
 // DocsPropTable - API reference table for component props
 interface DocsPropTableProps {
   props: {
-    name: string;
-    type: string;
-    default?: string;
-    description: string;
-  }[];
+    name: string
+    type: string
+    default?: string
+    description: string
+  }[]
 }
 
 export function DocsPropTable({ props }: DocsPropTableProps) {
@@ -171,7 +175,9 @@ export function DocsPropTable({ props }: DocsPropTableProps) {
           <TableRow className="hover:bg-transparent">
             <TableHead className="h-10 sm:h-11 px-2 sm:px-4 font-medium text-xs sm:text-sm">Prop</TableHead>
             <TableHead className="h-10 sm:h-11 px-2 sm:px-4 font-medium text-xs sm:text-sm">Type</TableHead>
-            <TableHead className="h-10 sm:h-11 px-2 sm:px-4 font-medium text-xs sm:text-sm hidden md:table-cell">Default</TableHead>
+            <TableHead className="h-10 sm:h-11 px-2 sm:px-4 font-medium text-xs sm:text-sm hidden md:table-cell">
+              Default
+            </TableHead>
             <TableHead className="h-10 sm:h-11 px-2 sm:px-4 font-medium text-xs sm:text-sm">Description</TableHead>
           </TableRow>
         </TableHeader>
@@ -195,5 +201,5 @@ export function DocsPropTable({ props }: DocsPropTableProps) {
         </TableBody>
       </Table>
     </div>
-  );
+  )
 }
