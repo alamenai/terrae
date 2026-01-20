@@ -126,10 +126,12 @@ export default function BasicMapPage() {
         for the full list of available styles.
       </DocsNote>
 
-      <DocsSection title="Custom Loader">
+      <DocsSection title="Custom Loader" badge={<NewBadge />}>
         <p>
           Use the <DocsCode>loader</DocsCode> prop to display a custom loading component while the map initializes. This
-          is useful for branding or providing a better loading experience.
+          is useful for branding or providing a better loading experience. The <DocsCode>showLoader</DocsCode> prop
+          gives you full control over loader visibility, allowing you to keep the loader displayed until user
+          interaction.
         </p>
       </DocsSection>
 
@@ -248,6 +250,20 @@ export default function BasicMapPage() {
                 <TableCell className="text-muted-foreground">ReactNode</TableCell>
                 <TableCell className="text-muted-foreground">default loader</TableCell>
                 <TableCell>Custom loading component shown while the map initializes</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <span className="flex items-center gap-2">
+                    <DocsCode>showLoader</DocsCode>
+                    <NewBadge />
+                  </span>
+                </TableCell>
+                <TableCell className="text-muted-foreground">boolean</TableCell>
+                <TableCell className="text-muted-foreground">undefined</TableCell>
+                <TableCell>
+                  Controls loader visibility. When true, forces loader to show. When false, hides loader. When
+                  undefined, uses internal loading state.
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>

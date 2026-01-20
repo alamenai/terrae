@@ -25,6 +25,8 @@ type MapProps = {
   accessToken: string
   children?: ReactNode
   loader?: ReactNode
+  // Forces loader to show when true, hides when false, auto when undefined
+  showLoader?: boolean
   // Overrides theme-based styles when set
   style?: string
   styles?: MapThemeStyles
@@ -42,6 +44,7 @@ export const Map = ({
   accessToken,
   children,
   loader,
+  showLoader,
   style,
   styles,
   center = DEFAULT_CENTER,
@@ -59,6 +62,8 @@ export const Map = ({
   const [error, setError] = useState<string | null>(null)
   const { resolvedTheme } = useTheme()
   const initializedRef = useRef(false)
+
+  const shouldShowLoader = showLoader ?? !isLoaded
 
   const getMapStyle = () => {
     if (style) {
@@ -193,7 +198,7 @@ export const Map = ({
   return (
     <MapContext.Provider value={contextValue}>
       <div ref={containerRef} className="relative w-full h-full">
-        {!isLoaded && (loader || <DefaultLoader />)}
+        {shouldShowLoader && (loader || <DefaultLoader />)}
         {mapRef.current && children}
       </div>
     </MapContext.Provider>
@@ -202,7 +207,7 @@ export const Map = ({
 
 const DefaultLoader = () => {
   return (
-    <div className="absolute inset-0 flex items-center justify-center bg-muted">
+    <div className="absolute inset-0 z-10 flex items-center justify-center bg-muted">
       <Globe className="size-8 text-muted-foreground/60 animate-spin" />
     </div>
   )
