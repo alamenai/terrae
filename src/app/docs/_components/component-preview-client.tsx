@@ -1,23 +1,19 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { CopyButton } from "./copy-button";
+import { useState } from "react"
+import { cn } from "@/lib/utils"
+import { CopyButton } from "./copy-button"
+import { ReportBugButton } from "./report-bug-button"
 
 interface ComponentPreviewClientProps {
-  children: React.ReactNode;
-  code: string;
-  highlightedCode: string;
-  className?: string;
+  children: React.ReactNode
+  code: string
+  highlightedCode: string
+  className?: string
 }
 
-export function ComponentPreviewClient({
-  children,
-  code,
-  highlightedCode,
-  className,
-}: ComponentPreviewClientProps) {
-  const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
+export function ComponentPreviewClient({ children, code, highlightedCode, className }: ComponentPreviewClientProps) {
+  const [activeTab, setActiveTab] = useState<"preview" | "code">("preview")
 
   return (
     <div className="w-full rounded-lg border overflow-hidden">
@@ -47,7 +43,10 @@ export function ComponentPreviewClient({
           </button>
         </div>
 
-        <CopyButton text={code} />
+        <div className="flex items-center gap-1">
+          <ReportBugButton />
+          <CopyButton text={code} />
+        </div>
       </div>
 
       <div className={cn("h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden", className)}>
@@ -61,5 +60,5 @@ export function ComponentPreviewClient({
         )}
       </div>
     </div>
-  );
+  )
 }
