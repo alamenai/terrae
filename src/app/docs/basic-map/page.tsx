@@ -5,6 +5,7 @@ import { BasicMapExample } from "../_components/examples/basic-map-example"
 import { GlobeMapExample } from "../_components/examples/globe-map-example"
 import { InteractiveMapExample } from "../_components/examples/interactive-map-example"
 import { NavigationMapExample } from "../_components/examples/navigation-map-example"
+import { CustomLoaderExample } from "../_components/examples/custom-loader-example"
 import { getExampleSource } from "@/lib/get-example-source"
 import { Metadata } from "next"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -18,6 +19,7 @@ export default function BasicMapPage() {
   const globeMapSource = getExampleSource("globe-map-example.tsx")
   const interactiveMapSource = getExampleSource("interactive-map-example.tsx")
   const navigationMapSource = getExampleSource("navigation-map-example.tsx")
+  const customLoaderSource = getExampleSource("custom-loader-example.tsx")
 
   return (
     <DocsLayout
@@ -53,7 +55,7 @@ export default function BasicMapPage() {
         <InteractiveMapExample />
       </ComponentPreview>
 
-      <DocsSection title="Theme Support">
+      <DocsSection title="Theme Support" id="theme-support">
         <p>
           The Map component integrates with <DocsCode>next-themes</DocsCode> to automatically switch map styles when
           your application theme changes. By default, it uses <DocsCode>light-v11</DocsCode> for light theme and{" "}
@@ -66,7 +68,7 @@ export default function BasicMapPage() {
         </p>
       </DocsSection>
 
-      <DocsSection title="Style Presets" badge={<NewBadge />}>
+      <DocsSection title="Style Presets" id="style-presets" badge={<NewBadge />}>
         <p>
           Built-in style presets are available that automatically adapt to your theme. Import and use them directly with
           the <DocsCode>styles</DocsCode> prop.
@@ -123,6 +125,17 @@ export default function BasicMapPage() {
         </DocsLink>{" "}
         for the full list of available styles.
       </DocsNote>
+
+      <DocsSection title="Custom Loader">
+        <p>
+          Use the <DocsCode>loader</DocsCode> prop to display a custom loading component while the map initializes. This
+          is useful for branding or providing a better loading experience.
+        </p>
+      </DocsSection>
+
+      <ComponentPreview code={customLoaderSource}>
+        <CustomLoaderExample />
+      </ComponentPreview>
 
       <DocsSection title="Properties">
         <p>The Map component supports all Mapbox GL JS options. Key properties:</p>
