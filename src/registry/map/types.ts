@@ -32,6 +32,8 @@ export const navigationMapStyles: Required<MapThemeStyles> = {
   dark: "mapbox://styles/mapbox/navigation-night-v1",
 }
 
+export type MapCompareOrientation = "horizontal" | "vertical"
+
 export type MapContextValue = {
   map: Map | null
   isLoaded: boolean

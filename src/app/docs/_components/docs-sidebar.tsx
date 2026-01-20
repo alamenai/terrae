@@ -94,7 +94,7 @@ const navigation: NavGroup[] = [
       { title: "Animated Markers", href: "/docs/markers-animated", icon: Play },
       { title: "Circle Clusters", href: "/docs/circle-clusters", icon: Layers },
       { title: "Animated Pulse", href: "/docs/animated-pulse", icon: Sparkles },
-      { title: "Compare", href: "/docs/compare", icon: ArrowLeftRight },
+      { title: "Compare", href: "/docs/compare", icon: ArrowLeftRight, badge: "updated" },
       { title: "Image", href: "/docs/image", icon: Image },
       { title: "Video", href: "/docs/raster-video", icon: Video },
       { title: "Rain Effect", href: "/docs/rain", icon: CloudRain },
