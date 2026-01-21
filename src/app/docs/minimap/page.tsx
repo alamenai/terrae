@@ -1,4 +1,4 @@
-import { DocsLayout, DocsSection, DocsCode, NewBadge } from "../_components/docs"
+import { DocsLayout, DocsSection, DocsCode, DocsPropTable, NewBadge } from "../_components/docs"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { MiniMapExample } from "../_components/examples/minimap-example"
@@ -8,7 +8,6 @@ import { MiniMapDraggableExample } from "../_components/examples/minimap-draggab
 import { MiniMapCustomExample } from "../_components/examples/minimap-custom-example"
 import { getExampleSource } from "@/lib/get-example-source"
 import { Metadata } from "next"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export const metadata: Metadata = {
   title: "MiniMap",
@@ -79,94 +78,65 @@ export default function MiniMapPage() {
       </ComponentPreview>
 
       <DocsSection title="Properties">
-        <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Property</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Default</TableHead>
-                <TableHead>Description</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell>
-                  <DocsCode>position</DocsCode>
-                </TableCell>
-                <TableCell className="text-muted-foreground">
-                  "top-left" | "top-right" | "bottom-left" | "bottom-right"
-                </TableCell>
-                <TableCell className="text-muted-foreground">"bottom-right"</TableCell>
-                <TableCell>Corner position of the minimap</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <DocsCode>width</DocsCode>
-                </TableCell>
-                <TableCell className="text-muted-foreground">number</TableCell>
-                <TableCell className="text-muted-foreground">200</TableCell>
-                <TableCell>Width in pixels</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <DocsCode>height</DocsCode>
-                </TableCell>
-                <TableCell className="text-muted-foreground">number</TableCell>
-                <TableCell className="text-muted-foreground">150</TableCell>
-                <TableCell>Height in pixels</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <DocsCode>zoomOffset</DocsCode>
-                </TableCell>
-                <TableCell className="text-muted-foreground">number</TableCell>
-                <TableCell className="text-muted-foreground">-4</TableCell>
-                <TableCell>Zoom offset from main map (negative = zoomed out)</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <DocsCode>style</DocsCode>
-                </TableCell>
-                <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">-</TableCell>
-                <TableCell>Custom Mapbox style URL (defaults to main map style)</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <DocsCode>boxColor</DocsCode>
-                </TableCell>
-                <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
-                <TableCell>Color of the viewport box</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <DocsCode>boxBorderWidth</DocsCode>
-                </TableCell>
-                <TableCell className="text-muted-foreground">number</TableCell>
-                <TableCell className="text-muted-foreground">2</TableCell>
-                <TableCell>Border width of the viewport box</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <DocsCode>rounded</DocsCode>
-                </TableCell>
-                <TableCell className="text-muted-foreground">number | "full" | "none"</TableCell>
-                <TableCell className="text-muted-foreground">8</TableCell>
-                <TableCell>Border radius in pixels, "full" for circular, or "none"</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <DocsCode>draggable</DocsCode>
-                </TableCell>
-                <TableCell className="text-muted-foreground">boolean</TableCell>
-                <TableCell className="text-muted-foreground">false</TableCell>
-                <TableCell>Allow users to drag the minimap anywhere within the map</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
+        <DocsPropTable
+          props={[
+            {
+              name: "position",
+              type: '"top-left" | "top-right" | "bottom-left" | "bottom-right"',
+              default: '"bottom-right"',
+              description: "Corner position of the minimap.",
+            },
+            {
+              name: "width",
+              type: "number",
+              default: "200",
+              description: "Width in pixels.",
+            },
+            {
+              name: "height",
+              type: "number",
+              default: "150",
+              description: "Height in pixels.",
+            },
+            {
+              name: "zoomOffset",
+              type: "number",
+              default: "-4",
+              description: "Zoom offset from main map (negative = zoomed out).",
+            },
+            {
+              name: "style",
+              type: "string",
+              description: "Custom Mapbox style URL (defaults to main map style).",
+            },
+            {
+              name: "boxColor",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Color of the viewport box.",
+            },
+            {
+              name: "boxBorderWidth",
+              type: "number",
+              default: "2",
+              description: "Border width of the viewport box.",
+            },
+            {
+              name: "rounded",
+              type: 'number | "full" | "none"',
+              default: "8",
+              description: 'Border radius in pixels, "full" for circular, or "none".',
+              isNew: true,
+            },
+            {
+              name: "draggable",
+              type: "boolean",
+              default: "false",
+              description: "Allow users to drag the minimap anywhere within the map.",
+              isNew: true,
+            },
+          ]}
+        />
       </DocsSection>
     </DocsLayout>
   )
