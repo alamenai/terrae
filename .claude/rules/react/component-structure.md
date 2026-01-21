@@ -1,6 +1,7 @@
 # React Component Structure Guidelines
 
 ## File Structure
+
 - Place all type definitions at the top of the file, before constants and components
 - Order types from most general to most specific
 - Group related types together
@@ -8,46 +9,47 @@
 ```typescript
 // ✅ Good - types at the top
 type User = {
-  id: string;
-  name: string;
-};
+  id: string
+  name: string
+}
 
 type UserCardProps = {
-  user: User;
-  onSelect: (id: string) => void;
-};
+  user: User
+  onSelect: (id: string) => void
+}
 
 const DEFAULT_USER: User = {
   id: "1",
   name: "John",
-};
+}
 
 const UserCard = ({ user, onSelect }: UserCardProps) => {
   // ...
-};
+}
 
 // ❌ Avoid - types scattered
 const DEFAULT_USER = {
   id: "1",
   name: "John",
-};
+}
 
 type UserCardProps = {
-  user: User;
-  onSelect: (id: string) => void;
-};
+  user: User
+  onSelect: (id: string) => void
+}
 
 const UserCard = ({ user, onSelect }: UserCardProps) => {
   // ...
-};
+}
 
 type User = {
-  id: string;
-  name: string;
-};
+  id: string
+  name: string
+}
 ```
 
 ## Component Structure
+
 - Follow the Stepdown Rule: parent components before child components
 - Order component internals consistently:
   1. Refs
@@ -59,6 +61,7 @@ type User = {
   7. Main render
 
 ## Event Handlers
+
 - Prefix event handlers with `handle` (e.g., `handleClick`, `handleSubmit`)
 - Use arrow functions for handlers defined inside components
 
@@ -66,15 +69,16 @@ type User = {
 // ✅ Good
 const handleClick = () => {
   // ...
-};
+}
 
 // ❌ Avoid
 const onClick = () => {
   // ...
-};
+}
 ```
 
 ## Component Composition
+
 - Prefer composition over prop drilling
 - Use children prop for flexible composition
 - Create compound components for related functionality
@@ -108,10 +112,30 @@ const Card = ({ title, content }: CardProps) => {
 ```
 
 ## State Management
+
 - Keep state as local as possible
 - Lift state up only when necessary
 - Use context for deeply nested props, not as global state
 - Prefer multiple specific contexts over one large context
+
+## Refs and State Naming
+
+- Avoid using "ready" in ref or state names (e.g., `isReady`, `mapReady`)
+- Prefer more descriptive terms like `isLoaded`, `isInitialized`, or `isMounted`
+- "Ready" is vague - be specific about what condition is being tracked
+
+```typescript
+// ✅ Good - specific and descriptive
+const [isLoaded, setIsLoaded] = useState(false)
+const [isInitialized, setIsInitialized] = useState(false)
+const [isMounted, setIsMounted] = useState(false)
+const mapRef = useRef<Map | null>(null)
+
+// ❌ Avoid - vague "ready" naming
+const [isReady, setIsReady] = useState(false)
+const [mapReady, setMapReady] = useState(false)
+const readyRef = useRef(false)
+```
 
 ```typescript
 // ✅ Good - local state
