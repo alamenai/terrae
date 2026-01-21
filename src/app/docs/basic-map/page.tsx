@@ -3,6 +3,7 @@ import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { BasicMapExample } from "../_components/examples/basic-map-example"
 import { GlobeMapExample } from "../_components/examples/globe-map-example"
+import { ProjectionSwitcherExample } from "../_components/examples/projection-switcher-example"
 import { InteractiveMapExample } from "../_components/examples/interactive-map-example"
 import { NavigationMapExample } from "../_components/examples/navigation-map-example"
 import { CustomLoaderExample } from "../_components/examples/custom-loader-example"
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 export default function BasicMapPage() {
   const basicMapSource = getExampleSource("basic-map-example.tsx")
   const globeMapSource = getExampleSource("globe-map-example.tsx")
+  const projectionSwitcherSource = getExampleSource("projection-switcher-example.tsx")
   const interactiveMapSource = getExampleSource("interactive-map-example.tsx")
   const navigationMapSource = getExampleSource("navigation-map-example.tsx")
   const customLoaderSource = getExampleSource("custom-loader-example.tsx")
@@ -36,15 +38,31 @@ export default function BasicMapPage() {
         <BasicMapExample />
       </ComponentPreview>
 
-      <DocsSection title="Globe Projection">
+      <DocsSection title="Projections">
         <p>
-          Use the <DocsCode>projection</DocsCode> prop to display a 3D globe view. Perfect for world maps and global
-          visualizations.
+          Use the <DocsCode>projection</DocsCode> prop to change how the map is displayed. Mapbox GL supports 8
+          projections including <DocsCode>globe</DocsCode> for 3D views, <DocsCode>mercator</DocsCode> (default),{" "}
+          <DocsCode>naturalEarth</DocsCode>, <DocsCode>equalEarth</DocsCode>, and more. See the{" "}
+          <DocsLink href="https://docs.mapbox.com/mapbox-gl-js/guides/projections/" external>
+            Mapbox Projections Guide
+          </DocsLink>{" "}
+          for details on each projection type.
         </p>
       </DocsSection>
 
       <ComponentPreview code={globeMapSource}>
         <GlobeMapExample />
+      </ComponentPreview>
+
+      <DocsSection title="Projection Switcher">
+        <p>
+          Try different projections to see how they affect the map display. Each projection has unique characteristics
+          suited for different use cases.
+        </p>
+      </DocsSection>
+
+      <ComponentPreview code={projectionSwitcherSource}>
+        <ProjectionSwitcherExample />
       </ComponentPreview>
 
       <DocsSection title="Interactive Example">
@@ -222,7 +240,10 @@ export default function BasicMapPage() {
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
                 <TableCell className="text-muted-foreground">"mercator"</TableCell>
-                <TableCell>Map projection type (globe, mercator, naturalEarth, equalEarth, winkelTripel)</TableCell>
+                <TableCell>
+                  Map projection type: mercator, globe, albers, equalEarth, equirectangular, lambertConformalConic,
+                  naturalEarth, winkelTripel
+                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>

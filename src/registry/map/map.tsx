@@ -180,6 +180,14 @@ export const Map = ({
     mapRef.current.setPitch(pitch)
   }, [pitch])
 
+  useEffect(() => {
+    if (!mapRef.current || !isLoaded || !projection) {
+      return
+    }
+
+    mapRef.current.setProjection(projection)
+  }, [projection])
+
   const contextValue: MapContextValue = {
     map: mapRef.current,
     isLoaded,
