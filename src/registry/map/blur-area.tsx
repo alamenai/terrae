@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useCallback } from "react"
+import { useEffect, useRef, useCallback, type CSSProperties } from "react"
 import { useMap } from "./hooks"
 import type { MapCoordinates } from "./types"
 
@@ -8,17 +8,36 @@ const DEFAULT_BLUR_AMOUNT = 8
 const DEFAULT_ROUNDED = 0
 const MIN_AREA_SIZE = 20
 
-type MapBlurAreaProps = {
+type BlurAreaConfig = {
   coordinates: MapCoordinates[]
+  blur?: number
+  backgroundColor?: string
+  rounded?: number | "full"
+}
+
+type MapBlurAreaProps = {
+  coordinates?: MapCoordinates[]
+  areas?: BlurAreaConfig[]
   blur?: number
   backgroundColor?: string
   rounded?: number | "full"
   blockInteraction?: boolean
 }
 
-const getBounds = (points: { x: number; y: number }[]) => {
-  const xs = points.map((p) => p.x)
-  const ys = points.map((p) => p.y)
+type Bounds = {
+  minX: number
+  maxX: number
+  minY: number
+  maxY: number
+}
+
+const getBounds = (points: { x: number; y: number }[]): Bounds => {
+  const xs = points.map((p) => {
+    return p.x
+  })
+  const ys = points.map((p) => {
+    return p.y
+  })
 
   return {
     minX: Math.min(...xs),
@@ -28,13 +47,15 @@ const getBounds = (points: { x: number; y: number }[]) => {
   }
 }
 
-export const MapBlurArea = ({
-  coordinates,
-  blur = DEFAULT_BLUR_AMOUNT,
-  backgroundColor,
-  rounded = DEFAULT_ROUNDED,
-  blockInteraction = false,
-}: MapBlurAreaProps) => {
+type BlurOverlayProps = {
+  coordinates: MapCoordinates[]
+  blur: number
+  backgroundColor?: string
+  rounded: number | "full"
+  blockInteraction: boolean
+}
+
+const BlurOverlay = ({ coordinates, blur, backgroundColor, rounded, blockInteraction }: BlurOverlayProps) => {
   const { map, isLoaded } = useMap()
   const overlayRef = useRef<HTMLDivElement | null>(null)
 
@@ -47,7 +68,9 @@ export const MapBlurArea = ({
     const canvasWidth = canvas.clientWidth
     const canvasHeight = canvas.clientHeight
 
-    const projectedPoints = coordinates.map((coord) => map.project(coord))
+    const projectedPoints = coordinates.map((coord) => {
+      return map.project(coord)
+    })
     const bounds = getBounds(projectedPoints)
 
     const width = bounds.maxX - bounds.minX
@@ -95,20 +118,59 @@ export const MapBlurArea = ({
 
   const borderRadius = rounded === "full" ? "9999px" : `${rounded}px`
 
+  const style: CSSProperties = {
+    position: "absolute",
+    backdropFilter: `blur(${blur}px)`,
+    WebkitBackdropFilter: `blur(${blur}px)`,
+    backgroundColor,
+    borderRadius,
+    pointerEvents: blockInteraction ? "auto" : "none",
+    cursor: blockInteraction ? "not-allowed" : "default",
+    transition: "opacity 0.2s ease-out",
+    zIndex: 10,
+  }
+
+  return <div ref={overlayRef} style={style} />
+}
+
+export const MapBlurArea = ({
+  coordinates,
+  areas,
+  blur = DEFAULT_BLUR_AMOUNT,
+  backgroundColor,
+  rounded = DEFAULT_ROUNDED,
+  blockInteraction = false,
+}: MapBlurAreaProps) => {
+  if (areas && areas.length > 0) {
+    return (
+      <>
+        {areas.map((area, index) => {
+          return (
+            <BlurOverlay
+              key={index}
+              coordinates={area.coordinates}
+              blur={area.blur ?? blur}
+              backgroundColor={area.backgroundColor ?? backgroundColor}
+              rounded={area.rounded ?? rounded}
+              blockInteraction={blockInteraction}
+            />
+          )
+        })}
+      </>
+    )
+  }
+
+  if (!coordinates || coordinates.length < 3) {
+    return null
+  }
+
   return (
-    <div
-      ref={overlayRef}
-      style={{
-        position: "absolute",
-        backdropFilter: `blur(${blur}px)`,
-        WebkitBackdropFilter: `blur(${blur}px)`,
-        backgroundColor,
-        borderRadius,
-        pointerEvents: blockInteraction ? "auto" : "none",
-        cursor: blockInteraction ? "not-allowed" : "default",
-        transition: "opacity 0.2s ease-out",
-        zIndex: 10,
-      }}
+    <BlurOverlay
+      coordinates={coordinates}
+      blur={blur}
+      backgroundColor={backgroundColor}
+      rounded={rounded}
+      blockInteraction={blockInteraction}
     />
   )
 }

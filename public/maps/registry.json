@@ -10,7 +10,8 @@
       "description": "Core Mapbox-powered map component with theme support.",
       "dependencies": [
         "mapbox-gl",
-        "next-themes"
+        "next-themes",
+        "lucide-react"
       ],
       "devDependencies": [
         "@types/mapbox-gl"

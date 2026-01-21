@@ -1,10 +1,11 @@
-import { DocsLayout, DocsSection, DocsCode, DocsPropTable } from "../_components/docs"
+import { DocsLayout, DocsSection, DocsCode, DocsPropTable, NewBadge } from "../_components/docs"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { BlurAreaExample } from "../_components/examples/blur-area-example"
 import { BlurAreaRoundedExample } from "../_components/examples/blur-area-rounded-example"
 import { BlurAreaBlockedExample } from "../_components/examples/blur-area-blocked-example"
 import { BlurAreaUnlockExample } from "../_components/examples/blur-area-unlock-example"
+import { BlurAreaMultiExample } from "../_components/examples/blur-area-multi-example"
 import { getExampleSource } from "@/lib/get-example-source"
 import { Metadata } from "next"
 
@@ -17,6 +18,7 @@ export default function BlurAreaPage() {
   const blurAreaRoundedSource = getExampleSource("blur-area-rounded-example.tsx")
   const blurAreaBlockedSource = getExampleSource("blur-area-blocked-example.tsx")
   const blurAreaUnlockSource = getExampleSource("blur-area-unlock-example.tsx")
+  const blurAreaMultiSource = getExampleSource("blur-area-multi-example.tsx")
 
   return (
     <DocsLayout
@@ -60,36 +62,54 @@ export default function BlurAreaPage() {
         <BlurAreaUnlockExample />
       </ComponentPreview>
 
+      <DocsSection title="Multiple Areas" badge={<NewBadge />}>
+        <p>
+          Use the <DocsCode>areas</DocsCode> prop to blur multiple regions with a single component. Each area can have
+          its own blur, background color, and border radius settings.
+        </p>
+      </DocsSection>
+
+      <ComponentPreview code={blurAreaMultiSource}>
+        <BlurAreaMultiExample />
+      </ComponentPreview>
+
       <DocsSection title="Properties">
         <DocsPropTable
           props={[
             {
               name: "coordinates",
               type: "[number, number][]",
-              description: "Array of [longitude, latitude] pairs defining the blur area bounds (minimum 3 points).",
+              description: "Array of [longitude, latitude] pairs defining a single blur area (minimum 3 points).",
+            },
+            {
+              name: "areas",
+              type: "BlurAreaConfig[]",
+              description:
+                "Array of blur area configurations for multiple regions. Each config has: coordinates, blur, backgroundColor, rounded.",
+              isNew: true,
             },
             {
               name: "blur",
               type: "number",
               default: "8",
-              description: "Blur intensity in pixels.",
+              description: "Default blur intensity in pixels (applies to single area or as fallback for areas).",
             },
             {
               name: "backgroundColor",
               type: "string",
-              description: "Optional tint color (use rgba for semi-transparent effects).",
+              description: "Default tint color (use rgba for semi-transparent effects).",
             },
             {
               name: "rounded",
               type: 'number | "full"',
               default: "0",
-              description: 'Border radius in pixels, or "full" for fully rounded corners.',
+              description: 'Default border radius in pixels, or "full" for fully rounded corners.',
             },
             {
               name: "blockInteraction",
               type: "boolean",
               default: "false",
-              description: "Prevent map interactions (pan, zoom, click) on the blur area.",
+              description: "Prevent map interactions (pan, zoom, click) on blur areas.",
             },
           ]}
         />

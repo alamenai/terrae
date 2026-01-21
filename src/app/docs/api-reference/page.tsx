@@ -687,37 +687,45 @@ export default function ApiReferencePage() {
       {/* MapBlurArea */}
       <DocsSection title="MapBlurArea" badge={<NewBadge />}>
         <p>
-          Renders a blur effect overlay on a specified area of the map. Must be used inside <DocsCode>Map</DocsCode>.
+          Renders blur effect overlays on specified areas of the map. Supports single or multiple areas. Must be used
+          inside <DocsCode>Map</DocsCode>.
         </p>
         <DocsPropTable
           props={[
             {
               name: "coordinates",
               type: "[number, number][]",
-              description: "Array of [longitude, latitude] coordinate pairs defining the blur area polygon.",
+              description: "Array of [longitude, latitude] coordinate pairs defining a single blur area.",
+            },
+            {
+              name: "areas",
+              type: "BlurAreaConfig[]",
+              description:
+                "Array of blur area configs for multiple regions. Each config: { coordinates, blur?, backgroundColor?, rounded? }.",
+              isNew: true,
             },
             {
               name: "blur",
               type: "number",
               default: "8",
-              description: "Blur intensity in pixels.",
+              description: "Default blur intensity in pixels.",
             },
             {
               name: "backgroundColor",
               type: "string",
-              description: 'Optional background color overlay (e.g., "rgba(0,0,0,0.3)").',
+              description: 'Default background color overlay (e.g., "rgba(0,0,0,0.3)").',
             },
             {
               name: "rounded",
               type: 'number | "full"',
               default: "0",
-              description: 'Border radius in pixels or "full" for circular.',
+              description: 'Default border radius in pixels or "full" for circular.',
             },
             {
               name: "blockInteraction",
               type: "boolean",
               default: "false",
-              description: "Prevent map interactions on the blur area.",
+              description: "Prevent map interactions on blur areas.",
             },
           ]}
         />
@@ -815,7 +823,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapCompare */}
-      <DocsSection title="MapCompare">
+      <DocsSection title="MapCompare" badge={<UpdatedBadge />}>
         <p>
           Displays two maps side-by-side for visual comparison. This component creates its own map instances and does
           not require a parent <DocsCode>Map</DocsCode> component.
@@ -830,12 +838,12 @@ export default function ApiReferencePage() {
             {
               name: "beforeStyle",
               type: "string",
-              description: "Map style for the before (left) map.",
+              description: "Map style for the before (left/top) map.",
             },
             {
               name: "afterStyle",
               type: "string",
-              description: "Map style for the after (right) map.",
+              description: "Map style for the after (right/bottom) map.",
             },
             {
               name: "center",
@@ -871,6 +879,20 @@ export default function ApiReferencePage() {
               type: "number",
               default: "50",
               description: "Initial split position as percentage (0-100).",
+            },
+            {
+              name: "orientation",
+              type: '"horizontal" | "vertical"',
+              default: '"horizontal"',
+              description: "Compare layout direction. Horizontal shows left/right, vertical shows top/bottom.",
+              isNew: true,
+            },
+            {
+              name: "showLabels",
+              type: "boolean",
+              default: "false",
+              description: "Show Before/After or Top/Bottom labels on each map panel.",
+              isNew: true,
             },
             {
               name: "loader",
