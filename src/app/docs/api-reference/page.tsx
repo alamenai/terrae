@@ -652,7 +652,13 @@ export default function ApiReferencePage() {
             {
               name: "style",
               type: "string",
-              description: "Custom map style URL for the minimap.",
+              description: "Custom map style URL for the minimap. Overrides theme-based styles.",
+            },
+            {
+              name: "styles",
+              type: "MapThemeStyles",
+              description: "Theme-aware styles object with light/dark variants. Automatically switches based on theme.",
+              isNew: true,
             },
             {
               name: "boxColor",

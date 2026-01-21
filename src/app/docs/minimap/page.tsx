@@ -107,7 +107,13 @@ export default function MiniMapPage() {
             {
               name: "style",
               type: "string",
-              description: "Custom Mapbox style URL (defaults to main map style).",
+              description: "Custom Mapbox style URL. Overrides theme-based styles.",
+            },
+            {
+              name: "styles",
+              type: "MapThemeStyles",
+              description: "Theme-aware styles object with light/dark variants. Automatically switches based on theme.",
+              isNew: true,
             },
             {
               name: "boxColor",

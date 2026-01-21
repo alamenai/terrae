@@ -1,9 +1,11 @@
 "use client"
 
 import { useEffect, useRef, useState, useCallback } from "react"
+import { useTheme } from "next-themes"
 import mapboxgl from "mapbox-gl"
 import { useMap } from "./hooks"
 import { cn } from "@/lib/utils"
+import { defaultMapStyles, type MapThemeStyles } from "./types"
 
 type MapMiniMapProps = {
   position?: "top-left" | "top-right" | "bottom-left" | "bottom-right"
@@ -11,6 +13,7 @@ type MapMiniMapProps = {
   height?: number
   zoomOffset?: number
   style?: string
+  styles?: MapThemeStyles
   boxColor?: string
   boxBorderWidth?: number
   rounded?: number | "full" | "none"
@@ -27,12 +30,14 @@ export function MapMiniMap({
   height = 150,
   zoomOffset = -4,
   style,
+  styles,
   boxColor = "#3b82f6",
   boxBorderWidth = 2,
   rounded = DEFAULT_BORDER_RADIUS,
   draggable = false,
 }: MapMiniMapProps) {
   const { map: mainMap, isLoaded } = useMap()
+  const { resolvedTheme } = useTheme()
   const containerRef = useRef<HTMLDivElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const miniMapRef = useRef<mapboxgl.Map | null>(null)
@@ -47,6 +52,43 @@ export function MapMiniMap({
     "top-right": "top-4 right-4",
     "bottom-left": "bottom-4 left-4",
     "bottom-right": "bottom-4 right-4",
+  }
+
+  const getMapStyle = () => {
+    if (style) {
+      return style
+    }
+    if (styles) {
+      const darkStyle = styles.dark ?? defaultMapStyles.dark
+      const lightStyle = styles.light ?? defaultMapStyles.light
+      return resolvedTheme === "dark" ? darkStyle : lightStyle
+    }
+    return resolvedTheme === "dark" ? defaultMapStyles.dark : defaultMapStyles.light
+  }
+
+  const addViewportBox = (miniMap: mapboxgl.Map) => {
+    miniMap.addSource("viewport-box", {
+      type: "geojson",
+      data: {
+        type: "Feature",
+        properties: {},
+        geometry: { type: "Polygon", coordinates: [[]] },
+      },
+    })
+
+    miniMap.addLayer({
+      id: "viewport-box-fill",
+      type: "fill",
+      source: "viewport-box",
+      paint: { "fill-color": boxColor, "fill-opacity": 0.1 },
+    })
+
+    miniMap.addLayer({
+      id: "viewport-box-outline",
+      type: "line",
+      source: "viewport-box",
+      paint: { "line-color": boxColor, "line-width": boxBorderWidth },
+    })
   }
 
   const handleMouseDown = useCallback(
@@ -112,7 +154,7 @@ export function MapMiniMap({
 
     const miniMap = new mapboxgl.Map({
       container: containerRef.current,
-      style: style || mainMap.getStyle(),
+      style: getMapStyle(),
       center: mainMap.getCenter(),
       zoom: Math.max(0, mainMap.getZoom() + zoomOffset),
       interactive: false,
@@ -121,29 +163,7 @@ export function MapMiniMap({
     })
 
     miniMap.on("load", () => {
-      miniMap.addSource("viewport-box", {
-        type: "geojson",
-        data: {
-          type: "Feature",
-          properties: {},
-          geometry: { type: "Polygon", coordinates: [[]] },
-        },
-      })
-
-      miniMap.addLayer({
-        id: "viewport-box-fill",
-        type: "fill",
-        source: "viewport-box",
-        paint: { "fill-color": boxColor, "fill-opacity": 0.1 },
-      })
-
-      miniMap.addLayer({
-        id: "viewport-box-outline",
-        type: "line",
-        source: "viewport-box",
-        paint: { "line-color": boxColor, "line-width": boxBorderWidth },
-      })
-
+      addViewportBox(miniMap)
       setMiniMapLoaded(true)
     })
 
@@ -155,6 +175,25 @@ export function MapMiniMap({
       setMiniMapLoaded(false)
     }
   }, [mainMap, isLoaded, style, zoomOffset, boxColor, boxBorderWidth])
+
+  useEffect(() => {
+    if (!miniMapRef.current || !miniMapLoaded || style) {
+      return
+    }
+
+    const miniMap = miniMapRef.current
+
+    const handleStyleLoad = () => {
+      addViewportBox(miniMap)
+    }
+
+    miniMap.once("style.load", handleStyleLoad)
+    miniMap.setStyle(getMapStyle())
+
+    return () => {
+      miniMap.off("style.load", handleStyleLoad)
+    }
+  }, [resolvedTheme, styles, miniMapLoaded, style])
 
   useEffect(() => {
     if (!mainMap || !miniMapRef.current || !miniMapLoaded) return
