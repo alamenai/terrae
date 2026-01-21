@@ -1,4 +1,4 @@
-import { DocsLayout, DocsSection, DocsCode } from "../_components/docs"
+import { DocsLayout, DocsSection, DocsCode, DocsLink } from "../_components/docs"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { BasicAnimatedRouteExample } from "../_components/examples/basic-animated-route-example"
@@ -46,10 +46,11 @@ const AnimatedLinesPage = () => {
         <BasicAnimatedRouteExample />
       </ComponentPreview>
 
-      <DocsSection title="Customization">
+      <DocsSection title="Animation Speed">
         <p>
-          Control the animation speed, colors, and behavior with various props. You can adjust the duration, enable
-          looping, and customize the appearance of both the route and the moving marker.
+          Adjust the <DocsCode>duration</DocsCode> prop to control how fast the line is drawn. Lower values create
+          faster animations, while higher values produce slower, more cinematic reveals. Enable{" "}
+          <DocsCode>loop</DocsCode> for continuous playback.
         </p>
       </DocsSection>
 
@@ -103,10 +104,15 @@ const AnimatedLinesPage = () => {
         <CheckpointsAnimatedRouteExample />
       </ComponentPreview>
 
-      <DocsSection title="Dynamic Routes with OSRM">
+      <DocsSection title="Real-World Routing">
         <p>
-          Fetch real cycling routes from OSRM (Open Source Routing Machine) and animate them. This example shows a bike
-          tour through Paris landmarks using the OSRM bike routing profile.
+          Integrate with{" "}
+          <DocsLink href="https://project-osrm.org/" external>
+            OSRM (Open Source Routing Machine)
+          </DocsLink>{" "}
+          to fetch actual road-based routes and animate them. This example demonstrates a Paris bike tour using OSRM's
+          cycling profile, which calculates realistic paths following bike lanes and roads rather than straight lines
+          between points.
         </p>
       </DocsSection>
 

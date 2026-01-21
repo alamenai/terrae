@@ -105,7 +105,7 @@ export default function BasicMapPage() {
         </div>
       </DocsSection>
 
-      <DocsSection title="Navigation Style">
+      <DocsSection title="Navigation Style" id="navigation-style">
         <p>
           The <DocsCode>navigationMapStyles</DocsCode> preset uses Mapbox's navigation-optimized styles. These feature
           higher contrast roads, clearer labels, and are designed for turn-by-turn navigation interfaces. The day
@@ -126,7 +126,7 @@ export default function BasicMapPage() {
         for the full list of available styles.
       </DocsNote>
 
-      <DocsSection title="Custom Loader" badge={<NewBadge />}>
+      <DocsSection title="Custom Loader" id="custom-loader" badge={<NewBadge />}>
         <p>
           Use the <DocsCode>loader</DocsCode> prop to display a custom loading component while the map initializes. This
           is useful for branding or providing a better loading experience. The <DocsCode>showLoader</DocsCode> prop

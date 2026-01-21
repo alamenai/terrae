@@ -49,18 +49,17 @@ const CheckpointMarker = ({ coordinates, isChecked }: CheckpointMarkerProps) => 
   const icon = isChecked ? (
     <Check className="size-4 text-white" strokeWidth={3} />
   ) : (
-    <Circle className="size-3 text-gray-400" />
+    <Circle className="size-3 text-muted-foreground" />
   )
+
+  const markerClass = isChecked
+    ? "flex size-8 items-center justify-center rounded-full border-2 border-white bg-emerald-500 shadow-md transition-all duration-300"
+    : "flex size-8 items-center justify-center rounded-full border-2 border-border bg-muted shadow-md transition-all duration-300"
 
   return (
     <MapMarker coordinates={coordinates}>
       <MarkerContent>
-        <div
-          className="flex size-8 items-center justify-center rounded-full border-2 border-white shadow-md transition-all duration-300"
-          style={{ backgroundColor: isChecked ? "#10b981" : "#e5e7eb" }}
-        >
-          {icon}
-        </div>
+        <div className={markerClass}>{icon}</div>
       </MarkerContent>
     </MapMarker>
   )
@@ -124,7 +123,7 @@ export const CheckpointsAnimatedRouteExample = () => {
       width={4}
       duration={ANIMATION_DURATION}
       showMarker
-      markerIcon={<Drone className="size-6 text-gray-700" />}
+      markerIcon={<Drone className="size-6 text-foreground" />}
       markerColor="transparent"
       markerBorderless
       onComplete={handleAnimationComplete}
