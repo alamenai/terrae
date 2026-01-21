@@ -111,19 +111,65 @@ export default function ApiReferencePage() {
               description: "Initial zoom level.",
             },
             {
+              name: "bearing",
+              type: "number",
+              default: "0",
+              description: "Map bearing (rotation) in degrees.",
+            },
+            {
+              name: "pitch",
+              type: "number",
+              default: "0",
+              description: "Map pitch (tilt) in degrees.",
+            },
+            {
+              name: "projection",
+              type: "string",
+              default: '"mercator"',
+              description:
+                "Map projection: mercator, globe, albers, equalEarth, equirectangular, lambertConformalConic, naturalEarth, winkelTripel.",
+            },
+            {
               name: "style",
               type: "string",
               description: "Map style URL (e.g., 'mapbox://styles/mapbox/streets-v12'). Overrides theme-based styles.",
             },
             {
               name: "styles",
-              type: "{ light?: string | StyleSpecification; dark?: string | StyleSpecification }",
-              description: "Custom map styles for light and dark themes. Automatically switches based on theme.",
+              type: "MapThemeStyles",
+              default: "defaultMapStyles",
+              description:
+                "Theme-aware styles object. Use presets: defaultMapStyles, standardMapStyles, streetsMapStyles, outdoorsMapStyles, satelliteMapStyles, navigationMapStyles.",
+              isNew: true,
+            },
+            {
+              name: "minZoom",
+              type: "number",
+              default: "0",
+              description: "Minimum zoom level constraint.",
+            },
+            {
+              name: "maxZoom",
+              type: "number",
+              default: "22",
+              description: "Maximum zoom level constraint.",
+            },
+            {
+              name: "maxBounds",
+              type: "[[number, number], [number, number]]",
+              description: "Restrict map panning to a geographic area [southwest, northeast].",
             },
             {
               name: "loader",
               type: "ReactNode",
               description: "Custom loading component shown while map initializes.",
+            },
+            {
+              name: "showLoader",
+              type: "boolean",
+              description:
+                "Controls loader visibility. When true, forces loader. When false, hides. When undefined, uses internal loading state.",
+              isNew: true,
             },
           ]}
         />

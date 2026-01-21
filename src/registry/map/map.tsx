@@ -91,8 +91,23 @@ export const Map = ({
     })
   }
 
+  const isStandardStyle = (styleUrl: string) => {
+    return styleUrl.includes("mapbox://styles/mapbox/standard")
+  }
+
+  const updateStandardLightPreset = (mapInstance: mapboxgl.Map) => {
+    const currentStyle = getMapStyle()
+    if (isStandardStyle(currentStyle)) {
+      const lightPreset = resolvedTheme === "dark" ? "night" : "day"
+      mapInstance.setConfigProperty("basemap", "lightPreset", lightPreset)
+    }
+  }
+
   const handleMapLoad = () => {
     setIsLoaded(true)
+    if (mapRef.current) {
+      updateStandardLightPreset(mapRef.current)
+    }
   }
 
   const handleMapError = (e: mapboxgl.ErrorEvent) => {
@@ -145,7 +160,12 @@ export const Map = ({
       return
     }
 
-    mapRef.current.setStyle(getMapStyle())
+    const currentStyle = getMapStyle()
+    if (isStandardStyle(currentStyle)) {
+      updateStandardLightPreset(mapRef.current)
+    } else {
+      mapRef.current.setStyle(currentStyle)
+    }
   }, [style, styles, resolvedTheme])
 
   useEffect(() => {

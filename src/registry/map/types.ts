@@ -27,6 +27,26 @@ export const defaultMapStyles: Required<MapThemeStyles> = {
   dark: "mapbox://styles/mapbox/dark-v11",
 }
 
+export const standardMapStyles: Required<MapThemeStyles> = {
+  light: "mapbox://styles/mapbox/standard",
+  dark: "mapbox://styles/mapbox/standard",
+}
+
+export const streetsMapStyles: Required<MapThemeStyles> = {
+  light: "mapbox://styles/mapbox/streets-v12",
+  dark: "mapbox://styles/mapbox/dark-v11",
+}
+
+export const outdoorsMapStyles: Required<MapThemeStyles> = {
+  light: "mapbox://styles/mapbox/outdoors-v12",
+  dark: "mapbox://styles/mapbox/dark-v11",
+}
+
+export const satelliteMapStyles: Required<MapThemeStyles> = {
+  light: "mapbox://styles/mapbox/satellite-streets-v12",
+  dark: "mapbox://styles/mapbox/satellite-streets-v12",
+}
+
 export const navigationMapStyles: Required<MapThemeStyles> = {
   light: "mapbox://styles/mapbox/navigation-day-v1",
   dark: "mapbox://styles/mapbox/navigation-night-v1",

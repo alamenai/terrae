@@ -4,6 +4,8 @@ import { CodeBlock } from "../_components/code-block"
 import { BasicMapExample } from "../_components/examples/basic-map-example"
 import { GlobeMapExample } from "../_components/examples/globe-map-example"
 import { ProjectionSwitcherExample } from "../_components/examples/projection-switcher-example"
+import { StandardMapExample } from "../_components/examples/standard-map-example"
+import { StyleSwitcherExample } from "../_components/examples/style-switcher-example"
 import { InteractiveMapExample } from "../_components/examples/interactive-map-example"
 import { NavigationMapExample } from "../_components/examples/navigation-map-example"
 import { CustomLoaderExample } from "../_components/examples/custom-loader-example"
@@ -19,6 +21,8 @@ export default function BasicMapPage() {
   const basicMapSource = getExampleSource("basic-map-example.tsx")
   const globeMapSource = getExampleSource("globe-map-example.tsx")
   const projectionSwitcherSource = getExampleSource("projection-switcher-example.tsx")
+  const standardMapSource = getExampleSource("standard-map-example.tsx")
+  const styleSwitcherSource = getExampleSource("style-switcher-example.tsx")
   const interactiveMapSource = getExampleSource("interactive-map-example.tsx")
   const navigationMapSource = getExampleSource("navigation-map-example.tsx")
   const customLoaderSource = getExampleSource("custom-loader-example.tsx")
@@ -112,16 +116,70 @@ export default function BasicMapPage() {
               </TableRow>
               <TableRow>
                 <TableCell>
+                  <DocsCode>standardMapStyles</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">standard</TableCell>
+                <TableCell className="text-muted-foreground">standard</TableCell>
+                <TableCell>Modern 3D style with buildings and landmarks</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>streetsMapStyles</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">streets-v12</TableCell>
+                <TableCell className="text-muted-foreground">dark-v11</TableCell>
+                <TableCell>Detailed street maps with roads, transit, and POIs</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>outdoorsMapStyles</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">outdoors-v12</TableCell>
+                <TableCell className="text-muted-foreground">dark-v11</TableCell>
+                <TableCell>Topographic lines, trails, and natural features</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>satelliteMapStyles</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">satellite-streets-v12</TableCell>
+                <TableCell className="text-muted-foreground">satellite-streets-v12</TableCell>
+                <TableCell>Satellite imagery with street overlays</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
                   <DocsCode>navigationMapStyles</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">navigation-day-v1</TableCell>
                 <TableCell className="text-muted-foreground">navigation-night-v1</TableCell>
-                <TableCell>Optimized for navigation with enhanced roads and landmarks</TableCell>
+                <TableCell>Optimized for navigation with enhanced roads</TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </div>
       </DocsSection>
+
+      <DocsSection title="Standard Style" id="standard-style">
+        <p>
+          The <DocsCode>standardMapStyles</DocsCode> preset uses Mapbox Standard, a modern style featuring 3D buildings,
+          dynamic lighting, and rich landmarks. Automatically switches to night mode in dark theme.
+        </p>
+      </DocsSection>
+
+      <ComponentPreview code={standardMapSource}>
+        <StandardMapExample />
+      </ComponentPreview>
+
+      <DocsSection title="Style Switcher">
+        <p>
+          Try different style presets to see how they affect the map display. Toggle your theme to see how each preset
+          adapts.
+        </p>
+      </DocsSection>
+
+      <ComponentPreview code={styleSwitcherSource}>
+        <StyleSwitcherExample />
+      </ComponentPreview>
 
       <DocsSection title="Navigation Style" id="navigation-style">
         <p>
@@ -136,12 +194,12 @@ export default function BasicMapPage() {
       </ComponentPreview>
 
       <DocsNote>
-        <strong>More styles coming soon!</strong> Additional built-in style presets including satellite, streets, and
-        outdoors are planned. See the{" "}
+        <strong>Custom styles supported!</strong> You can use any Mapbox style by passing a custom{" "}
+        <DocsCode>styles</DocsCode> object or a single <DocsCode>style</DocsCode> URL. See the{" "}
         <DocsLink href="https://docs.mapbox.com/api/maps/styles/" external>
           Mapbox Styles API
         </DocsLink>{" "}
-        for the full list of available styles.
+        for all available styles.
       </DocsNote>
 
       <DocsSection title="Custom Loader" id="custom-loader" badge={<NewBadge />}>
