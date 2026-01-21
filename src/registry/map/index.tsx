@@ -15,6 +15,7 @@ export { MapPopup } from "./popup"
 export { MapRain, createZoomInterpolation } from "./rain"
 export { MapMiniMap } from "./mini-map"
 export { MapImage } from "./image"
+export { MapBlurArea } from "./blur-area"
 export { useMap } from "./hooks"
 export { defaultMapStyles, navigationMapStyles, type MapCompareOrientation } from "./types"
 

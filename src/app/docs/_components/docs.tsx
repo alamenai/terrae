@@ -136,25 +136,30 @@ export type BadgeVariant = "new" | "updated"
 
 type DocsBadgeProps = {
   variant?: BadgeVariant
+  size?: "sm" | "default"
 }
 
-export const DocsBadge = ({ variant = "new" }: DocsBadgeProps) => {
+export const DocsBadge = ({ variant = "new", size = "default" }: DocsBadgeProps) => {
   const label = variant === "new" ? "New" : "Updated"
 
+  const sizeClasses = size === "sm" ? "px-1.5 py-px text-[8px]" : "px-2 py-0.5 text-[10px]"
+
   return (
-    <span className="relative inline-flex items-center justify-center px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded-full overflow-hidden">
-      <span className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient-x" />
+    <span
+      className={`relative inline-flex items-center justify-center ${sizeClasses} font-semibold uppercase tracking-wider rounded-full overflow-hidden`}
+    >
+      <span className="absolute inset-0 bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient-x" />
       <span className="relative text-white">{label}</span>
     </span>
   )
 }
 
-export const NewBadge = () => {
-  return <DocsBadge variant="new" />
+export const NewBadge = ({ size = "default" }: { size?: "sm" | "default" }) => {
+  return <DocsBadge variant="new" size={size} />
 }
 
-export const UpdatedBadge = () => {
-  return <DocsBadge variant="updated" />
+export const UpdatedBadge = ({ size = "default" }: { size?: "sm" | "default" }) => {
+  return <DocsBadge variant="updated" size={size} />
 }
 
 // DocsPropTable - API reference table for component props
@@ -164,6 +169,7 @@ interface DocsPropTableProps {
     type: string
     default?: string
     description: string
+    isNew?: boolean
   }[]
 }
 
@@ -185,7 +191,10 @@ export function DocsPropTable({ props }: DocsPropTableProps) {
           {props.map((prop) => (
             <TableRow key={prop.name}>
               <TableCell className="px-2 sm:px-4 py-2 sm:py-3.5 font-mono text-primary align-top text-xs sm:text-sm">
-                <DocsCode className="text-[11px] sm:text-[13px]">{prop.name}</DocsCode>
+                <span className="flex items-center gap-1.5">
+                  <DocsCode className="text-[11px] sm:text-[13px]">{prop.name}</DocsCode>
+                  {prop.isNew && <NewBadge />}
+                </span>
               </TableCell>
               <TableCell className="px-2 sm:px-4 py-2 sm:py-3.5 font-mono text-muted-foreground align-top overflow-hidden whitespace-normal text-xs sm:text-sm">
                 <DocsCode className="text-[10px] sm:text-xs">{prop.type}</DocsCode>

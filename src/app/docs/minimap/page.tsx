@@ -1,26 +1,31 @@
-import { DocsLayout, DocsSection, DocsCode } from "../_components/docs";
-import { ComponentPreview } from "../_components/component-preview";
-import { CodeBlock } from "../_components/code-block";
-import { MiniMapExample } from "../_components/examples/minimap-example";
-import { MiniMapPositionExample } from "../_components/examples/minimap-position-example";
-import { MiniMapCustomExample } from "../_components/examples/minimap-custom-example";
-import { getExampleSource } from "@/lib/get-example-source";
-import { Metadata } from "next";
+import { DocsLayout, DocsSection, DocsCode, NewBadge } from "../_components/docs"
+import { ComponentPreview } from "../_components/component-preview"
+import { CodeBlock } from "../_components/code-block"
+import { MiniMapExample } from "../_components/examples/minimap-example"
+import { MiniMapPositionExample } from "../_components/examples/minimap-position-example"
+import { MiniMapRoundedExample } from "../_components/examples/minimap-rounded-example"
+import { MiniMapDraggableExample } from "../_components/examples/minimap-draggable-example"
+import { MiniMapCustomExample } from "../_components/examples/minimap-custom-example"
+import { getExampleSource } from "@/lib/get-example-source"
+import { Metadata } from "next"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export const metadata: Metadata = {
   title: "MiniMap",
-};
+}
 
 export default function MiniMapPage() {
-  const miniMapSource = getExampleSource("minimap-example.tsx");
-  const positionSource = getExampleSource("minimap-position-example.tsx");
-  const customSource = getExampleSource("minimap-custom-example.tsx");
+  const miniMapSource = getExampleSource("minimap-example.tsx")
+  const positionSource = getExampleSource("minimap-position-example.tsx")
+  const roundedSource = getExampleSource("minimap-rounded-example.tsx")
+  const draggableSource = getExampleSource("minimap-draggable-example.tsx")
+  const customSource = getExampleSource("minimap-custom-example.tsx")
 
   return (
     <DocsLayout
       title="MiniMap"
       description="Add a minimap overview to help users understand their location context."
-      prev={{ title: "Popup", href: "/docs/popups" }}
+      prev={{ title: "Blur Area", href: "/docs/blur-area" }}
       next={{ title: "Lines", href: "/docs/lines" }}
     >
       <DocsSection title="Installation">
@@ -30,21 +35,13 @@ export default function MiniMapPage() {
         <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/mini-map.json`} language="bash" />
       </DocsSection>
 
-      <DocsSection title="Basic Example">
-        <p>
-          Add a minimap to your map to show the current viewport location in a
-          wider geographical context.
-        </p>
-      </DocsSection>
-
       <ComponentPreview code={miniMapSource} className="h-125">
         <MiniMapExample />
       </ComponentPreview>
 
       <DocsSection title="Custom Position">
         <p>
-          Position the minimap in any corner of the map using the{" "}
-          <DocsCode>position</DocsCode> prop.
+          Position the minimap in any corner of the map using the <DocsCode>position</DocsCode> prop.
         </p>
       </DocsSection>
 
@@ -52,81 +49,125 @@ export default function MiniMapPage() {
         <MiniMapPositionExample />
       </ComponentPreview>
 
-      <DocsSection title="Custom Styling">
+      <DocsSection title="Rounded" id="rounded" badge={<NewBadge />}>
         <p>
-          Customize the minimap size, zoom offset, and viewport box appearance
-          to match your design.
+          Use the <DocsCode>rounded</DocsCode> prop to customize the border radius. Set to "full" for a circular
+          minimap.
         </p>
+      </DocsSection>
+
+      <ComponentPreview code={roundedSource} className="h-125">
+        <MiniMapRoundedExample />
+      </ComponentPreview>
+
+      <DocsSection title="Draggable" id="draggable" badge={<NewBadge />}>
+        <p>
+          Enable the <DocsCode>draggable</DocsCode> prop to let users move the minimap anywhere within the map.
+        </p>
+      </DocsSection>
+
+      <ComponentPreview code={draggableSource} className="h-125">
+        <MiniMapDraggableExample />
+      </ComponentPreview>
+
+      <DocsSection title="Custom Styling">
+        <p>Customize the minimap size, zoom offset, and viewport box appearance to match your design.</p>
       </DocsSection>
 
       <ComponentPreview code={customSource} className="h-125">
         <MiniMapCustomExample />
       </ComponentPreview>
 
-      <DocsSection title="Props">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b">
-                <th className="text-left py-2 px-3">Prop</th>
-                <th className="text-left py-2 px-3">Type</th>
-                <th className="text-left py-2 px-3">Default</th>
-                <th className="text-left py-2 px-3">Description</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              <tr>
-                <td className="py-2 px-3 font-mono text-xs">position</td>
-                <td className="py-2 px-3 font-mono text-xs">
+      <DocsSection title="Properties">
+        <div className="rounded-md border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Property</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Default</TableHead>
+                <TableHead>Description</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>position</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">
                   "top-left" | "top-right" | "bottom-left" | "bottom-right"
-                </td>
-                <td className="py-2 px-3 font-mono text-xs">"bottom-right"</td>
-                <td className="py-2 px-3">Corner position of the minimap</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 font-mono text-xs">width</td>
-                <td className="py-2 px-3 font-mono text-xs">number</td>
-                <td className="py-2 px-3 font-mono text-xs">200</td>
-                <td className="py-2 px-3">Width in pixels</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 font-mono text-xs">height</td>
-                <td className="py-2 px-3 font-mono text-xs">number</td>
-                <td className="py-2 px-3 font-mono text-xs">150</td>
-                <td className="py-2 px-3">Height in pixels</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 font-mono text-xs">zoomOffset</td>
-                <td className="py-2 px-3 font-mono text-xs">number</td>
-                <td className="py-2 px-3 font-mono text-xs">-4</td>
-                <td className="py-2 px-3">
-                  Zoom offset from main map (negative = zoomed out)
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 font-mono text-xs">style</td>
-                <td className="py-2 px-3 font-mono text-xs">string</td>
-                <td className="py-2 px-3 font-mono text-xs">-</td>
-                <td className="py-2 px-3">
-                  Custom Mapbox style URL (defaults to main map style)
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 font-mono text-xs">boxColor</td>
-                <td className="py-2 px-3 font-mono text-xs">string</td>
-                <td className="py-2 px-3 font-mono text-xs">"#3b82f6"</td>
-                <td className="py-2 px-3">Color of the viewport box</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-3 font-mono text-xs">boxBorderWidth</td>
-                <td className="py-2 px-3 font-mono text-xs">number</td>
-                <td className="py-2 px-3 font-mono text-xs">2</td>
-                <td className="py-2 px-3">Border width of the viewport box</td>
-              </tr>
-            </tbody>
-          </table>
+                </TableCell>
+                <TableCell className="text-muted-foreground">"bottom-right"</TableCell>
+                <TableCell>Corner position of the minimap</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>width</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">number</TableCell>
+                <TableCell className="text-muted-foreground">200</TableCell>
+                <TableCell>Width in pixels</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>height</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">number</TableCell>
+                <TableCell className="text-muted-foreground">150</TableCell>
+                <TableCell>Height in pixels</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>zoomOffset</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">number</TableCell>
+                <TableCell className="text-muted-foreground">-4</TableCell>
+                <TableCell>Zoom offset from main map (negative = zoomed out)</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>style</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">string</TableCell>
+                <TableCell className="text-muted-foreground">-</TableCell>
+                <TableCell>Custom Mapbox style URL (defaults to main map style)</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>boxColor</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">string</TableCell>
+                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell>Color of the viewport box</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>boxBorderWidth</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">number</TableCell>
+                <TableCell className="text-muted-foreground">2</TableCell>
+                <TableCell>Border width of the viewport box</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>rounded</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">number | "full" | "none"</TableCell>
+                <TableCell className="text-muted-foreground">8</TableCell>
+                <TableCell>Border radius in pixels, "full" for circular, or "none"</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>draggable</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">boolean</TableCell>
+                <TableCell className="text-muted-foreground">false</TableCell>
+                <TableCell>Allow users to drag the minimap anywhere within the map</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
       </DocsSection>
     </DocsLayout>
-  );
+  )
 }

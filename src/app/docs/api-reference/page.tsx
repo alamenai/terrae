@@ -1,4 +1,13 @@
-import { DocsLayout, DocsSection, DocsCode, DocsLink, DocsNote, DocsPropTable } from "../_components/docs"
+import {
+  DocsLayout,
+  DocsSection,
+  DocsCode,
+  DocsLink,
+  DocsNote,
+  DocsPropTable,
+  NewBadge,
+  UpdatedBadge,
+} from "../_components/docs"
 import { CodeBlock } from "../_components/code-block"
 import { Metadata } from "next"
 
@@ -35,6 +44,7 @@ const anatomyCode = `<Map>
   <MapAnimatedPulse id="pulse" size={100} coordinates={[lng, lat]} />
   <MapImage id="overlay" url="..." coordinates={[...]} />
   <MapRasterVideo id="video" urls={[...]} coordinates={[...]} />
+  <MapBlurArea coordinates={[[lng, lat], ...]} />
   <MapRain />
 </Map>`
 
@@ -562,7 +572,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapMiniMap */}
-      <DocsSection title="MapMiniMap">
+      <DocsSection title="MapMiniMap" badge={<UpdatedBadge />}>
         <p>
           Displays an overview minimap showing the current viewport context. Must be used inside{" "}
           <DocsCode>Map</DocsCode>.
@@ -609,6 +619,59 @@ export default function ApiReferencePage() {
               type: "number",
               default: "2",
               description: "Width of the viewport box border.",
+            },
+            {
+              name: "rounded",
+              type: 'number | "full" | "none"',
+              default: "8",
+              description: 'Border radius in pixels, "full" for circular, or "none".',
+              isNew: true,
+            },
+            {
+              name: "draggable",
+              type: "boolean",
+              default: "false",
+              description: "Allow users to drag the minimap anywhere within the map.",
+              isNew: true,
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapBlurArea */}
+      <DocsSection title="MapBlurArea" badge={<NewBadge />}>
+        <p>
+          Renders a blur effect overlay on a specified area of the map. Must be used inside <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "coordinates",
+              type: "[number, number][]",
+              description: "Array of [longitude, latitude] coordinate pairs defining the blur area polygon.",
+            },
+            {
+              name: "blur",
+              type: "number",
+              default: "8",
+              description: "Blur intensity in pixels.",
+            },
+            {
+              name: "backgroundColor",
+              type: "string",
+              description: 'Optional background color overlay (e.g., "rgba(0,0,0,0.3)").',
+            },
+            {
+              name: "rounded",
+              type: 'number | "full"',
+              default: "0",
+              description: 'Border radius in pixels or "full" for circular.',
+            },
+            {
+              name: "blockInteraction",
+              type: "boolean",
+              default: "false",
+              description: "Prevent map interactions on the blur area.",
             },
           ]}
         />

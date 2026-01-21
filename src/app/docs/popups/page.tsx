@@ -1,25 +1,25 @@
-import { DocsLayout, DocsSection, DocsCode } from "../_components/docs";
-import { ComponentPreview } from "../_components/component-preview";
-import { CodeBlock } from "../_components/code-block";
-import { StandalonePopupExample } from "../_components/examples/standalone-popup-example";
-import { getExampleSource } from "@/lib/get-example-source";
-import { Metadata } from "next";
+import { DocsLayout, DocsSection, DocsCode } from "../_components/docs"
+import { ComponentPreview } from "../_components/component-preview"
+import { CodeBlock } from "../_components/code-block"
+import { StandalonePopupExample } from "../_components/examples/standalone-popup-example"
+import { getExampleSource } from "@/lib/get-example-source"
+import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Popup",
-};
+}
 
-export const revalidate = 60;
+export const revalidate = 60
 
 export default function PopupsPage() {
-  const popupSource = getExampleSource("standalone-popup-example.tsx");
+  const popupSource = getExampleSource("standalone-popup-example.tsx")
 
   return (
     <DocsLayout
       title="Popup"
       description="Display popups anywhere on the map without markers."
       prev={{ title: "Marker", href: "/docs/markers" }}
-      next={{ title: "MiniMap", href: "/docs/minimap" }}
+      next={{ title: "Blur Area", href: "/docs/blur-area" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
@@ -32,5 +32,5 @@ export default function PopupsPage() {
         <StandalonePopupExample />
       </ComponentPreview>
     </DocsLayout>
-  );
+  )
 }

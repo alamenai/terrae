@@ -331,6 +331,28 @@
           "target": "components/ui/map/map-compare.tsx"
         }
       ]
+    },
+    {
+      "name": "map-blur-area",
+      "type": "registry:ui",
+      "title": "Map Blur Area",
+      "description": "Blur effect overlay for map areas.",
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/map/blur-area.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/blur-area.tsx"
+        }
+      ]
     }
   ]
 }

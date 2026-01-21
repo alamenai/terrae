@@ -25,6 +25,7 @@ import {
   BookMarked,
   Map as MapIcon,
   Anchor,
+  EyeOff,
   type LucideIcon,
 } from "lucide-react"
 
@@ -88,7 +89,8 @@ const navigation: NavGroup[] = [
   {
     title: "Features",
     items: [
-      { title: "MiniMap", href: "/docs/minimap", icon: MapIcon },
+      { title: "Blur Area", href: "/docs/blur-area", icon: EyeOff, badge: "new" },
+      { title: "MiniMap", href: "/docs/minimap", icon: MapIcon, badge: "updated" },
       { title: "Lines", href: "/docs/lines", icon: Route },
       { title: "Animated Lines", href: "/docs/lines-animated", icon: Play },
       { title: "Animated Markers", href: "/docs/markers-animated", icon: Play },

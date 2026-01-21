@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { Globe } from "lucide-react";
+import Link from "next/link"
+import { Globe } from "lucide-react"
 
-import { Separator } from "@/components/ui/separator";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator"
+import { ThemeToggle } from "@/components/theme-toggle"
+import { cn } from "@/lib/utils"
 
 interface HeaderProps {
-  className?: string;
-  leftContent?: React.ReactNode;
-  actions?: React.ReactNode;
+  className?: string
+  leftContent?: React.ReactNode
+  actions?: React.ReactNode
 }
 
 export function Header({ className, leftContent, actions }: HeaderProps) {
@@ -18,11 +18,11 @@ export function Header({ className, leftContent, actions }: HeaderProps) {
     { href: "/docs/story", label: "Story" },
     { href: "/docs", label: "Docs" },
     { href: "/docs/comparison", label: "Comparison" },
-    { href: "/docs/components", label: "Components" },
+    { href: "/docs/components", label: "Components", pulse: true },
     { href: "/docs/examples", label: "Examples" },
     { href: "/docs/ideas", label: "Ideas" },
     { href: "/docs/weeklog", label: "Weeklog" },
-  ];
+  ]
 
   return (
     <header className={cn("w-full px-2 sm:px-6 py-3 sm:py-4", className)}>
@@ -43,13 +43,21 @@ export function Header({ className, leftContent, actions }: HeaderProps) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap ${
-                    item.label === "Weeklog" ? "bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-semibold" : ""
+                  className={`relative text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap ${
+                    item.label === "Weeklog"
+                      ? "bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-semibold"
+                      : ""
                   }`}
                 >
                   {item.label}
+                  {item.pulse && (
+                    <span className="absolute -top-1 -right-2 flex size-1.5">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
+                      <span className="relative inline-flex size-1.5 rounded-full bg-purple-500" />
+                    </span>
+                  )}
                 </Link>
-              );
+              )
             })}
           </div>
         </div>
@@ -60,5 +68,5 @@ export function Header({ className, leftContent, actions }: HeaderProps) {
         </div>
       </nav>
     </header>
-  );
+  )
 }
