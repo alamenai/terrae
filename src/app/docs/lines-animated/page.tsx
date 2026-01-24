@@ -30,7 +30,7 @@ const AnimatedLinesPage = () => {
       title="Animated Lines"
       description="Animate line paths being drawn on the map with smooth transitions."
       prev={{ title: "Lines", href: "/docs/lines" }}
-      next={{ title: "Animated Markers", href: "/docs/markers-animated" }}
+      next={{ title: "Animated Radial Lines", href: "/docs/lines-radial" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
