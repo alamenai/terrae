@@ -1,6 +1,7 @@
 # React Props Guidelines
 
 ## Props Type Extraction
+
 - Extract complex prop types into their own named types
 - Don't use inline object types or complex structures directly in props
 - Create separate types for nested objects, arrays of objects, or function signatures
@@ -9,38 +10,39 @@
 ```typescript
 // ✅ Good - extracted complex types
 type User = {
-  id: string;
-  name: string;
-  email: string;
-};
+  id: string
+  name: string
+  email: string
+}
 
 type FilterOptions = {
-  status: "active" | "inactive";
-  role: "admin" | "user";
-};
+  status: "active" | "inactive"
+  role: "admin" | "user"
+}
 
 type UserListProps = {
-  users: User[];
-  onUserSelect: (user: User) => void;
-  filters?: FilterOptions;
-};
+  users: User[]
+  onUserSelect: (user: User) => void
+  filters?: FilterOptions
+}
 
 // ❌ Avoid - inline complex types
 type UserListProps = {
   users: Array<{
-    id: string;
-    name: string;
-    email: string;
-  }>;
-  onUserSelect: (user: { id: string; name: string; email: string }) => void;
+    id: string
+    name: string
+    email: string
+  }>
+  onUserSelect: (user: { id: string; name: string; email: string }) => void
   filters?: {
-    status: "active" | "inactive";
-    role: "admin" | "user";
-  };
-};
+    status: "active" | "inactive"
+    role: "admin" | "user"
+  }
+}
 ```
 
 ## Props Documentation
+
 - Avoid commenting props - use clear, self-documenting prop names instead
 - Only add `//` comments above props when absolutely necessary for clarification
 - Don't comment obvious props or repeat what the type already says
@@ -49,35 +51,36 @@ type UserListProps = {
 ```typescript
 // ✅ Good - clear names, minimal comments
 type MapProps = {
-  accessToken: string;
-  children?: ReactNode;
+  accessToken: string
+  children?: ReactNode
   // Overrides theme-based styles when set
-  style?: string;
-  styles?: MapThemeStyles;
-  center?: MapCoordinates;
-  zoom?: number;
-};
+  style?: string
+  styles?: MapThemeStyles
+  center?: MapCoordinates
+  zoom?: number
+}
 
 // ❌ Avoid - commenting every prop
 type MapProps = {
   // Mapbox access token
-  accessToken: string;
+  accessToken: string
   // React children
-  children?: ReactNode;
+  children?: ReactNode
   // Map style
-  style?: string;
-};
+  style?: string
+}
 
 // ❌ Avoid - redundant comments
 type ButtonProps = {
   // Handles click events
-  onClick: () => void;
+  onClick: () => void
   // Button variant
-  variant?: "primary" | "secondary";
-};
+  variant?: "primary" | "secondary"
+}
 ```
 
 ## Props Ordering
+
 - Define required props before optional props in type definitions
 - Group related props together within required/optional sections
 
@@ -85,23 +88,24 @@ type ButtonProps = {
 // ✅ Good - required props first
 type ButtonProps = {
   // Required
-  onClick: () => void;
-  children: ReactNode;
+  onClick: () => void
+  children: ReactNode
   // Optional
-  variant?: "primary" | "secondary";
-  disabled?: boolean;
-};
+  variant?: "primary" | "secondary"
+  disabled?: boolean
+}
 
 // ❌ Avoid - mixed required and optional
 type ButtonProps = {
-  variant?: "primary" | "secondary";
-  onClick: () => void;
-  disabled?: boolean;
-  children: ReactNode;
-};
+  variant?: "primary" | "secondary"
+  onClick: () => void
+  disabled?: boolean
+  children: ReactNode
+}
 ```
 
 ## Props Destructuring
+
 - Destructure props in the function signature for simple components
 - Use explicit destructuring for components with many props
 
@@ -109,45 +113,42 @@ type ButtonProps = {
 // ✅ Good - destructure in signature
 const Button = ({ onClick, children, variant = "primary" }: ButtonProps) => {
   // ...
-};
+}
 
 // ✅ Also good for many props - explicit destructuring
 const ComplexComponent = (props: ComplexProps) => {
-  const {
-    requiredProp1,
-    requiredProp2,
-    optionalProp1 = DEFAULT_VALUE,
-    optionalProp2,
-  } = props;
+  const { requiredProp1, requiredProp2, optionalProp1 = DEFAULT_VALUE, optionalProp2 } = props
   // ...
-};
+}
 ```
 
 ## Default Values
+
 - Define default values as static constants outside the component
 - Use SCREAMING_SNAKE_CASE for default value constants
 - Group all defaults in a single object or as individual constants
 - Place defaults above the component that uses them
+- Use even numbers for numeric defaults for consistency (e.g., 2, 4, 100, 1000, not 3, 5, 150, 1500)
 
 ```typescript
 // ✅ Good - static defaults outside component
-const DEFAULT_ZOOM = 2;
-const DEFAULT_CENTER: MapCoordinates = [0, 0];
-const DEFAULT_BEARING = 0;
+const DEFAULT_ZOOM = 2
+const DEFAULT_CENTER: MapCoordinates = [0, 0]
+const DEFAULT_BEARING = 0
 
 // Or grouped as object
 const MAP_DEFAULTS = {
   zoom: 2,
   center: [0, 0] as MapCoordinates,
   bearing: 0,
-} as const;
+} as const
 
 const Map = ({ zoom = DEFAULT_ZOOM, center = DEFAULT_CENTER }: MapProps) => {
   // ...
-};
+}
 
 // ❌ Avoid - inline default values (harder to find and reuse)
 const Map = ({ zoom = 2, center = [0, 0] }: MapProps) => {
   // ...
-};
+}
 ```
