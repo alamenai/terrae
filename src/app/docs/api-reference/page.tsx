@@ -39,7 +39,10 @@ const anatomyCode = `<Map>
   {/* Features */}
   <MapMiniMap />
   <MapLine coordinates={[[lng, lat], ...]} />
+  <MapPolygon coordinates={[[lng, lat], ...]} />
   <MapLineAnimated id="route" path={[[lng, lat], ...]} />
+  <MapLineRadial id="radial" origin={[lng, lat]} destinations={[[lng, lat], ...]} />
+  <MapAnimatedPolygon id="zone" coordinates={[[lng, lat], ...]} />
   <MapCircleCluster data={geoJsonData} />
   <MapAnimatedPulse id="pulse" size={100} coordinates={[lng, lat]} />
   <MapImage id="overlay" url="..." coordinates={[...]} />
@@ -515,6 +518,57 @@ export default function ApiReferencePage() {
         />
       </DocsSection>
 
+      {/* MapPolygon */}
+      <DocsSection title="MapPolygon" badge={<NewBadge />}>
+        <p>
+          Renders a filled polygon on the map. Must be used inside <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "coordinates",
+              type: "[number, number][]",
+              description: "Array of [longitude, latitude] coordinate pairs defining the polygon vertices.",
+            },
+            {
+              name: "fillColor",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Fill color of the polygon.",
+            },
+            {
+              name: "fillOpacity",
+              type: "number",
+              default: "0.4",
+              description: "Fill opacity (0 to 1).",
+            },
+            {
+              name: "strokeColor",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Stroke/outline color.",
+            },
+            {
+              name: "strokeWidth",
+              type: "number",
+              default: "2",
+              description: "Stroke width in pixels.",
+            },
+            {
+              name: "strokeOpacity",
+              type: "number",
+              default: "1",
+              description: "Stroke opacity (0 to 1).",
+            },
+            {
+              name: "dashArray",
+              type: "[number, number]",
+              description: "Dash pattern [dash length, gap length] for dashed strokes.",
+            },
+          ]}
+        />
+      </DocsSection>
+
       {/* MapCircleCluster */}
       <DocsSection title="MapCircleCluster">
         <p>
@@ -617,6 +671,109 @@ export default function ApiReferencePage() {
         />
       </DocsSection>
 
+      {/* MapAnimatedPolygon */}
+      <DocsSection title="MapAnimatedPolygon" badge={<NewBadge />}>
+        <p>
+          Renders an animated polygon with drawing outline and fill effects. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the polygon.",
+            },
+            {
+              name: "coordinates",
+              type: "[number, number][]",
+              description: "Array of [longitude, latitude] pairs defining polygon vertices.",
+            },
+            {
+              name: "strokeColor",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Color of the polygon outline.",
+            },
+            {
+              name: "strokeWidth",
+              type: "number",
+              default: "2",
+              description: "Width of the polygon outline in pixels.",
+            },
+            {
+              name: "strokeOpacity",
+              type: "number",
+              default: "1",
+              description: "Opacity of the polygon outline (0-1).",
+            },
+            {
+              name: "fillColor",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Color of the polygon fill.",
+            },
+            {
+              name: "fillOpacity",
+              type: "number",
+              default: "0.3",
+              description: "Target opacity of the polygon fill (0-1).",
+            },
+            {
+              name: "duration",
+              type: "number",
+              default: "2000",
+              description: "Duration of outline drawing animation in milliseconds.",
+            },
+            {
+              name: "fillDuration",
+              type: "number",
+              default: "1000",
+              description: "Duration of fill animation in milliseconds.",
+            },
+            {
+              name: "animationMode",
+              type: '"draw" | "fill" | "draw-then-fill"',
+              default: '"draw-then-fill"',
+              description: "Animation sequence mode.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+            {
+              name: "loop",
+              type: "boolean",
+              default: "false",
+              description: "Loop the animation continuously.",
+            },
+            {
+              name: "loopDelay",
+              type: "number",
+              default: "1000",
+              description: "Delay before restarting loop in milliseconds.",
+            },
+            {
+              name: "onDrawComplete",
+              type: "() => void",
+              description: "Callback when outline drawing completes.",
+            },
+            {
+              name: "onFillComplete",
+              type: "() => void",
+              description: "Callback when fill animation completes.",
+            },
+            {
+              name: "onComplete",
+              type: "() => void",
+              description: "Callback when entire animation completes.",
+            },
+          ]}
+        />
+      </DocsSection>
+
       {/* MapMiniMap */}
       <DocsSection title="MapMiniMap" badge={<UpdatedBadge />}>
         <p>
@@ -708,7 +865,6 @@ export default function ApiReferencePage() {
               type: "BlurAreaConfig[]",
               description:
                 "Array of blur area configs for multiple regions. Each config: { coordinates, blur?, backgroundColor?, rounded? }.",
-              isNew: true,
             },
             {
               name: "blur",
@@ -823,6 +979,163 @@ export default function ApiReferencePage() {
               name: "onComplete",
               type: "() => void",
               description: "Callback when animation completes.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapLineRadial */}
+      <DocsSection title="MapLineRadial" badge={<NewBadge />}>
+        <p>
+          Renders animated curved lines spreading from a central origin to multiple destinations. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the radial lines.",
+            },
+            {
+              name: "origin",
+              type: "[number, number]",
+              description: "Origin coordinates [longitude, latitude].",
+            },
+            {
+              name: "destinations",
+              type: "RadialDestination[]",
+              description: "Array of destinations. Each can be [lng, lat] or { coordinates, color?, label? }.",
+            },
+            {
+              name: "color",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Default line color.",
+            },
+            {
+              name: "width",
+              type: "number",
+              default: "2",
+              description: "Line width in pixels.",
+            },
+            {
+              name: "opacity",
+              type: "number",
+              default: "0.8",
+              description: "Line opacity (0 to 1).",
+            },
+            {
+              name: "dashArray",
+              type: "[number, number]",
+              description: "Dash pattern [dash length, gap length] for dashed lines.",
+            },
+            {
+              name: "curvature",
+              type: 'number | "auto"',
+              default: "0.3",
+              description: 'Curve intensity (0-1) or "auto" to calculate based on distance.',
+            },
+            {
+              name: "curveSegments",
+              type: "number",
+              default: "50",
+              description: "Number of segments for smooth curves.",
+            },
+            {
+              name: "duration",
+              type: "number",
+              default: "2000",
+              description: "Animation duration per line in milliseconds.",
+            },
+            {
+              name: "staggerDelay",
+              type: "number",
+              default: "200",
+              description: "Delay between starting each line animation.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+            {
+              name: "loop",
+              type: "boolean",
+              default: "false",
+              description: "Loop the animation continuously.",
+            },
+            {
+              name: "loopDelay",
+              type: "number",
+              default: "1000",
+              description: "Delay before restarting loop in milliseconds.",
+            },
+            {
+              name: "showOriginMarker",
+              type: "boolean",
+              default: "true",
+              description: "Show marker at origin point.",
+            },
+            {
+              name: "originMarkerColor",
+              type: "string",
+              default: '"#ef4444"',
+              description: "Origin marker color.",
+            },
+            {
+              name: "originMarkerIcon",
+              type: "ReactNode",
+              description: "Custom origin marker icon.",
+            },
+            {
+              name: "originMarkerPulse",
+              type: "boolean",
+              default: "true",
+              description: "Show pulse animation on origin marker.",
+            },
+            {
+              name: "showDestinationMarkers",
+              type: "boolean",
+              default: "true",
+              description: "Show markers at destination points.",
+            },
+            {
+              name: "destinationMarkerColor",
+              type: "string",
+              description: "Destination marker color (defaults to line color).",
+            },
+            {
+              name: "destinationMarkerIcon",
+              type: "ReactNode",
+              description: "Custom destination marker icon.",
+            },
+            {
+              name: "showTravelingMarker",
+              type: "boolean",
+              default: "false",
+              description: "Show marker traveling along the active line.",
+            },
+            {
+              name: "travelingMarkerColor",
+              type: "string",
+              description: "Traveling marker color (defaults to line color).",
+            },
+            {
+              name: "travelingMarkerIcon",
+              type: "ReactNode",
+              description: "Custom traveling marker icon.",
+            },
+            {
+              name: "onLineComplete",
+              type: "(index: number, destination: [number, number]) => void",
+              description: "Callback when a line animation completes.",
+            },
+            {
+              name: "onComplete",
+              type: "() => void",
+              description: "Callback when all line animations complete.",
             },
           ]}
         />
