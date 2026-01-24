@@ -180,6 +180,28 @@
       ]
     },
     {
+      "name": "map-polygon",
+      "type": "registry:ui",
+      "title": "Map Polygon",
+      "description": "Draw filled polygons with customizable fill and stroke.",
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/map/polygon.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/polygon.tsx"
+        }
+      ]
+    },
+    {
       "name": "map-line-animated",
       "type": "registry:ui",
       "title": "Map Line Animated",
@@ -198,6 +220,28 @@
           "path": "src/registry/map/line-animated.tsx",
           "type": "registry:ui",
           "target": "components/ui/map/line-animated.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-line-radial",
+      "type": "registry:ui",
+      "title": "Map Line Radial",
+      "description": "Animated radial lines spreading from a central origin to multiple destinations.",
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/map/line-radial.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/line-radial.tsx"
         }
       ]
     },
@@ -352,6 +396,28 @@
           "path": "src/registry/map/blur-area.tsx",
           "type": "registry:ui",
           "target": "components/ui/map/blur-area.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-animated-polygon",
+      "type": "registry:ui",
+      "title": "Map Animated Polygon",
+      "description": "Animated polygon with drawing outline and fill effects.",
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/map/animated-polygon.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/animated-polygon.tsx"
         }
       ]
     }
