@@ -1,4 +1,4 @@
-import { DocsLayout, DocsSection, DocsCode, DocsPropTable, NewBadge } from "../_components/docs"
+import { DocsLayout, DocsSection, DocsCode, DocsPropTable } from "../_components/docs"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { BlurAreaExample } from "../_components/examples/blur-area-example"
@@ -62,7 +62,7 @@ export default function BlurAreaPage() {
         <BlurAreaUnlockExample />
       </ComponentPreview>
 
-      <DocsSection title="Multiple Areas" badge={<NewBadge />}>
+      <DocsSection title="Multiple Areas">
         <p>
           Use the <DocsCode>areas</DocsCode> prop to blur multiple regions with a single component. Each area can have
           its own blur, background color, and border radius settings.
@@ -86,7 +86,6 @@ export default function BlurAreaPage() {
               type: "BlurAreaConfig[]",
               description:
                 "Array of blur area configurations for multiple regions. Each config has: coordinates, blur, backgroundColor, rounded.",
-              isNew: true,
             },
             {
               name: "blur",
