@@ -420,6 +420,28 @@
           "target": "components/ui/map/animated-polygon.tsx"
         }
       ]
+    },
+    {
+      "name": "map-arc-animated",
+      "type": "registry:ui",
+      "title": "Map Arc Animated",
+      "description": "Animated curved arc between two points for flights, deliveries, and connections.",
+      "dependencies": [
+        "mapbox-gl"
+      ],
+      "devDependencies": [
+        "@types/mapbox-gl"
+      ],
+      "registryDependencies": [
+        "https://terrae.vercel.app/maps/map.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/map/arc-animated.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/arc-animated.tsx"
+        }
+      ]
     }
   ]
 }

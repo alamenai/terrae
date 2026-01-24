@@ -42,6 +42,7 @@ const anatomyCode = `<Map>
   <MapPolygon coordinates={[[lng, lat], ...]} />
   <MapLineAnimated id="route" path={[[lng, lat], ...]} />
   <MapLineRadial id="radial" origin={[lng, lat]} destinations={[[lng, lat], ...]} />
+  <MapArcAnimated id="arc" origin={[lng, lat]} destination={[lng, lat]} />
   <MapAnimatedPolygon id="zone" coordinates={[[lng, lat], ...]} />
   <MapCircleCluster data={geoJsonData} />
   <MapAnimatedPulse id="pulse" size={100} coordinates={[lng, lat]} />
@@ -1150,6 +1151,130 @@ export default function ApiReferencePage() {
               name: "onComplete",
               type: "() => void",
               description: "Callback when all line animations complete.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapArcAnimated */}
+      <DocsSection title="MapArcAnimated" badge={<NewBadge />}>
+        <p>
+          Renders an animated curved arc between two points. Useful for visualizing flights, deliveries, and
+          point-to-point connections. Must be used inside <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the arc.",
+            },
+            {
+              name: "origin",
+              type: "[number, number]",
+              description: "Starting point coordinates [longitude, latitude].",
+            },
+            {
+              name: "destination",
+              type: "[number, number]",
+              description: "Ending point coordinates [longitude, latitude].",
+            },
+            {
+              name: "color",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Arc line color.",
+            },
+            {
+              name: "width",
+              type: "number",
+              default: "4",
+              description: "Line width in pixels.",
+            },
+            {
+              name: "opacity",
+              type: "number",
+              default: "1",
+              description: "Line opacity (0 to 1).",
+            },
+            {
+              name: "dashArray",
+              type: "[number, number]",
+              description: "Dash pattern [dash length, gap length] for dashed arcs.",
+            },
+            {
+              name: "height",
+              type: "number",
+              default: "0.3",
+              description: "Curve height multiplier (0 = straight line, higher = more curved).",
+            },
+            {
+              name: "segments",
+              type: "number",
+              default: "50",
+              description: "Number of segments for curve smoothness.",
+            },
+            {
+              name: "duration",
+              type: "number",
+              default: "2000",
+              description: "Animation duration in milliseconds.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+            {
+              name: "loop",
+              type: "boolean",
+              default: "false",
+              description: "Loop the animation continuously.",
+            },
+            {
+              name: "loopDelay",
+              type: "number",
+              default: "500",
+              description: "Delay before restarting loop in milliseconds.",
+            },
+            {
+              name: "showMarker",
+              type: "boolean",
+              default: "true",
+              description: "Show traveling marker at the arc tip during animation.",
+            },
+            {
+              name: "markerColor",
+              type: "string",
+              description: "Traveling marker color (defaults to arc color).",
+            },
+            {
+              name: "showOriginMarker",
+              type: "boolean",
+              default: "true",
+              description: "Show marker at the origin point.",
+            },
+            {
+              name: "originMarkerColor",
+              type: "string",
+              description: "Origin marker color (defaults to arc color).",
+            },
+            {
+              name: "showDestinationMarker",
+              type: "boolean",
+              default: "true",
+              description: "Show marker at destination when animation completes.",
+            },
+            {
+              name: "destinationMarkerColor",
+              type: "string",
+              description: "Destination marker color (defaults to arc color).",
+            },
+            {
+              name: "onComplete",
+              type: "() => void",
+              description: "Callback when animation completes.",
             },
           ]}
         />

@@ -113,6 +113,15 @@ const components: ComponentItem[] = [
     isNew: true,
   },
   {
+    title: "Animated Arc",
+    href: "/docs/arc-animated",
+    description: "Animated curved arc between two points for flights and connections",
+    icon: Route,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-arc-animated.json",
+    isNew: true,
+  },
+  {
     title: "Animated Markers",
     href: "/docs/markers-animated",
     description: "Animate markers along paths for real-time tracking",
