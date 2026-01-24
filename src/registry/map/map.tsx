@@ -20,6 +20,7 @@ const DEFAULT_CENTER: MapCoordinates = [0, 0]
 const DEFAULT_ZOOM = 2
 const DEFAULT_BEARING = 0
 const DEFAULT_PITCH = 0
+const DEFAULT_ROTATE_SPEED = 3
 
 type MapProps = {
   accessToken: string
@@ -38,6 +39,10 @@ type MapProps = {
   minZoom?: number
   maxZoom?: number
   maxBounds?: MapBounds
+  // Auto-rotate the globe (only works with projection="globe")
+  autoRotate?: boolean
+  // Rotation speed in degrees per second
+  rotateSpeed?: number
 }
 
 export const Map = ({
@@ -55,6 +60,8 @@ export const Map = ({
   minZoom,
   maxZoom,
   maxBounds,
+  autoRotate,
+  rotateSpeed = DEFAULT_ROTATE_SPEED,
 }: MapProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
@@ -207,6 +214,37 @@ export const Map = ({
 
     mapRef.current.setProjection(projection)
   }, [projection])
+
+  useEffect(() => {
+    if (!mapRef.current || !isLoaded || !autoRotate || projection !== "globe") {
+      return
+    }
+
+    let animationId: number
+    let lastTime = performance.now()
+
+    const rotate = (currentTime: number) => {
+      if (!mapRef.current) {
+        return
+      }
+
+      const delta = (currentTime - lastTime) / 1000
+      lastTime = currentTime
+
+      const currentCenter = mapRef.current.getCenter()
+      const newLng = currentCenter.lng + rotateSpeed * delta
+
+      mapRef.current.setCenter([newLng, currentCenter.lat])
+
+      animationId = requestAnimationFrame(rotate)
+    }
+
+    animationId = requestAnimationFrame(rotate)
+
+    return () => {
+      cancelAnimationFrame(animationId)
+    }
+  }, [isLoaded, autoRotate, projection, rotateSpeed])
 
   const contextValue: MapContextValue = {
     map: mapRef.current,

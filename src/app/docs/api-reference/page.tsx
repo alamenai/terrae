@@ -174,6 +174,20 @@ export default function ApiReferencePage() {
                 "Controls loader visibility. When true, forces loader. When false, hides. When undefined, uses internal loading state.",
               isNew: true,
             },
+            {
+              name: "autoRotate",
+              type: "boolean",
+              default: "false",
+              description: 'Enables automatic rotation. Only works with projection="globe".',
+              isNew: true,
+            },
+            {
+              name: "rotateSpeed",
+              type: "number",
+              default: "3",
+              description: "Rotation speed in degrees per second when autoRotate is enabled.",
+              isNew: true,
+            },
           ]}
         />
       </DocsSection>

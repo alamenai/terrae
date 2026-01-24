@@ -3,6 +3,7 @@ import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { BasicMapExample } from "../_components/examples/basic-map-example"
 import { GlobeMapExample } from "../_components/examples/globe-map-example"
+import { RotatingGlobeExample } from "../_components/examples/rotating-globe-example"
 import { ProjectionSwitcherExample } from "../_components/examples/projection-switcher-example"
 import { StandardMapExample } from "../_components/examples/standard-map-example"
 import { StyleSwitcherExample } from "../_components/examples/style-switcher-example"
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
 export default function BasicMapPage() {
   const basicMapSource = getExampleSource("basic-map-example.tsx")
   const globeMapSource = getExampleSource("globe-map-example.tsx")
+  const rotatingGlobeSource = getExampleSource("rotating-globe-example.tsx")
   const projectionSwitcherSource = getExampleSource("projection-switcher-example.tsx")
   const standardMapSource = getExampleSource("standard-map-example.tsx")
   const styleSwitcherSource = getExampleSource("style-switcher-example.tsx")
@@ -56,6 +58,18 @@ export default function BasicMapPage() {
 
       <ComponentPreview code={globeMapSource}>
         <GlobeMapExample />
+      </ComponentPreview>
+
+      <DocsSection title="Auto-Rotating Globe" id="auto-rotate" badge={<NewBadge />}>
+        <p>
+          Enable automatic rotation on globe projection with the <DocsCode>autoRotate</DocsCode> prop. Control the
+          rotation speed with <DocsCode>rotateSpeed</DocsCode> (degrees per second, default: 3). This only works when{" "}
+          <DocsCode>projection="globe"</DocsCode> is set.
+        </p>
+      </DocsSection>
+
+      <ComponentPreview code={rotatingGlobeSource}>
+        <RotatingGlobeExample />
       </ComponentPreview>
 
       <DocsSection title="Projection Switcher">
@@ -343,6 +357,30 @@ export default function BasicMapPage() {
                   Controls loader visibility. When true, forces loader to show. When false, hides loader. When
                   undefined, uses internal loading state.
                 </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <span className="flex items-center gap-2">
+                    <DocsCode>autoRotate</DocsCode>
+                    <NewBadge />
+                  </span>
+                </TableCell>
+                <TableCell className="text-muted-foreground">boolean</TableCell>
+                <TableCell className="text-muted-foreground">false</TableCell>
+                <TableCell>
+                  Enables automatic rotation. Only works with <DocsCode>projection="globe"</DocsCode>.
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <span className="flex items-center gap-2">
+                    <DocsCode>rotateSpeed</DocsCode>
+                    <NewBadge />
+                  </span>
+                </TableCell>
+                <TableCell className="text-muted-foreground">number</TableCell>
+                <TableCell className="text-muted-foreground">3</TableCell>
+                <TableCell>Rotation speed in degrees per second when autoRotate is enabled.</TableCell>
               </TableRow>
             </TableBody>
           </Table>
