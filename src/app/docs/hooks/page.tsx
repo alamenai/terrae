@@ -1,30 +1,23 @@
-import { DocsLayout, DocsSection, DocsCode } from "../_components/docs";
-import { CodeBlock } from "../_components/code-block";
-import { Metadata } from "next";
-import Link from "next/link";
-import { Map, Play, Video, Navigation } from "lucide-react";
-import { cn } from "@/lib/utils";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { DocsLayout, DocsSection, DocsCode } from "../_components/docs"
+import { CodeBlock } from "../_components/code-block"
+import { Metadata } from "next"
+import Link from "next/link"
+import { Map, Play, Video, Navigation } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export const metadata: Metadata = {
   title: "Hooks",
   description: "React hooks for controlling map components",
-};
+}
 
 type HookItem = {
-  name: string;
-  description: string;
-  icon: React.ComponentType<{ className?: string }>;
-  component: string;
-  href: string;
-};
+  name: string
+  description: string
+  icon: React.ComponentType<{ className?: string }>
+  component: string
+  href: string
+}
 
 const hooks: HookItem[] = [
   {
@@ -55,7 +48,7 @@ const hooks: HookItem[] = [
     component: "MapMarkerAnimated",
     href: "#usemarkeranimatedcontrol",
   },
-];
+]
 
 const HookCard = ({ hook }: { hook: HookItem }) => {
   return (
@@ -75,17 +68,15 @@ const HookCard = ({ hook }: { hook: HookItem }) => {
           <h3 className="font-semibold font-mono text-foreground group-hover:text-primary transition-colors">
             {hook.name}
           </h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {hook.description}
-          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">{hook.description}</p>
           <p className="text-xs text-muted-foreground/70">
             Used with <DocsCode className="text-[10px]">{hook.component}</DocsCode>
           </p>
         </div>
       </div>
     </Link>
-  );
-};
+  )
+}
 
 const useMapCode = `import { useMap } from "@/registry/map";
 
@@ -106,7 +97,7 @@ const MyComponent = () => {
       Fly to NYC
     </button>
   );
-};`;
+};`
 
 const useVideoControlCode = `import { useVideoControl } from "@/registry/map";
 
@@ -122,7 +113,7 @@ const VideoControls = () => {
       </button>
     </div>
   );
-};`;
+};`
 
 const useLineAnimatedControlCode = `import { useLineAnimatedControl, MapLineAnimated } from "@/registry/map";
 
@@ -133,7 +124,7 @@ const AnimatedRoute = () => {
     <>
       <MapLineAnimated
         id="route"
-        coordinates={routeCoordinates}
+        path={routePath}
         autoStart={isPlaying}
       />
       <button onClick={toggle}>
@@ -141,7 +132,7 @@ const AnimatedRoute = () => {
       </button>
     </>
   );
-};`;
+};`
 
 const useMarkerAnimatedControlCode = `import { useMarkerAnimatedControl, MapMarkerAnimated } from "@/registry/map";
 
@@ -151,15 +142,16 @@ const AnimatedMarker = () => {
   return (
     <>
       <MapMarkerAnimated
+        id="marker"
         coordinates={pathCoordinates}
-        isPlaying={isPlaying}
+        autoStart={isPlaying}
       />
       <button onClick={toggle}>
         {isPlaying ? "Stop" : "Start"} Marker
       </button>
     </>
   );
-};`;
+};`
 
 export default function HooksPage() {
   return (
@@ -182,8 +174,7 @@ export default function HooksPage() {
 
       <DocsSection title="useMap" id="usemap">
         <p>
-          Access the Mapbox GL map instance and loading state. Must be used within a{" "}
-          <DocsCode>Map</DocsCode> component.
+          Access the Mapbox GL map instance and loading state. Must be used within a <DocsCode>Map</DocsCode> component.
         </p>
         <CodeBlock code={useMapCode} />
         <div className="rounded-md border mt-4">
@@ -197,12 +188,16 @@ export default function HooksPage() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell><DocsCode>map</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>map</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">mapboxgl.Map | null</TableCell>
                 <TableCell className="text-muted-foreground">The Mapbox GL map instance</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>isLoaded</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>isLoaded</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">boolean</TableCell>
                 <TableCell className="text-muted-foreground">Whether the map has finished loading</TableCell>
               </TableRow>
@@ -213,8 +208,8 @@ export default function HooksPage() {
 
       <DocsSection title="useVideoControl" id="usevideocontrol">
         <p>
-          Control video layer playback. Pass the video layer ID to control a specific{" "}
-          <DocsCode>MapVideoLayer</DocsCode> component.
+          Control video layer playback. Pass the video layer ID to control a specific <DocsCode>MapVideoLayer</DocsCode>{" "}
+          component.
         </p>
         <CodeBlock code={useVideoControlCode} />
         <div className="rounded-md border mt-4">
@@ -228,7 +223,9 @@ export default function HooksPage() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell><DocsCode>layerId</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>layerId</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
                 <TableCell className="text-muted-foreground">The ID of the video layer to control</TableCell>
               </TableRow>
@@ -246,22 +243,30 @@ export default function HooksPage() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell><DocsCode>play</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>play</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
                 <TableCell className="text-muted-foreground">Start video playback</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>pause</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>pause</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
                 <TableCell className="text-muted-foreground">Pause video playback</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>toggle</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>toggle</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
                 <TableCell className="text-muted-foreground">Toggle between play and pause</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>isPlaying</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>isPlaying</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">boolean</TableCell>
                 <TableCell className="text-muted-foreground">Current playback state</TableCell>
               </TableRow>
@@ -272,8 +277,7 @@ export default function HooksPage() {
 
       <DocsSection title="useLineAnimatedControl" id="uselineanimatedcontrol">
         <p>
-          Control animated line playback state. Use with{" "}
-          <DocsCode>MapLineAnimated</DocsCode> component.
+          Control animated line playback state. Use with <DocsCode>MapLineAnimated</DocsCode> component.
         </p>
         <CodeBlock code={useLineAnimatedControlCode} />
         <div className="rounded-md border mt-4">
@@ -287,22 +291,30 @@ export default function HooksPage() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell><DocsCode>start</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>start</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
                 <TableCell className="text-muted-foreground">Start the animation</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>stop</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>stop</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
                 <TableCell className="text-muted-foreground">Stop the animation</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>toggle</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>toggle</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
                 <TableCell className="text-muted-foreground">Toggle animation state</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>isPlaying</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>isPlaying</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">boolean</TableCell>
                 <TableCell className="text-muted-foreground">Current animation state</TableCell>
               </TableRow>
@@ -313,8 +325,7 @@ export default function HooksPage() {
 
       <DocsSection title="useMarkerAnimatedControl" id="usemarkeranimatedcontrol">
         <p>
-          Control animated marker playback state. Use with{" "}
-          <DocsCode>MapMarkerAnimated</DocsCode> component.
+          Control animated marker playback state. Use with <DocsCode>MapMarkerAnimated</DocsCode> component.
         </p>
         <CodeBlock code={useMarkerAnimatedControlCode} />
         <div className="rounded-md border mt-4">
@@ -328,22 +339,30 @@ export default function HooksPage() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell><DocsCode>start</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>start</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
                 <TableCell className="text-muted-foreground">Start the animation</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>stop</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>stop</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
                 <TableCell className="text-muted-foreground">Stop the animation</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>toggle</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>toggle</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
                 <TableCell className="text-muted-foreground">Toggle animation state</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>isPlaying</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>isPlaying</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">boolean</TableCell>
                 <TableCell className="text-muted-foreground">Current animation state</TableCell>
               </TableRow>
@@ -352,5 +371,5 @@ export default function HooksPage() {
         </div>
       </DocsSection>
     </DocsLayout>
-  );
+  )
 }
