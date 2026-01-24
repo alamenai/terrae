@@ -16,6 +16,8 @@ import {
   Map as MapIcon,
   Sparkles,
   EyeOff,
+  Share2,
+  Pentagon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -85,12 +87,30 @@ const components: ComponentItem[] = [
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-line.json",
   },
   {
+    title: "Polygon",
+    href: "/docs/polygon",
+    description: "Draw filled polygons with customizable fill and stroke",
+    icon: Pentagon,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-polygon.json",
+    isNew: true,
+  },
+  {
     title: "Animated Lines",
     href: "/docs/lines-animated",
     description: "Animated path visualization with customizable timing",
     icon: Play,
     category: "features",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-line-animated.json",
+  },
+  {
+    title: "Animated Radial Lines",
+    href: "/docs/lines-radial",
+    description: "Animated curved lines spreading from origin to multiple destinations",
+    icon: Share2,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-line-radial.json",
+    isNew: true,
   },
   {
     title: "Animated Markers",
@@ -147,6 +167,15 @@ const components: ComponentItem[] = [
     icon: Sparkles,
     category: "features",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-animated-pulse.json",
+  },
+  {
+    title: "Animated Polygon",
+    href: "/docs/animated-polygon",
+    description: "Animated polygons with outline drawing and fill effects",
+    icon: Layers,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-animated-polygon.json",
+    isNew: true,
   },
   {
     title: "Blur Area",
