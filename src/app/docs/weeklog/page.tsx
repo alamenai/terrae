@@ -139,6 +139,17 @@ const weeklogs: Weeklog[] = [
         ),
         href: "/docs/lines-radial",
       },
+      {
+        title: "Animated Arc",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapArcAnimated</code> component for animated
+            curved arc lines between two points. Supports customizable arc height, traveling markers, origin/destination
+            markers, dash patterns, and loop animations.
+          </>
+        ),
+        href: "/docs/arc-animated",
+      },
     ],
     properties: [
       {
@@ -359,13 +370,15 @@ export default function WeeklogPage() {
               </div>
 
               <div className="flex justify-center pt-4">
-                <Link
-                  href="/docs/ideas"
+                <a
+                  href="https://github.com/alamenai/terrae/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-foreground/80 border border-border/50 rounded-full px-3 py-1.5 transition-colors"
                 >
                   Share your feedback
                   <ArrowRight className="size-3" />
-                </Link>
+                </a>
               </div>
             </div>
           )
@@ -376,9 +389,14 @@ export default function WeeklogPage() {
         <h3 className="text-xl font-semibold">Want to shape the future of Terrae?</h3>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Your feedback and ideas help guide development priorities. Share your suggestions, feature requests, or use
-          cases on the{" "}
-          <a href="/docs/ideas" className="text-primary hover:underline font-medium">
-            ideas page
+          cases on{" "}
+          <a
+            href="https://github.com/alamenai/terrae/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline font-medium"
+          >
+            GitHub
           </a>
           .
         </p>
