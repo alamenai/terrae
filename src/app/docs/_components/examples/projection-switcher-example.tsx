@@ -32,7 +32,7 @@ export const ProjectionSwitcherExample = () => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="h-full flex flex-col gap-4">
       <div className="flex items-center gap-3">
         <span className="text-sm text-muted-foreground">Projection:</span>
         <Select value={projection} onValueChange={handleProjectionChange}>
@@ -51,7 +51,7 @@ export const ProjectionSwitcherExample = () => {
         </Select>
       </div>
 
-      <div className="h-[400px] w-full">
+      <div className="flex-1 w-full">
         <Map accessToken={accessToken} center={[0, 20]} zoom={1} projection={projection} />
       </div>
     </div>
