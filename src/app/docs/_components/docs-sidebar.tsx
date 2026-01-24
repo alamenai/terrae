@@ -26,6 +26,8 @@ import {
   Map as MapIcon,
   Anchor,
   EyeOff,
+  Share2,
+  Pentagon,
   type LucideIcon,
 } from "lucide-react"
 
@@ -92,10 +94,13 @@ const navigation: NavGroup[] = [
       { title: "Blur Area", href: "/docs/blur-area", icon: EyeOff, badge: "new" },
       { title: "MiniMap", href: "/docs/minimap", icon: MapIcon, badge: "updated" },
       { title: "Lines", href: "/docs/lines", icon: Route },
+      { title: "Polygon", href: "/docs/polygon", icon: Pentagon, badge: "new" },
       { title: "Animated Lines", href: "/docs/lines-animated", icon: Play },
+      { title: "Animated Radial Lines", href: "/docs/lines-radial", icon: Share2, badge: "new" },
       { title: "Animated Markers", href: "/docs/markers-animated", icon: Play },
       { title: "Circle Clusters", href: "/docs/circle-clusters", icon: Layers },
       { title: "Animated Pulse", href: "/docs/animated-pulse", icon: Sparkles },
+      { title: "Animated Polygon", href: "/docs/animated-polygon", icon: Layers, badge: "new" },
       { title: "Compare", href: "/docs/compare", icon: ArrowLeftRight, badge: "updated" },
       { title: "Image", href: "/docs/image", icon: Image },
       { title: "Video", href: "/docs/raster-video", icon: Video },
