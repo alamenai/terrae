@@ -75,8 +75,8 @@ export const MapCameraFollow = ({
 }: MapCameraFollowProps) => {
   const { map, isLoaded } = useMap()
 
-  const animationFrameRef = useRef<number>()
-  const loopTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
+  const animationFrameRef = useRef<number | undefined>(undefined)
+  const loopTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const startTimeRef = useRef(0)
   const pausedProgressRef = useRef(0)
   const markerRef = useRef<mapboxgl.Marker | null>(null)
