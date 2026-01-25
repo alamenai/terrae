@@ -90,6 +90,30 @@ const changelogs: Changelog[] = [
     date: "February 1, 2026",
     components: [
       {
+        title: "Circle",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapCircle</code> component for geographic circles
+            with center point and radius in meters. Supports draggable repositioning, customizable fill and stroke, and
+            dashed outlines.
+          </>
+        ),
+        href: "/docs/circle",
+      },
+      {
+        title: "Animated Circle",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapAnimatedCircle</code> component for animated
+            circles with drawing outline and fill effects. Supports{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">draw</code> and{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">fill</code> animation modes, looping, and dashed
+            strokes.
+          </>
+        ),
+        href: "/docs/animated-circle",
+      },
+      {
         title: "Camera Follow",
         description: (
           <>
