@@ -1,13 +1,13 @@
 "use client"
 
 import Lottie from "lottie-react"
-import nextWeeklogAnimation from "../../public/next-weeklog.json"
+import upcomingAnimation from "../../public/upcoming-animation.json"
 
-export const UpcomingWeekendAnimation = () => {
+export const UpcomingAnimation = () => {
   return (
     <div className="relative isolate w-125 h-96 -mb-24 rounded-3xl overflow-hidden">
       <Lottie
-        animationData={nextWeeklogAnimation}
+        animationData={upcomingAnimation}
         loop
         className="size-full mix-blend-multiply dark:mix-blend-screen dark:invert"
       />
