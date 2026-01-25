@@ -96,7 +96,6 @@ const components: ComponentItem[] = [
     icon: Pentagon,
     category: "features",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-polygon.json",
-    isNew: true,
   },
   {
     title: "Circle",
@@ -131,7 +130,6 @@ const components: ComponentItem[] = [
     icon: Share2,
     category: "features",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-line-radial.json",
-    isNew: true,
   },
   {
     title: "Animated Arc",
@@ -140,7 +138,6 @@ const components: ComponentItem[] = [
     icon: Route,
     category: "features",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-arc-animated.json",
-    isNew: true,
   },
   {
     title: "Camera Follow",
@@ -223,7 +220,6 @@ const components: ComponentItem[] = [
     icon: Layers,
     category: "features",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-animated-polygon.json",
-    isNew: true,
   },
   {
     title: "Blur Area",
@@ -232,7 +228,6 @@ const components: ComponentItem[] = [
     icon: EyeOff,
     category: "features",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-blur-area.json",
-    isNew: true,
   },
   {
     title: "Targeting Reticle",
