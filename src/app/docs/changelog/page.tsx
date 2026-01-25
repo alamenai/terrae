@@ -135,6 +135,17 @@ const changelogs: Changelog[] = [
         ),
         href: "/docs/targeting-reticle",
       },
+      {
+        title: "Sync",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapSync</code> component for synchronized
+            multi-map displays. Supports 2 or 4 maps with horizontal, vertical, or grid layouts. Panning, zooming, or
+            rotating one map updates all others in real-time.
+          </>
+        ),
+        href: "/docs/sync",
+      },
     ],
     properties: [
       {
