@@ -19,7 +19,7 @@ export default function ImagePage() {
     <DocsLayout
       title="Image"
       description="Overlay images on specific map coordinates."
-      prev={{ title: "Compare", href: "/docs/compare" }}
+      prev={{ title: "Sync", href: "/docs/sync" }}
       next={{ title: "Video", href: "/docs/raster-video" }}
     >
       <DocsSection title="Installation">

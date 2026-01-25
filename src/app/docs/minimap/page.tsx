@@ -24,7 +24,7 @@ export default function MiniMapPage() {
     <DocsLayout
       title="MiniMap"
       description="Add a minimap overview to help users understand their location context."
-      prev={{ title: "Blur Area", href: "/docs/blur-area" }}
+      prev={{ title: "Targeting Reticle", href: "/docs/targeting-reticle" }}
       next={{ title: "Lines", href: "/docs/lines" }}
     >
       <DocsSection title="Installation">

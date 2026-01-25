@@ -21,8 +21,8 @@ export default function MapComparePage() {
     <DocsLayout
       title="Compare"
       description="Compare two map views side-by-side or stacked with customizable orientation."
-      prev={{ title: "Animated Pulse", href: "/docs/animated-pulse" }}
-      next={{ title: "Image", href: "/docs/image" }}
+      prev={{ title: "Animated Polygon", href: "/docs/animated-polygon" }}
+      next={{ title: "Sync", href: "/docs/sync" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>

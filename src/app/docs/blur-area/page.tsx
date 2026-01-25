@@ -25,7 +25,7 @@ export default function BlurAreaPage() {
       title="Blur Area"
       description="Obscure specific map regions for privacy, restrictions, or focus."
       prev={{ title: "Popup", href: "/docs/popups" }}
-      next={{ title: "MiniMap", href: "/docs/minimap" }}
+      next={{ title: "Targeting Reticle", href: "/docs/targeting-reticle" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>

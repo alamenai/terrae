@@ -29,7 +29,7 @@ const AnimatedLinesPage = () => {
     <DocsLayout
       title="Animated Lines"
       description="Animate line paths being drawn on the map with smooth transitions."
-      prev={{ title: "Lines", href: "/docs/lines" }}
+      prev={{ title: "Animated Circle", href: "/docs/animated-circle" }}
       next={{ title: "Animated Radial Lines", href: "/docs/lines-radial" }}
     >
       <DocsSection title="Installation">

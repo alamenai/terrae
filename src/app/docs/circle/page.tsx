@@ -26,7 +26,7 @@ const CirclePage = () => {
       title="Circle"
       description="Visualize areas and ranges with radius-based circles."
       prev={{ title: "Polygon", href: "/docs/polygon" }}
-      next={{ title: "Animated Lines", href: "/docs/lines-animated" }}
+      next={{ title: "Animated Circle", href: "/docs/animated-circle" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>

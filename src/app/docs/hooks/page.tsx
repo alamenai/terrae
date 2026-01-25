@@ -2,7 +2,7 @@ import { DocsLayout, DocsSection, DocsCode } from "../_components/docs"
 import { CodeBlock } from "../_components/code-block"
 import { Metadata } from "next"
 import Link from "next/link"
-import { Map, Play, Video, Navigation } from "lucide-react"
+import { Map, Play, Video, Navigation, Route } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
@@ -47,6 +47,13 @@ const hooks: HookItem[] = [
     icon: Navigation,
     component: "MapMarkerAnimated",
     href: "#usemarkeranimatedcontrol",
+  },
+  {
+    name: "useCameraFollowControl",
+    description: "Control camera follow animation playback",
+    icon: Route,
+    component: "MapCameraFollow",
+    href: "#usecamerafollowcontrol",
   },
 ]
 
@@ -148,6 +155,27 @@ const AnimatedMarker = () => {
       />
       <button onClick={toggle}>
         {isPlaying ? "Stop" : "Start"} Marker
+      </button>
+    </>
+  );
+};`
+
+const useCameraFollowControlCode = `import { useCameraFollowControl, MapCameraFollow, MapLine } from "@/registry/map";
+
+const CameraFollow = () => {
+  const { isPlaying, start, stop, toggle } = useCameraFollowControl();
+
+  return (
+    <>
+      <MapLine coordinates={route} color="#3b82f6" width={4} />
+      <MapCameraFollow
+        path={route}
+        autoStart={isPlaying}
+        onComplete={stop}
+        marker
+      />
+      <button onClick={toggle}>
+        {isPlaying ? "Pause" : "Fly Along Route"}
       </button>
     </>
   );
@@ -351,6 +379,54 @@ export default function HooksPage() {
                 </TableCell>
                 <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
                 <TableCell className="text-muted-foreground">Stop the animation</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>toggle</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
+                <TableCell className="text-muted-foreground">Toggle animation state</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>isPlaying</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">boolean</TableCell>
+                <TableCell className="text-muted-foreground">Current animation state</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </DocsSection>
+
+      <DocsSection title="useCameraFollowControl" id="usecamerafollowcontrol">
+        <p>
+          Control camera follow animation playback. Use with <DocsCode>MapCameraFollow</DocsCode> component.
+        </p>
+        <CodeBlock code={useCameraFollowControlCode} />
+        <div className="rounded-md border mt-4">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Return Value</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Description</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>start</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
+                <TableCell className="text-muted-foreground">Start the camera animation</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>stop</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">() =&gt; void</TableCell>
+                <TableCell className="text-muted-foreground">Stop the camera animation</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>

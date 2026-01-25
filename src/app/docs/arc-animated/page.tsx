@@ -28,7 +28,7 @@ const ArcAnimatedPage = () => {
       title="Animated Arc"
       description="Visualize point-to-point connections with animated parabolic arcs."
       prev={{ title: "Animated Radial Lines", href: "/docs/lines-radial" }}
-      next={{ title: "Animated Markers", href: "/docs/markers-animated" }}
+      next={{ title: "Camera Follow", href: "/docs/camera-follow" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>

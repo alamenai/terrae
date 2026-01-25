@@ -24,7 +24,7 @@ const PolygonPage = () => {
       title="Polygon"
       description="Draw filled polygons on the map."
       prev={{ title: "Lines", href: "/docs/lines" }}
-      next={{ title: "Animated Lines", href: "/docs/lines-animated" }}
+      next={{ title: "Circle", href: "/docs/circle" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>

@@ -24,7 +24,7 @@ const RadialLinesPage = () => {
       title="Animated Radial Lines"
       description="Animated lines spreading from a central origin to multiple destinations."
       prev={{ title: "Animated Lines", href: "/docs/lines-animated" }}
-      next={{ title: "Animated Markers", href: "/docs/markers-animated" }}
+      next={{ title: "Animated Arc", href: "/docs/arc-animated" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>

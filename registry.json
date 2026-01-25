@@ -248,6 +248,22 @@
       ]
     },
     {
+      "name": "map-sync",
+      "type": "registry:ui",
+      "title": "Map Sync",
+      "description": "Synchronized multi-map component with bidirectional movement sync.",
+      "dependencies": ["mapbox-gl", "next-themes", "lucide-react"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/map-sync.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/map-sync.tsx"
+        }
+      ]
+    },
+    {
       "name": "map-arc-animated",
       "type": "registry:ui",
       "title": "Map Arc Animated",
@@ -260,6 +276,86 @@
           "path": "src/registry/map/arc-animated.tsx",
           "type": "registry:ui",
           "target": "components/ui/map/arc-animated.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-camera-follow",
+      "type": "registry:ui",
+      "title": "Map Camera Follow",
+      "description": "Animate camera along a path for immersive fly-through experiences.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/camera-follow.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/camera-follow.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-circle",
+      "type": "registry:ui",
+      "title": "Map Circle",
+      "description": "Draggable geographic circle with customizable fill and stroke.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/circle.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/circle.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-animated-circle",
+      "type": "registry:ui",
+      "title": "Map Animated Circle",
+      "description": "Animated circle with drawing and fill effects.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/animated-circle.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/animated-circle.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-blur-area",
+      "type": "registry:ui",
+      "title": "Map Blur Area",
+      "description": "Blur sensitive areas on the map with customizable styling.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/blur-area.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/blur-area.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-targeting-reticle",
+      "type": "registry:ui",
+      "title": "Map Targeting Reticle",
+      "description": "Military-style targeting brackets with tracking and lock-on capabilities.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/targeting-reticle.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/targeting-reticle.tsx"
         }
       ]
     }

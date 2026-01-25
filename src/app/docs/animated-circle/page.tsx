@@ -26,7 +26,7 @@ const AnimatedCirclePage = () => {
       title="Animated Circle"
       description="Animated circles with drawing outline and fill effects."
       prev={{ title: "Circle", href: "/docs/circle" }}
-      next={{ title: "Animated Polygon", href: "/docs/animated-polygon" }}
+      next={{ title: "Animated Lines", href: "/docs/lines-animated" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>

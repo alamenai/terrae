@@ -718,6 +718,38 @@ export default function ApiReferencePage() {
               default: "64",
               description: "Number of segments for circle smoothness.",
             },
+            {
+              name: "draggable",
+              type: "boolean",
+              default: "false",
+              description: "Enable dragging to reposition the circle.",
+              isNew: true,
+            },
+            {
+              name: "cursor",
+              type: "string",
+              default: '"grab"',
+              description: "Cursor style when hovering over draggable circle.",
+              isNew: true,
+            },
+            {
+              name: "onDragStart",
+              type: "(center: [number, number]) => void",
+              description: "Callback when drag begins.",
+              isNew: true,
+            },
+            {
+              name: "onDrag",
+              type: "(center: [number, number]) => void",
+              description: "Callback during drag with new center coordinates.",
+              isNew: true,
+            },
+            {
+              name: "onDragEnd",
+              type: "(center: [number, number]) => void",
+              description: "Callback when drag ends with final center coordinates.",
+              isNew: true,
+            },
           ]}
         />
       </DocsSection>
@@ -1682,6 +1714,17 @@ export default function ApiReferencePage() {
               name: "onComplete",
               type: "() => void",
               description: "Callback when animation completes.",
+            },
+            {
+              name: "marker",
+              type: "boolean | ReactNode",
+              description: "Navigation marker. Use true for default arrow, or pass a custom React element.",
+            },
+            {
+              name: "markerSize",
+              type: "number",
+              default: "48",
+              description: "Size of the default navigation marker in pixels.",
             },
           ]}
         />
