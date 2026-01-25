@@ -18,6 +18,9 @@ import {
   EyeOff,
   Share2,
   Pentagon,
+  Circle,
+  Link2,
+  Crosshair,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -96,6 +99,24 @@ const components: ComponentItem[] = [
     isNew: true,
   },
   {
+    title: "Circle",
+    href: "/docs/circle",
+    description: "Draggable geographic circles with center point and radius",
+    icon: Circle,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-circle.json",
+    isNew: true,
+  },
+  {
+    title: "Animated Circle",
+    href: "/docs/animated-circle",
+    description: "Animated circles with drawing and fill effects",
+    icon: Circle,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-animated-circle.json",
+    isNew: true,
+  },
+  {
     title: "Animated Lines",
     href: "/docs/lines-animated",
     description: "Animated path visualization with customizable timing",
@@ -122,6 +143,15 @@ const components: ComponentItem[] = [
     isNew: true,
   },
   {
+    title: "Camera Follow",
+    href: "/docs/camera-follow",
+    description: "Animate camera along a path for immersive fly-through experiences",
+    icon: Play,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-camera-follow.json",
+    isNew: true,
+  },
+  {
     title: "Animated Markers",
     href: "/docs/markers-animated",
     description: "Animate markers along paths for real-time tracking",
@@ -144,6 +174,15 @@ const components: ComponentItem[] = [
     icon: ArrowLeftRight,
     category: "features",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-compare.json",
+  },
+  {
+    title: "Sync",
+    href: "/docs/sync",
+    description: "Synchronized multi-map with bidirectional movement sync",
+    icon: Link2,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-sync.json",
+    isNew: true,
   },
   {
     title: "Image",
@@ -193,6 +232,15 @@ const components: ComponentItem[] = [
     icon: EyeOff,
     category: "features",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-blur-area.json",
+    isNew: true,
+  },
+  {
+    title: "Targeting Reticle",
+    href: "/docs/targeting-reticle",
+    description: "Animated targeting reticle with tracking and lock-on effects",
+    icon: Crosshair,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-targeting-reticle.json",
     isNew: true,
   },
 ]
