@@ -136,6 +136,32 @@ const changelogs: Changelog[] = [
         href: "/docs/targeting-reticle",
       },
     ],
+    properties: [
+      {
+        component: "Animated Arc",
+        title: "Head Types",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">headType</code> prop with arrow, circle, square,
+            and none options. Control the size with{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">headSize</code>.
+          </>
+        ),
+        href: "/docs/arc-animated#head-types",
+      },
+      {
+        component: "Animated Arc",
+        title: "Origin & Destination Markers",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">showOriginMarker</code> and{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">showDestinationMarker</code> props to display dots at
+            start and end points with custom colors.
+          </>
+        ),
+        href: "/docs/arc-animated#origin--destination-markers",
+      },
+    ],
   },
   {
     date: "January 25, 2026",
