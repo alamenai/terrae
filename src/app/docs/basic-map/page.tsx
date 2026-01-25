@@ -8,7 +8,6 @@ import { ProjectionSwitcherExample } from "../_components/examples/projection-sw
 import { StandardMapExample } from "../_components/examples/standard-map-example"
 import { StyleSwitcherExample } from "../_components/examples/style-switcher-example"
 import { InteractiveMapExample } from "../_components/examples/interactive-map-example"
-import { NavigationMapExample } from "../_components/examples/navigation-map-example"
 import { CustomLoaderExample } from "../_components/examples/custom-loader-example"
 import { getExampleSource } from "@/lib/get-example-source"
 import { Metadata } from "next"
@@ -26,7 +25,6 @@ export default function BasicMapPage() {
   const standardMapSource = getExampleSource("standard-map-example.tsx")
   const styleSwitcherSource = getExampleSource("style-switcher-example.tsx")
   const interactiveMapSource = getExampleSource("interactive-map-example.tsx")
-  const navigationMapSource = getExampleSource("navigation-map-example.tsx")
   const customLoaderSource = getExampleSource("custom-loader-example.tsx")
 
   return (
@@ -193,18 +191,6 @@ export default function BasicMapPage() {
 
       <ComponentPreview code={styleSwitcherSource}>
         <StyleSwitcherExample />
-      </ComponentPreview>
-
-      <DocsSection title="Navigation Style" id="navigation-style">
-        <p>
-          The <DocsCode>navigationMapStyles</DocsCode> preset uses Mapbox's navigation-optimized styles. These feature
-          higher contrast roads, clearer labels, and are designed for turn-by-turn navigation interfaces. The day
-          variant works best in bright conditions, while the night variant reduces eye strain in low-light environments.
-        </p>
-      </DocsSection>
-
-      <ComponentPreview code={navigationMapSource}>
-        <NavigationMapExample />
       </ComponentPreview>
 
       <DocsNote>
