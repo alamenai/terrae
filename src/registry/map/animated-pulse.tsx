@@ -1,121 +1,128 @@
-"use client";
+"use client"
 
-import { useEffect, useRef } from "react";
-import { useMap } from "./hooks";
-import type { MapCoordinates } from "./types";
+import { useEffect, useRef } from "react"
+import { useMap } from "./hooks"
+import type { MapCoordinates } from "./types"
+
+const DEFAULT_SIZE = 100
+const DEFAULT_COLOR = "rgba(0, 100, 255, 1)"
+const DEFAULT_PULSE_COLOR = "rgba(0, 100, 255, 0.8)"
+const DEFAULT_DURATION = 1000
 
 type MapAnimatedPulseProps = {
-  /** Unique identifier for the pulsing animation */
-  id: string;
-  /** Pulse size in pixels */
-  size: number;
-  /** Coordinates [longitude, latitude] for pulse position */
-  coordinates: MapCoordinates;
-  /** Inner circle color */
-  color?: string;
-  /** Outer pulsing circle color */
-  pulseColor?: string;
-  /** Animation duration in milliseconds */
-  duration?: number;
-};
-
-function createPulsingDot(
-  size: number,
-  color: string,
-  pulseColor: string,
-  duration: number
-) {
-  return {
-    width: size,
-    height: size,
-    data: new Uint8Array(size * size * 4),
-
-    onAdd: function (this: any) {
-      const canvas = document.createElement("canvas");
-      canvas.width = this.width;
-      canvas.height = this.height;
-      this.context = canvas.getContext("2d", { willReadFrequently: true });
-    },
-
-    render: function (this: any) {
-      const t = (performance.now() % duration) / duration;
-      const radius = (size / 2) * 0.3;
-      const outerRadius = (size / 2) * 0.7 * t + radius;
-      const context = this.context as CanvasRenderingContext2D;
-
-      // Draw pulsing outer circle
-      context.clearRect(0, 0, this.width, this.height);
-      context.beginPath();
-      context.arc(this.width / 2, this.height / 2, outerRadius, 0, Math.PI * 2);
-      context.fillStyle = pulseColor;
-      context.globalAlpha = 1 - t;
-      context.fill();
-
-      // Draw inner circle
-      context.beginPath();
-      context.arc(this.width / 2, this.height / 2, radius, 0, Math.PI * 2);
-      context.fillStyle = color;
-      context.globalAlpha = 1;
-      context.fill();
-
-      this.data = context.getImageData(0, 0, this.width, this.height).data;
-      return true;
-    },
-  };
+  id: string
+  coordinates: MapCoordinates
+  size?: number
+  color?: string
+  pulseColor?: string
+  duration?: number
 }
 
-export function MapAnimatedPulse({
+type PulsingDot = {
+  width: number
+  height: number
+  data: Uint8ClampedArray
+  context?: CanvasRenderingContext2D
+  onAdd: () => void
+  render: () => boolean
+}
+
+const createPulsingDot = (size: number, color: string, pulseColor: string, duration: number): PulsingDot => {
+  const dot: PulsingDot = {
+    width: size,
+    height: size,
+    data: new Uint8ClampedArray(size * size * 4),
+
+    onAdd() {
+      const canvas = document.createElement("canvas")
+      canvas.width = this.width
+      canvas.height = this.height
+      this.context = canvas.getContext("2d", { willReadFrequently: true }) || undefined
+    },
+
+    render() {
+      if (!this.context) {
+        return false
+      }
+
+      const t = (performance.now() % duration) / duration
+      const radius = (size / 2) * 0.3
+      const outerRadius = (size / 2) * 0.7 * t + radius
+
+      this.context.clearRect(0, 0, this.width, this.height)
+
+      this.context.beginPath()
+      this.context.arc(this.width / 2, this.height / 2, outerRadius, 0, Math.PI * 2)
+      this.context.fillStyle = pulseColor
+      this.context.globalAlpha = 1 - t
+      this.context.fill()
+
+      this.context.beginPath()
+      this.context.arc(this.width / 2, this.height / 2, radius, 0, Math.PI * 2)
+      this.context.fillStyle = color
+      this.context.globalAlpha = 1
+      this.context.fill()
+
+      this.data = this.context.getImageData(0, 0, this.width, this.height).data
+
+      return true
+    },
+  }
+
+  return dot
+}
+
+export const MapAnimatedPulse = ({
   id,
-  size,
   coordinates,
-  color = "rgba(0, 100, 255, 1)",
-  pulseColor = "rgba(0, 100, 255, 0.8)",
-  duration = 1000,
-}: MapAnimatedPulseProps) {
-  const { map, isLoaded } = useMap();
-  const animationFrameRef = useRef<number | null>(null);
-  const sourceId = `${id}-source`;
-  const layerId = `${id}-layer`;
+  size = DEFAULT_SIZE,
+  color = DEFAULT_COLOR,
+  pulseColor = DEFAULT_PULSE_COLOR,
+  duration = DEFAULT_DURATION,
+}: MapAnimatedPulseProps) => {
+  const { map, isLoaded } = useMap()
+  const animationFrameRef = useRef<number | null>(null)
+  const sourceId = `${id}-source`
+  const layerId = `${id}-layer`
 
   useEffect(() => {
-    if (!isLoaded || !map) return;
-
-    const pulsingDot = createPulsingDot(size, color, pulseColor, duration);
-
-    // Add the pulse image
-    if (!map.hasImage(id)) {
-      map.addImage(id, pulsingDot as any, { pixelRatio: 2 });
+    if (!isLoaded || !map) {
+      return
     }
 
-    // Start animation loop
-    const animate = () => {
-      map.triggerRepaint();
-      animationFrameRef.current = requestAnimationFrame(animate);
-    };
-    animationFrameRef.current = requestAnimationFrame(animate);
+    const pulsingDot = createPulsingDot(size, color, pulseColor, duration)
 
-    // Cleanup
+    if (!map.hasImage(id)) {
+      map.addImage(id, pulsingDot, { pixelRatio: 2 })
+    }
+
+    const animate = () => {
+      map.triggerRepaint()
+      animationFrameRef.current = requestAnimationFrame(animate)
+    }
+    animationFrameRef.current = requestAnimationFrame(animate)
+
     return () => {
       if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+        cancelAnimationFrame(animationFrameRef.current)
       }
       if (map.hasImage(id)) {
-        map.removeImage(id);
+        map.removeImage(id)
       }
-    };
-  }, [map, isLoaded, id, size, color, pulseColor, duration]);
+    }
+  }, [map, isLoaded, id, size, color, pulseColor, duration])
 
   useEffect(() => {
-    if (!isLoaded || !map) return;
+    if (!isLoaded || !map) {
+      return
+    }
 
     const setup = () => {
-      // Wait for both style and image to be ready
       if (!map.isStyleLoaded() || !map.hasImage(id)) {
-        requestAnimationFrame(setup);
-        return;
+        requestAnimationFrame(setup)
+        return
       }
 
-      // Add source
       if (!map.getSource(sourceId)) {
         map.addSource(sourceId, {
           type: "geojson",
@@ -129,10 +136,9 @@ export function MapAnimatedPulse({
               },
             ],
           },
-        });
+        })
       }
 
-      // Add layer
       if (!map.getLayer(layerId)) {
         map.addLayer({
           id: layerId,
@@ -142,21 +148,24 @@ export function MapAnimatedPulse({
             "icon-image": id,
             "icon-allow-overlap": true,
           },
-        });
+        })
       }
-    };
+    }
 
-    const rafId = requestAnimationFrame(setup);
+    const rafId = requestAnimationFrame(setup)
 
-    // Cleanup
     return () => {
-      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(rafId)
       if (map.isStyleLoaded()) {
-        if (map.getLayer(layerId)) map.removeLayer(layerId);
-        if (map.getSource(sourceId)) map.removeSource(sourceId);
+        if (map.getLayer(layerId)) {
+          map.removeLayer(layerId)
+        }
+        if (map.getSource(sourceId)) {
+          map.removeSource(sourceId)
+        }
       }
-    };
-  }, [map, isLoaded, coordinates, id, sourceId, layerId]);
+    }
+  }, [map, isLoaded, coordinates, id, sourceId, layerId])
 
-  return null;
+  return null
 }

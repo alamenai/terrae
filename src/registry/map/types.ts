@@ -54,6 +54,8 @@ export const navigationMapStyles: Required<MapThemeStyles> = {
 
 export type MapCompareOrientation = "horizontal" | "vertical"
 
+export type MapSyncLayout = "horizontal" | "vertical" | "grid"
+
 export type MapContextValue = {
   map: Map | null
   isLoaded: boolean
