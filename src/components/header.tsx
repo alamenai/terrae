@@ -19,9 +19,7 @@ export function Header({ className, leftContent, actions }: HeaderProps) {
     { href: "/docs", label: "Docs" },
     { href: "/docs/comparison", label: "Comparison" },
     { href: "/docs/components", label: "Components", pulse: true },
-    { href: "/docs/examples", label: "Examples" },
-    { href: "/docs/ideas", label: "Ideas" },
-    { href: "/docs/weeklog", label: "Weeklog" },
+    { href: "/docs/changelog", label: "Changelog" },
   ]
 
   return (
@@ -44,7 +42,7 @@ export function Header({ className, leftContent, actions }: HeaderProps) {
                   key={item.href}
                   href={item.href}
                   className={`relative text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap ${
-                    item.label === "Weeklog"
+                    item.label === "Changelog"
                       ? "bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-semibold"
                       : ""
                   }`}
