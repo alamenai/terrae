@@ -1,4 +1,4 @@
-import { DocsLayout, DocsSection, DocsCode, DocsNote, DocsLink, NewBadge } from "../_components/docs"
+import { DocsLayout, DocsSection, DocsCode, DocsNote, DocsLink } from "../_components/docs"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { BasicMapExample } from "../_components/examples/basic-map-example"
@@ -58,7 +58,7 @@ export default function BasicMapPage() {
         <GlobeMapExample />
       </ComponentPreview>
 
-      <DocsSection title="Auto-Rotating Globe" id="auto-rotate" badge={<NewBadge />}>
+      <DocsSection title="Auto-Rotating Globe" id="auto-rotate">
         <p>
           Enable automatic rotation on globe projection with the <DocsCode>autoRotate</DocsCode> prop. Control the
           rotation speed with <DocsCode>rotateSpeed</DocsCode> (degrees per second, default: 3). This only works when{" "}
@@ -102,7 +102,7 @@ export default function BasicMapPage() {
         </p>
       </DocsSection>
 
-      <DocsSection title="Style Presets" id="style-presets" badge={<NewBadge />}>
+      <DocsSection title="Style Presets" id="style-presets">
         <p>
           Built-in style presets are available that automatically adapt to your theme. Import and use them directly with
           the <DocsCode>styles</DocsCode> prop.
@@ -202,7 +202,7 @@ export default function BasicMapPage() {
         for all available styles.
       </DocsNote>
 
-      <DocsSection title="Custom Loader" id="custom-loader" badge={<NewBadge />}>
+      <DocsSection title="Custom Loader" id="custom-loader">
         <p>
           Use the <DocsCode>loader</DocsCode> prop to display a custom loading component while the map initializes. This
           is useful for branding or providing a better loading experience. The <DocsCode>showLoader</DocsCode> prop
@@ -332,10 +332,7 @@ export default function BasicMapPage() {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <span className="flex items-center gap-2">
-                    <DocsCode>showLoader</DocsCode>
-                    <NewBadge />
-                  </span>
+                  <DocsCode>showLoader</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">boolean</TableCell>
                 <TableCell className="text-muted-foreground">undefined</TableCell>
@@ -346,10 +343,7 @@ export default function BasicMapPage() {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <span className="flex items-center gap-2">
-                    <DocsCode>autoRotate</DocsCode>
-                    <NewBadge />
-                  </span>
+                  <DocsCode>autoRotate</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">boolean</TableCell>
                 <TableCell className="text-muted-foreground">false</TableCell>
@@ -359,10 +353,7 @@ export default function BasicMapPage() {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <span className="flex items-center gap-2">
-                    <DocsCode>rotateSpeed</DocsCode>
-                    <NewBadge />
-                  </span>
+                  <DocsCode>rotateSpeed</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">number</TableCell>
                 <TableCell className="text-muted-foreground">3</TableCell>
