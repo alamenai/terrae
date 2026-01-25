@@ -9,13 +9,13 @@ export function Hero() {
     <div className="space-y-8">
       <div className="text-center space-y-6">
         <Link
-          href="/docs/lines-radial"
+          href="/docs/targeting-reticle"
           className="relative inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <span className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
           <span className="absolute inset-[1px] rounded-full bg-background" />
           <span className="relative px-3 py-1 flex items-center gap-1.5">
-            Introducing Animated Radial Lines
+            Introducing Targeting Reticle
             <ArrowRight className="size-3" />
           </span>
         </Link>
