@@ -8,7 +8,7 @@ export const ArcHeightExample = () => {
 
   return (
     <div className="h-full w-full">
-      <Map accessToken={accessToken} center={[-40, 48]} zoom={2.5} projection="mercator">
+      <Map accessToken={accessToken} center={[-37, 50]} zoom={0} projection="mercator">
         <MapArcAnimated
           id="high-arc"
           origin={NEW_YORK}
@@ -19,7 +19,6 @@ export const ArcHeightExample = () => {
           duration={3000}
           loop
           loopDelay={1000}
-          markerColor="#8b5cf6"
         />
       </Map>
     </div>

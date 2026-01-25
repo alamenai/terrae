@@ -24,6 +24,7 @@ const anatomyCode = `<Map>
     <MarkerPopup />
     <MarkerTooltip />
   </MapMarker>
+  <MapMarkerAnimated id="animated" path={[[lng, lat], ...]} />
 
   {/* Popup */}
   <MapPopup coordinates={[lng, lat]} />
@@ -40,15 +41,19 @@ const anatomyCode = `<Map>
   <MapMiniMap />
   <MapLine coordinates={[[lng, lat], ...]} />
   <MapPolygon coordinates={[[lng, lat], ...]} />
+  <MapCircle center={[lng, lat]} radius={1000} />
+  <MapAnimatedCircle id="zone" center={[lng, lat]} radius={1000} />
   <MapLineAnimated id="route" path={[[lng, lat], ...]} />
   <MapLineRadial id="radial" origin={[lng, lat]} destinations={[[lng, lat], ...]} />
   <MapArcAnimated id="arc" origin={[lng, lat]} destination={[lng, lat]} />
+  <MapCameraFollow path={[[lng, lat], ...]} />
   <MapAnimatedPolygon id="zone" coordinates={[[lng, lat], ...]} />
   <MapCircleCluster data={geoJsonData} />
   <MapAnimatedPulse id="pulse" size={100} coordinates={[lng, lat]} />
   <MapImage id="overlay" url="..." coordinates={[...]} />
   <MapRasterVideo id="video" urls={[...]} coordinates={[...]} />
   <MapBlurArea coordinates={[[lng, lat], ...]} />
+  <MapTargetingReticle coordinates={[lng, lat]} />
   <MapRain />
 </Map>`
 
@@ -144,7 +149,6 @@ export default function ApiReferencePage() {
               default: "defaultMapStyles",
               description:
                 "Theme-aware styles object. Use presets: defaultMapStyles, standardMapStyles, streetsMapStyles, outdoorsMapStyles, satelliteMapStyles, navigationMapStyles.",
-              isNew: true,
             },
             {
               name: "minZoom",
@@ -173,21 +177,18 @@ export default function ApiReferencePage() {
               type: "boolean",
               description:
                 "Controls loader visibility. When true, forces loader. When false, hides. When undefined, uses internal loading state.",
-              isNew: true,
             },
             {
               name: "autoRotate",
               type: "boolean",
               default: "false",
               description: 'Enables automatic rotation. Only works with projection="globe".',
-              isNew: true,
             },
             {
               name: "rotateSpeed",
               type: "number",
               default: "3",
               description: "Rotation speed in degrees per second when autoRotate is enabled.",
-              isNew: true,
             },
           ]}
         />
@@ -494,6 +495,80 @@ export default function ApiReferencePage() {
         />
       </DocsSection>
 
+      {/* MapMarkerAnimated */}
+      <DocsSection title="MapMarkerAnimated">
+        <p>
+          Renders an animated marker that moves along a path. Must be used inside <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the animated marker.",
+            },
+            {
+              name: "coordinates",
+              type: "[number, number][]",
+              description: "Array of [longitude, latitude] pairs defining the path.",
+            },
+            {
+              name: "color",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Marker color.",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "10",
+              description: "Marker radius in pixels.",
+            },
+            {
+              name: "duration",
+              type: "number",
+              default: "5000",
+              description: "Animation duration in milliseconds.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+            {
+              name: "loop",
+              type: "boolean",
+              default: "false",
+              description: "Loop animation continuously.",
+            },
+            {
+              name: "showPath",
+              type: "boolean",
+              default: "false",
+              description: "Show the path/route line.",
+            },
+            {
+              name: "pathColor",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Path line color.",
+            },
+            {
+              name: "pathWidth",
+              type: "number",
+              default: "4",
+              description: "Path line width in pixels.",
+            },
+            {
+              name: "onComplete",
+              type: "() => void",
+              description: "Callback when animation completes.",
+            },
+          ]}
+        />
+      </DocsSection>
+
       {/* MapLine */}
       <DocsSection title="MapLine">
         <p>
@@ -534,7 +609,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapPolygon */}
-      <DocsSection title="MapPolygon" badge={<NewBadge />}>
+      <DocsSection title="MapPolygon">
         <p>
           Renders a filled polygon on the map. Must be used inside <DocsCode>Map</DocsCode>.
         </p>
@@ -579,6 +654,189 @@ export default function ApiReferencePage() {
               name: "dashArray",
               type: "[number, number]",
               description: "Dash pattern [dash length, gap length] for dashed strokes.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapCircle */}
+      <DocsSection title="MapCircle" badge={<NewBadge />}>
+        <p>
+          Renders a geographic circle on the map with a center point and radius in meters. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "center",
+              type: "[number, number]",
+              description: "Center point [longitude, latitude] of the circle.",
+            },
+            {
+              name: "radius",
+              type: "number",
+              description: "Radius of the circle in meters.",
+            },
+            {
+              name: "fillColor",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Fill color of the circle.",
+            },
+            {
+              name: "fillOpacity",
+              type: "number",
+              default: "0",
+              description: "Fill opacity (0 to 1).",
+            },
+            {
+              name: "strokeColor",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Stroke/outline color.",
+            },
+            {
+              name: "strokeWidth",
+              type: "number",
+              default: "2",
+              description: "Stroke width in pixels.",
+            },
+            {
+              name: "strokeOpacity",
+              type: "number",
+              default: "1",
+              description: "Stroke opacity (0 to 1).",
+            },
+            {
+              name: "dashArray",
+              type: "[number, number]",
+              description: "Dash pattern [dash length, gap length] for dashed strokes.",
+            },
+            {
+              name: "segments",
+              type: "number",
+              default: "64",
+              description: "Number of segments for circle smoothness.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapAnimatedCircle */}
+      <DocsSection title="MapAnimatedCircle" badge={<NewBadge />}>
+        <p>
+          Renders an animated circle with drawing outline and fill effects. Must be used inside <DocsCode>Map</DocsCode>
+          .
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the animated circle.",
+            },
+            {
+              name: "center",
+              type: "[number, number]",
+              description: "Center point [longitude, latitude] of the circle.",
+            },
+            {
+              name: "radius",
+              type: "number",
+              description: "Radius of the circle in meters.",
+            },
+            {
+              name: "strokeColor",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Color of the circle outline.",
+            },
+            {
+              name: "strokeWidth",
+              type: "number",
+              default: "2",
+              description: "Width of the circle outline in pixels.",
+            },
+            {
+              name: "strokeOpacity",
+              type: "number",
+              default: "1",
+              description: "Opacity of the circle outline (0-1).",
+            },
+            {
+              name: "strokeDashArray",
+              type: "number[]",
+              default: "-",
+              description: "Dash pattern [dash, gap] for dashed outline effect.",
+            },
+            {
+              name: "fillColor",
+              type: "string",
+              default: '"#3b82f6"',
+              description: "Color of the circle fill.",
+            },
+            {
+              name: "fillOpacity",
+              type: "number",
+              default: "0.3",
+              description: "Target opacity of the circle fill (0-1).",
+            },
+            {
+              name: "duration",
+              type: "number",
+              default: "2000",
+              description: "Duration of outline drawing animation in milliseconds.",
+            },
+            {
+              name: "fillDuration",
+              type: "number",
+              default: "1000",
+              description: "Duration of fill animation in milliseconds.",
+            },
+            {
+              name: "animationMode",
+              type: '"draw" | "fill"',
+              default: '"draw"',
+              description: "Animation mode: outline only or outline then fill.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+            {
+              name: "loop",
+              type: "boolean",
+              default: "false",
+              description: "Loop the animation continuously.",
+            },
+            {
+              name: "loopDelay",
+              type: "number",
+              default: "1000",
+              description: "Delay before restarting loop in milliseconds.",
+            },
+            {
+              name: "segments",
+              type: "number",
+              default: "64",
+              description: "Number of segments for circle smoothness.",
+            },
+            {
+              name: "onDrawComplete",
+              type: "() => void",
+              description: "Callback when outline drawing completes.",
+            },
+            {
+              name: "onFillComplete",
+              type: "() => void",
+              description: "Callback when fill animation completes.",
+            },
+            {
+              name: "onComplete",
+              type: "() => void",
+              description: "Callback when entire animation completes.",
             },
           ]}
         />
@@ -687,7 +945,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapAnimatedPolygon */}
-      <DocsSection title="MapAnimatedPolygon" badge={<NewBadge />}>
+      <DocsSection title="MapAnimatedPolygon">
         <p>
           Renders an animated polygon with drawing outline and fill effects. Must be used inside{" "}
           <DocsCode>Map</DocsCode>.
@@ -790,7 +1048,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapMiniMap */}
-      <DocsSection title="MapMiniMap" badge={<UpdatedBadge />}>
+      <DocsSection title="MapMiniMap">
         <p>
           Displays an overview minimap showing the current viewport context. Must be used inside{" "}
           <DocsCode>Map</DocsCode>.
@@ -830,7 +1088,6 @@ export default function ApiReferencePage() {
               name: "styles",
               type: "MapThemeStyles",
               description: "Theme-aware styles object with light/dark variants. Automatically switches based on theme.",
-              isNew: true,
             },
             {
               name: "boxColor",
@@ -849,21 +1106,19 @@ export default function ApiReferencePage() {
               type: 'number | "full" | "none"',
               default: "8",
               description: 'Border radius in pixels, "full" for circular, or "none".',
-              isNew: true,
             },
             {
               name: "draggable",
               type: "boolean",
               default: "false",
               description: "Allow users to drag the minimap anywhere within the map.",
-              isNew: true,
             },
           ]}
         />
       </DocsSection>
 
       {/* MapBlurArea */}
-      <DocsSection title="MapBlurArea" badge={<NewBadge />}>
+      <DocsSection title="MapBlurArea">
         <p>
           Renders blur effect overlays on specified areas of the map. Supports single or multiple areas. Must be used
           inside <DocsCode>Map</DocsCode>.
@@ -903,6 +1158,93 @@ export default function ApiReferencePage() {
               type: "boolean",
               default: "false",
               description: "Prevent map interactions on blur areas.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapTargetingReticle */}
+      <DocsSection title="MapTargetingReticle">
+        <p>
+          Renders a targeting reticle overlay with corner brackets that can track and lock onto targets. Must be used
+          inside <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "coordinates",
+              type: "[number, number]",
+              description: "Current reticle position [longitude, latitude].",
+            },
+            {
+              name: "target",
+              type: "[number, number]",
+              description: "Target coordinates to track towards.",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "120",
+              description: "Reticle size in pixels.",
+            },
+            {
+              name: "bracketLength",
+              type: "number",
+              default: "24",
+              description: "Length of corner brackets in pixels.",
+            },
+            {
+              name: "bracketThickness",
+              type: "number",
+              default: "2",
+              description: "Thickness of corner brackets in pixels.",
+            },
+            {
+              name: "gap",
+              type: "number",
+              default: "8",
+              description: "Gap between brackets and reticle edge in pixels.",
+            },
+            {
+              name: "color",
+              type: "string",
+              default: '"rgba(59, 130, 246, 0.9)"',
+              description: "Default reticle color.",
+            },
+            {
+              name: "lockedColor",
+              type: "string",
+              default: '"rgba(34, 197, 94, 0.9)"',
+              description: "Color when locked on target.",
+            },
+            {
+              name: "locked",
+              type: "boolean",
+              default: "false",
+              description: "Whether the reticle is locked on target.",
+            },
+            {
+              name: "trackingSpeed",
+              type: "number",
+              default: "0.02",
+              description: "Speed of tracking interpolation (0-1).",
+            },
+            {
+              name: "showCrosshair",
+              type: "boolean",
+              default: "true",
+              description: "Show crosshair lines in the center.",
+            },
+            {
+              name: "showCoordinates",
+              type: "boolean",
+              default: "false",
+              description: "Display coordinates below the reticle.",
+            },
+            {
+              name: "onLocked",
+              type: "() => void",
+              description: "Callback when reticle locks onto target.",
             },
           ]}
         />
@@ -1000,7 +1342,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapLineRadial */}
-      <DocsSection title="MapLineRadial" badge={<NewBadge />}>
+      <DocsSection title="MapLineRadial">
         <p>
           Renders animated curved lines spreading from a central origin to multiple destinations. Must be used inside{" "}
           <DocsCode>Map</DocsCode>.
@@ -1157,7 +1499,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapArcAnimated */}
-      <DocsSection title="MapArcAnimated" badge={<NewBadge />}>
+      <DocsSection title="MapArcAnimated" badge={<UpdatedBadge />}>
         <p>
           Renders an animated curved arc between two points. Useful for visualizing flights, deliveries, and
           point-to-point connections. Must be used inside <DocsCode>Map</DocsCode>.
@@ -1239,37 +1581,102 @@ export default function ApiReferencePage() {
               description: "Delay before restarting loop in milliseconds.",
             },
             {
-              name: "showMarker",
-              type: "boolean",
-              default: "true",
-              description: "Show traveling marker at the arc tip during animation.",
+              name: "headType",
+              type: '"none" | "circle" | "square" | "arrow"',
+              default: '"circle"',
+              description: "Shape of the traveling marker at the arc tip.",
+              isNew: true,
             },
             {
-              name: "markerColor",
-              type: "string",
-              description: "Traveling marker color (defaults to arc color).",
+              name: "headSize",
+              type: "number",
+              default: "16",
+              description: "Size of the head marker in pixels.",
+              isNew: true,
             },
             {
               name: "showOriginMarker",
               type: "boolean",
-              default: "true",
+              default: "false",
               description: "Show marker at the origin point.",
+              isNew: true,
             },
             {
               name: "originMarkerColor",
               type: "string",
               description: "Origin marker color (defaults to arc color).",
+              isNew: true,
             },
             {
               name: "showDestinationMarker",
               type: "boolean",
-              default: "true",
+              default: "false",
               description: "Show marker at destination when animation completes.",
+              isNew: true,
             },
             {
               name: "destinationMarkerColor",
               type: "string",
               description: "Destination marker color (defaults to arc color).",
+              isNew: true,
+            },
+            {
+              name: "onComplete",
+              type: "() => void",
+              description: "Callback when animation completes.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapCameraFollow */}
+      <DocsSection title="MapCameraFollow" badge={<NewBadge />}>
+        <p>
+          Animates the camera along a path of coordinates for immersive fly-through experiences. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "path",
+              type: "[number, number][]",
+              description: "Array of [longitude, latitude] coordinates for the camera to follow. Required.",
+            },
+            {
+              name: "duration",
+              type: "number",
+              default: "20000",
+              description: "Animation duration in milliseconds.",
+            },
+            {
+              name: "zoom",
+              type: "number",
+              default: "14",
+              description: "Camera zoom level during flight.",
+            },
+            {
+              name: "pitch",
+              type: "number",
+              default: "60",
+              description: "Camera tilt angle (0-85 degrees).",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+            {
+              name: "loop",
+              type: "boolean",
+              default: "false",
+              description: "Loop the animation continuously.",
+            },
+            {
+              name: "loopDelay",
+              type: "number",
+              default: "1000",
+              description: "Delay before restarting loop in milliseconds.",
             },
             {
               name: "onComplete",
@@ -1281,7 +1688,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapCompare */}
-      <DocsSection title="MapCompare" badge={<UpdatedBadge />}>
+      <DocsSection title="MapCompare">
         <p>
           Displays two maps side-by-side for visual comparison. This component creates its own map instances and does
           not require a parent <DocsCode>Map</DocsCode> component.
@@ -1343,14 +1750,80 @@ export default function ApiReferencePage() {
               type: '"horizontal" | "vertical"',
               default: '"horizontal"',
               description: "Compare layout direction. Horizontal shows left/right, vertical shows top/bottom.",
-              isNew: true,
             },
             {
               name: "showLabels",
               type: "boolean",
               default: "false",
               description: "Show Before/After or Top/Bottom labels on each map panel.",
-              isNew: true,
+            },
+            {
+              name: "loader",
+              type: "ReactNode",
+              description: "Custom loading component.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapSync */}
+      <DocsSection title="MapSync" badge={<NewBadge />}>
+        <p>
+          Displays 2 or 4 synchronized maps where panning, zooming, or rotating one map updates all others in real-time.
+          This component creates its own map instances and does not require a parent <DocsCode>Map</DocsCode> component.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "accessToken",
+              type: "string",
+              description: "Mapbox access token. Required.",
+            },
+            {
+              name: "maps",
+              type: "MapConfig[]",
+              description: "Array of 2 or 4 map configurations. Each config: { style?, styles?, label? }.",
+            },
+            {
+              name: "layout",
+              type: '"horizontal" | "vertical" | "grid"',
+              default: '"horizontal"',
+              description: "Layout arrangement. Grid requires 4 maps for a 2x2 layout.",
+            },
+            {
+              name: "center",
+              type: "[number, number]",
+              default: "[0, 0]",
+              description: "Initial map center [longitude, latitude].",
+            },
+            {
+              name: "zoom",
+              type: "number",
+              default: "2",
+              description: "Initial zoom level.",
+            },
+            {
+              name: "bearing",
+              type: "number",
+              default: "0",
+              description: "Map bearing (rotation) in degrees.",
+            },
+            {
+              name: "pitch",
+              type: "number",
+              default: "0",
+              description: "Map pitch (tilt) in degrees.",
+            },
+            {
+              name: "projection",
+              type: '"globe" | "mercator" | "naturalEarth" | "equalEarth" | "winkelTripel"',
+              description: "Map projection type.",
+            },
+            {
+              name: "showLabels",
+              type: "boolean",
+              default: "false",
+              description: "Show labels on each map panel.",
             },
             {
               name: "loader",
@@ -1558,6 +2031,45 @@ export default function ApiReferencePage() {
               name: "className",
               type: "string",
               description: "Additional CSS classes for the avatar container.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MarkerAvatarPin */}
+      <DocsSection title="MarkerAvatarPin" badge={<NewBadge />}>
+        <p>
+          Renders an avatar inside a teardrop/pin shape that points to the exact location. Must be used inside{" "}
+          <DocsCode>MarkerContent</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "src",
+              type: "string",
+              description: "Image source URL.",
+            },
+            {
+              name: "alt",
+              type: "string",
+              description: "Alt text for the image.",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "56",
+              description: "Diameter of the circular avatar in pixels.",
+            },
+            {
+              name: "borderWidth",
+              type: "number",
+              default: "4",
+              description: "Border thickness in pixels.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes for the pin container.",
             },
           ]}
         />

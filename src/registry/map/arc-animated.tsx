@@ -1,9 +1,12 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import mapboxgl from "mapbox-gl"
 import { useMap } from "./hooks"
 import type { MapCoordinates, MapPath } from "./types"
+
+type HeadType = "none" | "circle" | "square" | "arrow"
 
 type MapArcAnimatedProps = {
   id: string
@@ -19,8 +22,8 @@ type MapArcAnimatedProps = {
   autoStart?: boolean
   loop?: boolean
   loopDelay?: number
-  showMarker?: boolean
-  markerColor?: string
+  headType?: HeadType
+  headSize?: number
   showOriginMarker?: boolean
   originMarkerColor?: string
   showDestinationMarker?: boolean
@@ -37,11 +40,56 @@ const DEFAULT_DURATION = 2000
 const DEFAULT_AUTO_START = true
 const DEFAULT_LOOP = false
 const DEFAULT_LOOP_DELAY = 500
-const DEFAULT_SHOW_MARKER = true
-const DEFAULT_SHOW_ORIGIN_MARKER = true
-const DEFAULT_SHOW_DESTINATION_MARKER = true
+const DEFAULT_HEAD_TYPE: HeadType = "circle"
+const DEFAULT_HEAD_SIZE = 16
+const DEFAULT_SHOW_ORIGIN_MARKER = false
+const DEFAULT_SHOW_DESTINATION_MARKER = false
 const MARKER_RADIUS = 8
-const TRAVELING_MARKER_RADIUS = 6
+
+type HeadSvgProps = {
+  type: HeadType
+  size: number
+  color: string
+}
+
+const HeadSvg = ({ type, size, color }: HeadSvgProps) => {
+  if (type === "none") {
+    return null
+  }
+
+  if (type === "arrow") {
+    return (
+      <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+        <polygon points="28,16 8,4 8,28" fill={color} />
+      </svg>
+    )
+  }
+
+  if (type === "square") {
+    return (
+      <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+        <rect x="4" y="4" width="24" height="24" fill={color} />
+      </svg>
+    )
+  }
+
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="12" fill={color} stroke="white" strokeWidth="3" />
+    </svg>
+  )
+}
+
+const calculateBearing = (from: MapCoordinates, to: MapCoordinates): number => {
+  const dLon = ((to[0] - from[0]) * Math.PI) / 180
+  const lat1 = (from[1] * Math.PI) / 180
+  const lat2 = (to[1] * Math.PI) / 180
+
+  const y = Math.sin(dLon) * Math.cos(lat2)
+  const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon)
+
+  return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360
+}
 
 const generateArcPath = (
   origin: MapCoordinates,
@@ -82,8 +130,8 @@ export const MapArcAnimated = ({
   autoStart = DEFAULT_AUTO_START,
   loop = DEFAULT_LOOP,
   loopDelay = DEFAULT_LOOP_DELAY,
-  showMarker = DEFAULT_SHOW_MARKER,
-  markerColor,
+  headType = DEFAULT_HEAD_TYPE,
+  headSize = DEFAULT_HEAD_SIZE,
   showOriginMarker = DEFAULT_SHOW_ORIGIN_MARKER,
   originMarkerColor,
   showDestinationMarker = DEFAULT_SHOW_DESTINATION_MARKER,
@@ -97,13 +145,15 @@ export const MapArcAnimated = ({
   const animationFrameRef = useRef<number | undefined>(undefined)
   const loopTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const startTimeRef = useRef<number>(0)
+  const htmlMarkerRef = useRef<mapboxgl.Marker | null>(null)
+  const markerElementRef = useRef<HTMLDivElement | null>(null)
 
   const originRef = useRef(origin)
   const destinationRef = useRef(destination)
   const heightRef = useRef(height)
   const segmentsRef = useRef(segments)
   const durationRef = useRef(duration)
-  const showMarkerRef = useRef(showMarker)
+  const headTypeRef = useRef(headType)
   const showOriginMarkerRef = useRef(showOriginMarker)
   const showDestinationMarkerRef = useRef(showDestinationMarker)
   const onCompleteRef = useRef(onComplete)
@@ -114,18 +164,17 @@ export const MapArcAnimated = ({
   heightRef.current = height
   segmentsRef.current = segments
   durationRef.current = duration
-  showMarkerRef.current = showMarker
+  headTypeRef.current = headType
   showOriginMarkerRef.current = showOriginMarker
   showDestinationMarkerRef.current = showDestinationMarker
   onCompleteRef.current = onComplete
   autoStartRef.current = autoStart
 
   const [isAnimating, setIsAnimating] = useState(false)
+  const [isMarkerMounted, setIsMarkerMounted] = useState(false)
 
   const sourceId = `${id}-source`
   const layerId = `${id}-layer`
-  const travelingMarkerSourceId = `${id}-traveling-marker-source`
-  const travelingMarkerLayerId = `${id}-traveling-marker`
   const originMarkerSourceId = `${id}-origin-marker-source`
   const originMarkerLayerId = `${id}-origin-marker`
   const destinationMarkerSourceId = `${id}-destination-marker-source`
@@ -206,27 +255,26 @@ export const MapArcAnimated = ({
       })
     }
 
-    const addTravelingMarker = (mapInstance: mapboxgl.Map) => {
-      if (!showMarkerRef.current || mapInstance.getSource(travelingMarkerSourceId)) {
+    const addHeadMarker = (mapInstance: mapboxgl.Map) => {
+      if (headTypeRef.current === "none" || htmlMarkerRef.current) {
         return
       }
 
-      mapInstance.addSource(travelingMarkerSourceId, {
-        type: "geojson",
-        data: { type: "Feature", properties: {}, geometry: { type: "Point", coordinates: originRef.current } },
-      })
+      const el = document.createElement("div")
+      el.style.display = "flex"
+      el.style.alignItems = "center"
+      el.style.justifyContent = "center"
 
-      mapInstance.addLayer({
-        id: travelingMarkerLayerId,
-        type: "circle",
-        source: travelingMarkerSourceId,
-        paint: {
-          "circle-radius": TRAVELING_MARKER_RADIUS,
-          "circle-color": markerColor || color,
-          "circle-stroke-width": 2,
-          "circle-stroke-color": "#ffffff",
-        },
+      markerElementRef.current = el
+      htmlMarkerRef.current = new mapboxgl.Marker({
+        element: el,
+        rotationAlignment: "map",
+        pitchAlignment: "map",
+        anchor: "center",
       })
+        .setLngLat(originRef.current)
+        .addTo(mapInstance)
+      setIsMarkerMounted(true)
     }
 
     const addSources = (mapInstance: mapboxgl.Map) => {
@@ -234,7 +282,7 @@ export const MapArcAnimated = ({
         addLineSource(mapInstance)
         addOriginMarker(mapInstance)
         addDestinationMarker(mapInstance)
-        addTravelingMarker(mapInstance)
+        addHeadMarker(mapInstance)
         initializedRef.current = true
       } catch (error) {
         console.error("Error adding arc animated:", error)
@@ -249,12 +297,14 @@ export const MapArcAnimated = ({
         clearTimeout(loopTimeoutRef.current)
       }
 
+      if (htmlMarkerRef.current) {
+        htmlMarkerRef.current.remove()
+        htmlMarkerRef.current = null
+      }
+
       try {
         if (mapInstance.getLayer(layerId)) {
           mapInstance.removeLayer(layerId)
-        }
-        if (mapInstance.getLayer(travelingMarkerLayerId)) {
-          mapInstance.removeLayer(travelingMarkerLayerId)
         }
         if (mapInstance.getLayer(originMarkerLayerId)) {
           mapInstance.removeLayer(originMarkerLayerId)
@@ -264,9 +314,6 @@ export const MapArcAnimated = ({
         }
         if (mapInstance.getSource(sourceId)) {
           mapInstance.removeSource(sourceId)
-        }
-        if (mapInstance.getSource(travelingMarkerSourceId)) {
-          mapInstance.removeSource(travelingMarkerSourceId)
         }
         if (mapInstance.getSource(originMarkerSourceId)) {
           mapInstance.removeSource(originMarkerSourceId)
@@ -278,6 +325,8 @@ export const MapArcAnimated = ({
         // Already removed
       }
 
+      markerElementRef.current = null
+      setIsMarkerMounted(false)
       initializedRef.current = false
     }
 
@@ -314,8 +363,6 @@ export const MapArcAnimated = ({
     id,
     sourceId,
     layerId,
-    travelingMarkerSourceId,
-    travelingMarkerLayerId,
     originMarkerSourceId,
     originMarkerLayerId,
     destinationMarkerSourceId,
@@ -324,7 +371,6 @@ export const MapArcAnimated = ({
     width,
     opacity,
     dashArray,
-    markerColor,
     originMarkerColor,
     destinationMarkerColor,
   ])
@@ -359,21 +405,16 @@ export const MapArcAnimated = ({
       }
     }
 
-    const updateTravelingMarkerPosition = (position: MapCoordinates) => {
-      if (!map || !map.getStyle()) {
+    const updateHeadPosition = (position: MapCoordinates, nextPosition?: MapCoordinates) => {
+      if (!htmlMarkerRef.current) {
         return
       }
-      try {
-        const markerSource = map.getSource(travelingMarkerSourceId) as mapboxgl.GeoJSONSource
-        if (markerSource) {
-          markerSource.setData({
-            type: "Feature",
-            properties: {},
-            geometry: { type: "Point", coordinates: position },
-          })
-        }
-      } catch {
-        // Map may be in an invalid state
+
+      htmlMarkerRef.current.setLngLat(position)
+
+      if (nextPosition && headTypeRef.current === "arrow") {
+        const bearing = calculateBearing(position, nextPosition)
+        htmlMarkerRef.current.setRotation(bearing - 90)
       }
     }
 
@@ -428,8 +469,11 @@ export const MapArcAnimated = ({
       try {
         updateLineSource(visiblePath)
 
-        if (showMarkerRef.current && visiblePath.length > 0) {
-          updateTravelingMarkerPosition(visiblePath[visiblePath.length - 1])
+        if (headTypeRef.current !== "none" && visiblePath.length > 0) {
+          const currentPosition = visiblePath[visiblePath.length - 1]
+          const nextPointIndex = Math.min(pointIndex + 1, arcPath.length - 1)
+          const nextPosition = arcPath[nextPointIndex]
+          updateHeadPosition(currentPosition, nextPosition)
         }
 
         if (progress >= 1 && showDestinationMarkerRef.current) {
@@ -468,18 +512,11 @@ export const MapArcAnimated = ({
         clearTimeout(loopTimeoutRef.current)
       }
     }
-  }, [
-    map,
-    isLoaded,
-    id,
-    sourceId,
-    travelingMarkerSourceId,
-    destinationMarkerSourceId,
-    autoStart,
-    loop,
-    loopDelay,
-    isAnimating,
-  ])
+  }, [map, isLoaded, id, sourceId, destinationMarkerSourceId, autoStart, loop, loopDelay, isAnimating])
+
+  if (headType !== "none" && isMarkerMounted && markerElementRef.current) {
+    return createPortal(<HeadSvg type={headType} size={headSize} color={color} />, markerElementRef.current)
+  }
 
   return null
 }
