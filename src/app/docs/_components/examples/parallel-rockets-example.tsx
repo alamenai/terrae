@@ -71,6 +71,7 @@ export const ParallelRocketsExample = () => {
             color={route.color}
             width={4}
             duration={route.duration}
+            loop
             markerColor="transparent"
             markerIcon={route.icon}
             markerBorderless

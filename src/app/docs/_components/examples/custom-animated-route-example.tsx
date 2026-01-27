@@ -37,6 +37,7 @@ export const CustomAnimatedRouteExample = () => {
             color="#10b981"
             width={6}
             duration={duration[0]}
+            loop
             markerColor="#10b981"
           />
         </Map>

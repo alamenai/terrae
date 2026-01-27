@@ -194,6 +194,20 @@ const changelogs: Changelog[] = [
         href: "/docs/arc-animated#origin--destination-markers",
       },
     ],
+    fixes: [
+      {
+        component: "Animated Lines",
+        title: "Loop Behavior",
+        description: (
+          <>
+            Fixed animation restarting automatically even when{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">loop</code> was set to{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">false</code>. Animation now correctly runs once and
+            stops unless <code className="rounded bg-muted px-1 py-0.5 text-xs">loop</code> is explicitly enabled.
+          </>
+        ),
+      },
+    ],
   },
   {
     date: "January 25, 2026",

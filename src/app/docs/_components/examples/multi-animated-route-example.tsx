@@ -47,6 +47,7 @@ export const MultiAnimatedRouteExample = () => {
             path={route.path}
             color={route.color}
             duration={route.duration}
+            loop
             markerColor={route.color}
           />
         ))}

@@ -86,6 +86,7 @@ export const MapLineAnimated = ({
 
   const [isAnimating, setIsAnimating] = useState(false)
   const [isMarkerMounted, setIsMarkerMounted] = useState(false)
+  const hasCompletedRef = useRef(false)
 
   const sourceId = `${id}-source`
   const lineLayerId = `${id}-line`
@@ -349,6 +350,9 @@ export const MapLineAnimated = ({
     if (!autoStart && !isAnimating) {
       return
     }
+    if (!isAnimating && hasCompletedRef.current) {
+      return
+    }
 
     startTimeRef.current = Date.now()
 
@@ -432,10 +436,12 @@ export const MapLineAnimated = ({
       }
 
       setIsAnimating(false)
+      hasCompletedRef.current = true
       onCompleteRef.current?.()
 
       if (loop) {
         setTimeout(() => {
+          hasCompletedRef.current = false
           setIsAnimating(true)
         }, LOOP_RESTART_DELAY_MS)
       }
