@@ -90,6 +90,38 @@ const changelogs: Changelog[] = [
     date: "February 1, 2026",
     components: [
       {
+        title: "Compass",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapCompass</code> component with interactive
+            drag-to-rotate functionality. Supports t-shirt sizes (sm, md, lg, xl), optional cardinal labels, outer ring,
+            bearing display, and auto-rotation mode.
+          </>
+        ),
+        href: "/docs/compass",
+      },
+      {
+        title: "Avatar Pin Marker",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MarkerAvatarPin</code> component for displaying
+            user photos in a classic teardrop-shaped map pin. Perfect for showing user locations with profile pictures.
+          </>
+        ),
+        href: "/docs/markers#avatar-pin-markers",
+      },
+      {
+        title: "Targeting Reticle",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapTargetingReticle</code> component for
+            military-style targeting brackets with tracking and lock-on capabilities. Supports smooth tracking
+            animation, customizable colors for locked/unlocked states, optional crosshair, and GPS coordinates display.
+          </>
+        ),
+        href: "/docs/targeting-reticle",
+      },
+      {
         title: "Circle",
         description: (
           <>
@@ -123,17 +155,6 @@ const changelogs: Changelog[] = [
           </>
         ),
         href: "/docs/camera-follow",
-      },
-      {
-        title: "Targeting Reticle",
-        description: (
-          <>
-            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapTargetingReticle</code> component for
-            military-style targeting brackets with tracking and lock-on capabilities. Supports smooth tracking
-            animation, customizable colors for locked/unlocked states, optional crosshair, and GPS coordinates display.
-          </>
-        ),
-        href: "/docs/targeting-reticle",
       },
       {
         title: "Sync",

@@ -21,6 +21,7 @@ import {
   Circle,
   Link2,
   Crosshair,
+  Compass,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -56,6 +57,15 @@ const components: ComponentItem[] = [
     icon: Settings,
     category: "core",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-controls.json",
+  },
+  {
+    title: "Compass",
+    href: "/docs/compass",
+    description: "Interactive compass with drag-to-rotate functionality",
+    icon: Compass,
+    category: "core",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-compass.json",
+    isNew: true,
   },
   {
     title: "Marker",

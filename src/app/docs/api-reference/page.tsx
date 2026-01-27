@@ -36,6 +36,7 @@ const anatomyCode = `<Map>
     <MapGeolocate />
     <MapFullscreen />
   </MapControls>
+  <MapCompass />
 
   {/* Features */}
   <MapMiniMap />
@@ -262,6 +263,65 @@ export default function ApiReferencePage() {
           Fullscreen toggle control. Must be used inside <DocsCode>MapControls</DocsCode>.
         </p>
         <p>No props required.</p>
+      </DocsSection>
+
+      {/* MapCompass */}
+      <DocsSection title="MapCompass" badge={<NewBadge />}>
+        <p>
+          Interactive compass with drag-to-rotate functionality. Dragging the compass rotates the map bearing. Must be
+          used inside <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "size",
+              type: '"sm" | "md" | "lg" | "xl" | number',
+              default: '"md"',
+              description: "Compass size. T-shirt sizes map to 48, 64, 80, 96 pixels respectively.",
+            },
+            {
+              name: "position",
+              type: '"top-left" | "top-right" | "bottom-left" | "bottom-right"',
+              default: '"top-right"',
+              description: "Position of the compass on the map.",
+            },
+            {
+              name: "showCardinals",
+              type: "boolean",
+              default: "true",
+              description: "Show N, S, E, W cardinal direction labels.",
+            },
+            {
+              name: "showRing",
+              type: "boolean",
+              default: "true",
+              description: "Show outer ring with degree tick marks.",
+            },
+            {
+              name: "showBearing",
+              type: "boolean",
+              default: "false",
+              description: "Display current bearing in degrees below the compass.",
+            },
+            {
+              name: "autoRotate",
+              type: "boolean",
+              default: "false",
+              description: "Enable automatic rotation of the compass.",
+            },
+            {
+              name: "autoRotateSpeed",
+              type: "number",
+              default: "2",
+              description: "Speed of auto rotation in degrees per frame.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes for the wrapper element.",
+            },
+          ]}
+        />
       </DocsSection>
 
       {/* MapMarker */}

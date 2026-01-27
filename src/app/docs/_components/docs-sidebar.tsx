@@ -29,6 +29,7 @@ import {
   Circle,
   Link2,
   Crosshair,
+  Compass,
   type LucideIcon,
 } from "lucide-react"
 
@@ -83,7 +84,8 @@ const navigation: NavGroup[] = [
     items: [
       { title: "Map", href: "/docs/basic-map", icon: Globe },
       { title: "Controls", href: "/docs/controls", icon: Settings },
-      { title: "Marker", href: "/docs/markers", icon: MapPin },
+      { title: "Compass", href: "/docs/compass", icon: Compass, badge: "new" },
+      { title: "Marker", href: "/docs/markers", icon: MapPin, badge: "updated" },
       { title: "Popup", href: "/docs/popups", icon: MessageSquare },
     ],
   },
