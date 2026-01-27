@@ -136,6 +136,26 @@ export function Story() {
                 React components
               </span>
             </li>
+            <li className="flex items-start gap-3">
+              <span className="relative mt-2 flex size-2 shrink-0">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
+              </span>
+              <span>
+                <span className="font-medium">Plugin fragmentation</span> — Need a geocoder? A draw tool? Export
+                functionality? Each requires a separate plugin from a different maintainer, with inconsistent APIs,
+                varying TypeScript support, and uncertain maintenance status. Want a minimap? Your best option is an{" "}
+                <a
+                  href="https://github.com/aesqe/mapboxgl-minimap"
+                  className="text-blue-500 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  unmaintained plugin
+                </a>{" "}
+                last updated years ago
+              </span>
+            </li>
           </ul>
         </div>
 
