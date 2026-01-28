@@ -23,7 +23,7 @@ export default function ControlsPage() {
       title="Controls"
       description="Add interactive controls to your map for zoom, compass, location, and fullscreen."
       prev={{ title: "Map", href: "/docs/basic-map" }}
-      next={{ title: "Marker", href: "/docs/markers" }}
+      next={{ title: "Compass", href: "/docs/compass" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>

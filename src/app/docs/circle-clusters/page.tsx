@@ -17,7 +17,7 @@ export default function ClustersPage() {
       title="Circle Clusters"
       description="Visualize large datasets with automatic point clustering."
       prev={{ title: "Animated Markers", href: "/docs/markers-animated" }}
-      next={{ title: "Animated Pulse", href: "/docs/animated-pulse" }}
+      next={{ title: "Choropleth", href: "/docs/choropleth" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>

@@ -21,7 +21,7 @@ export default function AnimatedPulsePage() {
     <DocsLayout
       title="Animated Pulse"
       description="Create eye-catching pulsing dot animations for map markers."
-      prev={{ title: "Circle Clusters", href: "/docs/circle-clusters" }}
+      prev={{ title: "Choropleth", href: "/docs/choropleth" }}
       next={{ title: "Animated Polygon", href: "/docs/animated-polygon" }}
     >
       <DocsSection title="Installation">
