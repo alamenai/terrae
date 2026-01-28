@@ -17,7 +17,6 @@ export function Header({ className, leftContent, actions }: HeaderProps) {
   const navItems = [
     { href: "/docs/story", label: "Story" },
     { href: "/docs", label: "Docs" },
-    { href: "/docs/comparison", label: "Comparison" },
     { href: "/docs/components", label: "Components", pulse: true },
     { href: "/docs/changelog", label: "Changelog" },
   ]
