@@ -20,6 +20,8 @@ const anatomyCode = `<Map>
   <MapMarker coordinates={[lng, lat]}>
     <MarkerContent>
       <MarkerLabel />
+      <MarkerAvatar src="..." />
+      <MarkerAvatarPin src="..." />
     </MarkerContent>
     <MarkerPopup />
     <MarkerTooltip />
@@ -50,6 +52,7 @@ const anatomyCode = `<Map>
   <MapCameraFollow path={[[lng, lat], ...]} />
   <MapAnimatedPolygon id="zone" coordinates={[[lng, lat], ...]} />
   <MapCircleCluster data={geoJsonData} />
+  <MapChoropleth data={geoJsonData} valueProperty="density" colorScale={colorScale} />
   <MapAnimatedPulse id="pulse" size={100} coordinates={[lng, lat]} />
   <MapImage id="overlay" url="..." coordinates={[...]} />
   <MapRasterVideo id="video" urls={[...]} coordinates={[...]} />
@@ -987,6 +990,93 @@ export default function ApiReferencePage() {
               name: "onClusterClick",
               type: "(clusterId: number, coordinates: [number, number], pointCount: number) => void",
               description: "Callback when a cluster is clicked. If not provided, zooms into the cluster.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapChoropleth */}
+      <DocsSection title="MapChoropleth" badge={<NewBadge />}>
+        <p>
+          Colors geographic regions based on data values. Supports GeoJSON data with Polygon or MultiPolygon features.
+          Must be used inside <DocsCode>Map</DocsCode>. Supports a generic type parameter for typed feature properties:{" "}
+          <DocsCode>{"MapChoropleth<MyProperties>"}</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "data",
+              type: "string | GeoJSON.FeatureCollection",
+              description: "GeoJSON URL or FeatureCollection with Polygon/MultiPolygon features.",
+            },
+            {
+              name: "valueProperty",
+              type: "string",
+              description: "Property name in feature.properties to use for coloring.",
+            },
+            {
+              name: "colorScale",
+              type: "ChoroplethColorScale",
+              description:
+                "Color scale configuration: { stops: [{ value, color }], interpolation?: 'linear' | 'step', nullColor? }.",
+            },
+            {
+              name: "fillOpacity",
+              type: "number",
+              default: "0.8",
+              description: "Fill opacity (0-1).",
+            },
+            {
+              name: "strokeColor",
+              type: "string",
+              default: '"#ffffff"',
+              description: "Border color between regions.",
+            },
+            {
+              name: "strokeWidth",
+              type: "number",
+              default: "2",
+              description: "Border width in pixels.",
+            },
+            {
+              name: "strokeOpacity",
+              type: "number",
+              default: "1",
+              description: "Border opacity (0-1).",
+            },
+            {
+              name: "hoverEnabled",
+              type: "boolean",
+              default: "false",
+              description: "Enable hover highlighting effect.",
+            },
+            {
+              name: "hoverFillOpacity",
+              type: "number",
+              default: "1",
+              description: "Fill opacity when hovered.",
+            },
+            {
+              name: "hoverStrokeColor",
+              type: "string",
+              default: '"#000000"',
+              description: "Border color when hovered.",
+            },
+            {
+              name: "hoverStrokeWidth",
+              type: "number",
+              default: "4",
+              description: "Border width when hovered.",
+            },
+            {
+              name: "onClick",
+              type: "(event: ChoroplethClickEvent) => void",
+              description: "Callback when a region is clicked. Event includes feature, value, and coordinates.",
+            },
+            {
+              name: "onHover",
+              type: "(event: ChoroplethHoverEvent) => void",
+              description: "Callback when hovering over regions. Event includes feature, value, and coordinates.",
             },
           ]}
         />
