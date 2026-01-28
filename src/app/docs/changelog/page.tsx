@@ -157,6 +157,17 @@ const changelogs: Changelog[] = [
         href: "/docs/camera-follow",
       },
       {
+        title: "Choropleth",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapChoropleth</code> component for data-driven
+            region coloring. Supports linear and step color interpolation, hover highlighting, click events, and works
+            with any GeoJSON polygon data.
+          </>
+        ),
+        href: "/docs/choropleth",
+      },
+      {
         title: "Sync",
         description: (
           <>
