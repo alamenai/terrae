@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "map-choropleth",
+  "type": "registry:ui",
+  "title": "Map Choropleth",
+  "description": "Data-driven region coloring for geographic visualization.",
+  "dependencies": [
+    "mapbox-gl"
+  ],
+  "devDependencies": [
+    "@types/mapbox-gl"
+  ],
+  "registryDependencies": [
+    "https://terrae.vercel.app/maps/map.json"
+  ],
+  "files": [
+    {
+      "path": "src/registry/map/choropleth.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/map/choropleth.tsx"
+    }
+  ]
+}

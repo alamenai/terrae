@@ -175,6 +175,15 @@ const components: ComponentItem[] = [
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-marker-cluster.json",
   },
   {
+    title: "Choropleth",
+    href: "/docs/choropleth",
+    description: "Color geographic regions based on data values",
+    icon: MapIcon,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-choropleth.json",
+    isNew: true,
+  },
+  {
     title: "Compare",
     href: "/docs/compare",
     description: "Side-by-side map comparison with slider",

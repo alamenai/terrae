@@ -23,6 +23,13 @@ export { MapAnimatedPulse } from "./animated-pulse"
 export { MapAnimatedPolygon } from "./animated-polygon"
 export { MapAnimatedCircle } from "./animated-circle"
 export { MapCircleCluster } from "./circle-cluster"
+export {
+  MapChoropleth,
+  type ChoroplethColorStop,
+  type ChoroplethColorScale,
+  type ChoroplethClickEvent,
+  type ChoroplethHoverEvent,
+} from "./choropleth"
 export { MapRasterVideo, useRasterVideoControl } from "./raster-video"
 export { MapControls, MapZoom, MapOrientation, MapGeolocate, MapFullscreen } from "./controls"
 export { MapCompass } from "./compass"
