@@ -4,6 +4,7 @@ import { CodeBlock } from "../_components/code-block"
 import ChoroplethExample from "../_components/examples/choropleth-example"
 import ChoroplethChinaExample from "../_components/examples/choropleth-china-example"
 import ChoroplethEuropeExample from "../_components/examples/choropleth-europe-example"
+import { ChoroplethNeonExample } from "../_components/examples/choropleth-neon-example"
 import { getExampleSource } from "@/lib/get-example-source"
 import { Metadata } from "next"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -16,6 +17,7 @@ const ChoroplethPage = () => {
   const basicSource = getExampleSource("choropleth-example.tsx")
   const chinaSource = getExampleSource("choropleth-china-example.tsx")
   const europeSource = getExampleSource("choropleth-europe-example.tsx")
+  const neonSource = getExampleSource("choropleth-neon-example.tsx")
 
   return (
     <DocsLayout
@@ -74,6 +76,18 @@ const ChoroplethPage = () => {
 
       <ComponentPreview code={europeSource}>
         <ChoroplethEuropeExample />
+      </ComponentPreview>
+
+      <DocsSection title="Neon Gradient" id="neon-gradient">
+        <p>
+          Enable animated neon gradient fill with <DocsCode>neonAnimated</DocsCode>. The fill color smoothly transitions
+          through the specified colors in a continuous loop. Customize the colors with <DocsCode>neonColors</DocsCode>{" "}
+          and the animation duration with <DocsCode>neonDuration</DocsCode>.
+        </p>
+      </DocsSection>
+
+      <ComponentPreview code={neonSource}>
+        <ChoroplethNeonExample />
       </ComponentPreview>
 
       <DocsSection title="Properties">
@@ -191,6 +205,32 @@ const ChoroplethPage = () => {
                 <TableCell className="text-muted-foreground">function</TableCell>
                 <TableCell className="text-muted-foreground hidden sm:table-cell">-</TableCell>
                 <TableCell>Callback when hovering over regions</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>neonAnimated</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">boolean</TableCell>
+                <TableCell className="text-muted-foreground hidden sm:table-cell">false</TableCell>
+                <TableCell>Enable animated neon gradient fill</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>neonColors</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">string[]</TableCell>
+                <TableCell className="text-muted-foreground hidden sm:table-cell">
+                  ["#00ffff", "#a855f7", ...]
+                </TableCell>
+                <TableCell>Colors to cycle through for the neon gradient</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <DocsCode>neonDuration</DocsCode>
+                </TableCell>
+                <TableCell className="text-muted-foreground">number</TableCell>
+                <TableCell className="text-muted-foreground hidden sm:table-cell">8000</TableCell>
+                <TableCell>Animation cycle duration in milliseconds</TableCell>
               </TableRow>
             </TableBody>
           </Table>

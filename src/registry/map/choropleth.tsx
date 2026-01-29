@@ -48,6 +48,9 @@ type MapChoroplethProps<P extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJsonPro
   hoverFillOpacity?: number
   hoverStrokeColor?: string
   hoverStrokeWidth?: number
+  neonAnimated?: boolean
+  neonColors?: string[]
+  neonDuration?: number
   onClick?: (event: ChoroplethClickEvent<P>) => void
   onHover?: (event: ChoroplethHoverEvent<P>) => void
 }
@@ -60,6 +63,8 @@ const DEFAULT_NULL_COLOR = "#cccccc"
 const DEFAULT_HOVER_FILL_OPACITY = 1
 const DEFAULT_HOVER_STROKE_COLOR = "#000000"
 const DEFAULT_HOVER_STROKE_WIDTH = 4
+const DEFAULT_NEON_COLORS = ["#00ffff", "#a855f7", "#ec4899", "#f97316", "#00ffff"]
+const DEFAULT_NEON_DURATION = 8000
 
 const buildColorExpression = (
   valueProperty: string,
@@ -100,6 +105,32 @@ const buildColorExpression = (
   ] as mapboxgl.Expression
 }
 
+const hexToRgb = (hex: string): [number, number, number] => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  if (!result) {
+    return [0, 0, 0]
+  }
+  return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)]
+}
+
+const rgbToHex = (r: number, g: number, b: number): string => {
+  return `#${[r, g, b]
+    .map((x) => {
+      const hex = Math.round(x).toString(16)
+      return hex.length === 1 ? "0" + hex : hex
+    })
+    .join("")}`
+}
+
+const interpolateColor = (color1: string, color2: string, factor: number): string => {
+  const rgb1 = hexToRgb(color1)
+  const rgb2 = hexToRgb(color2)
+  const r = rgb1[0] + (rgb2[0] - rgb1[0]) * factor
+  const g = rgb1[1] + (rgb2[1] - rgb1[1]) * factor
+  const b = rgb1[2] + (rgb2[2] - rgb1[2]) * factor
+  return rgbToHex(r, g, b)
+}
+
 export const MapChoropleth = <P extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJsonProperties>({
   data,
   valueProperty,
@@ -112,6 +143,9 @@ export const MapChoropleth = <P extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJ
   hoverFillOpacity = DEFAULT_HOVER_FILL_OPACITY,
   hoverStrokeColor = DEFAULT_HOVER_STROKE_COLOR,
   hoverStrokeWidth = DEFAULT_HOVER_STROKE_WIDTH,
+  neonAnimated = false,
+  neonColors = DEFAULT_NEON_COLORS,
+  neonDuration = DEFAULT_NEON_DURATION,
   onClick,
   onHover,
 }: MapChoroplethProps<P>) => {
@@ -136,6 +170,10 @@ export const MapChoropleth = <P extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJ
   const hoverStrokeWidthRef = useRef(hoverStrokeWidth)
   const onClickRef = useRef(onClick)
   const onHoverRef = useRef(onHover)
+  const neonAnimatedRef = useRef(neonAnimated)
+  const neonColorsRef = useRef(neonColors)
+  const neonDurationRef = useRef(neonDuration)
+  const animationFrameRef = useRef<number | undefined>(undefined)
 
   dataRef.current = data
   valuePropertyRef.current = valueProperty
@@ -150,6 +188,9 @@ export const MapChoropleth = <P extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJ
   hoverStrokeWidthRef.current = hoverStrokeWidth
   onClickRef.current = onClick
   onHoverRef.current = onHover
+  neonAnimatedRef.current = neonAnimated
+  neonColorsRef.current = neonColors
+  neonDurationRef.current = neonDuration
 
   useEffect(() => {
     if (!map) {
@@ -180,13 +221,15 @@ export const MapChoropleth = <P extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJ
 
       const colorExpression = buildColorExpression(String(valuePropertyRef.current), colorScaleRef.current)
 
+      const initialFillColor = neonAnimatedRef.current ? neonColorsRef.current[0] || "#00ffff" : colorExpression
+
       mapInstance.addLayer(
         {
           id: fillLayerId,
           type: "fill",
           source: sourceId,
           paint: {
-            "fill-color": colorExpression,
+            "fill-color": initialFillColor,
             "fill-opacity": [
               "case",
               ["boolean", ["feature-state", "hover"], false],
@@ -436,6 +479,53 @@ export const MapChoropleth = <P extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJ
       map.off("mouseleave", fillLayerId, handleMouseLeaveCanvas)
     }
   }, [map, fillLayerId, sourceId])
+
+  useEffect(() => {
+    if (!map || !isLoaded || !initializedRef.current || !neonAnimated) {
+      return
+    }
+
+    const colors = neonColorsRef.current
+    if (colors.length < 2) {
+      return
+    }
+
+    let startTime: number | null = null
+
+    const animate = (timestamp: number) => {
+      if (!startTime) {
+        startTime = timestamp
+      }
+
+      const elapsed = timestamp - startTime
+      const duration = neonDurationRef.current
+      const progress = (elapsed % duration) / duration
+      const totalSegments = colors.length - 1
+      const segmentProgress = progress * totalSegments
+      const currentSegment = Math.floor(segmentProgress)
+      const segmentFactor = segmentProgress - currentSegment
+      const colorIndex = Math.min(currentSegment, colors.length - 2)
+      const currentColor = interpolateColor(colors[colorIndex], colors[colorIndex + 1], segmentFactor)
+
+      try {
+        if (map.getLayer(fillLayerId)) {
+          map.setPaintProperty(fillLayerId, "fill-color", currentColor)
+        }
+      } catch {
+        // Layer may not exist
+      }
+
+      animationFrameRef.current = requestAnimationFrame(animate)
+    }
+
+    animationFrameRef.current = requestAnimationFrame(animate)
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+    }
+  }, [map, isLoaded, fillLayerId, neonAnimated])
 
   return null
 }
