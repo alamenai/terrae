@@ -1,5 +1,17 @@
 # JavaScript Guidelines
 
+## Formatting (Prettier)
+
+This project uses Prettier for formatting. Always follow the `.prettierrc` config:
+
+- **No semicolons** (`semi: false`)
+- Double quotes (`singleQuote: false`)
+- 2-space indentation, no tabs
+- Trailing commas in ES5 positions (`trailingComma: "es5"`)
+- Bracket spacing enabled
+- Always use parens around arrow function params (`arrowParens: "always"`)
+- Print width: 120
+
 ## Function Declarations
 
 - Use `const` with arrow functions instead of `function` keyword
