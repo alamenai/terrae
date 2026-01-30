@@ -7,8 +7,8 @@
       "name": "map",
       "type": "registry:ui",
       "title": "Map",
-      "description": "Core Mapbox-powered map component with theme support.",
-      "dependencies": ["mapbox-gl", "next-themes"],
+      "description": "Core map component with Mapbox GL and MapLibre GL support.",
+      "dependencies": ["mapbox-gl", "next-themes", "lucide-react"],
       "devDependencies": ["@types/mapbox-gl"],
       "registryDependencies": [],
       "files": [
@@ -26,14 +26,19 @@
           "path": "src/registry/map/hooks.ts",
           "type": "registry:ui",
           "target": "components/ui/map/hooks.ts"
+        },
+        {
+          "path": "src/registry/map/map-library.ts",
+          "type": "registry:ui",
+          "target": "components/ui/map/map-library.ts"
         }
       ],
       "css": {
         "@layer base": {
-          ".mapboxgl-popup-content": {
+          ".mapboxgl-popup-content, .maplibregl-popup-content": {
             "@apply bg-transparent! shadow-none! p-0! rounded-none!": {}
           },
-          ".mapboxgl-popup-tip": {
+          ".mapboxgl-popup-tip, .maplibregl-popup-tip": {
             "@apply hidden!": {}
           }
         }

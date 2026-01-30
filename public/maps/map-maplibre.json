@@ -1,10 +1,10 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "map",
-  "title": "Map",
-  "description": "Core map component with Mapbox GL and MapLibre GL support.",
+  "name": "map-maplibre",
+  "title": "Map (MapLibre)",
+  "description": "Core map component with MapLibre GL support.",
   "dependencies": [
-    "mapbox-gl",
+    "maplibre-gl",
     "next-themes",
     "lucide-react"
   ],
@@ -33,7 +33,7 @@
     },
     {
       "path": "src/registry/map/map-library.ts",
-      "content": "import mapboxgl from \"mapbox-gl\"\nimport \"mapbox-gl/dist/mapbox-gl.css\"\n\nexport type MapLibraryName = \"mapbox\" | \"maplibre\"\n\n// Change these two lines to switch between Mapbox GL and MapLibre GL:\n//   import mapboxgl from \"maplibre-gl\"\n//   import \"maplibre-gl/dist/maplibre-gl.css\"\n//   const detectedLibrary: MapLibraryName = \"maplibre\"\nconst detectedLibrary: MapLibraryName = \"mapbox\"\n\nconst mapgl = mapboxgl\n\nexport { mapgl, detectedLibrary }\n",
+      "content": "import mapboxgl from \"maplibre-gl\"\nimport \"maplibre-gl/dist/maplibre-gl.css\"\n\nexport type MapLibraryName = \"mapbox\" | \"maplibre\"\n\nconst detectedLibrary: MapLibraryName = \"maplibre\"\n\nconst mapgl = mapboxgl\n\nexport { mapgl, detectedLibrary }\n",
       "type": "registry:ui",
       "target": "components/ui/map/map-library.ts"
     }
