@@ -44,10 +44,12 @@ export { MapTargetingReticle } from "./targeting-reticle"
 export { useMap } from "./hooks"
 export {
   defaultMapStyles,
+  defaultMapLibreStyles,
   standardMapStyles,
   navigationMapStyles,
   type MapCompareOrientation,
   type MapSyncLayout,
+  type MapLibraryName,
 } from "./types"
 
 // ========================================

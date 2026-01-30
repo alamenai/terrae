@@ -1,5 +1,8 @@
 import { type RefObject } from "react"
 import type { Map, Marker, ProjectionSpecification } from "mapbox-gl"
+import type { MapLibraryName } from "./map-library"
+
+export type { MapLibraryName }
 
 export type MapCoordinates = [longitude: number, latitude: number]
 export type MapBounds = [southwest: MapCoordinates, northeast: MapCoordinates]
@@ -52,6 +55,11 @@ export const navigationMapStyles: Required<MapThemeStyles> = {
   dark: "mapbox://styles/mapbox/navigation-night-v1",
 }
 
+export const defaultMapLibreStyles: Required<MapThemeStyles> = {
+  light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+  dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+}
+
 export type MapCompareOrientation = "horizontal" | "vertical"
 
 export type MapSyncLayout = "horizontal" | "vertical" | "grid"
@@ -59,6 +67,7 @@ export type MapSyncLayout = "horizontal" | "vertical" | "grid"
 export type MapContextValue = {
   map: Map | null
   isLoaded: boolean
+  library: MapLibraryName
 }
 
 export type MarkerContextValue = {

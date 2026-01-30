@@ -2,11 +2,12 @@
 
 import { useTheme } from "next-themes"
 import { createContext, useEffect, useRef, useState, type ReactNode } from "react"
-import mapboxgl from "mapbox-gl"
-import "mapbox-gl/dist/mapbox-gl.css"
+import type mapboxgl from "mapbox-gl"
+import { mapgl, detectedLibrary } from "./map-library"
 import { Globe } from "lucide-react"
 import {
   defaultMapStyles,
+  defaultMapLibreStyles,
   type MapContextValue,
   type MapThemeStyles,
   type MapProjection,
@@ -23,7 +24,7 @@ const DEFAULT_PITCH = 0
 const DEFAULT_ROTATE_SPEED = 3
 
 type MapProps = {
-  accessToken: string
+  accessToken?: string
   children?: ReactNode
   loader?: ReactNode
   // Forces loader to show when true, hides when false, auto when undefined
@@ -76,14 +77,15 @@ export const Map = ({
     if (style) {
       return style
     }
-    const darkStyle = styles?.dark ?? defaultMapStyles.dark
-    const lightStyle = styles?.light ?? defaultMapStyles.light
+    const defaults = detectedLibrary === "maplibre" ? defaultMapLibreStyles : defaultMapStyles
+    const darkStyle = styles?.dark ?? defaults.dark
+    const lightStyle = styles?.light ?? defaults.light
 
     return resolvedTheme === "dark" ? darkStyle : lightStyle
   }
 
   const createMapInstance = (container: HTMLDivElement) => {
-    return new mapboxgl.Map({
+    return new mapgl.Map({
       container,
       style: getMapStyle(),
       center,
@@ -103,6 +105,9 @@ export const Map = ({
   }
 
   const updateStandardLightPreset = (mapInstance: mapboxgl.Map) => {
+    if (detectedLibrary !== "mapbox") {
+      return
+    }
     const currentStyle = getMapStyle()
     if (isStandardStyle(currentStyle)) {
       const lightPreset = resolvedTheme === "dark" ? "night" : "day"
@@ -118,7 +123,7 @@ export const Map = ({
   }
 
   const handleMapError = (e: mapboxgl.ErrorEvent) => {
-    console.error("Mapbox error:", e.error)
+    console.error("Map error:", e.error)
     setError("Failed to load map")
   }
 
@@ -136,7 +141,7 @@ export const Map = ({
     if (!containerRef.current) {
       return
     }
-    if (!accessToken) {
+    if (detectedLibrary === "mapbox" && !accessToken) {
       setError(
         "Mapbox access token is required. Add NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN to your .env.local file and restart the dev server."
       )
@@ -144,7 +149,10 @@ export const Map = ({
     }
 
     initializedRef.current = true
-    mapboxgl.accessToken = accessToken
+
+    if (accessToken) {
+      mapgl.accessToken = accessToken
+    }
 
     try {
       const mapInstance = createMapInstance(containerRef.current)
@@ -156,7 +164,7 @@ export const Map = ({
         cleanupMap(mapInstance)
       }
     } catch (err) {
-      console.error("Error creating Mapbox map:", err)
+      console.error("Error creating map:", err)
       setError("Failed to create map")
       initializedRef.current = false
     }
@@ -249,6 +257,7 @@ export const Map = ({
   const contextValue: MapContextValue = {
     map: mapRef.current,
     isLoaded,
+    library: detectedLibrary,
   }
 
   if (error) {
