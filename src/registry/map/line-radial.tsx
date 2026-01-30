@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import { createPortal } from "react-dom"
-import mapboxgl from "mapbox-gl"
+import type mapboxgl from "mapbox-gl"
+import { mapgl } from "./map-library"
 import { useMap } from "./hooks"
 import type { MapCoordinates } from "./types"
 
@@ -272,7 +273,7 @@ export const MapLineRadial = ({
         markerElement.style.boxShadow = "0 0 0 3px white"
 
         originMarkerElementRef.current = markerElement
-        htmlOriginMarkerRef.current = new mapboxgl.Marker(markerElement).setLngLat(originRef.current).addTo(mapInstance)
+        htmlOriginMarkerRef.current = new mapgl.Marker(markerElement).setLngLat(originRef.current).addTo(mapInstance)
         setIsOriginMarkerMounted(true)
       } else {
         if (mapInstance.getSource(originMarkerSourceId)) {
@@ -351,7 +352,7 @@ export const MapLineRadial = ({
           markerElement.style.opacity = "0"
 
           destinationMarkerElementsRef.current[index] = markerElement
-          htmlDestinationMarkersRef.current[index] = new mapboxgl.Marker(markerElement)
+          htmlDestinationMarkersRef.current[index] = new mapgl.Marker(markerElement)
             .setLngLat(coordinates)
             .addTo(mapInstance)
         })
@@ -403,9 +404,7 @@ export const MapLineRadial = ({
         markerElement.style.justifyContent = "center"
 
         travelingMarkerElementRef.current = markerElement
-        htmlTravelingMarkerRef.current = new mapboxgl.Marker(markerElement)
-          .setLngLat(originRef.current)
-          .addTo(mapInstance)
+        htmlTravelingMarkerRef.current = new mapgl.Marker(markerElement).setLngLat(originRef.current).addTo(mapInstance)
         setIsTravelingMarkerMounted(true)
       } else {
         if (mapInstance.getSource(travelingMarkerSourceId)) {

@@ -2,7 +2,8 @@
 
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react"
 import { createPortal } from "react-dom"
-import mapboxgl from "mapbox-gl"
+import type mapboxgl from "mapbox-gl"
+import { mapgl } from "./map-library"
 import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useMap } from "./hooks"
@@ -155,7 +156,7 @@ export const MapMarker = ({
     const container = document.createElement("div")
     markerElementRef.current = container
 
-    const marker = new mapboxgl.Marker({
+    const marker = new mapgl.Marker({
       element: container,
       draggable,
       offset,
@@ -325,10 +326,10 @@ export const MarkerPopup = ({
     const container = document.createElement("div")
     containerRef.current = container
 
-    const popup = new mapboxgl.Popup({
+    const popup = new mapgl.Popup({
       offset,
       closeButton: false,
-      className: "custom-mapbox-popup",
+      className: "custom-map-popup",
     })
       .setMaxWidth(maxWidth || "none")
       .setDOMContent(container)
@@ -396,11 +397,11 @@ export const MarkerTooltip = ({
     const container = document.createElement("div")
     containerRef.current = container
 
-    const popup = new mapboxgl.Popup({
+    const popup = new mapgl.Popup({
       offset,
       closeOnClick: true,
       closeButton: false,
-      className: "custom-mapbox-popup",
+      className: "custom-map-popup",
     })
       .setMaxWidth(maxWidth || "none")
       .setDOMContent(container)

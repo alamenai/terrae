@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import { createPortal } from "react-dom"
-import mapboxgl from "mapbox-gl"
+import type mapboxgl from "mapbox-gl"
+import { mapgl } from "./map-library"
 import { useMap } from "./hooks"
 import type { MapPath } from "./types"
 
@@ -96,17 +97,17 @@ export const MapCameraFollow = ({
     el.style.alignItems = "center"
     el.style.justifyContent = "center"
 
-    const mapboxMarker = new mapboxgl.Marker({
+    const mapMarker = new mapgl.Marker({
       element: el,
       rotationAlignment: "map",
       pitchAlignment: "map",
     })
 
-    markerRef.current = mapboxMarker
+    markerRef.current = mapMarker
     setMarkerElement(el)
 
     return () => {
-      mapboxMarker.remove()
+      mapMarker.remove()
       markerRef.current = null
       setMarkerElement(null)
     }

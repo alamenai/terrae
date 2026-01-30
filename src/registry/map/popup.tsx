@@ -1,26 +1,27 @@
-"use client";
+"use client"
 
-import mapboxgl from "mapbox-gl";
-import type { PopupOptions } from "mapbox-gl";
-import { useEffect, useMemo, useRef, type ReactNode } from "react";
-import { createPortal } from "react-dom";
-import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useMap } from "./hooks";
-import type { MapCoordinates } from "./types";
+import type mapboxgl from "mapbox-gl"
+import type { PopupOptions } from "mapbox-gl"
+import { mapgl } from "./map-library"
+import { useEffect, useMemo, useRef, type ReactNode } from "react"
+import { createPortal } from "react-dom"
+import { X } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { useMap } from "./hooks"
+import type { MapCoordinates } from "./types"
 
 type MapPopupProps = {
   /** Coordinates [longitude, latitude] for popup position */
-  coordinates: MapCoordinates;
+  coordinates: MapCoordinates
   /** Callback when popup is closed */
-  onClose?: () => void;
+  onClose?: () => void
   /** Popup content */
-  children: ReactNode;
+  children: ReactNode
   /** Additional CSS classes for the popup container */
-  className?: string;
+  className?: string
   /** Show a close button in the popup (default: false) */
-  closeButton?: boolean;
-} & Omit<PopupOptions, "className" | "closeButton">;
+  closeButton?: boolean
+} & Omit<PopupOptions, "className" | "closeButton">
 
 export function MapPopup({
   coordinates,
@@ -30,37 +31,37 @@ export function MapPopup({
   closeButton = false,
   ...popupOptions
 }: MapPopupProps) {
-  const { map } = useMap();
-  const popupRef = useRef<mapboxgl.Popup | null>(null);
+  const { map } = useMap()
+  const popupRef = useRef<mapboxgl.Popup | null>(null)
 
-  const container = useMemo(() => document.createElement("div"), []);
+  const container = useMemo(() => document.createElement("div"), [])
 
   useEffect(() => {
-    if (!map || !map.isStyleLoaded()) return;
+    if (!map || !map.isStyleLoaded()) return
 
-    const popup = new mapboxgl.Popup({
+    const popup = new mapgl.Popup({
       offset: 16,
       ...popupOptions,
       closeButton: false,
-      className: "custom-mapbox-popup",
+      className: "custom-map-popup",
     })
       .setMaxWidth("none")
       .setDOMContent(container)
       .setLngLat(coordinates)
-      .addTo(map);
+      .addTo(map)
 
-    const onCloseProp = () => onClose?.();
+    const onCloseProp = () => onClose?.()
 
-    popup.on("close", onCloseProp);
+    popup.on("close", onCloseProp)
 
-    popupRef.current = popup;
+    popupRef.current = popup
 
     return () => {
-      popup.off("close", onCloseProp);
-      popup.remove();
-      popupRef.current = null;
-    };
-  }, [map, coordinates, popupOptions, onClose, container]);
+      popup.off("close", onCloseProp)
+      popup.remove()
+      popupRef.current = null
+    }
+  }, [map, coordinates, popupOptions, onClose, container])
 
   return createPortal(
     <div
@@ -73,8 +74,8 @@ export function MapPopup({
         <button
           type="button"
           onClick={() => {
-            popupRef.current?.remove();
-            onClose?.();
+            popupRef.current?.remove()
+            onClose?.()
           }}
           className="absolute top-1 right-1 z-10 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
           aria-label="Close popup"
@@ -86,5 +87,5 @@ export function MapPopup({
       {children}
     </div>,
     container
-  );
+  )
 }

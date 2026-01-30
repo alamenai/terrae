@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import { createPortal } from "react-dom"
-import mapboxgl from "mapbox-gl"
+import type mapboxgl from "mapbox-gl"
+import { mapgl } from "./map-library"
 import { useMap } from "./hooks"
 import type { MapPath } from "./types"
 
@@ -145,7 +146,7 @@ export const MapLineAnimated = ({
       }
 
       markerElementRef.current = el
-      htmlMarkerRef.current = new mapboxgl.Marker(el).setLngLat(pathRef.current[0]).addTo(mapInstance)
+      htmlMarkerRef.current = new mapgl.Marker(el).setLngLat(pathRef.current[0]).addTo(mapInstance)
       setIsMarkerMounted(true)
     }
 

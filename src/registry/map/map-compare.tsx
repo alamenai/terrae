@@ -15,7 +15,7 @@ const DEFAULT_ORIENTATION: MapCompareOrientation = "horizontal"
 const LABEL_BASE_STYLES = "absolute z-10 bg-background/95 backdrop-blur-sm border rounded px-2 py-1 text-xs font-medium"
 
 type MapCompareProps = {
-  accessToken: string
+  accessToken?: string
   loader?: ReactNode
   beforeStyle?: string
   afterStyle?: string
@@ -88,7 +88,7 @@ export const MapCompare = ({
 }
 
 type MapPanelProps = {
-  accessToken: string
+  accessToken?: string
   center: MapCoordinates
   zoom: number
   bearing: number

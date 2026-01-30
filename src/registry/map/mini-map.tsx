@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState, useCallback } from "react"
 import { useTheme } from "next-themes"
-import mapboxgl from "mapbox-gl"
+import type mapboxgl from "mapbox-gl"
+import { mapgl } from "./map-library"
 import { useMap } from "./hooks"
 import { cn } from "@/lib/utils"
-import { defaultMapStyles, type MapThemeStyles } from "./types"
+import { defaultMapStyles, defaultMapLibreStyles, type MapThemeStyles } from "./types"
 
 type MapMiniMapProps = {
   position?: "top-left" | "top-right" | "bottom-left" | "bottom-right"
@@ -36,7 +37,7 @@ export function MapMiniMap({
   rounded = DEFAULT_BORDER_RADIUS,
   draggable = false,
 }: MapMiniMapProps) {
-  const { map: mainMap, isLoaded } = useMap()
+  const { map: mainMap, isLoaded, library } = useMap()
   const { resolvedTheme } = useTheme()
   const containerRef = useRef<HTMLDivElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -58,12 +59,13 @@ export function MapMiniMap({
     if (style) {
       return style
     }
+    const defaults = library === "maplibre" ? defaultMapLibreStyles : defaultMapStyles
     if (styles) {
-      const darkStyle = styles.dark ?? defaultMapStyles.dark
-      const lightStyle = styles.light ?? defaultMapStyles.light
+      const darkStyle = styles.dark ?? defaults.dark
+      const lightStyle = styles.light ?? defaults.light
       return resolvedTheme === "dark" ? darkStyle : lightStyle
     }
-    return resolvedTheme === "dark" ? defaultMapStyles.dark : defaultMapStyles.light
+    return resolvedTheme === "dark" ? defaults.dark : defaults.light
   }
 
   const addViewportBox = (miniMap: mapboxgl.Map) => {
@@ -152,7 +154,7 @@ export function MapMiniMap({
   useEffect(() => {
     if (!mainMap || !isLoaded || !containerRef.current) return
 
-    const miniMap = new mapboxgl.Map({
+    const miniMap = new mapgl.Map({
       container: containerRef.current,
       style: getMapStyle(),
       center: mainMap.getCenter(),

@@ -2,12 +2,13 @@
 
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react"
 import { useTheme } from "next-themes"
-import mapboxgl from "mapbox-gl"
-import "mapbox-gl/dist/mapbox-gl.css"
+import type mapboxgl from "mapbox-gl"
+import { mapgl, detectedLibrary } from "./map-library"
 import { Globe } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {
   defaultMapStyles,
+  defaultMapLibreStyles,
   type MapProjection,
   type MapCoordinates,
   type MapThemeStyles,
@@ -21,7 +22,7 @@ type MapConfig = {
 }
 
 type MapSyncProps = {
-  accessToken: string
+  accessToken?: string
   maps: [MapConfig, MapConfig] | [MapConfig, MapConfig, MapConfig, MapConfig]
   center?: MapCoordinates
   zoom?: number
@@ -36,7 +37,7 @@ type MapSyncProps = {
 type MapSyncContextValue = {
   registerMap: (index: number, map: mapboxgl.Map) => void
   unregisterMap: (index: number) => void
-  accessToken: string
+  accessToken?: string
   initialCenter: MapCoordinates
   initialZoom: number
   initialBearing: number
@@ -46,7 +47,7 @@ type MapSyncContextValue = {
 
 type MapSyncProviderProps = {
   children: ReactNode
-  accessToken: string
+  accessToken?: string
   initialCenter: MapCoordinates
   initialZoom: number
   initialBearing: number
@@ -244,8 +245,9 @@ const SyncedMapPanel = ({ index, style, label, showLabel, mapStyle, mapStyles, l
     if (mapStyle) {
       return mapStyle
     }
-    const darkStyle = mapStyles?.dark ?? defaultMapStyles.dark
-    const lightStyle = mapStyles?.light ?? defaultMapStyles.light
+    const defaults = detectedLibrary === "maplibre" ? defaultMapLibreStyles : defaultMapStyles
+    const darkStyle = mapStyles?.dark ?? defaults.dark
+    const lightStyle = mapStyles?.light ?? defaults.light
     return resolvedTheme === "dark" ? darkStyle : lightStyle
   }
 
@@ -258,9 +260,12 @@ const SyncedMapPanel = ({ index, style, label, showLabel, mapStyle, mapStyles, l
     }
 
     initializedRef.current = true
-    mapboxgl.accessToken = accessToken
 
-    const map = new mapboxgl.Map({
+    if (accessToken) {
+      mapgl.accessToken = accessToken
+    }
+
+    const map = new mapgl.Map({
       container: containerRef.current,
       style: getMapStyle(),
       center: initialCenter,

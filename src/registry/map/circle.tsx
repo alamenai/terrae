@@ -1,6 +1,7 @@
 "use client"
 
-import mapboxgl from "mapbox-gl"
+import type mapboxgl from "mapbox-gl"
+import { mapgl } from "./map-library"
 import { useEffect, useId, useRef } from "react"
 import { useMap } from "./hooks"
 import type { MapCoordinates, MapPath } from "./types"

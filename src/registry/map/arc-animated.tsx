@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
-import mapboxgl from "mapbox-gl"
+import type mapboxgl from "mapbox-gl"
+import { mapgl } from "./map-library"
 import { useMap } from "./hooks"
 import type { MapCoordinates, MapPath } from "./types"
 
@@ -266,7 +267,7 @@ export const MapArcAnimated = ({
       el.style.justifyContent = "center"
 
       markerElementRef.current = el
-      htmlMarkerRef.current = new mapboxgl.Marker({
+      htmlMarkerRef.current = new mapgl.Marker({
         element: el,
         rotationAlignment: "map",
         pitchAlignment: "map",
