@@ -194,6 +194,17 @@ const changelogs: Changelog[] = [
         ),
         href: "/docs/sync",
       },
+      {
+        title: "Radar",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapRadar</code> component for animated radar
+            sweep signal overlays. Features a rotating sweep beam with gradient trail, concentric range rings, crosshair
+            lines, and fully customizable colors and rotation speed.
+          </>
+        ),
+        href: "/docs/radar",
+      },
     ],
     properties: [
       {

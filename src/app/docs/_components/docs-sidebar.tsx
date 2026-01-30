@@ -30,6 +30,7 @@ import {
   Link2,
   Crosshair,
   Compass,
+  Radar,
   type LucideIcon,
 } from "lucide-react"
 
@@ -94,6 +95,7 @@ const navigation: NavGroup[] = [
     items: [
       { title: "Blur Area", href: "/docs/blur-area", icon: EyeOff },
       { title: "Targeting Reticle", href: "/docs/targeting-reticle", icon: Crosshair },
+      { title: "Radar", href: "/docs/radar", icon: Radar, badge: "new" },
       { title: "MiniMap", href: "/docs/minimap", icon: MapIcon },
       { title: "Lines", href: "/docs/lines", icon: Route },
       { title: "Polygon", href: "/docs/polygon", icon: Pentagon },

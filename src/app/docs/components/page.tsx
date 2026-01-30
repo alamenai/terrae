@@ -22,6 +22,7 @@ import {
   Link2,
   Crosshair,
   Compass,
+  Radar,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -257,6 +258,15 @@ const components: ComponentItem[] = [
     icon: Crosshair,
     category: "features",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-targeting-reticle.json",
+    isNew: true,
+  },
+  {
+    title: "Radar",
+    href: "/docs/radar",
+    description: "Animated radar sweep signal with concentric rings and crosshairs",
+    icon: Radar,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-radar.json",
     isNew: true,
   },
 ]

@@ -363,6 +363,22 @@
           "target": "components/ui/map/targeting-reticle.tsx"
         }
       ]
+    },
+    {
+      "name": "map-radar",
+      "type": "registry:ui",
+      "title": "Map Radar",
+      "description": "Animated radar sweep signal overlay on map coordinates.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/radar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/radar.tsx"
+        }
+      ]
     }
   ]
 }

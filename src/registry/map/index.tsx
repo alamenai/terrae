@@ -41,6 +41,7 @@ export { MapMiniMap } from "./mini-map"
 export { MapImage } from "./image"
 export { MapBlurArea } from "./blur-area"
 export { MapTargetingReticle } from "./targeting-reticle"
+export { MapRadar } from "./radar"
 export { useMap } from "./hooks"
 export {
   defaultMapStyles,
