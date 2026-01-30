@@ -70,13 +70,21 @@ export default function ApiReferencePage() {
       next={{ title: "Map", href: "/docs/basic-map" }}
     >
       <DocsNote>
-        <strong>Tip:</strong> This library is built on top of{" "}
+        <strong>Tip:</strong> This library supports both{" "}
         <DocsLink href="https://docs.mapbox.com/mapbox-gl-js/api/" external>
           Mapbox GL JS
+        </DocsLink>{" "}
+        and{" "}
+        <DocsLink href="https://maplibre.org/maplibre-gl-js/docs/" external>
+          MapLibre GL JS
         </DocsLink>
-        . Most components extend the native Mapbox options. Refer to the{" "}
+        . Most components extend native map options. Refer to the{" "}
         <DocsLink href="https://docs.mapbox.com/mapbox-gl-js/api/map/" external>
           Mapbox Map API
+        </DocsLink>{" "}
+        or{" "}
+        <DocsLink href="https://maplibre.org/maplibre-gl-js/docs/API/" external>
+          MapLibre API
         </DocsLink>{" "}
         for additional configuration options.
       </DocsNote>
@@ -89,8 +97,8 @@ export default function ApiReferencePage() {
       {/* Map */}
       <DocsSection title="Map">
         <p>
-          The root container that initializes Mapbox GL and provides context to all child components. Automatically
-          handles theme switching between light and dark modes.
+          The root container that initializes the map and provides context to all child components. Supports both Mapbox
+          GL JS and MapLibre GL JS. Automatically handles theme switching between light and dark modes.
         </p>
         <p>
           Extends{" "}

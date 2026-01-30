@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   description: "Browse all available map components",
 }
 
-interface ComponentItem {
+type ComponentItem = {
   title: string
   href: string
   description: string
@@ -39,13 +39,14 @@ interface ComponentItem {
   status?: "available" | "coming-soon"
   installCommand?: string
   isNew?: boolean
+  mapboxOnly?: boolean
 }
 
 const components: ComponentItem[] = [
   {
     title: "Map",
     href: "/docs/basic-map",
-    description: "Core map component with Mapbox GL integration and theme support",
+    description: "Core map component with Mapbox GL and MapLibre GL support",
     icon: Map,
     category: "core",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map.json",
@@ -223,6 +224,7 @@ const components: ComponentItem[] = [
     icon: CloudRain,
     category: "features",
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-rain.json",
+    mapboxOnly: true,
   },
   {
     title: "Animated Pulse",
@@ -284,7 +286,14 @@ function ComponentCard({ component }: { component: ComponentItem }) {
               </span>
             )}
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">{component.description}</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {component.description}
+            {component.mapboxOnly && (
+              <span className="ml-2 inline-flex items-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+                Mapbox only
+              </span>
+            )}
+          </p>
         </div>
       </div>
     </>

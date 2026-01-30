@@ -18,6 +18,7 @@ type ChangelogFeature = {
 type ChangelogEntry = {
   date?: string
   upcoming?: boolean
+  features?: ChangelogFeature[]
   components?: ChangelogFeature[]
   properties?: ChangelogFeature[]
   fixes?: ChangelogFeature[]
@@ -34,20 +35,23 @@ type Changelog = ChangelogEntry | AnnouncementEntry
 type FeatureSectionProps = {
   title: string
   items: ChangelogFeature[]
-  color: "purple" | "blue" | "green"
+  color: "purple" | "blue" | "green" | "yellow"
+  badge?: React.ReactNode
 }
 
 const BORDER_COLORS = {
   purple: "border-purple-500/50",
   blue: "border-blue-500/50",
   green: "border-green-500/50",
+  yellow: "border-yellow-500/50",
 } as const
 
-const FeatureSection = ({ title, items, color }: FeatureSectionProps) => {
+const FeatureSection = ({ title, items, color, badge }: FeatureSectionProps) => {
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-bold uppercase tracking-wider bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+      <h3 className="text-sm font-bold uppercase tracking-wider bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent flex items-center gap-2">
         {title}
+        {badge}
       </h3>
       <div className="space-y-4">
         {items.map((item, index) => (
@@ -88,6 +92,18 @@ const changelogs: Changelog[] = [
   },
   {
     date: "February 1, 2026",
+    features: [
+      {
+        title: "MapLibre GL Support",
+        description: (
+          <>
+            Terrae now works with both Mapbox GL JS and MapLibre GL JS. Swap the adapter file to use open-source map
+            tiles without a Mapbox token.
+          </>
+        ),
+        href: "/docs/installation",
+      },
+    ],
     components: [
       {
         title: "Compass",
@@ -472,6 +488,7 @@ export default function ChangelogPage() {
             )
           }
 
+          const hasFeatures = entry.features && entry.features.length > 0
           const hasComponents = entry.components && entry.components.length > 0
           const hasProperties = entry.properties && entry.properties.length > 0
           const hasFixes = entry.fixes && entry.fixes.length > 0
@@ -484,6 +501,7 @@ export default function ChangelogPage() {
               </div>
 
               <div className="space-y-8">
+                {hasFeatures && <FeatureSection title="New Features" items={entry.features!} color="yellow" />}
                 {hasComponents && <FeatureSection title="New Components" items={entry.components!} color="purple" />}
                 {hasProperties && <FeatureSection title="New Properties" items={entry.properties!} color="blue" />}
                 {hasFixes && <FeatureSection title="Fixes" items={entry.fixes!} color="green" />}

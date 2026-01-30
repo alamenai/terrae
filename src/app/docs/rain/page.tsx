@@ -1,26 +1,19 @@
-import { DocsLayout, DocsSection, DocsCode } from "../_components/docs";
-import { ComponentPreview } from "../_components/component-preview";
-import { CodeBlock } from "../_components/code-block";
-import { BasicRainExample } from "../_components/examples/basic-rain-example";
-import { CustomRainExample } from "../_components/examples/custom-rain-example";
-import { getExampleSource } from "@/lib/get-example-source";
-import { Metadata } from "next";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { DocsLayout, DocsSection, DocsCode, DocsNote } from "../_components/docs"
+import { ComponentPreview } from "../_components/component-preview"
+import { CodeBlock } from "../_components/code-block"
+import { BasicRainExample } from "../_components/examples/basic-rain-example"
+import { CustomRainExample } from "../_components/examples/custom-rain-example"
+import { getExampleSource } from "@/lib/get-example-source"
+import { Metadata } from "next"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export const metadata: Metadata = {
   title: "Rain Effect",
-};
+}
 
 export default function RainPage() {
-  const basicRainSource = getExampleSource("basic-rain-example.tsx");
-  const customRainSource = getExampleSource("custom-rain-example.tsx");
+  const basicRainSource = getExampleSource("basic-rain-example.tsx")
+  const customRainSource = getExampleSource("custom-rain-example.tsx")
 
   return (
     <DocsLayout
@@ -29,14 +22,21 @@ export default function RainPage() {
       prev={{ title: "Video", href: "/docs/raster-video" }}
       next={{ title: "Heatmaps", href: "/docs/heatmaps" }}
     >
+      <DocsNote>
+        <strong className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+          Note:
+        </strong>{" "}
+        Rain effect requires Mapbox GL JS v3.9+. This component is not available when using MapLibre GL.
+      </DocsNote>
+
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
         <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
         <p className="mt-4">Then install the rain effect component:</p>
         <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-rain.json`} language="bash" />
         <p className="mt-2">
-          This example uses <DocsCode>createZoomInterpolation()</DocsCode> to gradually reveal
-          the rain effect as users zoom in, preventing it from being visible at lower zoom levels.
+          This example uses <DocsCode>createZoomInterpolation()</DocsCode> to gradually reveal the rain effect as users
+          zoom in, preventing it from being visible at lower zoom levels.
         </p>
         <div className="mt-2 px-3 py-2 bg-amber-500/10 border border-amber-500/20 rounded-md text-sm">
           <strong>Note:</strong> Rain effect requires Mapbox GL JS v3.9 or higher.
@@ -49,8 +49,8 @@ export default function RainPage() {
 
       <DocsSection title="Custom Rain Properties">
         <p>
-          Customize the rain appearance with various properties including density, color,
-          intensity, droplet size, and wind direction.
+          Customize the rain appearance with various properties including density, color, intensity, droplet size, and
+          wind direction.
         </p>
       </DocsSection>
 
@@ -71,61 +71,81 @@ export default function RainPage() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell><DocsCode>density</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>density</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">number | expression</TableCell>
                 <TableCell className="text-muted-foreground">0.5</TableCell>
                 <TableCell>Rain intensity/amount (0-1 or Mapbox expression)</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>intensity</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>intensity</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">number</TableCell>
                 <TableCell className="text-muted-foreground">1.0</TableCell>
                 <TableCell>Overall effect strength (0-1)</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>color</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>color</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
                 <TableCell className="text-muted-foreground">"#a8adbc"</TableCell>
                 <TableCell>Rain droplet color (hex format)</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>opacity</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>opacity</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">number</TableCell>
                 <TableCell className="text-muted-foreground">0.7</TableCell>
                 <TableCell>Rain transparency (0-1)</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>vignette</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>vignette</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">number | expression</TableCell>
                 <TableCell className="text-muted-foreground">1.0</TableCell>
                 <TableCell>Edge darkening effect strength (0-1)</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>vignetteColor</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>vignetteColor</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
                 <TableCell className="text-muted-foreground">"#464646"</TableCell>
                 <TableCell>Color for edge darkening</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>direction</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>direction</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">[number, number]</TableCell>
                 <TableCell className="text-muted-foreground">[0, 80]</TableCell>
                 <TableCell>Wind direction vector [x, y]</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>dropletSize</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>dropletSize</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">[number, number]</TableCell>
                 <TableCell className="text-muted-foreground">[2.6, 18.2]</TableCell>
                 <TableCell>Droplet size range [min, max]</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>distortionStrength</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>distortionStrength</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">number</TableCell>
                 <TableCell className="text-muted-foreground">0.7</TableCell>
                 <TableCell>Visual distortion intensity (0-1)</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell><DocsCode>centerThinning</DocsCode></TableCell>
+                <TableCell>
+                  <DocsCode>centerThinning</DocsCode>
+                </TableCell>
                 <TableCell className="text-muted-foreground">number</TableCell>
                 <TableCell className="text-muted-foreground">0</TableCell>
                 <TableCell>Screen coverage (0 = full screen)</TableCell>
@@ -137,19 +157,21 @@ export default function RainPage() {
 
       <DocsSection title="Zoom-Based Reveal">
         <p>
-          Use the <DocsCode>createZoomInterpolation()</DocsCode> helper function to create
-          zoom-based expressions for properties like density and vignette. This gradually
-          reveals the effect as users zoom in.
+          Use the <DocsCode>createZoomInterpolation()</DocsCode> helper function to create zoom-based expressions for
+          properties like density and vignette. This gradually reveals the effect as users zoom in.
         </p>
-        <CodeBlock code={`import { MapRain, createZoomInterpolation } from "@/registry/map";
+        <CodeBlock
+          code={`import { MapRain, createZoomInterpolation } from "@/registry/map";
 
 <MapRain
   density={createZoomInterpolation(0.5, 11, 13)}
   vignette={createZoomInterpolation(1.0, 11, 13)}
-/>`} language="tsx" showCopyButton={false} />
+/>`}
+          language="tsx"
+          showCopyButton={false}
+        />
         <p className="mt-2 text-sm text-muted-foreground">
-          This creates an interpolation that starts at zoom level 11 (value: 0) and reaches
-          the target value at zoom 13.
+          This creates an interpolation that starts at zoom level 11 (value: 0) and reaches the target value at zoom 13.
         </p>
       </DocsSection>
 
@@ -163,5 +185,5 @@ export default function RainPage() {
         </ul>
       </DocsSection>
     </DocsLayout>
-  );
+  )
 }
