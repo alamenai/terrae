@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "map-watermark",
+  "title": "Map Watermark",
+  "description": "Text watermark overlay for maps with configurable position and styling.",
+  "dependencies": [],
+  "devDependencies": [],
+  "registryDependencies": [
+    "https://terrae.vercel.app/maps/map.json"
+  ],
+  "files": [
+    {
+      "path": "src/registry/map/watermark.tsx",
+      "content": "\"use client\"\n\nimport type { ReactNode } from \"react\"\nimport { cn } from \"@/lib/utils\"\n\ntype MapWatermarkPosition =\n  | \"center\"\n  | \"top-left\"\n  | \"top-right\"\n  | \"bottom-left\"\n  | \"bottom-right\"\n  | \"top\"\n  | \"bottom\"\n  | \"left\"\n  | \"right\"\n\ntype MapWatermarkProps = {\n  children: ReactNode\n  position?: MapWatermarkPosition\n  className?: string\n}\n\nconst DEFAULT_POSITION: MapWatermarkPosition = \"center\"\n\nconst POSITION_CLASSES: Record<MapWatermarkPosition, string> = {\n  center: \"inset-0 items-center justify-center\",\n  top: \"inset-x-0 top-0 items-start justify-center pt-4\",\n  bottom: \"inset-x-0 bottom-0 items-end justify-center pb-4\",\n  left: \"inset-y-0 left-0 items-center justify-start pl-4\",\n  right: \"inset-y-0 right-0 items-center justify-end pr-4\",\n  \"top-left\": \"top-0 left-0 items-start justify-start p-4\",\n  \"top-right\": \"top-0 right-0 items-start justify-end p-4\",\n  \"bottom-left\": \"bottom-0 left-0 items-end justify-start p-4\",\n  \"bottom-right\": \"bottom-0 right-0 items-end justify-end p-4\",\n}\n\nexport const MapWatermark = ({\n  children,\n  position = DEFAULT_POSITION,\n  className = \"text-[8rem] font-extrabold leading-none tracking-tighter text-black/10 dark:text-white/10\",\n}: MapWatermarkProps) => {\n  const positionClass = POSITION_CLASSES[position]\n\n  return (\n    <div\n      className={cn(\"absolute z-20 flex select-none pointer-events-none\", positionClass, className)}\n      aria-hidden=\"true\"\n    >\n      {children}\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/map/watermark.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

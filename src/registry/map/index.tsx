@@ -1,6 +1,3 @@
-// ========================================
-// Primary exports (new names)
-// ========================================
 export { Map } from "./map"
 export { MapLine } from "./line"
 export { MapLineAnimated, useLineAnimatedControl } from "./line-animated"
@@ -42,6 +39,7 @@ export { MapImage } from "./image"
 export { MapBlurArea } from "./blur-area"
 export { MapTargetingReticle } from "./targeting-reticle"
 export { MapRadar } from "./radar"
+export { MapWatermark } from "./watermark"
 export { useMap } from "./hooks"
 export {
   defaultMapStyles,
@@ -52,10 +50,6 @@ export {
   type MapSyncLayout,
   type MapLibraryName,
 } from "./types"
-
-// ========================================
-// Deprecated aliases (remove in v2.0)
-// ========================================
 
 /** @deprecated Use MapLine instead. Will be removed in v2.0 */
 export { MapLine as MapRoute } from "./line"
