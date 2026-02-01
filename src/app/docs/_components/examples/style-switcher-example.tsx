@@ -58,7 +58,7 @@ export const StyleSwitcherExample = () => {
         </Select>
       </div>
 
-      <div className="h-[400px] w-full">
+      <div className="h-75 sm:h-100 w-full">
         <Map accessToken={accessToken} center={[-122.4194, 37.7749]} zoom={12} styles={currentStyles} />
       </div>
     </div>

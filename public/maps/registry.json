@@ -8,7 +8,7 @@
       "type": "registry:ui",
       "title": "Map",
       "description": "Core map component with Mapbox GL and MapLibre GL support.",
-      "dependencies": ["mapbox-gl", "next-themes"],
+      "dependencies": ["mapbox-gl", "next-themes", "lucide-react"],
       "devDependencies": ["@types/mapbox-gl"],
       "registryDependencies": [],
       "files": [
@@ -361,6 +361,118 @@
           "path": "src/registry/map/targeting-reticle.tsx",
           "type": "registry:ui",
           "target": "components/ui/map/targeting-reticle.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-radar",
+      "type": "registry:ui",
+      "title": "Map Radar",
+      "description": "Animated radar sweep signal overlay on map coordinates.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/radar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/radar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-watermark",
+      "type": "registry:ui",
+      "title": "Map Watermark",
+      "description": "Text watermark overlay for maps with configurable position and styling.",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/watermark.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/watermark.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-compass",
+      "type": "registry:ui",
+      "title": "Map Compass",
+      "description": "Interactive compass overlay with bearing display and click-to-reset.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/compass.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/compass.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-line-radial",
+      "type": "registry:ui",
+      "title": "Map Line Radial",
+      "description": "Radial lines from a center point to multiple destinations with optional markers.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/line-radial.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/line-radial.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-polygon",
+      "type": "registry:ui",
+      "title": "Map Polygon",
+      "description": "Geographic polygon with customizable fill and stroke styling.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/polygon.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/polygon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-animated-polygon",
+      "type": "registry:ui",
+      "title": "Map Animated Polygon",
+      "description": "Animated polygon with draw, fill, and draw-then-fill effects.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/animated-polygon.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/animated-polygon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "map-choropleth",
+      "type": "registry:ui",
+      "title": "Map Choropleth",
+      "description": "Thematic choropleth map with color-coded regions based on data values.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/choropleth.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/choropleth.tsx"
         }
       ]
     }

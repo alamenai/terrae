@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { UpcomingAnimation } from "@/components/upcoming-animation"
+import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title: "Changelog",
@@ -54,9 +55,9 @@ const FeatureSection = ({ title, items, color, badge }: FeatureSectionProps) => 
         {badge}
       </h3>
       <div className="space-y-4">
-        {items.map((item, index) => (
-          <div key={index} className={`border-l-2 ${BORDER_COLORS[color]} pl-4 space-y-2`}>
-            <div className="flex items-center justify-between gap-4">
+        {items.map((item) => (
+          <div key={item.title} className={cn("border-l-2 pl-4 space-y-2", BORDER_COLORS[color])}>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
               <div className="flex flex-col gap-2">
                 {item.component && (
                   <span className="relative w-fit">
@@ -204,6 +205,16 @@ const changelogs: Changelog[] = [
           </>
         ),
         href: "/docs/radar",
+      },
+      {
+        title: "Watermark",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapWatermark</code> component for text overlays
+            on maps. Supports 9 position presets (center, corners, edges) and fully customizable styling via className.
+          </>
+        ),
+        href: "/docs/watermark",
       },
     ],
     properties: [
@@ -423,7 +434,7 @@ const changelogs: Changelog[] = [
   },
 ]
 
-export default function ChangelogPage() {
+const ChangelogPage = () => {
   return (
     <>
       <div className="mb-12">
@@ -436,14 +447,16 @@ export default function ChangelogPage() {
 
       <div className="space-y-12">
         {changelogs.map((changelog, index) => {
+          const key = "date" in changelog && changelog.date ? changelog.date : `changelog-${index}`
+
           if ("announcement" in changelog) {
             return (
               <div
-                key={index}
-                className="rounded-3xl bg-linear-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 p-12 text-center space-y-6"
+                key={key}
+                className="rounded-3xl bg-linear-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 p-6 sm:p-12 text-center space-y-6"
               >
                 <div className="space-y-4">
-                  <h2 className="text-5xl font-bold bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                  <h2 className="text-3xl sm:text-5xl font-bold bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                     {changelog.title}
                   </h2>
                   <p className="text-lg text-muted-foreground">{changelog.date}</p>
@@ -485,10 +498,7 @@ export default function ChangelogPage() {
 
           if (entry.upcoming) {
             return (
-              <div
-                key={index}
-                className="rounded-3xl border border-dashed border-border/50 p-8 sm:p-12 overflow-hidden"
-              >
+              <div key={key} className="rounded-3xl border border-dashed border-border/50 p-8 sm:p-12 overflow-hidden">
                 <div className="flex flex-col items-center text-center space-y-6">
                   <h2 className="text-3xl font-bold bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                     Coming Soon
@@ -505,7 +515,7 @@ export default function ChangelogPage() {
           const hasFixes = entry.fixes && entry.fixes.length > 0
 
           return (
-            <div key={index} className="rounded-3xl border border-border/50 p-8 sm:p-12 space-y-8">
+            <div key={key} className="rounded-3xl border border-border/50 p-8 sm:p-12 space-y-8">
               <div className="text-center space-y-4">
                 <h2 className="text-3xl font-bold">{entry.date}</h2>
                 <div className="h-px bg-border/50 max-w-xs mx-auto" />
@@ -553,3 +563,5 @@ export default function ChangelogPage() {
     </>
   )
 }
+
+export default ChangelogPage

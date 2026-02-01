@@ -23,6 +23,7 @@ import {
   Crosshair,
   Compass,
   Radar,
+  Stamp,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -269,9 +270,22 @@ const components: ComponentItem[] = [
     installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-radar.json",
     isNew: true,
   },
+  {
+    title: "Watermark",
+    href: "/docs/watermark",
+    description: "Text watermark overlay with configurable position and styling",
+    icon: Stamp,
+    category: "features",
+    installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-watermark.json",
+    isNew: true,
+  },
 ]
 
-function ComponentCard({ component }: { component: ComponentItem }) {
+type ComponentCardProps = {
+  component: ComponentItem
+}
+
+const ComponentCard = ({ component }: ComponentCardProps) => {
   const isComingSoon = component.status === "coming-soon"
 
   const cardContent = (
@@ -336,9 +350,13 @@ function ComponentCard({ component }: { component: ComponentItem }) {
   )
 }
 
-export default function ComponentsPage() {
-  const coreComponents = components.filter((c) => c.category === "core")
-  const featureComponents = components.filter((c) => c.category === "features")
+const ComponentsPage = () => {
+  const coreComponents = components.filter((c) => {
+    return c.category === "core"
+  })
+  const featureComponents = components.filter((c) => {
+    return c.category === "features"
+  })
 
   return (
     <DocsLayout
@@ -371,3 +389,5 @@ export default function ComponentsPage() {
     </DocsLayout>
   )
 }
+
+export default ComponentsPage

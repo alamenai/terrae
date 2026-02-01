@@ -31,6 +31,7 @@ import {
   Crosshair,
   Compass,
   Radar,
+  Stamp,
   type LucideIcon,
 } from "lucide-react"
 
@@ -96,6 +97,7 @@ const navigation: NavGroup[] = [
       { title: "Blur Area", href: "/docs/blur-area", icon: EyeOff },
       { title: "Targeting Reticle", href: "/docs/targeting-reticle", icon: Crosshair },
       { title: "Radar", href: "/docs/radar", icon: Radar, badge: "new" },
+      { title: "Watermark", href: "/docs/watermark", icon: Stamp, badge: "new" },
       { title: "MiniMap", href: "/docs/minimap", icon: MapIcon },
       { title: "Lines", href: "/docs/lines", icon: Route },
       { title: "Polygon", href: "/docs/polygon", icon: Pentagon },
@@ -120,9 +122,13 @@ const navigation: NavGroup[] = [
   },
 ]
 
-export function DocsSidebar() {
+export const DocsSidebar = () => {
   const pathname = usePathname()
   const { setOpenMobile } = useSidebar()
+
+  const handleCloseMobile = () => {
+    setOpenMobile(false)
+  }
 
   return (
     <Sidebar className="border-r border-t-0 bg-transparent **:data-[sidebar=sidebar]:bg-transparent sticky top-[64px] h-[calc(100vh-64px)] self-start">
@@ -149,11 +155,7 @@ export function DocsSidebar() {
                       isActive={pathname === item.href}
                       className="text-muted-foreground hover:text-foreground data-[active=true]:bg-muted/50"
                     >
-                      <Link
-                        href={item.href}
-                        onClick={() => setOpenMobile(false)}
-                        className="group flex items-center gap-2"
-                      >
+                      <Link href={item.href} onClick={handleCloseMobile} className="group flex items-center gap-2">
                         <item.icon className="size-4 group-data-[active=true]:text-purple-500" />
                         <span className="line-clamp-1 group-data-[active=true]:font-semibold group-data-[active=true]:text-transparent group-data-[active=true]:bg-gradient-to-r group-data-[active=true]:from-blue-500 group-data-[active=true]:via-purple-500 group-data-[active=true]:to-pink-500 group-data-[active=true]:bg-clip-text">
                           {item.title}
@@ -173,7 +175,7 @@ export function DocsSidebar() {
   )
 }
 
-export function MobileSidebarTrigger() {
+export const MobileSidebarTrigger = () => {
   return (
     <div className="md:hidden">
       <SidebarTrigger />

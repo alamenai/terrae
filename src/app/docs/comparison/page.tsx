@@ -1,20 +1,13 @@
-import { DocsLayout, DocsSection, DocsCode } from "../_components/docs";
-import { CodeBlock } from "../_components/code-block";
-import { ComparisonMapExample } from "../_components/examples/comparison-map-example";
-import { Metadata } from "next";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { DocsLayout, DocsSection, DocsCode } from "../_components/docs"
+import { CodeBlock } from "../_components/code-block"
+import { ComparisonMapExample } from "../_components/examples/comparison-map-example"
+import type { Metadata } from "next"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export const metadata: Metadata = {
   title: "Comparison",
   description: "See how Terrae simplifies Mapbox GL development with declarative components",
-};
+}
 
 const imperativeCode = `import mapboxgl from 'mapbox-gl';
 
@@ -85,7 +78,7 @@ map.on('load', () => {
   map.addControl(
     new mapboxgl.FullscreenControl()
   );
-});`;
+});`
 
 const declarativeCode = `import { Map, MapMarker, MarkerContent, MarkerPopup, MapLine, MapControls, MapZoom, MapFullscreen } from "@/registry/map";
 
@@ -124,9 +117,9 @@ export function MyMap() {
       </MapControls>
     </Map>
   );
-}`;
+}`
 
-export default function ComparisonPage() {
+const ComparisonPage = () => {
   return (
     <DocsLayout
       title="Comparison"
@@ -137,32 +130,41 @@ export default function ComparisonPage() {
       <DocsSection>
         <p>
           Building interactive maps with raw Mapbox GL JS requires a lot of{" "}
-          <a href="https://docs.mapbox.com/mapbox-gl-js/guides/install/" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://docs.mapbox.com/mapbox-gl-js/guides/install/"
+            className="text-primary hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             imperative code
           </a>
-          , DOM manipulation, and careful state management. Terrae simplifies this with a declarative, component-based approach that feels natural in React.
+          , DOM manipulation, and careful state management. Terrae simplifies this with a declarative, component-based
+          approach that feels natural in React.
         </p>
       </DocsSection>
 
       <DocsSection title="Example">
         <p className="mb-4">
-          Let's create a map with a marker, popup, route line, and controls. Both approaches produce the exact same result:
+          Let's create a map with a marker, popup, route line, and controls. Both approaches produce the exact same
+          result:
         </p>
-        <div className="h-[400px] w-full rounded-xl overflow-hidden border">
+        <div className="h-75 sm:h-100 w-full rounded-xl overflow-hidden border">
           <ComparisonMapExample />
         </div>
       </DocsSection>
 
       <DocsSection title="Without Terrae">
         <p className="mb-4">
-          Using Mapbox GL JS directly requires managing the map lifecycle, creating DOM elements manually, and writing imperative code for each feature.
+          Using Mapbox GL JS directly requires managing the map lifecycle, creating DOM elements manually, and writing
+          imperative code for each feature.
         </p>
         <CodeBlock code={imperativeCode} language="typescript" />
       </DocsSection>
 
       <DocsSection title="With Terrae">
         <p className="mb-4">
-          Terrae provides a React-friendly, declarative API. Simply compose components together and the library handles all the complexity under the hood.
+          Terrae provides a React-friendly, declarative API. Simply compose components together and the library handles
+          all the complexity under the hood.
         </p>
         <CodeBlock code={declarativeCode} language="tsx" />
       </DocsSection>
@@ -181,7 +183,17 @@ export default function ComparisonPage() {
               <TableCell>Declarative React components</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell><a href="https://docs.mapbox.com/mapbox-gl-js/guides/install/" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Imperative</a> API with many setup steps</TableCell>
+              <TableCell>
+                <a
+                  href="https://docs.mapbox.com/mapbox-gl-js/guides/install/"
+                  className="text-primary hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Imperative
+                </a>{" "}
+                API with many setup steps
+              </TableCell>
               <TableCell>Familiar React patterns and hooks</TableCell>
             </TableRow>
             <TableRow>
@@ -208,5 +220,7 @@ export default function ComparisonPage() {
         </Table>
       </DocsSection>
     </DocsLayout>
-  );
+  )
 }
+
+export default ComparisonPage
