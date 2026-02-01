@@ -155,12 +155,22 @@ export const Map = ({
     }
 
     try {
-      const mapInstance = createMapInstance(containerRef.current)
+      const container = containerRef.current
+      const originalGetBoundingClientRect = container.getBoundingClientRect.bind(container)
+      container.getBoundingClientRect = () => {
+        const rect = originalGetBoundingClientRect()
+        const width = container.offsetWidth
+        const height = container.offsetHeight
+        return { ...rect, width, height, right: rect.left + width, bottom: rect.top + height }
+      }
+
+      const mapInstance = createMapInstance(container)
       mapInstance.on("load", handleMapLoad)
       mapInstance.on("error", handleMapError)
       mapRef.current = mapInstance
 
       return () => {
+        delete (container as unknown as Record<string, unknown>).getBoundingClientRect
         cleanupMap(mapInstance)
       }
     } catch (err) {
@@ -222,6 +232,22 @@ export const Map = ({
 
     mapRef.current.setProjection(projection)
   }, [projection])
+
+  useEffect(() => {
+    if (!containerRef.current || !mapRef.current || !isLoaded) {
+      return
+    }
+
+    const container = containerRef.current
+    const observer = new ResizeObserver(() => {
+      mapRef.current?.resize()
+    })
+    observer.observe(container)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [isLoaded])
 
   useEffect(() => {
     if (!mapRef.current || !isLoaded || !autoRotate || projection !== "globe") {
