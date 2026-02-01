@@ -1,0 +1,134 @@
+"use client"
+
+import type { ReactNode } from "react"
+import { useState, useEffect, memo } from "react"
+import { Map, MapMarker, MarkerContent } from "@/registry/map"
+import { Satellite } from "lucide-react"
+import { InfoPanel } from "./info-panel"
+
+type ISSPosition = {
+  latitude: number
+  longitude: number
+  timestamp: number
+}
+
+type ISSInfoPanelProps = {
+  position: ISSPosition | null
+}
+
+type ISSSatelliteMarkerProps = {
+  position: ISSPosition
+}
+
+type ISSMapContainerProps = {
+  center: [number, number]
+  children: ReactNode
+}
+
+const ISSInfoPanel = memo(({ position }: ISSInfoPanelProps) => {
+  return (
+    <InfoPanel title="Space Station">
+      {position ? (
+        <>
+          <div className="font-medium mt-1">
+            {position.latitude.toFixed(2)}°, {position.longitude.toFixed(2)}°
+          </div>
+          <div className="flex items-center gap-1 mt-1">
+            <div className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-xs text-muted-foreground">Live</span>
+          </div>
+        </>
+      ) : (
+        <div className="text-muted-foreground">Loading...</div>
+      )}
+    </InfoPanel>
+  )
+})
+ISSInfoPanel.displayName = "ISSInfoPanel"
+
+const ISSSatelliteMarker = memo(({ position }: ISSSatelliteMarkerProps) => {
+  return (
+    <MapMarker coordinates={[position.longitude, position.latitude]}>
+      <MarkerContent>
+        <div className="relative flex items-center justify-center">
+          <div className="absolute rounded-full bg-blue-500/20 size-16 animate-pulse" />
+          <div className="relative bg-blue-500 p-2 rounded-full shadow-lg shadow-blue-500/50">
+            <Satellite className="size-4 text-white" />
+          </div>
+        </div>
+      </MarkerContent>
+    </MapMarker>
+  )
+})
+ISSSatelliteMarker.displayName = "ISSSatelliteMarker"
+
+const ISSMapContainer = memo(({ center, children }: ISSMapContainerProps) => {
+  return (
+    <Map accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""} center={center} zoom={1} projection="globe">
+      {children}
+    </Map>
+  )
+})
+ISSMapContainer.displayName = "ISSMapContainer"
+
+export const LiveTrackingDemo = () => {
+  const [issPosition, setIssPosition] = useState<ISSPosition | null>(null)
+  const [initialCenter, setInitialCenter] = useState<[number, number] | null>(null)
+
+  useEffect(() => {
+    const fetchISSPosition = async () => {
+      try {
+        const response = await fetch("/api/iss")
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        const data = await response.json()
+
+        if (!data.iss_position) {
+          console.error("Invalid API response:", data)
+          return
+        }
+
+        const newPosition = {
+          latitude: parseFloat(data.iss_position.latitude),
+          longitude: parseFloat(data.iss_position.longitude),
+          timestamp: data.timestamp,
+        }
+
+        setIssPosition(newPosition)
+
+        if (!initialCenter) {
+          setInitialCenter([newPosition.longitude, newPosition.latitude])
+        }
+      } catch (error) {
+        console.error("Failed to fetch ISS position:", error)
+      }
+    }
+
+    fetchISSPosition()
+    const interval = setInterval(fetchISSPosition, 5000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [initialCenter])
+
+  return (
+    <div className="w-full h-full relative">
+      <ISSInfoPanel position={issPosition} />
+      {initialCenter ? (
+        <ISSMapContainer center={initialCenter}>
+          {issPosition && <ISSSatelliteMarker position={issPosition} />}
+        </ISSMapContainer>
+      ) : (
+        <div className="w-full h-full flex items-center justify-center bg-muted/20">
+          <div className="flex gap-1">
+            <span className="size-1.5 rounded-full bg-muted-foreground/60 animate-pulse" />
+            <span className="size-1.5 rounded-full bg-muted-foreground/60 animate-pulse [animation-delay:150ms]" />
+            <span className="size-1.5 rounded-full bg-muted-foreground/60 animate-pulse [animation-delay:300ms]" />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

@@ -4,7 +4,7 @@ export const Footer = () => {
   return (
     <footer className="w-full overflow-hidden border-t border-border/40">
       <div className="relative h-32 sm:h-40">
-        <div className="relative z-10 mx-auto max-w-5xl flex items-center justify-between px-6 py-6 text-xs text-muted-foreground">
+        <div className="relative z-10 mx-auto max-w-5xl flex items-center justify-between px-3 sm:px-6 py-6 text-xs text-muted-foreground">
           <span>
             Built by{" "}
             <a
