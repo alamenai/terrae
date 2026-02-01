@@ -224,9 +224,13 @@ export const MapRadar = ({
 
     const radarImage = createRadarImage(size, color, gridColor, backgroundColor, duration, rings, showCrosshairs)
 
-    if (!map.hasImage(id)) {
-      map.addImage(id, radarImage, { pixelRatio: 2 })
+    const addImage = () => {
+      if (!map.hasImage(id)) {
+        map.addImage(id, radarImage, { pixelRatio: 2 })
+      }
     }
+
+    addImage()
 
     const animate = () => {
       map.triggerRepaint()
@@ -234,7 +238,14 @@ export const MapRadar = ({
     }
     animationFrameRef.current = requestAnimationFrame(animate)
 
+    const handleStyleLoad = () => {
+      addImage()
+    }
+
+    map.on("style.load", handleStyleLoad)
+
     return () => {
+      map.off("style.load", handleStyleLoad)
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
@@ -249,9 +260,9 @@ export const MapRadar = ({
       return
     }
 
-    const setup = () => {
+    const addLayers = () => {
       if (!map.isStyleLoaded() || !map.hasImage(id)) {
-        requestAnimationFrame(setup)
+        requestAnimationFrame(addLayers)
         return
       }
 
@@ -284,10 +295,16 @@ export const MapRadar = ({
       }
     }
 
-    const rafId = requestAnimationFrame(setup)
+    addLayers()
+
+    const handleStyleLoad = () => {
+      addLayers()
+    }
+
+    map.on("style.load", handleStyleLoad)
 
     return () => {
-      cancelAnimationFrame(rafId)
+      map.off("style.load", handleStyleLoad)
       if (map.isStyleLoaded()) {
         if (map.getLayer(layerId)) {
           map.removeLayer(layerId)
