@@ -1,0 +1,181 @@
+---
+title: "How I Use Claude Code to Generate Terrae Components"
+slug: "claude-code-components"
+description: "I built Terrae's map components using Claude Code and a single skill file. Here's how the workflow looks and what I learned."
+date: "2025-06-01"
+readingTime: "8 min read"
+tag: "practices"
+illustration: "claude-code-components"
+---
+
+Building map components from scratch can be tedious. Between Mapbox GL's imperative API, React lifecycle management, and cleanup logic, there's a lot of boilerplate to get right. Claude Code can generate production-ready Terrae components in minutes by following the project's established patterns through a component skill.
+
+## What is Claude Code?
+
+Claude Code is Anthropic's CLI tool for agentic coding. It runs in your terminal, has full access to your project files, and can read, write, and execute code. Unlike chat-based assistants, Claude Code understands your entire codebase and follows project-specific conventions defined in skill files.
+
+## The component skill
+
+Terrae includes a component skill at `.claude/skills/component.md` that teaches Claude Code exactly how to generate map components. It covers the file structure, naming conventions, hook usage, and export patterns. Here's what the skill looks like:
+
+<CodeBlock code={`# Component Skill
+
+Generate new map components following Terrae's established patterns.
+
+## Instructions
+
+When the developer requests a new component:
+
+1. **Gather Requirements**
+   - Ask for the component name (e.g., \`MapHeatmap\`, \`MapPolygon\`)
+   - Ask for the core functionality
+   - Ask if it needs compound components
+
+2. **Create the Component File**
+   - Location: \`src/registry/map/{component-name}.tsx\`
+   - Use kebab-case for file names
+
+3. **Follow the Component Structure**
+   ...`} language="markdown" />
+
+The skill acts as a blueprint. When you ask Claude Code to generate a component, it follows these patterns automatically — correct file location, proper type definitions, the right hooks, cleanup logic, and consistent exports.
+
+## Generating a component step by step
+
+Let's walk through generating a heatmap component. You'd start by giving Claude Code a clear prompt describing what you need:
+
+<CodeBlock code={`Generate a MapHeatmap component that:
+- Accepts an array of { coordinates, weight } data points
+- Renders a heatmap layer on the map
+- Supports customizable color ramp and radius
+- Includes a compound HeatmapLegend component`} language="text" />
+
+Claude Code will then:
+
+1. Read the component skill to understand Terrae's patterns
+2. Examine existing components for reference (like `MapLine` or `MapAnimatedPulse`)
+3. Generate the component file following the exact structure
+4. Add the export to the registry index
+
+Here's an example of what it might produce:
+
+<CodeBlock code={`"use client"
+
+import { useEffect, useRef, type ReactNode } from "react"
+import mapboxgl from "mapbox-gl"
+import { useMap } from "./hooks"
+import type { MapCoordinates } from "./types"
+
+type HeatmapPoint = {
+  coordinates: MapCoordinates
+  weight?: number
+}
+
+type MapHeatmapProps = {
+  data: HeatmapPoint[]
+  radius?: number
+  intensity?: number
+  colorRamp?: string[]
+  children?: ReactNode
+}
+
+const DEFAULT_RADIUS = 20
+const DEFAULT_INTENSITY = 1
+
+export const MapHeatmap = ({
+  data,
+  radius = DEFAULT_RADIUS,
+  intensity = DEFAULT_INTENSITY,
+  children,
+}: MapHeatmapProps) => {
+  const { map, isLoaded } = useMap()
+  const sourceId = useRef("heatmap-source")
+  const layerId = useRef("heatmap-layer")
+
+  useEffect(() => {
+    if (!map || !isLoaded) {
+      return
+    }
+
+    const geojson: GeoJSON.FeatureCollection = {
+      type: "FeatureCollection",
+      features: data.map((point) => {
+        return {
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: point.coordinates,
+          },
+          properties: {
+            weight: point.weight ?? 1,
+          },
+        }
+      }),
+    }
+
+    map.addSource(sourceId.current, {
+      type: "geojson",
+      data: geojson,
+    })
+
+    map.addLayer({
+      id: layerId.current,
+      type: "heatmap",
+      source: sourceId.current,
+      paint: {
+        "heatmap-radius": radius,
+        "heatmap-intensity": intensity,
+      },
+    })
+
+    return () => {
+      if (map.getLayer(layerId.current)) {
+        map.removeLayer(layerId.current)
+      }
+      if (map.getSource(sourceId.current)) {
+        map.removeSource(sourceId.current)
+      }
+    }
+  }, [map, isLoaded, data, radius, intensity])
+
+  if (!isLoaded) {
+    return null
+  }
+
+  return <>{children}</>
+}`} language="tsx" />
+
+<DocsNote>
+The generated code follows all of Terrae's conventions: arrow functions, type aliases instead of interfaces, `useMap()` hook for map access, proper cleanup in useEffect, and SCREAMING_SNAKE_CASE for defaults.
+</DocsNote>
+
+## Using the generated component
+
+The component slots right into Terrae's declarative API like any other component:
+
+<CodeBlock code={`<Map accessToken={token}>
+  <MapHeatmap
+    data={[
+      { coordinates: [-73.99, 40.73], weight: 0.8 },
+      { coordinates: [-73.98, 40.74], weight: 0.5 },
+      { coordinates: [-74.00, 40.72], weight: 1.0 },
+    ]}
+    radius={30}
+    intensity={0.8}
+  />
+</Map>`} language="tsx" />
+
+## Tips for effective prompting
+
+To get the best results when generating components with Claude Code:
+
+- **Be specific about the API surface.** Describe the props you want, including which should be required vs optional.
+- **Mention compound components upfront.** If you need a legend, controls, or other sub-components, include that in your initial prompt.
+- **Reference existing components.** Saying "similar to MapLine but for polygons" gives Claude Code a concrete example to follow.
+- **Describe the Mapbox layer type.** Specifying whether you need a heatmap, fill, circle, or symbol layer helps Claude Code write the correct Mapbox GL code.
+
+## Beyond generation
+
+Claude Code isn't just for initial generation. You can iterate on the component by asking for modifications — add a new prop, change the default behavior, add animation support, or refactor the internal structure. Since it has context of the full project, changes stay consistent with the rest of the codebase.
+
+The component skill is also a living document. As Terrae's patterns evolve, updating the skill ensures all future generated components follow the latest conventions.
