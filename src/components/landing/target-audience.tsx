@@ -5,8 +5,9 @@ export const TargetAudience = () => {
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-tight">
           Built for Design Engineers
         </h2>
-        <p className="text-muted-foreground text-base sm:text-lg max-w-lg leading-relaxed">
-          Declarative map components for React. Install what you need, compose with shadcn/ui, and ship faster.
+        <p className="text-muted-foreground text-lg sm:text-xl md:text-2xl max-w-2xl leading-relaxed">
+          Whether you're a design engineer crafting pixel-perfect interfaces or a frontend engineer building complex
+          features, Terrae gives you map components that just work.
         </p>
       </div>
     </div>
