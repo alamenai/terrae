@@ -4,8 +4,6 @@ import type { ReactNode } from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
-import { Separator } from "@/components/ui/separator"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
 import { TerraeLogo } from "@/components/terrae-logo"
 
@@ -18,7 +16,7 @@ type HeaderNavProps = {
 const NAV_ITEMS = [
   { href: "/docs/story", label: "Story" },
   { href: "/docs", label: "Docs" },
-  { href: "/docs/components", label: "Components", pulse: true },
+  { href: "/docs/components", label: "Components" },
   { href: "/blog", label: "Blog" },
   { href: "/docs/changelog", label: "Changelog" },
 ]
@@ -69,22 +67,12 @@ export const HeaderNav = ({ className, leftContent, children }: HeaderNavProps) 
                   )}
                 >
                   {item.label}
-                  {item.pulse && (
-                    <span className="absolute -top-1 -right-2 flex size-1.5">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
-                      <span className="relative inline-flex size-1.5 rounded-full bg-purple-500" />
-                    </span>
-                  )}
                 </Link>
               )
             })}
           </div>
         </div>
-        <div className="flex items-center gap-1.5 sm:gap-2 h-4 shrink-0">
-          {children}
-          <Separator orientation="vertical" className="hidden sm:block" />
-          <ThemeToggle />
-        </div>
+        <div className="flex items-center gap-1.5 sm:gap-2 h-4 shrink-0">{children}</div>
       </nav>
 
       {mobileMenuOpen && !leftContent && (
@@ -104,12 +92,6 @@ export const HeaderNav = ({ className, leftContent, children }: HeaderNavProps) 
                   )}
                 >
                   {item.label}
-                  {item.pulse && (
-                    <span className="absolute top-2 ml-1 flex size-1.5">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
-                      <span className="relative inline-flex size-1.5 rounded-full bg-purple-500" />
-                    </span>
-                  )}
                 </Link>
               )
             })}
