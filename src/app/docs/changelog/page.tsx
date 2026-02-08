@@ -222,6 +222,18 @@ const changelogs: Changelog[] = [
         href: "/docs/snow",
       },
       {
+        title: "Steam",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapSteam</code> component for rising steam
+            effects with wispy particle animation for map locations. Features customizable intensity, drift, rise speed,
+            and color. Includes <code className="rounded bg-muted px-1 py-0.5 text-xs">useSteamControl</code> hook for
+            programmatic start/stop and dynamic intensity control.
+          </>
+        ),
+        href: "/docs/steam",
+      },
+      {
         title: "Grid",
         description: (
           <>
