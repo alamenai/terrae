@@ -8,7 +8,7 @@ export const RadarNoCrosshairsExample = () => {
   return (
     <div className="h-full w-full">
       <Map accessToken={accessToken} center={[139.6917, 35.6895]} zoom={8}>
-        <MapRadar id="radar-no-crosshairs" coordinates={[139.6917, 35.6895]} showCrosshairs={false} />
+        <MapRadar coordinates={[139.6917, 35.6895]} showCrosshairs={false} />
       </Map>
     </div>
   )

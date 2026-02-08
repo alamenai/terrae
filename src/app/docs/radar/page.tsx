@@ -85,11 +85,6 @@ export default function RadarPage() {
         <DocsPropTable
           props={[
             {
-              name: "id",
-              type: "string",
-              description: "Unique identifier for the radar instance.",
-            },
-            {
               name: "coordinates",
               type: "[number, number]",
               description: "Position [longitude, latitude] for the radar center.",
@@ -136,15 +131,21 @@ export default function RadarPage() {
               default: "true",
               description: "Show the horizontal and vertical crosshair lines.",
             },
+            {
+              name: "pitchAlignment",
+              type: '"map" | "viewport" | "auto"',
+              default: "map",
+              description:
+                'Controls how the radar is aligned when the map is pitched. Use "viewport" to keep the radar facing the screen.',
+            },
           ]}
         />
       </DocsSection>
 
       <DocsSection title="Performance Considerations">
         <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground mt-2">
-          <li>The radar uses continuous canvas repainting — use sparingly for best performance</li>
-          <li>Larger sizes require more rendering work per frame</li>
-          <li>Multiple radars on screen will impact frame rate</li>
+          <li>The radar uses CSS animations and SVG — lightweight and GPU-accelerated</li>
+          <li>Multiple radars on screen have minimal performance impact</li>
           <li>Animation automatically stops when the component unmounts</li>
         </ul>
       </DocsSection>
