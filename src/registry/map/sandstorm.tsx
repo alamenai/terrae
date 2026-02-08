@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, useCallback } from "react"
+import { useEffect, useId, useRef, useState, useCallback } from "react"
 import { createPortal } from "react-dom"
 import { useMap } from "./hooks"
 
@@ -40,7 +40,7 @@ type SandstormOverlayProps = {
 }
 
 type MapSandstormProps = {
-  id: string
+  id?: string
   intensity?: number
   particleCount?: number
   color?: string
@@ -208,9 +208,11 @@ export const MapSandstorm = ({
 }: MapSandstormProps) => {
   const { map, isLoaded } = useMap()
   const [container, setContainer] = useState<HTMLElement | null>(null)
+  const autoId = useId()
+  const controlId = id ?? autoId
 
   const handleControlReady = (control: SandstormControl) => {
-    sandstormControls.set(id, control)
+    sandstormControls.set(controlId, control)
   }
 
   useEffect(() => {
@@ -222,9 +224,9 @@ export const MapSandstorm = ({
     setContainer(mapContainer)
 
     return () => {
-      sandstormControls.delete(id)
+      sandstormControls.delete(controlId)
     }
-  }, [map, isLoaded, id])
+  }, [map, isLoaded, controlId])
 
   if (!container) {
     return null
