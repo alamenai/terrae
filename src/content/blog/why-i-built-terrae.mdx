@@ -47,10 +47,24 @@ My initial idea was to build on top of [Google Maps](https://developers.google.c
 It's flexible, powerful, and has the right level of opinion to build beautiful, composable components on top of it. But Mapbox itself has fundamental design decisions that make React integration awkward:
 
 <GradientList>
-  <GradientListItem>**Everything is a layer.** Mapbox treats markers, lines, polygons, and animations all as layers with sources, making simple tasks verbose and complex</GradientListItem>
-  <GradientListItem>**Animations are imperative.** Creating animated routes or moving markers requires manual frame-by-frame updates, timers, and state management</GradientListItem>
-  <GradientListItem>**React libraries copy the same anatomy.** Existing wrappers like [react-map-gl](https://visgl.github.io/react-map-gl/) mirror Mapbox's layer-source pattern, forcing you to think in Mapbox terms rather than React components</GradientListItem>
-  <GradientListItem>**Plugin fragmentation.** Need a geocoder? A draw tool? Export functionality? Each requires a separate plugin from a different maintainer, with inconsistent APIs, varying TypeScript support, and uncertain maintenance status. The same applies to [MapLibre](https://maplibre.org/maplibre-gl-js/docs/plugins/)</GradientListItem>
+  <GradientListItem>
+    **Everything is a layer.** Mapbox treats markers, lines, polygons, and animations all as layers with sources, making
+    simple tasks verbose and complex
+  </GradientListItem>
+  <GradientListItem>
+    **Animations are imperative.** Creating animated routes or moving markers requires manual frame-by-frame updates,
+    timers, and state management
+  </GradientListItem>
+  <GradientListItem>
+    **React libraries copy the same anatomy.** Existing wrappers like
+    [react-map-gl](https://visgl.github.io/react-map-gl/) mirror Mapbox's layer-source pattern, forcing you to think in
+    Mapbox terms rather than React components
+  </GradientListItem>
+  <GradientListItem>
+    **Plugin fragmentation.** Need a geocoder? A draw tool? Export functionality? Each requires a separate plugin from a
+    different maintainer, with inconsistent APIs, varying TypeScript support, and uncertain maintenance status. The same
+    applies to [MapLibre](https://maplibre.org/maplibre-gl-js/docs/plugins/)
+  </GradientListItem>
 </GradientList>
 
 ## Solution
@@ -62,10 +76,22 @@ Existing Mapbox implementations in React felt clunky and required too much boile
 What makes Terrae different:
 
 <GradientList>
-  <GradientListItem>**Component-first anatomy.** Instead of layers and sources, you work with intuitive components like `MapMarker`, `MapLine`, and `MapPolygon`</GradientListItem>
-  <GradientListItem>**Declarative animations.** Animated routes, pulsing markers, and camera follows are just props, not imperative loops. Write `<MapLineAnimated />` instead of managing requestAnimationFrame</GradientListItem>
-  <GradientListItem>**Idiomatic React.** Compose components naturally with children, use familiar props, and let React handle the lifecycle</GradientListItem>
-  <GradientListItem>**No Mapbox mental model.** Forget layers, sources, and GeoJSON specs. Just use components that do what their names say</GradientListItem>
+  <GradientListItem>
+    **Component-first anatomy.** Instead of layers and sources, you work with intuitive components like `MapMarker`,
+    `MapLine`, and `MapPolygon`
+  </GradientListItem>
+  <GradientListItem>
+    **Declarative animations.** Animated routes, pulsing markers, and camera follows are just props, not imperative
+    loops. Write `<MapLineAnimated />` instead of managing requestAnimationFrame
+  </GradientListItem>
+  <GradientListItem>
+    **Idiomatic React.** Compose components naturally with children, use familiar props, and let React handle the
+    lifecycle
+  </GradientListItem>
+  <GradientListItem>
+    **No Mapbox mental model.** Forget layers, sources, and GeoJSON specs. Just use components that do what their names
+    say
+  </GradientListItem>
 </GradientList>
 
 ## Inspiration

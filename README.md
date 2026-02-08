@@ -2,7 +2,7 @@
   <h1>Terrae</h1>
   <p><strong>Map library for Design Engineers</strong></p>
   <p>
-    Beautiful map components built with React, TypeScript, Tailwind CSS, and Mapbox GL JS.<br />
+    Beautiful map components built with React, TypeScript, Tailwind CSS, Mapbox GL JS, and MapLibre GL.<br />
     Perfect companion for shadcn/ui.
   </p>
 </div>
@@ -17,7 +17,7 @@
 
 ## Documentation
 
-Visit [terrae.vercel.app](https://terrae.vercel.app) to view the full documentation.
+Visit [www.terrae.dev](https://www.terrae.dev) to view the full documentation.
 
 ## Contributing
 

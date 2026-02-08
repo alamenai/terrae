@@ -3,4 +3,5 @@
 @.claude/rules/javascript.md
 @.claude/rules/react.md
 @.claude/rules/nextjs.md
+@.claude/rules/security.md
 @.claude/rules/clean-code.md

@@ -1,21 +1,53 @@
 # Contributing
 
-Terrae is an open-source, public project. We appreciate your interest in contributing.
+Terrae is an open-source project and we welcome contributions from the community.
 
-## Pull Requests
+## How to Contribute
 
-We apologize, but we are not currently accepting pull requests. We understand this may be disappointing, and we appreciate your understanding.
+1. Fork the repository
+2. Create a new branch for your feature or fix
+3. Make your changes
+4. Open a pull request with a clear description of what you changed and why
 
-## How You Can Help
+## Ways to Contribute
 
-We encourage you to:
+- **Add new components** - Use the Claude skill `/component/new` to scaffold a new map component with all required files (source, docs, examples, sidebar, registry)
+- **Fix bugs** - Found something broken? Submit a fix
+- **Add features** - Have an idea? Open an issue first to discuss, then submit a PR
+- **Improve docs** - Help make the documentation clearer
+- **Report issues** - Found a bug or have a suggestion? Open an issue
 
-- **Report bugs** - Found something broken? Please open an issue and let us know
-- **Suggest ideas** - Have a feature request or improvement in mind? We'd love to hear it
-- **Share feedback** - Your input helps us make Terrae better for everyone
+## Creating a New Component
 
-## Becoming a Contributor
+Each new component requires the following files:
 
-We are open to adding contributors who can consistently and continuously contribute to the project. If you're interested in becoming a regular contributor, please reach me through my email.
+1. Component source file in `src/registry/map/`
+2. Barrel export in `src/registry/map/index.tsx`
+3. Registry entry in `registry.json`
+4. Example file(s) in `src/app/docs/_components/examples/`
+5. Documentation page in `src/app/docs/`
+6. Sidebar navigation entry
+7. Components listing entry
+8. Changelog entry
 
-Thank you for your interest in Terrae!
+### With Claude Code
+
+This project uses [Claude Code](https://claude.ai/claude-code) with a custom skill to streamline component creation.
+
+For an agentic implementation, it is better to use this skill as it ensures consistency and follows all project conventions.
+
+Run the `/component/new` skill and it will guide you through creating all required files automatically.
+
+### Manual
+
+If you prefer to create components manually, follow the patterns in `.claude/rules/react/component.md` and use existing components in `src/registry/map/` as reference.
+
+You will need to create each of the files listed above by hand.
+
+## Guidelines
+
+- Follow the existing code style and conventions
+- Keep pull requests focused on a single change
+- Write clear commit messages
+
+Thank you for helping make Terrae better!
