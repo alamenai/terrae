@@ -38,12 +38,12 @@ export const TargetingReticleExample = () => {
       <button
         onClick={handleReset}
         disabled={!isLocked}
-        className="absolute top-4 right-4 z-20 flex size-12 cursor-pointer items-center justify-center rounded-full bg-background/90 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-background disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
+        className="absolute bottom-4 right-4 z-20 flex size-12 cursor-pointer items-center justify-center rounded-full bg-background/90 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-background disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
       >
         {isLocked ? <RotateCcw className="size-5" /> : <Loader2 className="size-5 animate-spin" />}
       </button>
       {isLocked && (
-        <div className="absolute bottom-4 right-4 rounded bg-green-500/90 px-3 py-1 text-sm font-medium text-white">
+        <div className="absolute bottom-4 left-4 rounded bg-green-500/90 px-3 py-1 text-sm font-medium text-white">
           Target Locked
         </div>
       )}

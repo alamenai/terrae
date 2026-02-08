@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { Map, MapMarkerAnimated } from "@/registry/map";
+import { Map, MapMarkerAnimated } from "@/registry/map"
 
 export function MultiAnimatedMarkerExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 
   const routes = [
     {
@@ -36,15 +36,11 @@ export function MultiAnimatedMarkerExample() {
       color: "#10b981",
       duration: 5000,
     },
-  ];
+  ]
 
   return (
     <div className="h-full w-full">
-      <Map
-        accessToken={accessToken}
-        center={[-73.9712, 40.7731]}
-        zoom={13}
-      >
+      <Map accessToken={accessToken} center={[-73.9712, 40.7731]} zoom={13}>
         {routes.map((route) => (
           <MapMarkerAnimated
             key={route.id}
@@ -58,5 +54,5 @@ export function MultiAnimatedMarkerExample() {
         ))}
       </Map>
     </div>
-  );
+  )
 }

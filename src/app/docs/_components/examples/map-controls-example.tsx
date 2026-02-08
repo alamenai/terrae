@@ -1,7 +1,7 @@
-import { Map, MapControls, MapZoom, MapOrientation, MapGeolocate, MapFullscreen } from "@/registry/map";
+import { Map, MapControls, MapZoom, MapOrientation, MapGeolocate, MapFullscreen } from "@/registry/map"
 
 export function MapControlsExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 
   return (
     <div className="h-full w-full">
@@ -14,5 +14,5 @@ export function MapControlsExample() {
         </MapControls>
       </Map>
     </div>
-  );
+  )
 }

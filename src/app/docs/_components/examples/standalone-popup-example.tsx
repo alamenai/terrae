@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Map, MapPopup } from "@/registry/map";
-import { Button } from "@/components/ui/button";
+import { useState } from "react"
+import { Map, MapPopup } from "@/registry/map"
+import { Button } from "@/components/ui/button"
 
 export function StandalonePopupExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
-  const [showPopup, setShowPopup] = useState(true);
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
+  const [showPopup, setShowPopup] = useState(true)
 
   return (
     <div className="h-full w-full relative">
@@ -21,15 +21,8 @@ export function StandalonePopupExample() {
           >
             <div className="space-y-2">
               <h3 className="font-semibold text-foreground">New York City</h3>
-              <p className="text-sm text-muted-foreground">
-                The city that never sleeps. Population: 8.3 million
-              </p>
-              <Button
-                size="sm"
-                variant="outline"
-                className="w-full"
-                onClick={() => setShowPopup(false)}
-              >
+              <p className="text-sm text-muted-foreground">The city that never sleeps. Population: 8.3 million</p>
+              <Button size="sm" variant="outline" className="w-full" onClick={() => setShowPopup(false)}>
                 Close
               </Button>
             </div>
@@ -38,14 +31,10 @@ export function StandalonePopupExample() {
       </Map>
 
       {!showPopup && (
-        <Button
-          size="sm"
-          className="absolute bottom-4 left-4 z-10"
-          onClick={() => setShowPopup(true)}
-        >
+        <Button size="sm" className="absolute bottom-4 left-4 z-10" onClick={() => setShowPopup(true)}>
           Show Popup
         </Button>
       )}
     </div>
-  );
+  )
 }

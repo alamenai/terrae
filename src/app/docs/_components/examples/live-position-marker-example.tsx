@@ -1,20 +1,18 @@
-"use client";
+"use client"
 
-import { useState, useEffect, memo } from "react";
-import { Map, MapMarker, MarkerContent } from "@/registry/map";
-import { Satellite } from "lucide-react";
+import { useState, useEffect, memo } from "react"
+import { Map, MapMarker, MarkerContent } from "@/registry/map"
+import { Satellite } from "lucide-react"
 
 interface ISSPosition {
-  latitude: number;
-  longitude: number;
-  timestamp: number;
+  latitude: number
+  longitude: number
+  timestamp: number
 }
 
 const ISSInfoPanel = memo(({ position }: { position: ISSPosition | null }) => (
   <div className="absolute top-3 right-3 z-10 bg-background/95 backdrop-blur-md rounded-lg p-3 border border-border/50 shadow-lg">
-    <div className="tracking-wider text-[10px] text-muted-foreground uppercase mb-1">
-      Space Station
-    </div>
+    <div className="tracking-wider text-[10px] text-muted-foreground uppercase mb-1">Space Station</div>
     {position ? (
       <>
         <div className="text-xs font-medium mt-1">
@@ -29,8 +27,8 @@ const ISSInfoPanel = memo(({ position }: { position: ISSPosition | null }) => (
       <div className="text-sm text-muted-foreground">Loading...</div>
     )}
   </div>
-));
-ISSInfoPanel.displayName = "ISSInfoPanel";
+))
+ISSInfoPanel.displayName = "ISSInfoPanel"
 
 const ISSSatelliteMarker = memo(({ position }: { position: ISSPosition }) => (
   <MapMarker coordinates={[position.longitude, position.latitude]}>
@@ -43,48 +41,48 @@ const ISSSatelliteMarker = memo(({ position }: { position: ISSPosition }) => (
       </div>
     </MarkerContent>
   </MapMarker>
-));
-ISSSatelliteMarker.displayName = "ISSSatelliteMarker";
+))
+ISSSatelliteMarker.displayName = "ISSSatelliteMarker"
 
 export function LivePositionMarkerExample() {
-  const [issPosition, setIssPosition] = useState<ISSPosition | null>(null);
-  const [initialCenter, setInitialCenter] = useState<[number, number] | null>(null);
+  const [issPosition, setIssPosition] = useState<ISSPosition | null>(null)
+  const [initialCenter, setInitialCenter] = useState<[number, number] | null>(null)
 
   useEffect(() => {
     const fetchISSPosition = async () => {
       try {
-        const response = await fetch("/api/iss");
+        const response = await fetch("/api/iss")
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}`)
         }
-        const data = await response.json();
-        
+        const data = await response.json()
+
         if (!data.iss_position) {
-          console.error("Invalid API response:", data);
-          return;
+          console.error("Invalid API response:", data)
+          return
         }
-        
+
         const newPosition = {
           latitude: parseFloat(data.iss_position.latitude),
           longitude: parseFloat(data.iss_position.longitude),
           timestamp: data.timestamp,
-        };
+        }
 
-        setIssPosition(newPosition);
+        setIssPosition(newPosition)
 
         if (!initialCenter) {
-          setInitialCenter([newPosition.longitude, newPosition.latitude]);
+          setInitialCenter([newPosition.longitude, newPosition.latitude])
         }
       } catch (error) {
-        console.error("Failed to fetch ISS position:", error);
+        console.error("Failed to fetch ISS position:", error)
       }
-    };
+    }
 
-    fetchISSPosition();
-    const interval = setInterval(fetchISSPosition, 5000);
+    fetchISSPosition()
+    const interval = setInterval(fetchISSPosition, 5000)
 
-    return () => clearInterval(interval);
-  }, [initialCenter]);
+    return () => clearInterval(interval)
+  }, [initialCenter])
 
   return (
     <div className="w-full h-full relative">
@@ -108,5 +106,5 @@ export function LivePositionMarkerExample() {
         </div>
       )}
     </div>
-  );
+  )
 }

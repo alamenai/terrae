@@ -27,7 +27,7 @@ export const AnimatedMarkerExample = () => {
       <Map accessToken={accessToken} center={[-73.9712, 40.7731]} zoom={13}>
         <MapMarkerAnimated key={key} id="animated-marker" coordinates={ROUTE} duration={5000} showPath autoStart />
       </Map>
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute bottom-4 right-4 z-10">
         <Button onClick={handleRestart} size="sm" className="rounded-full shadow-lg">
           Restart Animation
         </Button>

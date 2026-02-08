@@ -1,8 +1,8 @@
 type MapStatsOverlayProps = {
-  zoom: number;
-  pitch: number;
-  bearing: number;
-};
+  zoom: number
+  pitch: number
+  bearing: number
+}
 
 export function MapStatsOverlay({ zoom, pitch, bearing }: MapStatsOverlayProps) {
   return (
@@ -22,5 +22,5 @@ export function MapStatsOverlay({ zoom, pitch, bearing }: MapStatsOverlayProps) 
         </div>
       </div>
     </div>
-  );
+  )
 }

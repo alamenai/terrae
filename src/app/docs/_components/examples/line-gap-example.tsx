@@ -1,26 +1,24 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Map, MapLine } from "@/registry/map";
-import { Slider } from "@/components/ui/slider";
-import { Label } from "@/components/ui/label";
+import { useState } from "react"
+import { Map, MapLine } from "@/registry/map"
+import { Slider } from "@/components/ui/slider"
+import { Label } from "@/components/ui/label"
 
 export function LineGapExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 
-  const [gapLength, setGapLength] = useState([2]);
+  const [gapLength, setGapLength] = useState([2])
 
   const line: Array<[number, number]> = [
     [-122.48, 37.83],
     [-122.47, 37.82],
     [-122.46, 37.81],
-    [-122.45, 37.80],
-  ];
+    [-122.45, 37.8],
+  ]
 
-  const dashArray: [number, number] = [4, gapLength[0]];
-  const spacingType = gapLength[0] === 0 ? "Solid" :
-                      gapLength[0] <= 2 ? "Tight" :
-                      gapLength[0] <= 5 ? "Normal" : "Wide";
+  const dashArray: [number, number] = [4, gapLength[0]]
+  const spacingType = gapLength[0] === 0 ? "Solid" : gapLength[0] <= 2 ? "Tight" : gapLength[0] <= 5 ? "Normal" : "Wide"
 
   return (
     <div className="flex flex-col h-full">
@@ -29,14 +27,7 @@ export function LineGapExample() {
           <Label htmlFor="gap-length">
             Gap Length: <span className="font-mono text-muted-foreground">{gapLength[0]}px</span>
           </Label>
-          <Slider
-            id="gap-length"
-            min={0}
-            max={20}
-            step={1}
-            value={gapLength}
-            onValueChange={setGapLength}
-          />
+          <Slider id="gap-length" min={0} max={20} step={1} value={gapLength} onValueChange={setGapLength} />
         </div>
       </div>
 
@@ -63,5 +54,5 @@ export function LineGapExample() {
         </Map>
       </div>
     </div>
-  );
+  )
 }

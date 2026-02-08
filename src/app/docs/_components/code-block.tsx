@@ -1,18 +1,14 @@
-import { highlightCode } from "@/lib/highlight";
-import { CopyButton } from "./copy-button";
+import { highlightCode } from "@/lib/highlight"
+import { CopyButton } from "./copy-button"
 
-interface CodeBlockProps {
-  code: string;
-  language?: string;
-  showCopyButton?: boolean;
+type CodeBlockProps = {
+  code: string
+  language?: string
+  showCopyButton?: boolean
 }
 
-export async function CodeBlock({
-  code,
-  language = "tsx",
-  showCopyButton = true,
-}: CodeBlockProps) {
-  const highlighted = await highlightCode(code, language);
+export const CodeBlock = async ({ code, language = "tsx", showCopyButton = true }: CodeBlockProps) => {
+  const highlighted = await highlightCode(code, language)
 
   return (
     <div className="w-full rounded-lg border overflow-hidden">
@@ -26,5 +22,5 @@ export async function CodeBlock({
         dangerouslySetInnerHTML={{ __html: highlighted }}
       />
     </div>
-  );
+  )
 }

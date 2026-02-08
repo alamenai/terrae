@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { Map, MapMarker, MarkerContent, MarkerAvatar, MarkerTooltip } from "@/registry/map";
+import { Map, MapMarker, MarkerContent, MarkerAvatar, MarkerTooltip } from "@/registry/map"
 
 const developers = [
   {
@@ -27,16 +27,12 @@ const developers = [
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma",
     online: false,
   },
-];
+]
 
 export function AvatarMarkerExample() {
   return (
     <div className="h-full w-full">
-      <Map
-        accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!}
-        center={[-40, 40]}
-        zoom={2}
-      >
+      <Map accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!} center={[-40, 40]} zoom={2}>
         {developers.map((dev) => (
           <MapMarker key={dev.name} coordinates={[dev.lng, dev.lat]}>
             <MarkerContent>
@@ -58,5 +54,5 @@ export function AvatarMarkerExample() {
         ))}
       </Map>
     </div>
-  );
+  )
 }

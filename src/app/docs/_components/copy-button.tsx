@@ -1,37 +1,41 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Check, Copy } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react"
+import { Check, Copy } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-interface CopyButtonProps {
-  text: string;
-  className?: string;
+type CopyButtonProps = {
+  text: string
+  className?: string
 }
 
-export function CopyButton({ text, className }: CopyButtonProps) {
-  const [copied, setCopied] = useState(false);
+export const CopyButton = ({ text, className }: CopyButtonProps) => {
+  const [copied, setCopied] = useState(false)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const copy = async () => {
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) {
+        clearTimeout(timerRef.current)
+      }
+    }
+  }, [])
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(text)
+    setCopied(true)
+    timerRef.current = setTimeout(() => {
+      setCopied(false)
+    }, 2000)
+  }
 
   return (
     <button
-      onClick={copy}
-      className={cn(
-        "p-1.5 rounded hover:bg-muted transition-colors",
-        className
-      )}
+      onClick={handleCopy}
+      className={cn("p-1.5 rounded hover:bg-muted transition-colors", className)}
       aria-label="Copy code"
     >
-      {copied ? (
-        <Check className="size-3.5 text-emerald-500" />
-      ) : (
-        <Copy className="size-3.5 text-muted-foreground" />
-      )}
+      {copied ? <Check className="size-3.5 text-emerald-500" /> : <Copy className="size-3.5 text-muted-foreground" />}
     </button>
-  );
+  )
 }

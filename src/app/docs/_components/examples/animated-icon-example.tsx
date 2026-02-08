@@ -1,17 +1,13 @@
-"use client";
+"use client"
 
-import { Map, MapAnimatedPulse } from "@/registry/map";
+import { Map, MapAnimatedPulse } from "@/registry/map"
 
 export function AnimatedIconExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 
   return (
     <div className="h-full w-full">
-      <Map
-        accessToken={accessToken}
-        center={[0, 0]}
-        zoom={2}
-      >
+      <Map accessToken={accessToken} center={[0, 0]} zoom={2}>
         <MapAnimatedPulse
           id="pulsing-dot"
           size={100}
@@ -22,5 +18,5 @@ export function AnimatedIconExample() {
         />
       </Map>
     </div>
-  );
+  )
 }

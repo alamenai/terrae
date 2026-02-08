@@ -1,21 +1,21 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Map, MapLine } from "@/registry/map";
-import { Slider } from "@/components/ui/slider";
-import { Label } from "@/components/ui/label";
+import { useState } from "react"
+import { Map, MapLine } from "@/registry/map"
+import { Slider } from "@/components/ui/slider"
+import { Label } from "@/components/ui/label"
 
 export function LineOpacityExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 
-  const [opacity, setOpacity] = useState([100]);
+  const [opacity, setOpacity] = useState([100])
 
   const line: Array<[number, number]> = [
     [-122.48, 37.83],
     [-122.47, 37.82],
     [-122.46, 37.81],
-    [-122.45, 37.80],
-  ];
+    [-122.45, 37.8],
+  ]
 
   return (
     <div className="flex flex-col h-full">
@@ -24,14 +24,7 @@ export function LineOpacityExample() {
           <Label htmlFor="opacity">
             Opacity: <span className="font-mono text-muted-foreground">{opacity[0]}%</span>
           </Label>
-          <Slider
-            id="opacity"
-            min={0}
-            max={100}
-            step={5}
-            value={opacity}
-            onValueChange={setOpacity}
-          />
+          <Slider id="opacity" min={0} max={100} step={5} value={opacity} onValueChange={setOpacity} />
         </div>
       </div>
 
@@ -45,14 +38,9 @@ export function LineOpacityExample() {
           </div>
         </div>
         <Map accessToken={accessToken} center={[-122.465, 37.815]} zoom={13}>
-          <MapLine
-            coordinates={line}
-            color="#3b82f6"
-            width={4}
-            opacity={opacity[0] / 100}
-          />
+          <MapLine coordinates={line} color="#3b82f6" width={4} opacity={opacity[0] / 100} />
         </Map>
       </div>
     </div>
-  );
+  )
 }

@@ -1,10 +1,4 @@
-import {
-  Map,
-  MapMarker,
-  MarkerContent,
-  MarkerPopup,
-  MarkerTooltip,
-} from "@/registry/map";
+import { Map, MapMarker, MarkerContent, MarkerPopup, MarkerTooltip } from "@/registry/map"
 
 const locations = [
   {
@@ -20,19 +14,16 @@ const locations = [
     lat: 40.7829,
   },
   { id: 3, name: "Times Square", lng: -73.9855, lat: 40.758 },
-];
+]
 
 export function MarkersExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 
   return (
     <div className="h-full w-full">
       <Map accessToken={accessToken} center={[-73.98, 40.76]} zoom={12}>
         {locations.map((location) => (
-          <MapMarker
-            key={location.id}
-            coordinates={[location.lng, location.lat]}
-          >
+          <MapMarker key={location.id} coordinates={[location.lng, location.lat]}>
             <MarkerContent>
               <div className="size-4 rounded-full bg-primary border-2 border-white shadow-lg" />
             </MarkerContent>
@@ -49,5 +40,5 @@ export function MarkersExample() {
         ))}
       </Map>
     </div>
-  );
+  )
 }

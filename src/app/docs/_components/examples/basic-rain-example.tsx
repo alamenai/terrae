@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { Map, MapRain, createZoomInterpolation } from "@/registry/map";
+import { Map, MapRain, createZoomInterpolation } from "@/registry/map"
 
 export function BasicRainExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 
   return (
     <div className="h-full w-full">
@@ -15,11 +15,8 @@ export function BasicRainExample() {
         bearing={12.8}
         style="mapbox://styles/mapbox/standard"
       >
-        <MapRain
-          density={createZoomInterpolation(0.5)}
-          vignette={createZoomInterpolation(1.0)}
-        />
+        <MapRain density={createZoomInterpolation(0.5)} vignette={createZoomInterpolation(1.0)} />
       </Map>
     </div>
-  );
+  )
 }

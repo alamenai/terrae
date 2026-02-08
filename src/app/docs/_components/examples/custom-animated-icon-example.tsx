@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { Map, MapAnimatedPulse } from "@/registry/map";
+import { Map, MapAnimatedPulse } from "@/registry/map"
 
 export function CustomAnimatedIconExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 
   const pulses = [
     {
@@ -27,15 +27,11 @@ export function CustomAnimatedIconExample() {
       pulseColor: "rgba(50, 50, 255, 0.8)",
       duration: 800,
     },
-  ];
+  ]
 
   return (
     <div className="h-full w-full">
-      <Map
-        accessToken={accessToken}
-        center={[-95, 37]}
-        zoom={3.5}
-      >
+      <Map accessToken={accessToken} center={[-95, 37]} zoom={3.5}>
         {pulses.map((pulse) => (
           <MapAnimatedPulse
             key={pulse.id}
@@ -49,5 +45,5 @@ export function CustomAnimatedIconExample() {
         ))}
       </Map>
     </div>
-  );
+  )
 }

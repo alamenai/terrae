@@ -2,13 +2,12 @@ import Link from "next/link"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { cn } from "@/lib/utils"
 
-// DocsHeader - Page title and description
-interface DocsHeaderProps {
+type DocsHeaderProps = {
   title: string
   description: string
 }
 
-export function DocsHeader({ title, description }: DocsHeaderProps) {
+export const DocsHeader = ({ title, description }: DocsHeaderProps) => {
   return (
     <div className="space-y-2 sm:space-y-3">
       <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">{title}</h1>
@@ -17,16 +16,20 @@ export function DocsHeader({ title, description }: DocsHeaderProps) {
   )
 }
 
-// DocsLayout - Full page wrapper with nav
-interface DocsLayoutProps {
+type DocsNavLink = {
+  title: string
+  href: string
+}
+
+type DocsLayoutProps = {
   title: string
   description: string
   children: React.ReactNode
-  prev?: { title: string; href: string }
-  next?: { title: string; href: string }
+  prev?: DocsNavLink
+  next?: DocsNavLink
 }
 
-export function DocsLayout({ title, description, children, prev, next }: DocsLayoutProps) {
+export const DocsLayout = ({ title, description, children, prev, next }: DocsLayoutProps) => {
   return (
     <div>
       <DocsHeader title={title} description={description} />
@@ -89,12 +92,11 @@ export const DocsSection = ({ title, id, badge, children }: DocsSectionProps) =>
   )
 }
 
-// DocsNote - Highlighted note/callout
-interface DocsNoteProps {
+type DocsNoteProps = {
   children: React.ReactNode
 }
 
-export function DocsNote({ children }: DocsNoteProps) {
+export const DocsNote = ({ children }: DocsNoteProps) => {
   return (
     <div className="rounded-2xl sm:rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 px-3 sm:px-5 py-3 sm:py-4 leading-relaxed text-xs sm:text-sm text-foreground [&>strong]:text-foreground [&>strong]:font-semibold">
       {children}
@@ -102,14 +104,13 @@ export function DocsNote({ children }: DocsNoteProps) {
   )
 }
 
-// DocsLink - Styled link
-interface DocsLinkProps {
+type DocsLinkProps = {
   href: string
   children: React.ReactNode
   external?: boolean
 }
 
-export function DocsLink({ href, children, external }: DocsLinkProps) {
+export const DocsLink = ({ href, children, external }: DocsLinkProps) => {
   return (
     <Link
       href={href}
@@ -122,8 +123,7 @@ export function DocsLink({ href, children, external }: DocsLinkProps) {
   )
 }
 
-// DocsCode - Inline code
-export function DocsCode({ children, className }: { children: React.ReactNode; className?: string }) {
+export const DocsCode = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
     <code className={cn("relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm", className)}>
       {children}
@@ -162,18 +162,29 @@ export const UpdatedBadge = ({ size = "default" }: { size?: "sm" | "default" }) 
   return <DocsBadge variant="updated" size={size} />
 }
 
-// DocsPropTable - API reference table for component props
-interface DocsPropTableProps {
-  props: {
-    name: string
-    type: string
-    default?: string
-    description: string
-    isNew?: boolean
-  }[]
+// MapboxBadge - Highlighted badge for Mapbox-only features
+export const MapboxBadge = () => {
+  return (
+    <span className="relative inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded-full overflow-hidden">
+      <span className="absolute inset-0 bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient-x" />
+      <span className="relative text-white">Mapbox only</span>
+    </span>
+  )
 }
 
-export function DocsPropTable({ props }: DocsPropTableProps) {
+type PropDefinition = {
+  name: string
+  type: string
+  default?: string
+  description: string
+  isNew?: boolean
+}
+
+type DocsPropTableProps = {
+  props: PropDefinition[]
+}
+
+export const DocsPropTable = ({ props }: DocsPropTableProps) => {
   return (
     <div className="rounded-lg border overflow-x-auto my-4">
       <Table>

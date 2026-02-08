@@ -1,19 +1,16 @@
-import { highlightCode } from "@/lib/highlight";
-import { ComparisonTabsClient } from "./comparison-tabs-client";
+import { highlightCode } from "@/lib/highlight"
+import { ComparisonTabsClient } from "./comparison-tabs-client"
 
 interface ComparisonTabsProps {
-  imperativeCode: string;
-  declarativeCode: string;
+  imperativeCode: string
+  declarativeCode: string
 }
 
-export async function ComparisonTabs({
-  imperativeCode,
-  declarativeCode,
-}: ComparisonTabsProps) {
+export async function ComparisonTabs({ imperativeCode, declarativeCode }: ComparisonTabsProps) {
   const [imperativeHighlighted, declarativeHighlighted] = await Promise.all([
     highlightCode(imperativeCode, "typescript"),
     highlightCode(declarativeCode, "typescript"),
-  ]);
+  ])
 
   return (
     <ComparisonTabsClient
@@ -22,5 +19,5 @@ export async function ComparisonTabs({
       declarativeCode={declarativeCode}
       declarativeHighlighted={declarativeHighlighted}
     />
-  );
+  )
 }

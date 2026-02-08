@@ -1,7 +1,7 @@
-import { Map, MapControls, MapZoom } from "@/registry/map";
+import { Map, MapControls, MapZoom } from "@/registry/map"
 
 export function ZoomControlExample() {
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 
   return (
     <div className="h-full w-full">
@@ -11,5 +11,5 @@ export function ZoomControlExample() {
         </MapControls>
       </Map>
     </div>
-  );
+  )
 }

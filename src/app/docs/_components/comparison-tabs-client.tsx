@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { CopyButton } from "./copy-button";
+import { useState } from "react"
+import { cn } from "@/lib/utils"
+import { CopyButton } from "./copy-button"
 
 interface ComparisonTabsClientProps {
-  imperativeCode: string;
-  imperativeHighlighted: string;
-  declarativeCode: string;
-  declarativeHighlighted: string;
+  imperativeCode: string
+  imperativeHighlighted: string
+  declarativeCode: string
+  declarativeHighlighted: string
 }
 
 export function ComparisonTabsClient({
@@ -17,9 +17,7 @@ export function ComparisonTabsClient({
   declarativeCode,
   declarativeHighlighted,
 }: ComparisonTabsClientProps) {
-  const [activeTab, setActiveTab] = useState<"imperative" | "declarative">(
-    "imperative"
-  );
+  const [activeTab, setActiveTab] = useState<"imperative" | "declarative">("imperative")
 
   return (
     <div className="w-full rounded-lg border overflow-hidden">
@@ -49,22 +47,17 @@ export function ComparisonTabsClient({
           </button>
         </div>
 
-        <CopyButton
-          text={activeTab === "imperative" ? imperativeCode : declarativeCode}
-        />
+        <CopyButton text={activeTab === "imperative" ? imperativeCode : declarativeCode} />
       </div>
 
       <div className="h-[300px] sm:h-[400px] md:h-[500px] overflow-auto">
         <div
           className="p-4 overflow-auto text-sm bg-muted/20 [&_pre]:bg-transparent! [&_code]:bg-transparent!"
           dangerouslySetInnerHTML={{
-            __html:
-              activeTab === "imperative"
-                ? imperativeHighlighted
-                : declarativeHighlighted,
+            __html: activeTab === "imperative" ? imperativeHighlighted : declarativeHighlighted,
           }}
         />
       </div>
     </div>
-  );
+  )
 }

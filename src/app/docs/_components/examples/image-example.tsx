@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { Map, MapImage } from "@/registry/map";
+import { Map, MapImage } from "@/registry/map"
 
 export function ImageExample() {
   return (
@@ -23,5 +23,5 @@ export function ImageExample() {
         />
       </Map>
     </div>
-  );
+  )
 }

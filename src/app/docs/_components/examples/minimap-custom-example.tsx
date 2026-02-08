@@ -1,15 +1,11 @@
-"use client";
+"use client"
 
-import { Map, MapMiniMap } from "@/registry/map";
+import { Map, MapMiniMap } from "@/registry/map"
 
 export function MiniMapCustomExample() {
   return (
     <div className="h-full w-full">
-      <Map
-        accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!}
-        center={[-0.1276, 51.5074]}
-        zoom={11}
-      >
+      <Map accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!} center={[-0.1276, 51.5074]} zoom={11}>
         <MapMiniMap
           position="bottom-left"
           width={250}
@@ -20,5 +16,5 @@ export function MiniMapCustomExample() {
         />
       </Map>
     </div>
-  );
+  )
 }
