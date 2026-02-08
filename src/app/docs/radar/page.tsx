@@ -1,4 +1,5 @@
 import { DocsLayout, DocsSection, DocsCode, DocsPropTable } from "../_components/docs"
+import { CoverageBadge } from "../_components/coverage-badge"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { RadarExample } from "../_components/examples/radar-example"
@@ -7,6 +8,7 @@ import { RadarDurationExample } from "../_components/examples/radar-duration-exa
 import { RadarRingsExample } from "../_components/examples/radar-rings-example"
 import { RadarNoCrosshairsExample } from "../_components/examples/radar-no-crosshairs-example"
 import { getExampleSource } from "@/lib/get-example-source"
+import { getCoveragePercentage } from "@/lib/get-coverage"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -14,6 +16,7 @@ export const metadata: Metadata = {
 }
 
 export default function RadarPage() {
+  const coverage = getCoveragePercentage("radar")
   const radarSource = getExampleSource("radar-example.tsx")
   const colorSource = getExampleSource("radar-color-example.tsx")
   const durationSource = getExampleSource("radar-duration-example.tsx")
@@ -24,6 +27,7 @@ export default function RadarPage() {
     <DocsLayout
       title="Radar"
       description="Animated radar sweep signal overlay on map coordinates."
+      badge={coverage !== null ? <CoverageBadge percentage={coverage} /> : undefined}
       prev={{ title: "MiniMap", href: "/docs/minimap" }}
       next={{ title: "Sync", href: "/docs/sync" }}
     >
@@ -137,6 +141,7 @@ export default function RadarPage() {
               default: "map",
               description:
                 'Controls how the radar is aligned when the map is pitched. Use "viewport" to keep the radar facing the screen.',
+              isNew: true,
             },
           ]}
         />
