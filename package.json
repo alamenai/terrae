@@ -5,7 +5,7 @@
   "description": "Beautiful Mapbox GL components built with shadcn/ui",
   "author": "Ala Eddine",
   "license": "MIT",
-  "homepage": "https://terrae.vercel.app",
+  "homepage": "https://www.terrae.dev",
   "repository": {
     "type": "git",
     "url": "https://github.com/alamenai/terrae.git"
@@ -41,7 +41,7 @@
     "format:check": "prettier --check .",
     "test": "vitest",
     "test:run": "vitest run",
-    "registry:build": "npx shadcn build -o ./public/maps",
+    "registry:build": "npx shadcn build -o ./public",
     "prepare": "husky"
   },
   "dependencies": {
