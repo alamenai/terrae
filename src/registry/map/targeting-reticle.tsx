@@ -232,11 +232,11 @@ export const MapTargetingReticle = ({
     overlayRef.current.style.top = `${projected.y - halfSize}px`
   }, [map, size])
 
-  const animateToTarget = useCallback(() => {
+  const animateToTarget = useCallback((): boolean => {
     const currentTarget = targetRef.current
 
     if (!map || !currentTarget || isLockedRef.current) {
-      return
+      return false
     }
 
     const targetProjected = map.project(currentTarget)
@@ -255,7 +255,7 @@ export const MapTargetingReticle = ({
       setIsLocked(true)
       setCurrentCoordinates(currentTarget)
       onLockedRef.current?.()
-      return
+      return false
     }
 
     current.x += dx * trackingSpeed
@@ -272,7 +272,7 @@ export const MapTargetingReticle = ({
       setCurrentCoordinates([lngLat.lng, lngLat.lat])
     }
 
-    animationFrameRef.current = requestAnimationFrame(animateToTarget)
+    return true
   }, [map, trackingSpeed, size, showCoordinates])
 
   useEffect(() => {
@@ -292,7 +292,13 @@ export const MapTargetingReticle = ({
         const currentProjected = map.project(coordinates)
         currentPositionRef.current = { x: currentProjected.x, y: currentProjected.y }
       }
-      animateToTarget()
+      const runAnimation = () => {
+        const shouldContinue = animateToTarget()
+        if (shouldContinue) {
+          animationFrameRef.current = requestAnimationFrame(runAnimation)
+        }
+      }
+      runAnimation()
     } else {
       updatePosition()
     }

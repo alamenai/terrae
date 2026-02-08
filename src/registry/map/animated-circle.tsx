@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import type mapboxgl from "mapbox-gl"
-import { mapgl } from "./map-library"
+
 import { useMap } from "./hooks"
 import type { MapCoordinates, MapPath } from "./types"
 

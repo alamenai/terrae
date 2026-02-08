@@ -249,8 +249,12 @@ export const MapRadar = ({
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
-      if (map.hasImage(id)) {
-        map.removeImage(id)
+      try {
+        if (map.hasImage(id)) {
+          map.removeImage(id)
+        }
+      } catch {
+        // Map may already be destroyed during unmount
       }
     }
   }, [map, isLoaded, id, size, color, gridColor, backgroundColor, duration, rings, showCrosshairs])
@@ -305,13 +309,17 @@ export const MapRadar = ({
 
     return () => {
       map.off("style.load", handleStyleLoad)
-      if (map.isStyleLoaded()) {
-        if (map.getLayer(layerId)) {
-          map.removeLayer(layerId)
+      try {
+        if (map.isStyleLoaded()) {
+          if (map.getLayer(layerId)) {
+            map.removeLayer(layerId)
+          }
+          if (map.getSource(sourceId)) {
+            map.removeSource(sourceId)
+          }
         }
-        if (map.getSource(sourceId)) {
-          map.removeSource(sourceId)
-        }
+      } catch {
+        // Map may already be destroyed during unmount
       }
     }
   }, [map, isLoaded, coordinates, id, sourceId, layerId])

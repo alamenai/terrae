@@ -152,10 +152,10 @@ export function MapCircleCluster<P extends GeoJSON.GeoJsonProperties = GeoJSON.G
 
       // Check if source exists before trying to update it
       const source = map.getSource(sourceId)
-      if (source && typeof (source as any).setData === "function") {
+      if (source && "setData" in source) {
         ;(source as mapboxgl.GeoJSONSource).setData(data)
       }
-    } catch (error) {
+    } catch {
       // Silently ignore errors if source doesn't exist yet
       // This can happen during rapid re-renders or navigation
     }

@@ -1,7 +1,7 @@
 "use client"
 
 import type mapboxgl from "mapbox-gl"
-import { mapgl } from "./map-library"
+
 import { useEffect, useId, useRef } from "react"
 import { useMap } from "./hooks"
 import type { MapPath } from "./types"
@@ -109,7 +109,7 @@ export function MapLine({ coordinates, color = "#4285F4", width = 3, opacity = 0
       if (!map || !map.isStyleLoaded()) return
 
       const source = map.getSource(sourceId)
-      if (source && typeof (source as any).setData === "function" && coordinates.length >= 2) {
+      if (source && "setData" in source && coordinates.length >= 2) {
         ;(source as mapboxgl.GeoJSONSource).setData({
           type: "Feature",
           properties: {},

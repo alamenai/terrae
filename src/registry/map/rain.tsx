@@ -3,81 +3,87 @@
 import { useEffect, useRef } from "react"
 import { useMap } from "./hooks"
 
+type MapboxExpression = unknown[]
+
 type MapRainProps = {
-  /** Rain density (0-1 or Mapbox expression) */
-  density?: number | any[]
-  /** Rain intensity (0-1) */
+  density?: number | MapboxExpression
   intensity?: number
-  /** Rain droplet color */
   color?: string
-  /** Rain opacity (0-1) */
   opacity?: number
-  /** Vignette effect strength (0-1 or Mapbox expression) */
-  vignette?: number | any[]
-  /** Vignette color */
+  vignette?: number | MapboxExpression
   vignetteColor?: string
-  /** Wind direction [x, y] */
   direction?: [number, number]
-  /** Droplet size range [min, max] */
   dropletSize?: [number, number]
-  /** Distortion strength (0-1) */
   distortionStrength?: number
-  /** Center thinning (0 = full screen) */
   centerThinning?: number
 }
 
-/**
- * Helper function to create zoom-based interpolation expressions
- * @param value - The target value at max zoom
- * @param minZoom - Zoom level where effect starts (default: 11)
- * @param maxZoom - Zoom level where effect reaches target value (default: 13)
- */
-export function createZoomInterpolation(value: number, minZoom: number = 11, maxZoom: number = 13): any[] {
+export const createZoomInterpolation = (
+  value: number,
+  minZoom: number = 11,
+  maxZoom: number = 13
+): MapboxExpression => {
   return ["interpolate", ["linear"], ["zoom"], minZoom, 0.0, maxZoom, value]
 }
 
-export function MapRain({
+const clampValue = (value: number, min: number, max: number): number => {
+  return Math.min(Math.max(value, min), max)
+}
+
+const applyRainEffect = (map: mapboxgl.Map, config: Record<string, unknown>): void => {
+  ;(map as unknown as { setRain: (config: Record<string, unknown> | null) => void }).setRain(config)
+}
+
+const removeRainEffect = (map: mapboxgl.Map): void => {
+  ;(map as unknown as { setRain: (config: Record<string, unknown> | null) => void }).setRain(null)
+}
+
+const hasRainSupport = (map: mapboxgl.Map): boolean => {
+  return typeof (map as unknown as Record<string, unknown>).setRain === "function"
+}
+
+const DEFAULT_DIRECTION: [number, number] = [0, 80]
+const DEFAULT_DROPLET_SIZE: [number, number] = [2.6, 18.2]
+
+export const MapRain = ({
   density = 0.5,
-  intensity = 1.0,
+  intensity = 1,
   color = "#a8adbc",
   opacity = 0.7,
-  vignette = 1.0,
+  vignette = 1,
   vignetteColor = "#464646",
-  direction = [0, 80],
-  dropletSize = [2.6, 18.2],
+  direction = DEFAULT_DIRECTION,
+  dropletSize = DEFAULT_DROPLET_SIZE,
   distortionStrength = 0.7,
   centerThinning = 0,
-}: MapRainProps) {
+}: MapRainProps) => {
   const { map, isLoaded } = useMap()
   const initializedRef = useRef(false)
 
   useEffect(() => {
-    if (!isLoaded || !map || initializedRef.current) return
+    if (!isLoaded || !map || initializedRef.current) {
+      return
+    }
 
-    // setRain is a Mapbox-only API (requires Mapbox GL JS v3.9+)
-    if (typeof (map as any).setRain !== "function") {
+    if (!hasRainSupport(map)) {
       console.warn("Rain effect requires Mapbox GL JS v3.9 or higher. This feature is not available in MapLibre GL.")
       return
     }
 
     try {
-      // Clamp values to valid ranges
-      const clampedIntensity = Math.min(Math.max(intensity, 0), 1)
-      const clampedDensity = typeof density === "number" ? Math.min(Math.max(density, 0), 1) : density
-      const clampedVignette = typeof vignette === "number" ? Math.min(Math.max(vignette, 0), 1) : vignette
-      const clampedOpacity = Math.min(Math.max(opacity, 0), 1)
-      const clampedDistortionStrength = Math.min(Math.max(distortionStrength, 0), 1)
+      const clampedDensity = typeof density === "number" ? clampValue(density, 0, 1) : density
+      const clampedVignette = typeof vignette === "number" ? clampValue(vignette, 0, 1) : vignette
 
-      ;(map as any).setRain({
+      applyRainEffect(map, {
         density: clampedDensity,
-        intensity: clampedIntensity,
+        intensity: clampValue(intensity, 0, 1),
         color,
-        opacity: clampedOpacity,
+        opacity: clampValue(opacity, 0, 1),
         vignette: clampedVignette,
         "vignette-color": vignetteColor,
         direction,
         "droplet-size": dropletSize,
-        "distortion-strength": clampedDistortionStrength,
+        "distortion-strength": clampValue(distortionStrength, 0, 1),
         "center-thinning": centerThinning,
       })
 
@@ -87,10 +93,9 @@ export function MapRain({
     }
 
     return () => {
-      // Remove rain effect on cleanup
-      if (map && typeof (map as any).setRain === "function") {
+      if (map && hasRainSupport(map)) {
         try {
-          ;(map as any).setRain(null)
+          removeRainEffect(map)
         } catch (error) {
           console.error("Error removing rain effect:", error)
         }
