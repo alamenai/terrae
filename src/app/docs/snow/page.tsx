@@ -87,8 +87,8 @@ const SnowPage = () => {
                   <DocsCode>id</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">required</TableCell>
-                <TableCell>Unique identifier for the snow effect</TableCell>
+                <TableCell className="text-muted-foreground">auto-generated</TableCell>
+                <TableCell>Unique identifier for programmatic control via useSnowControl</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>

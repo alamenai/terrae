@@ -92,6 +92,150 @@ const changelogs: Changelog[] = [
     upcoming: true,
   },
   {
+    date: "February 9, 2026",
+    components: [
+      {
+        title: "Animated Footprint",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapAnimatedFootprint</code> component for
+            animated footprint steps that walk along a path. Uses Lucide&apos;s Footprints icon with left/right
+            alternation, bearing-based rotation, and staggered fade-in animation. Supports looping and customizable
+            spacing.
+          </>
+        ),
+        href: "/docs/footprint",
+      },
+      {
+        title: "Fire",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapFire</code> component for realistic animated
+            fire effects using particle simulation. Features rising particles with color gradient from base to tip,
+            flickering glow effect, and customizable intensity, size, and colors.
+          </>
+        ),
+        href: "/docs/fire",
+      },
+      {
+        title: "Explosion",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapExplosion</code> component for animated burst
+            effects with radial particles and center flash. Supports two types:{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">burst</code> for standard explosions and{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">nuclear</code> for mushroom cloud effects with rising
+            fireball and shockwave. Includes{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">useExplosionControl</code> hook for programmatic
+            triggering.
+          </>
+        ),
+        href: "/docs/explosion",
+      },
+      {
+        title: "Cyclone",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapCyclone</code> component for animated cyclone
+            funnels with swirling particles and debris. Features characteristic funnel shape, rotating debris cloud,
+            dust base, and smooth intensity transitions. Includes{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">useCycloneControl</code> hook for start/stop and
+            dynamic intensity control.
+          </>
+        ),
+        href: "/docs/cyclone",
+      },
+      {
+        title: "Music Disc",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapMusicDisc</code> component for rotating music
+            disc with floating notes animation. Features vinyl record appearance with groove lines, customizable album
+            cover image, adjustable spin speed, and animated music notes. Also exports a standalone{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">MusicDisc</code> component for use outside of maps.
+          </>
+        ),
+        href: "/docs/music-disc",
+      },
+      {
+        title: "Tsunami",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapTsunami</code> component for animated tsunami
+            wave effects. Features an incoming wave from the sea with realistic foam crest, crashing animation with
+            spray particles and debris, customizable wave direction, speed, and colors. Includes{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">useTsunamiControl</code> hook for programmatic
+            triggering and phase tracking (approaching, crashing, receding).
+          </>
+        ),
+        href: "/docs/tsunami",
+      },
+      {
+        title: "Meteor",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapMeteor</code> component for animated meteor
+            strikes with fiery trail and impact explosion. Supports single strikes and meteor shower mode with multiple
+            falling meteors. Features customizable angle, colors, tail length, and impact flash. Includes{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">useMeteorControl</code> hook for programmatic
+            triggering and phase tracking (falling, impact, fading).
+          </>
+        ),
+        href: "/docs/meteor",
+      },
+      {
+        title: "Lightning",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapLightning</code> component for animated
+            lightning bolt strikes with branching and flash effects. Features customizable bolt and flash colors,
+            adjustable strike interval, and branch probability. Includes{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">useLightningControl</code> hook for programmatic
+            strike triggering.
+          </>
+        ),
+        href: "/docs/lightning",
+      },
+      {
+        title: "Sandstorm",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapSandstorm</code> component for atmospheric
+            sandstorm effects with horizontal particle movement and reduced visibility. Features customizable wind
+            direction, speed, turbulence, and haze intensity. Includes{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">useSandstormControl</code> hook for programmatic
+            start/stop and dynamic intensity control.
+          </>
+        ),
+        href: "/docs/sandstorm",
+      },
+      {
+        title: "Snow",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapSnow</code> component for falling snowflakes
+            with gentle drift and wind effects. Features customizable intensity, fall speed, wind direction, and flake
+            color. Includes <code className="rounded bg-muted px-1 py-0.5 text-xs">useSnowControl</code> hook for
+            programmatic start/stop and dynamic intensity control.
+          </>
+        ),
+        href: "/docs/snow",
+      },
+      {
+        title: "Grid",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapGrid</code> component for coordinate grid
+            overlay with latitude/longitude lines and labels. Features configurable intervals, line styling, and
+            optional coordinate labels with customizable appearance. Perfect for navigation, scientific mapping, and
+            military applications.
+          </>
+        ),
+        href: "/docs/grid",
+      },
+    ],
+  },
+  {
     date: "February 1, 2026",
     features: [
       {
@@ -326,7 +470,8 @@ const changelogs: Changelog[] = [
           <>
             New <code className="rounded bg-muted px-1 py-0.5 text-xs">autoRotate</code> and{" "}
             <code className="rounded bg-muted px-1 py-0.5 text-xs">rotateSpeed</code> props for automatic globe
-            rotation. Only works with <code className="rounded bg-muted px-1 py-0.5 text-xs">projection="globe"</code>.
+            rotation. Only works with{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">projection=&quot;globe&quot;</code>.
           </>
         ),
         href: "/docs/basic-map#auto-rotate",
@@ -385,7 +530,8 @@ const changelogs: Changelog[] = [
         description: (
           <>
             New <code className="rounded bg-muted px-1 py-0.5 text-xs">rounded</code> prop for custom border radius. Set
-            to a number or <code className="rounded bg-muted px-1 py-0.5 text-xs">"full"</code> for a circular minimap.
+            to a number or <code className="rounded bg-muted px-1 py-0.5 text-xs">&quot;full&quot;</code> for a circular
+            minimap.
           </>
         ),
         href: "/docs/minimap#rounded",
@@ -440,8 +586,8 @@ const ChangelogPage = () => {
       <div className="mb-12">
         <h1 className="text-4xl font-bold tracking-tight mb-4">Changelog</h1>
         <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl">
-          Welcome to the Terrae Changelog. Here you'll find detailed updates on new features, improvements, and fixes
-          shipped with each release.
+          Welcome to the Terrae Changelog. Here you&apos;ll find detailed updates on new features, improvements, and
+          fixes shipped with each release.
         </p>
       </div>
 
@@ -464,12 +610,12 @@ const ChangelogPage = () => {
 
                 <div className="max-w-2xl mx-auto space-y-6 text-foreground/90">
                   <p className="text-lg leading-relaxed">
-                    I'm excited to introduce Terrae—a modern, declarative map library built for design engineers who
-                    want beautiful, interactive maps without the complexity. Built with React, TypeScript, shadcn/ui,
-                    and Mapbox GL JS.
+                    I&apos;m excited to introduce Terrae—a modern, declarative map library built for design engineers
+                    who want beautiful, interactive maps without the complexity. Built with React, TypeScript,
+                    shadcn/ui, and Mapbox GL JS.
                   </p>
                   <div className="text-left space-y-4 pt-4">
-                    <h3 className="text-xl font-semibold">What's included in the initial release:</h3>
+                    <h3 className="text-xl font-semibold">What&apos;s included in the initial release:</h3>
                     <ul className="space-y-2 text-base list-disc list-inside">
                       <li>Core map component with theme support</li>
                       <li>Markers with customizable content and avatars</li>

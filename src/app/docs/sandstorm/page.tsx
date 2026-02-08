@@ -87,8 +87,8 @@ const SandstormPage = () => {
                   <DocsCode>id</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">required</TableCell>
-                <TableCell>Unique identifier for the sandstorm effect</TableCell>
+                <TableCell className="text-muted-foreground">auto-generated</TableCell>
+                <TableCell>Unique identifier for programmatic control via useSandstormControl</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>
