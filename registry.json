@@ -45,13 +45,13 @@
       }
     },
     {
-      "name": "map-marker",
+      "name": "marker",
       "type": "registry:ui",
       "title": "Map Marker",
       "description": "Customizable map markers with popup support.",
       "dependencies": ["mapbox-gl", "lucide-react"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/marker.tsx",
@@ -61,13 +61,13 @@
       ]
     },
     {
-      "name": "map-popup",
+      "name": "popup",
       "type": "registry:ui",
       "title": "Map Popup",
       "description": "Info popups and tooltips for map locations.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/popup.tsx",
@@ -77,13 +77,13 @@
       ]
     },
     {
-      "name": "map-controls",
+      "name": "controls",
       "type": "registry:ui",
       "title": "Map Controls",
       "description": "Interactive map controls (zoom, fullscreen, etc).",
       "dependencies": ["mapbox-gl", "lucide-react"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/controls.tsx",
@@ -93,13 +93,13 @@
       ]
     },
     {
-      "name": "map-circle-cluster",
+      "name": "circle-cluster",
       "type": "registry:ui",
       "title": "Map Circle Cluster",
       "description": "Marker clustering with circle visualization.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/circle-cluster.tsx",
@@ -109,13 +109,13 @@
       ]
     },
     {
-      "name": "map-marker-animated",
+      "name": "marker-animated",
       "type": "registry:ui",
       "title": "Map Marker Animated",
       "description": "Animated marker that moves along a path with trail visualization.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/marker-animated.tsx",
@@ -125,13 +125,13 @@
       ]
     },
     {
-      "name": "map-line",
+      "name": "line",
       "type": "registry:ui",
       "title": "Map Line",
       "description": "Static routes and paths on the map.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/line.tsx",
@@ -141,13 +141,13 @@
       ]
     },
     {
-      "name": "map-line-animated",
+      "name": "line-animated",
       "type": "registry:ui",
       "title": "Map Line Animated",
       "description": "Animated path and route animations on the map.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/line-animated.tsx",
@@ -157,13 +157,13 @@
       ]
     },
     {
-      "name": "map-animated-pulse",
+      "name": "animated-pulse",
       "type": "registry:ui",
       "title": "Map Animated Pulse",
       "description": "Pulsing dot animation for map markers.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/animated-pulse.tsx",
@@ -173,13 +173,13 @@
       ]
     },
     {
-      "name": "map-rain",
+      "name": "rain",
       "type": "registry:ui",
       "title": "Map Rain",
       "description": "Animated rain effect layer.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/rain.tsx",
@@ -189,13 +189,13 @@
       ]
     },
     {
-      "name": "map-raster-video",
+      "name": "raster-video",
       "type": "registry:ui",
       "title": "Map Raster Video",
       "description": "Video overlay layers on the map.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/raster-video.tsx",
@@ -205,13 +205,13 @@
       ]
     },
     {
-      "name": "map-image",
+      "name": "image",
       "type": "registry:ui",
       "title": "Map Image",
       "description": "Image overlay layers on the map.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/image.tsx",
@@ -221,13 +221,13 @@
       ]
     },
     {
-      "name": "map-mini-map",
+      "name": "mini-map",
       "type": "registry:ui",
       "title": "Map Mini Map",
       "description": "Minimap overview navigation component.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/mini-map.tsx",
@@ -237,13 +237,13 @@
       ]
     },
     {
-      "name": "map-compare",
+      "name": "compare",
       "type": "registry:ui",
       "title": "Map Compare",
       "description": "Side-by-side map comparison component.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/map-compare.tsx",
@@ -253,13 +253,13 @@
       ]
     },
     {
-      "name": "map-sync",
+      "name": "sync",
       "type": "registry:ui",
       "title": "Map Sync",
       "description": "Synchronized multi-map component with bidirectional movement sync.",
       "dependencies": ["mapbox-gl", "next-themes", "lucide-react"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/map-sync.tsx",
@@ -269,13 +269,13 @@
       ]
     },
     {
-      "name": "map-arc-animated",
+      "name": "arc-animated",
       "type": "registry:ui",
       "title": "Map Arc Animated",
       "description": "Animated curved arc between two points for flights, deliveries, and connections.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/arc-animated.tsx",
@@ -285,13 +285,13 @@
       ]
     },
     {
-      "name": "map-camera-follow",
+      "name": "camera-follow",
       "type": "registry:ui",
       "title": "Map Camera Follow",
       "description": "Animate camera along a path for immersive fly-through experiences.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/camera-follow.tsx",
@@ -301,13 +301,13 @@
       ]
     },
     {
-      "name": "map-circle",
+      "name": "circle",
       "type": "registry:ui",
       "title": "Map Circle",
       "description": "Draggable geographic circle with customizable fill and stroke.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/circle.tsx",
@@ -317,13 +317,13 @@
       ]
     },
     {
-      "name": "map-animated-circle",
+      "name": "animated-circle",
       "type": "registry:ui",
       "title": "Map Animated Circle",
       "description": "Animated circle with drawing and fill effects.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/animated-circle.tsx",
@@ -333,13 +333,13 @@
       ]
     },
     {
-      "name": "map-blur-area",
+      "name": "blur-area",
       "type": "registry:ui",
       "title": "Map Blur Area",
       "description": "Blur sensitive areas on the map with customizable styling.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/blur-area.tsx",
@@ -349,13 +349,13 @@
       ]
     },
     {
-      "name": "map-targeting-reticle",
+      "name": "targeting-reticle",
       "type": "registry:ui",
       "title": "Map Targeting Reticle",
       "description": "Military-style targeting brackets with tracking and lock-on capabilities.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/targeting-reticle.tsx",
@@ -365,13 +365,13 @@
       ]
     },
     {
-      "name": "map-radar",
+      "name": "radar",
       "type": "registry:ui",
       "title": "Map Radar",
       "description": "Animated radar sweep signal overlay on map coordinates.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/radar.tsx",
@@ -381,13 +381,13 @@
       ]
     },
     {
-      "name": "map-watermark",
+      "name": "watermark",
       "type": "registry:ui",
       "title": "Map Watermark",
       "description": "Text watermark overlay for maps with configurable position and styling.",
       "dependencies": [],
       "devDependencies": [],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/watermark.tsx",
@@ -397,13 +397,13 @@
       ]
     },
     {
-      "name": "map-compass",
+      "name": "compass",
       "type": "registry:ui",
       "title": "Map Compass",
       "description": "Interactive compass overlay with bearing display and click-to-reset.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/compass.tsx",
@@ -413,13 +413,13 @@
       ]
     },
     {
-      "name": "map-line-radial",
+      "name": "line-radial",
       "type": "registry:ui",
       "title": "Map Line Radial",
       "description": "Radial lines from a center point to multiple destinations with optional markers.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/line-radial.tsx",
@@ -429,13 +429,13 @@
       ]
     },
     {
-      "name": "map-polygon",
+      "name": "polygon",
       "type": "registry:ui",
       "title": "Map Polygon",
       "description": "Geographic polygon with customizable fill and stroke styling.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/polygon.tsx",
@@ -445,13 +445,13 @@
       ]
     },
     {
-      "name": "map-animated-polygon",
+      "name": "animated-polygon",
       "type": "registry:ui",
       "title": "Map Animated Polygon",
       "description": "Animated polygon with draw, fill, and draw-then-fill effects.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/animated-polygon.tsx",
@@ -461,18 +461,210 @@
       ]
     },
     {
-      "name": "map-choropleth",
+      "name": "choropleth",
       "type": "registry:ui",
       "title": "Map Choropleth",
       "description": "Thematic choropleth map with color-coded regions based on data values.",
       "dependencies": ["mapbox-gl"],
       "devDependencies": ["@types/mapbox-gl"],
-      "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
       "files": [
         {
           "path": "src/registry/map/choropleth.tsx",
           "type": "registry:ui",
           "target": "components/ui/map/choropleth.tsx"
+        }
+      ]
+    },
+    {
+      "name": "animated-footprint",
+      "type": "registry:ui",
+      "title": "Map Animated Footprint",
+      "description": "Animated footprint steps that walk along a path on the map.",
+      "dependencies": ["mapbox-gl", "lucide-react"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/animated-footprint.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/animated-footprint.tsx"
+        }
+      ]
+    },
+    {
+      "name": "fire",
+      "type": "registry:ui",
+      "title": "Map Fire",
+      "description": "Realistic animated fire effect with particle simulation.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/fire.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/fire.tsx"
+        }
+      ]
+    },
+    {
+      "name": "explosion",
+      "type": "registry:ui",
+      "title": "Map Explosion",
+      "description": "Animated explosion burst effect with radial particles and flash.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/explosion.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/explosion.tsx"
+        }
+      ]
+    },
+    {
+      "name": "cyclone",
+      "type": "registry:ui",
+      "title": "Map Cyclone",
+      "description": "Animated cyclone funnel with swirling particles and debris.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/cyclone.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/cyclone.tsx"
+        }
+      ]
+    },
+    {
+      "name": "music-disc",
+      "type": "registry:ui",
+      "title": "Map Music Disc",
+      "description": "Rotating music disc with floating notes animation.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/music-disc.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/music-disc.tsx"
+        }
+      ]
+    },
+    {
+      "name": "steam",
+      "type": "registry:ui",
+      "title": "Map Steam",
+      "description": "Rising steam effect with wispy particle animation.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/steam.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/steam.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tsunami",
+      "type": "registry:ui",
+      "title": "Map Tsunami",
+      "description": "Animated tsunami wave effect with incoming wave, crashing foam, and debris.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/tsunami.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/tsunami.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sandstorm",
+      "type": "registry:ui",
+      "title": "Map Sandstorm",
+      "description": "Atmospheric sandstorm effect with horizontal particle movement and reduced visibility.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/sandstorm.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/sandstorm.tsx"
+        }
+      ]
+    },
+    {
+      "name": "snow",
+      "type": "registry:ui",
+      "title": "Map Snow",
+      "description": "Falling snowflakes effect with gentle drift and wind.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/snow.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/snow.tsx"
+        }
+      ]
+    },
+    {
+      "name": "meteor",
+      "type": "registry:ui",
+      "title": "Map Meteor",
+      "description": "Animated meteor falling from sky with fiery trail and impact effect.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/meteor.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/meteor.tsx"
+        }
+      ]
+    },
+    {
+      "name": "lightning",
+      "type": "registry:ui",
+      "title": "Map Lightning",
+      "description": "Animated lightning bolt strikes with branching and flash effects.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/lightning.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/lightning.tsx"
+        }
+      ]
+    },
+    {
+      "name": "grid",
+      "type": "registry:ui",
+      "title": "Map Grid",
+      "description": "Coordinate grid overlay with latitude/longitude lines and labels.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/grid.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/grid.tsx"
         }
       ]
     }
