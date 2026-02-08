@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react"
+import { useTheme } from "next-themes"
+import { Button } from "@/components/ui/button"
 
-function ThemeIcon({ className }: { className?: string }) {
+const ThemeIcon = ({ className }: { className?: string }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -18,18 +18,18 @@ function ThemeIcon({ className }: { className?: string }) {
       <circle cx="12" cy="12" r="10" />
       <path d="M12 2a10 10 0 0 1 0 20" fill="currentColor" stroke="none" />
     </svg>
-  );
+  )
 }
 
-export function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+export const ThemeToggle = () => {
+  const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
-  if (!mounted) return <div className="size-4" />;
+  if (!mounted) return <div className="size-4" />
 
   return (
     <Button
@@ -40,5 +40,5 @@ export function ThemeToggle() {
     >
       <ThemeIcon className="size-4" />
     </Button>
-  );
+  )
 }

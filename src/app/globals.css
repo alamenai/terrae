@@ -331,6 +331,35 @@
   animation-delay: 1000ms;
 }
 
+/* Music Disc component animations */
+@keyframes music-disc-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes music-disc-float {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(-50%) scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-10px) translateX(-50%) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-40px) translateX(-50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px) translateX(-50%) scale(0.8);
+  }
+}
+
 /* Shiki dual theme support for code blocks */
 html .shiki,
 html .shiki span {

@@ -1,16 +1,12 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Suspense } from "react"
+import { Skeleton } from "@/components/ui/skeleton"
 
-export async function GitHubButton() {
+export const GitHubButton = async () => {
   return (
     <Button variant="ghost" size="sm" className="h-8 px-2 gap-1.5" asChild>
-      <Link
-        href="https://github.com/alamenai/terrae"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <Link href="https://github.com/alamenai/terrae" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 1024 1024" fill="currentColor" className="size-4">
           <path
             fillRule="evenodd"
@@ -25,51 +21,44 @@ export async function GitHubButton() {
         </Suspense>
       </Link>
     </Button>
-  );
+  )
 }
 
-export async function StarCount() {
+export const StarCount = async () => {
   try {
-    const headers: HeadersInit = {};
-    
+    const headers: HeadersInit = {}
+
     // Use GitHub token if available for higher rate limit
     if (process.env.GITHUB_TOKEN) {
-      headers.Authorization = `token ${process.env.GITHUB_TOKEN}`;
+      headers.Authorization = `token ${process.env.GITHUB_TOKEN}`
     }
 
-    const response = await fetch(
-      "https://api.github.com/repos/alamenai/terrae",
-      { 
-        next: { revalidate: 3600 },
-        headers,
-      }
-    );
+    const response = await fetch("https://api.github.com/repos/alamenai/terrae", {
+      next: { revalidate: 3600 },
+      headers,
+    })
 
     if (!response.ok) {
-      return null;
+      return null
     }
 
-    const data = await response.json();
+    const data = await response.json()
 
     if (!data.stargazers_count && data.stargazers_count !== 0) {
-      return null;
+      return null
     }
 
     const formattedCount =
-      data.stargazers_count >= 1000
-        ? `${(data.stargazers_count / 1000).toFixed(1)}k`
-        : data.stargazers_count;
+      data.stargazers_count >= 1000 ? `${(data.stargazers_count / 1000).toFixed(1)}k` : data.stargazers_count
 
     return (
       <>
         {formattedCount !== undefined && (
-          <span className="text-xs text-muted-foreground tabular-nums">
-            {formattedCount}
-          </span>
+          <span className="text-xs text-muted-foreground tabular-nums">{formattedCount}</span>
         )}
       </>
-    );
-  } catch (error) {
-    return null;
+    )
+  } catch {
+    return null
   }
 }

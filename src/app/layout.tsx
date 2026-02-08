@@ -1,26 +1,26 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
+import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
 
-import { ThemeProvider } from "@/components/theme-provider";
-import { WarningBanner } from "@/components/warning-banner";
-import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider"
+import { WarningBanner } from "@/components/warning-banner"
+import "./globals.css"
 
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
-});
+})
 
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-});
+})
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-const siteName = "terrae";
-const creator = "https://github.com/alamenai";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+const siteName = "terrae"
+const creator = "https://github.com/alamenai"
 const siteDescription =
-  "A collection of beautifully designed, accessible, and customizable map components. Built on Mapbox GL. Styled with Tailwind CSS. Works with shadcn/ui.";
+  "A collection of beautifully designed, animated, accessible, and customizable map components. Built on Mapbox GL and MapLibre GL. Styled with Tailwind CSS. Works with shadcn/ui."
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -43,9 +43,7 @@ export const metadata: Metadata = {
     "map markers",
     "map controls",
   ],
-  authors: [
-    { name: "Ala Eddine", url: "https://github.com/alamenai" },
-  ],
+  authors: [{ name: "Ala Eddine", url: "https://github.com/alamenai" }],
   creator: "Ala Eddine",
   publisher: "terrae",
   robots: {
@@ -86,19 +84,15 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   category: "technology",
-};
+}
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
-  children: React.ReactNode;
-}>) {
+  children: React.ReactNode
+}>) => {
   return (
-    <html
-      lang="en"
-      className={`${geist.variable} ${geistMono.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
       </head>
@@ -110,5 +104,7 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
+
+export default RootLayout
