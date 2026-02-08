@@ -97,7 +97,6 @@ export const MapMusicDisc = ({
   const discContainerRef = useRef<HTMLDivElement | null>(null)
   const notesContainerRef = useRef<HTMLDivElement | null>(null)
   const [isMounted, setIsMounted] = useState(false)
-  const [notes] = useState<MusicNote[]>(generateNotes)
 
   const needsSeparateMarkers = showNotes && pitchAlignment === "map"
 
@@ -180,7 +179,7 @@ export const MapMusicDisc = ({
           discContainerRef.current
         )}
         {notesContainerRef.current &&
-          createPortal(<NotesContent size={size} noteColor={noteColor} notes={notes} />, notesContainerRef.current)}
+          createPortal(<NotesContent size={size} noteColor={noteColor} notes={NOTES} />, notesContainerRef.current)}
       </>
     )
   }
@@ -195,7 +194,7 @@ export const MapMusicDisc = ({
       noteColor={noteColor}
       discColor={discColor}
       centerColor={centerColor}
-      notes={notes}
+      notes={NOTES}
       className={className}
     />,
     discContainerRef.current
@@ -213,8 +212,6 @@ export const MusicDisc = ({
   centerColor = DEFAULT_CENTER_COLOR,
   className,
 }: Omit<MapMusicDiscProps, "coordinates" | "pitchAlignment">) => {
-  const [notes] = useState<MusicNote[]>(generateNotes)
-
   return (
     <MusicDiscContent
       size={size}
@@ -225,7 +222,7 @@ export const MusicDisc = ({
       noteColor={noteColor}
       discColor={discColor}
       centerColor={centerColor}
-      notes={notes}
+      notes={NOTES}
       className={className}
     />
   )
@@ -387,19 +384,11 @@ const MusicNoteIcon = ({ note, color }: MusicNoteIconProps) => {
   )
 }
 
-const generateNotes = (): MusicNote[] => {
-  const notes: MusicNote[] = []
-  const noteTypes: Array<"note" | "eighth" | "double"> = ["note", "eighth", "double"]
-
-  for (let noteIndex = 0; noteIndex < 6; noteIndex++) {
-    notes.push({
-      id: noteIndex,
-      offsetX: (Math.random() - 0.5) * 40,
-      delay: noteIndex * 500,
-      duration: 2000 + Math.random() * 1000,
-      type: noteTypes[Math.floor(Math.random() * noteTypes.length)],
-    })
-  }
-
-  return notes
-}
+const NOTES: MusicNote[] = [
+  { id: 0, offsetX: -12, delay: 0, duration: 2400, type: "note" },
+  { id: 1, offsetX: 8, delay: 500, duration: 2800, type: "eighth" },
+  { id: 2, offsetX: -6, delay: 1000, duration: 2200, type: "double" },
+  { id: 3, offsetX: 14, delay: 1500, duration: 2600, type: "note" },
+  { id: 4, offsetX: -16, delay: 2000, duration: 2400, type: "eighth" },
+  { id: 5, offsetX: 4, delay: 2500, duration: 3000, type: "double" },
+]
