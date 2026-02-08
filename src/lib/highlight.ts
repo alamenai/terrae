@@ -1,9 +1,6 @@
-import { codeToHtml } from "shiki";
+import { codeToHtml } from "shiki"
 
-export async function highlightCode(
-  code: string,
-  lang: string = "tsx"
-): Promise<string> {
+export const highlightCode = async (code: string, lang: string = "tsx"): Promise<string> => {
   return codeToHtml(code, {
     lang,
     themes: {
@@ -11,5 +8,5 @@ export async function highlightCode(
       dark: "github-dark",
     },
     defaultColor: false,
-  });
+  })
 }
