@@ -1,3 +1,10 @@
+---
+name: test
+description: Run tests for Terrae components
+argument-hint: [component-name]
+allowed-tools: Bash(npm run test*), Bash(npx vitest *)
+---
+
 # Test Skill
 
 Run tests for Terrae components.

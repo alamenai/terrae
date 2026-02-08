@@ -1,7 +1,9 @@
 # Clean Code Rules (Robert C. Martin)
 
 ## Naming
+
 - Use intention-revealing names that explain purpose, not implementation
+- Avoid short or single-letter variable names (e.g., `x`, `y`, `a`, `i`, `e`) - use descriptive names instead (e.g., `bearingX`, `deltaLatitude`, `segmentIndex`, `event`)
 - Avoid disinformation - don't use misleading names
 - Make meaningful distinctions - avoid noise words like `data`, `info`, `the`
 - Use pronounceable and searchable names
@@ -9,6 +11,7 @@
 - Class names should be nouns, function names should be verbs
 
 ## Functions
+
 - Keep functions small (ideally under 20 lines)
 - Functions should do one thing and do it well
 - One level of abstraction per function
@@ -19,6 +22,7 @@
 - Prefer exceptions over error codes
 
 ## Comments
+
 - Code should be self-documenting - good code needs few comments
 - Don't comment bad code, rewrite it
 - Don't add comments when the variable or function name already explains what it does
@@ -33,25 +37,34 @@
 ```typescript
 // ✅ Good - comment above the line
 // Timeout in milliseconds
-const timeout = 5000;
+const timeout = 5000
 
 // ❌ Avoid - comment beside the line
-const timeout = 5000; // milliseconds
+const timeout = 5000 // milliseconds
 
 // ❌ Avoid - block comment for single line
 /* Timeout in milliseconds */
-const timeout = 5000;
+const timeout = 5000
 
 // ✅ Good - JSX comment only when necessary
-{/* Portal to body for z-index stacking */}
-{createPortal(content, document.body)}
+{
+  /* Portal to body for z-index stacking */
+}
+{
+  createPortal(content, document.body)
+}
 
 // ❌ Avoid - unnecessary JSX comment
-{/* Render children */}
-{children}
+{
+  /* Render children */
+}
+{
+  children
+}
 ```
 
 ## Formatting (The Newspaper Metaphor)
+
 - Code should read like a newspaper: headline (name), synopsis (high-level), then details
 - Vertical openness: separate concepts with blank lines
 - Vertical density: keep related code together
@@ -64,12 +77,14 @@ const timeout = 5000;
 - Keep lines short (80-120 characters max)
 
 ## Objects and Data Structures
+
 - Hide internal structure - expose behavior, not data
 - Law of Demeter: only talk to immediate friends
 - Avoid train wrecks: `a.getB().getC().doSomething()`
 - Data structures expose data, objects expose behavior - don't mix
 
 ## Error Handling
+
 - Use exceptions rather than return codes
 - Write try-catch-finally first when writing code that could fail
 - Provide context with exceptions
@@ -77,11 +92,13 @@ const timeout = 5000;
 - Don't pass null - validate inputs early
 
 ## Boundaries
+
 - Keep third-party code at boundaries with wrapper classes
 - Write learning tests to understand third-party APIs
 - Use adapters to isolate external dependencies
 
 ## Unit Tests
+
 - Follow the Three Laws of TDD:
   1. Write a failing test before production code
   2. Write only enough test to fail
@@ -91,6 +108,7 @@ const timeout = 5000;
 - F.I.R.S.T principles: Fast, Independent, Repeatable, Self-validating, Timely
 
 ## Classes
+
 - Classes should be small - measured by responsibilities, not lines
 - Single Responsibility Principle (SRP): one reason to change
 - High cohesion: methods should use most instance variables
@@ -98,6 +116,7 @@ const timeout = 5000;
 - Dependency Inversion: depend on abstractions, not concretions
 
 ## Code Smells to Avoid
+
 - Rigidity: hard to change
 - Fragility: breaks in unexpected places
 - Immobility: hard to reuse
@@ -106,6 +125,7 @@ const timeout = 5000;
 - Opacity: hard to understand
 
 ## General Principles
+
 - Boy Scout Rule: leave code cleaner than you found it
 - DRY (Don't Repeat Yourself)
 - YAGNI (You Aren't Gonna Need It)

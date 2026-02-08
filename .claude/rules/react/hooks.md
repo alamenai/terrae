@@ -2,9 +2,13 @@
 
 ## useEffect
 
-- Avoid implementation details inside useEffect - extract into functions
-- Keep useEffect body clean and declarative
-- Name extracted functions to describe what they do
+### Extract Implementation Logic
+
+**Do not implement function logic inside useEffect.** Extract implementation details into named functions defined outside the effect body. This keeps effects clean, declarative, and easier to test.
+
+- Define helper functions above the effect or outside the component
+- Name functions to describe what they do (e.g., `initializeMap`, `createMarkers`)
+- The effect body should only call functions, not contain logic
 
 ### useEffect Dependencies
 
@@ -119,38 +123,117 @@ useEffect(() => {
 }, [])
 ```
 
-## useCallback and useMemo
+## useCallback, useMemo, and memo
 
-- Don't add `useCallback` or `useMemo` "just in case" - only use as performance optimization
-- Measure performance first before adding memoization
-- Most calculations are fast enough without memoization
+**Default: Don't use them.** These are performance optimizations, not best practices. Adding them "just in case" adds complexity without benefit.
 
-**Only use `useMemo` when:**
+### When NOT to use useMemo
 
-- The calculation is noticeably slow AND dependencies rarely change
-- Passing value to a component wrapped in `memo`
-- The value is used as a dependency of another Hook
-
-**Only use `useCallback` when:**
-
-- Passing function to a component wrapped in `memo`
-- The function is used as a dependency of another Hook (useEffect, another useCallback)
+- Simple calculations (math, string operations, array methods on small arrays)
+- Creating objects or arrays that are only used in render
+- Values that change on every render anyway
+- "Just in case" or "to be safe"
 
 ```typescript
-// ✅ Good - useCallback needed (passed to memo component)
-const handleSubmit = useCallback(() => {
-  submitForm(data);
-}, [data]);
+// ❌ Avoid - trivial calculations don't need memoization
+const fullName = useMemo(() => {
+  return `${firstName} ${lastName}`
+}, [firstName, lastName])
 
-return <MemoizedForm onSubmit={handleSubmit} />;
+const isActive = useMemo(() => {
+  return status === "active"
+}, [status])
 
-// ❌ Avoid - unnecessary useCallback
-const handleClick = useCallback(() => {
-  setCount(count + 1);
-}, [count]);
+const centerSize = useMemo(() => {
+  return size * 0.35
+}, [size])
 
-return <button onClick={handleClick}>Click</button>;
+// ✅ Good - just compute directly
+const fullName = `${firstName} ${lastName}`
+const isActive = status === "active"
+const centerSize = size * 0.35
 ```
+
+### When to use useMemo
+
+Only when ALL of these are true:
+
+1. The calculation is **measurably slow** (profile first with React DevTools)
+2. The result is used in a way that benefits from referential stability
+3. The dependencies change infrequently
+
+```typescript
+// ✅ Good - expensive filtering/sorting on large dataset
+const sortedItems = useMemo(() => {
+  return items.filter((item) => item.category === category).sort((a, b) => b.score - a.score)
+}, [items, category])
+
+// ✅ Good - value passed to memo component or used as effect dependency
+const config = useMemo(() => {
+  return { threshold, sensitivity }
+}, [threshold, sensitivity])
+
+useEffect(() => {
+  initializeWithConfig(config)
+}, [config])
+```
+
+### When NOT to use useCallback
+
+- Event handlers passed to regular DOM elements (`<button>`, `<input>`)
+- Functions that are only called in the same component
+- Functions with dependencies that change frequently
+
+```typescript
+// ❌ Avoid - button is not memoized, no benefit
+const handleClick = useCallback(() => {
+  setCount(count + 1)
+}, [count])
+
+return <button onClick={handleClick}>Click</button>
+
+// ✅ Good - just define the function
+const handleClick = () => {
+  setCount(count + 1)
+}
+
+return <button onClick={handleClick}>Click</button>
+```
+
+### When to use useCallback
+
+Only when the function is:
+
+1. Passed to a component wrapped in `memo`
+2. Used as a dependency of `useEffect` or another Hook
+
+```typescript
+// ✅ Good - passed to memoized child component
+const handleSubmit = useCallback(() => {
+  submitForm(data)
+}, [data])
+
+return <MemoizedForm onSubmit={handleSubmit} />
+```
+
+### When NOT to use memo
+
+- Components that always re-render with new props anyway
+- Components with children prop (children change on parent render)
+- Simple/cheap components
+- "Just in case" wrapping
+
+### When to use memo
+
+Only when:
+
+1. Component renders often with the same props
+2. Re-rendering is **measurably expensive** (profile first)
+3. Props are referentially stable (primitives or memoized objects)
+
+### The Rule
+
+**If your code works fine without memoization, you don't need it.** Profile first, optimize second. Premature optimization adds complexity, hurts readability, and can even hurt performance if dependencies aren't managed correctly.
 
 ## Custom Hooks
 

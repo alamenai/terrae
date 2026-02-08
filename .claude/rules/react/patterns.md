@@ -1,6 +1,7 @@
 # React Patterns
 
 ## Component Size and Composability
+
 Keep components small and focused. Large components are hard to test, maintain, and reuse. Break them into smaller, composable pieces.
 
 ```typescript
@@ -60,6 +61,7 @@ const PostsFeed = () => {
 ```
 
 ### Signs a Component is Too Large
+
 - More than 150-200 lines of code
 - More than 3-4 useEffect hooks
 - More than 5-6 pieces of state
@@ -68,6 +70,7 @@ const PostsFeed = () => {
 - Difficult to name (doing too many things)
 
 ### Composability Principles
+
 - **Single Responsibility**: Each component does one thing well
 - **Reusability**: Components can be used in multiple contexts
 - **Testability**: Small components are easier to unit test
@@ -105,6 +108,7 @@ const UserCard = ({ user }: { user: User }) => {
 ```
 
 ## Compound Components
+
 Use compound components for related UI elements that share implicit state. This provides a flexible, declarative API.
 
 ```typescript
@@ -125,6 +129,7 @@ Use compound components for related UI elements that share implicit state. This 
 ```
 
 ## Render Props
+
 Use render props when you need to share stateful logic while letting the consumer control rendering.
 
 ```typescript
@@ -146,28 +151,30 @@ const MouseTracker = ({ children }: MouseTrackerProps) => {
 ```
 
 ## Custom Hooks for Logic Reuse
+
 Extract reusable stateful logic into custom hooks instead of duplicating across components.
 
 ```typescript
 // ✅ Good - reusable hook
 const useLocalStorage = <T>(key: string, initialValue: T) => {
   const [value, setValue] = useState<T>(() => {
-    const stored = localStorage.getItem(key);
-    return stored ? JSON.parse(stored) : initialValue;
-  });
+    const stored = localStorage.getItem(key)
+    return stored ? JSON.parse(stored) : initialValue
+  })
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
+    localStorage.setItem(key, JSON.stringify(value))
+  }, [key, value])
 
-  return [value, setValue] as const;
-};
+  return [value, setValue] as const
+}
 
 // Usage
-const [theme, setTheme] = useLocalStorage("theme", "light");
+const [theme, setTheme] = useLocalStorage("theme", "light")
 ```
 
 ## Controlled vs Uncontrolled Components
+
 Prefer controlled components for form inputs. Use uncontrolled only when integrating with non-React code.
 
 ```typescript
@@ -195,6 +202,7 @@ const Form = () => {
 ```
 
 ## Container/Presenter Pattern
+
 Separate data fetching and business logic (container) from rendering (presenter).
 
 ```typescript
@@ -230,6 +238,7 @@ const UserList = ({ users }: UserListProps) => {
 ```
 
 ## Provider Pattern
+
 Use context providers to share state across deeply nested components without prop drilling.
 
 ```typescript
@@ -269,6 +278,7 @@ const useTheme = () => {
 ```
 
 ## Higher-Order Components (HOC)
+
 Use HOCs sparingly for cross-cutting concerns. Prefer hooks when possible.
 
 ```typescript
@@ -289,6 +299,7 @@ const UserListWithLoading = withLoading(UserList);
 ```
 
 ## Polymorphic Components
+
 Create components that can render as different HTML elements using the `as` prop.
 
 ```typescript
@@ -312,6 +323,7 @@ const Box = <T extends ElementType = "div">({
 ```
 
 ## Slot Pattern
+
 Use slots for flexible component composition with named areas.
 
 ```typescript
@@ -341,48 +353,50 @@ const Card = ({ header, children, footer }: CardProps) => {
 ```
 
 ## State Reducer Pattern
+
 Allow consumers to customize state updates by providing their own reducer.
 
 ```typescript
-type Action = { type: "increment" } | { type: "decrement" };
-type State = { count: number };
+type Action = { type: "increment" } | { type: "decrement" }
+type State = { count: number }
 
 const defaultReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "increment":
-      return { count: state.count + 1 };
+      return { count: state.count + 1 }
     case "decrement":
-      return { count: state.count - 1 };
+      return { count: state.count - 1 }
     default:
-      return state;
+      return state
   }
-};
+}
 
 const useCounter = (reducer = defaultReducer) => {
-  const [state, dispatch] = useReducer(reducer, { count: 0 });
+  const [state, dispatch] = useReducer(reducer, { count: 0 })
 
   const increment = () => {
-    dispatch({ type: "increment" });
-  };
+    dispatch({ type: "increment" })
+  }
 
   const decrement = () => {
-    dispatch({ type: "decrement" });
-  };
+    dispatch({ type: "decrement" })
+  }
 
-  return { count: state.count, increment, decrement };
-};
+  return { count: state.count, increment, decrement }
+}
 
 // Custom reducer that prevents negative numbers
 const customReducer = (state: State, action: Action): State => {
-  const newState = defaultReducer(state, action);
-  return { count: Math.max(0, newState.count) };
-};
+  const newState = defaultReducer(state, action)
+  return { count: Math.max(0, newState.count) }
+}
 
 // Usage
-const { count, decrement } = useCounter(customReducer);
+const { count, decrement } = useCounter(customReducer)
 ```
 
 ## Forwarding Refs
+
 Forward refs to allow parent components to access child DOM elements.
 
 ```typescript

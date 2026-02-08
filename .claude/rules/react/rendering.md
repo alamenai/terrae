@@ -1,6 +1,7 @@
 # React Rendering Guidelines
 
 ## Conditional Rendering
+
 - Use `if-else` statements instead of ternary operators for complex conditions
 - Extract conditional rendering logic to variables before the return statement
 - Avoid long inline conditional expressions in JSX
@@ -31,6 +32,7 @@ return (
 ```
 
 ## Inline Functions in JSX
+
 - Avoid defining functions inline in JSX
 - Extract handlers to named functions above the return statement
 
@@ -55,17 +57,24 @@ return (
   </ul>
 );
 
-// ✅ Good - extract to component or function
-const renderItem = (item: Item) => {
+// ✅ Good - extract to a child component
+const ItemRow = ({ item }: { item: Item }) => {
   const total = item.price * item.quantity;
 
-  return <li key={item.id}>{total}</li>;
+  return <li>{total}</li>;
 };
 
-return <ul>{items.map(renderItem)}</ul>;
+return (
+  <ul>
+    {items.map((item) => {
+      return <ItemRow key={item.id} item={item} />;
+    })}
+  </ul>
+);
 ```
 
 ## Keys in Lists
+
 - Always provide stable, unique keys for list items
 - Use item IDs, not array indices
 - Don't use index as key unless list is static and never reordered
@@ -83,6 +92,7 @@ return <ul>{items.map(renderItem)}</ul>;
 ```
 
 ## Fragment Usage
+
 - Use `<>` shorthand for fragments when no key is needed
 - Use `<Fragment>` when you need to add a key
 - Avoid unnecessary wrapper divs

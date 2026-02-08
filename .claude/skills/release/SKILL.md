@@ -1,3 +1,10 @@
+---
+name: release
+description: Prepare a Terrae component for release by running all checks and builds
+disable-model-invocation: true
+allowed-tools: Bash(npx tsc *), Bash(npm run *)
+---
+
 # Release Skill
 
 Prepare a Terrae component for release.

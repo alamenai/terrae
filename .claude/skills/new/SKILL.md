@@ -1,3 +1,9 @@
+---
+name: new
+description: End-to-end workflow for building a new Terrae component from scratch
+argument-hint: [component-name]
+---
+
 # Create New Component Skill
 
 End-to-end workflow for building a new Terrae component from scratch.
@@ -61,13 +67,13 @@ Follow this structure:
 
 ```json
 {
-  "name": "map-heat-map",
+  "name": "heat-map",
   "type": "registry:ui",
   "title": "Map Heatmap",
   "description": "Short description of the component.",
   "dependencies": ["mapbox-gl"],
   "devDependencies": ["@types/mapbox-gl"],
-  "registryDependencies": ["https://terrae.vercel.app/maps/map.json"],
+  "registryDependencies": ["https://www.terrae.dev/map.json"],
   "files": [
     {
       "path": "src/registry/map/heat-map.tsx",
@@ -80,8 +86,8 @@ Follow this structure:
 
 ##### Key rules:
 
-- `name` uses kebab-case with `map-` prefix (e.g., `map-heat-map`)
-- `registryDependencies` always includes `["https://terrae.vercel.app/maps/map.json"]` (the core `Map` component that all other components depend on)
+- `name` uses kebab-case with ``prefix (e.g.,`heat-map`)
+- `registryDependencies` always includes `["https://www.terrae.dev/map.json"]` (the core `Map` component that all other components depend on)
 - Add extra `dependencies` only if the component needs packages beyond `mapbox-gl`
 - Components that don't need `mapbox-gl` directly can have empty `dependencies` (e.g., watermark)
 
@@ -151,10 +157,10 @@ const HeatmapPage = () => {
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the heatmap component:</p>
         <CodeBlock
-          code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-heat-map.json`}
+          code={`npx shadcn@latest add https://www.terrae.dev/heat-map.json`}
           language="bash"
         />
       </DocsSection>
@@ -218,7 +224,7 @@ Update `src/app/docs/components/page.tsx`:
   description: "Short description matching the registry description",
   icon: Flame,
   category: "features",
-  installCommand: "npx shadcn@latest add https://terrae.vercel.app/maps/map-heat-map.json",
+  installCommand: "npx shadcn@latest add https://www.terrae.dev/heat-map.json",
   isNew: true,
 },
 ```
@@ -226,7 +232,7 @@ Update `src/app/docs/components/page.tsx`:
 ##### Key rules:
 
 - `category` is `"core"` or `"features"` (must match the sidebar section)
-- `installCommand` URL follows the pattern `https://terrae.vercel.app/maps/{registry-name}.json`
+- `installCommand` URL follows the pattern `https://www.terrae.dev/{registry-name}.json`
 - Add `mapboxOnly: true` if the component only works with Mapbox GL (not MapLibre)
 - Place the entry near similar components in the array
 

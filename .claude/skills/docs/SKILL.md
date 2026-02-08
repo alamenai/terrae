@@ -1,3 +1,9 @@
+---
+name: docs
+description: Generate or update documentation for Terrae components
+argument-hint: [component-name]
+---
+
 # Docs Skill
 
 Generate or update documentation for Terrae components.
@@ -26,7 +32,7 @@ Use `src/app/docs/lines-animated/page.tsx` as the reference for component docume
    - Additional examples (each with DocsSection title and description)
    - Animation Modes or similar feature explanations (if applicable)
    - Properties table
-   - Use Cases grid
+   - Use Cases grid (exactly 2 use cases, not more)
    - Performance Tips
 
 3. **Example Component Patterns**

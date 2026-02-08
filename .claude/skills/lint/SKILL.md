@@ -1,3 +1,9 @@
+---
+name: lint
+description: Run linting and type checking across the Terrae codebase
+allowed-tools: Bash(npx tsc *), Bash(npm run lint*), Bash(npm run format*)
+---
+
 # Lint Skill
 
 Run linting and type checking across the Terrae codebase.

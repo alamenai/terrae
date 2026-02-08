@@ -224,6 +224,11 @@ export const MapComponent = ({ coordinates, children, className }: ComponentProp
 export const ComponentContent = () => {
   // ...
 }
+
+// 6. Control hooks at the bottom
+export const useComponentControl = (id: string): ComponentControl | null => {
+  return controls.get(id) || null
+}
 ```
 
 ### Key Patterns
