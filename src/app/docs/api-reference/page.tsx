@@ -1,13 +1,4 @@
-import {
-  DocsLayout,
-  DocsSection,
-  DocsCode,
-  DocsLink,
-  DocsNote,
-  DocsPropTable,
-  NewBadge,
-  UpdatedBadge,
-} from "../_components/docs"
+import { DocsLayout, DocsSection, DocsCode, DocsLink, DocsNote, DocsPropTable } from "../_components/docs"
 import { CodeBlock } from "../_components/code-block"
 import { Metadata } from "next"
 
@@ -59,6 +50,24 @@ const anatomyCode = `<Map>
   <MapBlurArea coordinates={[[lng, lat], ...]} />
   <MapTargetingReticle coordinates={[lng, lat]} />
   <MapRain />
+  <MapSnow />
+  <MapSandstorm />
+
+  {/* Effects */}
+  <MapFire id="fire" coordinates={[lng, lat]} />
+  <MapExplosion id="explosion" coordinates={[lng, lat]} />
+  <MapCyclone id="cyclone" coordinates={[lng, lat]} />
+  <MapMeteor id="meteor" target={[lng, lat]} />
+  <MapLightning id="lightning" coordinates={[lng, lat]} />
+  <MapSteam id="steam" coordinates={[lng, lat]} />
+  <MapTsunami id="tsunami" origin={[lng, lat]} target={[lng, lat]} />
+
+  {/* Overlays */}
+  <MapMusicDisc coordinates={[lng, lat]} />
+  <MapAnimatedFootprint path={[[lng, lat], ...]} />
+  <MapGrid />
+  <MapRadar id="radar" coordinates={[lng, lat]} />
+  <MapWatermark>TEXT</MapWatermark>
 </Map>`
 
 export default function ApiReferencePage() {
@@ -254,7 +263,7 @@ export default function ApiReferencePage() {
       {/* MapGeolocate */}
       <DocsSection title="MapGeolocate">
         <p>
-          Geolocate control to find and fly to user's current location. Must be used inside{" "}
+          Geolocate control to find and fly to user&apos;s current location. Must be used inside{" "}
           <DocsCode>MapControls</DocsCode>.
         </p>
         <DocsPropTable
@@ -277,7 +286,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapCompass */}
-      <DocsSection title="MapCompass" badge={<NewBadge />}>
+      <DocsSection title="MapCompass">
         <p>
           Interactive compass with drag-to-rotate functionality. Dragging the compass rotates the map bearing. Must be
           used inside <DocsCode>Map</DocsCode>.
@@ -731,7 +740,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapCircle */}
-      <DocsSection title="MapCircle" badge={<NewBadge />}>
+      <DocsSection title="MapCircle">
         <p>
           Renders a geographic circle on the map with a center point and radius in meters. Must be used inside{" "}
           <DocsCode>Map</DocsCode>.
@@ -794,39 +803,34 @@ export default function ApiReferencePage() {
               type: "boolean",
               default: "false",
               description: "Enable dragging to reposition the circle.",
-              isNew: true,
             },
             {
               name: "cursor",
               type: "string",
               default: '"grab"',
               description: "Cursor style when hovering over draggable circle.",
-              isNew: true,
             },
             {
               name: "onDragStart",
               type: "(center: [number, number]) => void",
               description: "Callback when drag begins.",
-              isNew: true,
             },
             {
               name: "onDrag",
               type: "(center: [number, number]) => void",
               description: "Callback during drag with new center coordinates.",
-              isNew: true,
             },
             {
               name: "onDragEnd",
               type: "(center: [number, number]) => void",
               description: "Callback when drag ends with final center coordinates.",
-              isNew: true,
             },
           ]}
         />
       </DocsSection>
 
       {/* MapAnimatedCircle */}
-      <DocsSection title="MapAnimatedCircle" badge={<NewBadge />}>
+      <DocsSection title="MapAnimatedCircle">
         <p>
           Renders an animated circle with drawing outline and fill effects. Must be used inside <DocsCode>Map</DocsCode>
           .
@@ -1004,7 +1008,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapChoropleth */}
-      <DocsSection title="MapChoropleth" badge={<NewBadge />}>
+      <DocsSection title="MapChoropleth">
         <p>
           Colors geographic regions based on data values. Supports GeoJSON data with Polygon or MultiPolygon features.
           Must be used inside <DocsCode>Map</DocsCode>. Supports a generic type parameter for typed feature properties:{" "}
@@ -1689,7 +1693,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapArcAnimated */}
-      <DocsSection title="MapArcAnimated" badge={<UpdatedBadge />}>
+      <DocsSection title="MapArcAnimated">
         <p>
           Renders an animated curved arc between two points. Useful for visualizing flights, deliveries, and
           point-to-point connections. Must be used inside <DocsCode>Map</DocsCode>.
@@ -1775,40 +1779,34 @@ export default function ApiReferencePage() {
               type: '"none" | "circle" | "square" | "arrow"',
               default: '"circle"',
               description: "Shape of the traveling marker at the arc tip.",
-              isNew: true,
             },
             {
               name: "headSize",
               type: "number",
               default: "16",
               description: "Size of the head marker in pixels.",
-              isNew: true,
             },
             {
               name: "showOriginMarker",
               type: "boolean",
               default: "false",
               description: "Show marker at the origin point.",
-              isNew: true,
             },
             {
               name: "originMarkerColor",
               type: "string",
               description: "Origin marker color (defaults to arc color).",
-              isNew: true,
             },
             {
               name: "showDestinationMarker",
               type: "boolean",
               default: "false",
               description: "Show marker at destination when animation completes.",
-              isNew: true,
             },
             {
               name: "destinationMarkerColor",
               type: "string",
               description: "Destination marker color (defaults to arc color).",
-              isNew: true,
             },
             {
               name: "onComplete",
@@ -1820,7 +1818,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapCameraFollow */}
-      <DocsSection title="MapCameraFollow" badge={<NewBadge />}>
+      <DocsSection title="MapCameraFollow">
         <p>
           Animates the camera along a path of coordinates for immersive fly-through experiences. Must be used inside{" "}
           <DocsCode>Map</DocsCode>.
@@ -1968,7 +1966,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MapSync */}
-      <DocsSection title="MapSync" badge={<NewBadge />}>
+      <DocsSection title="MapSync">
         <p>
           Displays 2 or 4 synchronized maps where panning, zooming, or rotating one map updates all others in real-time.
           This component creates its own map instances and does not require a parent <DocsCode>Map</DocsCode> component.
@@ -2193,6 +2191,1005 @@ export default function ApiReferencePage() {
         />
       </DocsSection>
 
+      {/* MapSnow */}
+      <DocsSection title="MapSnow">
+        <p>
+          Adds an animated snowfall weather effect overlay to the map. Must be used inside <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "intensity",
+              type: "number",
+              default: "1",
+              description: "Snowfall intensity multiplier.",
+            },
+            {
+              name: "particleCount",
+              type: "number",
+              default: "150",
+              description: "Number of snowflake particles.",
+            },
+            {
+              name: "color",
+              type: "string",
+              default: '"#ffffff"',
+              description: "Snowflake color.",
+            },
+            {
+              name: "windSpeed",
+              type: "number",
+              default: "0.5",
+              description: "Horizontal wind speed affecting drift.",
+            },
+            {
+              name: "windDirection",
+              type: "number",
+              default: "0",
+              description: "Wind direction in degrees.",
+            },
+            {
+              name: "fallSpeed",
+              type: "number",
+              default: "1",
+              description: "Vertical fall speed multiplier.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapSandstorm */}
+      <DocsSection title="MapSandstorm">
+        <p>
+          Adds an atmospheric sandstorm effect with horizontal particle movement and reduced visibility. Must be used
+          inside <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "intensity",
+              type: "number",
+              default: "1",
+              description: "Sandstorm intensity multiplier.",
+            },
+            {
+              name: "particleCount",
+              type: "number",
+              default: "200",
+              description: "Number of sand particles.",
+            },
+            {
+              name: "color",
+              type: "string",
+              default: '"#d4a574"',
+              description: "Sand particle color.",
+            },
+            {
+              name: "windSpeed",
+              type: "number",
+              default: "4",
+              description: "Horizontal wind speed.",
+            },
+            {
+              name: "windDirection",
+              type: "number",
+              default: "0",
+              description: "Wind direction in degrees.",
+            },
+            {
+              name: "visibility",
+              type: "number",
+              default: "0.3",
+              description: "Visibility level (0 = no visibility, 1 = clear).",
+            },
+            {
+              name: "turbulence",
+              type: "number",
+              default: "0.5",
+              description: "Turbulence amount affecting particle movement.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapFire */}
+      <DocsSection title="MapFire">
+        <p>
+          Renders a realistic animated fire effect with particle simulation at map coordinates. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>. Use <DocsCode>useFireControl</DocsCode> hook to control programmatically.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the fire effect.",
+            },
+            {
+              name: "coordinates",
+              type: "[number, number]",
+              description: "Coordinates [longitude, latitude] for the fire position.",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "120",
+              description: "Fire canvas size in pixels.",
+            },
+            {
+              name: "intensity",
+              type: "number",
+              default: "1",
+              description: "Fire intensity multiplier.",
+            },
+            {
+              name: "particleCount",
+              type: "number",
+              default: "50",
+              description: "Number of fire particles.",
+            },
+            {
+              name: "baseColor",
+              type: "string",
+              default: '"#ffcc00"',
+              description: "Base flame color.",
+            },
+            {
+              name: "tipColor",
+              type: "string",
+              default: '"#ff3300"',
+              description: "Flame tip color.",
+            },
+            {
+              name: "spread",
+              type: "boolean",
+              default: "false",
+              description: "Enable fire spreading to nearby points.",
+            },
+            {
+              name: "spreadSpeed",
+              type: "number",
+              default: "2000",
+              description: "Time between spread points in milliseconds.",
+            },
+            {
+              name: "spreadRadius",
+              type: "number",
+              default: "0.4",
+              description: "Maximum spread radius as fraction of canvas size.",
+            },
+            {
+              name: "maxSpreadPoints",
+              type: "number",
+              default: "8",
+              description: "Maximum number of fire spread sources.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapExplosion */}
+      <DocsSection title="MapExplosion">
+        <p>
+          Renders an animated explosion burst effect with radial particles and flash. Supports burst and nuclear types.
+          Must be used inside <DocsCode>Map</DocsCode>. Use <DocsCode>useExplosionControl</DocsCode> hook to trigger
+          programmatically.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the explosion.",
+            },
+            {
+              name: "coordinates",
+              type: "[number, number]",
+              description: "Coordinates [longitude, latitude] for the explosion.",
+            },
+            {
+              name: "type",
+              type: '"burst" | "nuclear"',
+              default: '"burst"',
+              description: "Explosion type. Nuclear creates a mushroom cloud effect.",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "150",
+              description: "Explosion canvas size in pixels.",
+            },
+            {
+              name: "particleCount",
+              type: "number",
+              default: "60",
+              description: "Number of explosion particles.",
+            },
+            {
+              name: "duration",
+              type: "number",
+              default: "3000",
+              description: "Explosion duration in milliseconds.",
+            },
+            {
+              name: "coreColor",
+              type: "string",
+              default: '"#ffffff"',
+              description: "Core flash color.",
+            },
+            {
+              name: "outerColor",
+              type: "string",
+              default: '"#ff6600"',
+              description: "Outer explosion color.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Trigger explosion automatically on mount.",
+            },
+            {
+              name: "loop",
+              type: "boolean",
+              default: "false",
+              description: "Loop the explosion animation.",
+            },
+            {
+              name: "loopDelay",
+              type: "number",
+              default: "3000",
+              description: "Delay before restarting loop in milliseconds.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapCyclone */}
+      <DocsSection title="MapCyclone">
+        <p>
+          Renders an animated cyclone funnel with swirling particles and debris. Supports movement along a path. Must be
+          used inside <DocsCode>Map</DocsCode>. Use <DocsCode>useCycloneControl</DocsCode> hook to control
+          programmatically.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the cyclone.",
+            },
+            {
+              name: "coordinates",
+              type: "[number, number]",
+              description: "Coordinates [longitude, latitude] for the cyclone position.",
+            },
+            {
+              name: "path",
+              type: "[number, number][]",
+              description: "Optional path for the cyclone to travel along.",
+            },
+            {
+              name: "duration",
+              type: "number",
+              default: "10000",
+              description: "Duration of path movement in milliseconds.",
+            },
+            {
+              name: "loop",
+              type: "boolean",
+              default: "false",
+              description: "Loop the path movement.",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "200",
+              description: "Cyclone canvas size in pixels.",
+            },
+            {
+              name: "intensity",
+              type: "number",
+              default: "1",
+              description: "Cyclone intensity multiplier.",
+            },
+            {
+              name: "scale",
+              type: "number",
+              default: "1",
+              description: "Cyclone visual scale (0.2 to 2).",
+            },
+            {
+              name: "particleCount",
+              type: "number",
+              default: "120",
+              description: "Number of swirling particles.",
+            },
+            {
+              name: "funnelColor",
+              type: "string",
+              default: '"#8b9dc3"',
+              description: "Funnel particle color.",
+            },
+            {
+              name: "debrisColor",
+              type: "string",
+              default: '"#5c4033"',
+              description: "Debris particle color.",
+            },
+            {
+              name: "rotationSpeed",
+              type: "number",
+              default: "1",
+              description: "Rotation speed multiplier.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapMeteor */}
+      <DocsSection title="MapMeteor">
+        <p>
+          Renders animated meteors falling from sky with fiery trail and impact effect. Supports single or shower mode.
+          Must be used inside <DocsCode>Map</DocsCode>. Use <DocsCode>useMeteorControl</DocsCode> hook to control
+          programmatically.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the meteor.",
+            },
+            {
+              name: "target",
+              type: "[number, number]",
+              description: "Impact coordinates [longitude, latitude].",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "300",
+              description: "Effect canvas size in pixels.",
+            },
+            {
+              name: "angle",
+              type: "number",
+              default: "45",
+              description: "Meteor entry angle in degrees.",
+            },
+            {
+              name: "speed",
+              type: "number",
+              default: "1500",
+              description: "Fall duration in milliseconds.",
+            },
+            {
+              name: "intensity",
+              type: "number",
+              default: "1",
+              description: "Effect intensity multiplier.",
+            },
+            {
+              name: "meteorColor",
+              type: "string",
+              default: '"#ffaa00"',
+              description: "Meteor body color.",
+            },
+            {
+              name: "trailColor",
+              type: "string",
+              default: '"#ff6600"',
+              description: "Meteor trail color.",
+            },
+            {
+              name: "impactColor",
+              type: "string",
+              default: '"#ffdd00"',
+              description: "Impact flash color.",
+            },
+            {
+              name: "tailLength",
+              type: "number",
+              default: "0.4",
+              description: "Tail length as fraction of canvas size.",
+            },
+            {
+              name: "meteorSize",
+              type: "number",
+              default: "8",
+              description: "Meteor head radius in pixels.",
+            },
+            {
+              name: "impactSize",
+              type: "number",
+              default: "0.3",
+              description: "Impact radius as fraction of canvas size.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+            {
+              name: "loop",
+              type: "boolean",
+              default: "false",
+              description: "Loop the meteor animation.",
+            },
+            {
+              name: "loopDelay",
+              type: "number",
+              default: "2000",
+              description: "Delay before restarting loop in milliseconds.",
+            },
+            {
+              name: "shower",
+              type: "boolean",
+              default: "false",
+              description: "Enable meteor shower mode with multiple meteors.",
+            },
+            {
+              name: "showerCount",
+              type: "number",
+              default: "5",
+              description: "Number of meteors in shower mode.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapLightning */}
+      <DocsSection title="MapLightning">
+        <p>
+          Renders animated lightning bolt strikes with branching and flash effects. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>. Use <DocsCode>useLightningControl</DocsCode> hook to trigger strikes
+          programmatically.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the lightning.",
+            },
+            {
+              name: "coordinates",
+              type: "[number, number]",
+              description: "Coordinates [longitude, latitude] for the lightning strike zone.",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "200",
+              description: "Lightning canvas size in pixels.",
+            },
+            {
+              name: "boltColor",
+              type: "string",
+              default: '"#ffffff"',
+              description: "Lightning bolt color.",
+            },
+            {
+              name: "flashColor",
+              type: "string",
+              default: '"#e0e8ff"',
+              description: "Flash illumination color.",
+            },
+            {
+              name: "flashIntensity",
+              type: "number",
+              default: "0.6",
+              description: "Flash brightness (0-1).",
+            },
+            {
+              name: "autoStrike",
+              type: "boolean",
+              default: "true",
+              description: "Enable automatic periodic strikes.",
+            },
+            {
+              name: "strikeInterval",
+              type: "number",
+              default: "4000",
+              description: "Interval between auto-strikes in milliseconds.",
+            },
+            {
+              name: "boltWidth",
+              type: "number",
+              default: "4",
+              description: "Main bolt width in pixels.",
+            },
+            {
+              name: "branchProbability",
+              type: "number",
+              default: "0.3",
+              description: "Probability of branching at each segment (0-1).",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapSteam */}
+      <DocsSection title="MapSteam">
+        <p>
+          Renders a rising steam effect with wispy particle animation. Must be used inside <DocsCode>Map</DocsCode>. Use{" "}
+          <DocsCode>useSteamControl</DocsCode> hook to control programmatically.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the steam effect.",
+            },
+            {
+              name: "coordinates",
+              type: "[number, number]",
+              description: "Coordinates [longitude, latitude] for the steam position.",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "100",
+              description: "Steam canvas size in pixels.",
+            },
+            {
+              name: "intensity",
+              type: "number",
+              default: "1",
+              description: "Steam intensity multiplier.",
+            },
+            {
+              name: "particleCount",
+              type: "number",
+              default: "40",
+              description: "Number of steam particles.",
+            },
+            {
+              name: "color",
+              type: "string",
+              default: '"#ffffff"',
+              description: "Steam particle color.",
+            },
+            {
+              name: "drift",
+              type: "number",
+              default: "0.4",
+              description: "Horizontal drift amount.",
+            },
+            {
+              name: "riseSpeed",
+              type: "number",
+              default: "1",
+              description: "Vertical rise speed multiplier.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapTsunami */}
+      <DocsSection title="MapTsunami">
+        <p>
+          Renders an animated tsunami wave effect with incoming wave, crashing foam, and debris. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>. Use <DocsCode>useTsunamiControl</DocsCode> hook to control programmatically.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the tsunami.",
+            },
+            {
+              name: "origin",
+              type: "[number, number]",
+              description: "Wave origin coordinates [longitude, latitude].",
+            },
+            {
+              name: "target",
+              type: "[number, number]",
+              description: "Wave target/impact coordinates [longitude, latitude].",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "300",
+              description: "Tsunami canvas size in pixels.",
+            },
+            {
+              name: "waveHeight",
+              type: "number",
+              default: "0.4",
+              description: "Wave height as fraction of canvas size.",
+            },
+            {
+              name: "waveWidth",
+              type: "number",
+              default: "0.8",
+              description: "Wave width as fraction of canvas size.",
+            },
+            {
+              name: "speed",
+              type: "number",
+              default: "3000",
+              description: "Wave approach duration in milliseconds.",
+            },
+            {
+              name: "waterColor",
+              type: "string",
+              default: '"#0077be"',
+              description: "Wave water color.",
+            },
+            {
+              name: "foamColor",
+              type: "string",
+              default: '"#ffffff"',
+              description: "Wave foam/crest color.",
+            },
+            {
+              name: "particleCount",
+              type: "number",
+              default: "40",
+              description: "Number of foam and debris particles on crash.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+            {
+              name: "loop",
+              type: "boolean",
+              default: "false",
+              description: "Loop the tsunami animation.",
+            },
+            {
+              name: "loopDelay",
+              type: "number",
+              default: "2000",
+              description: "Delay before restarting loop in milliseconds.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapMusicDisc */}
+      <DocsSection title="MapMusicDisc">
+        <p>
+          Renders a rotating vinyl disc with floating music notes at map coordinates. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "coordinates",
+              type: "[number, number]",
+              description: "Coordinates [longitude, latitude] for disc position.",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "64",
+              description: "Disc diameter in pixels.",
+            },
+            {
+              name: "image",
+              type: "string",
+              description: "Album cover image URL for the disc center.",
+            },
+            {
+              name: "spinning",
+              type: "boolean",
+              default: "true",
+              description: "Enable disc rotation animation.",
+            },
+            {
+              name: "spinDuration",
+              type: "number",
+              default: "4000",
+              description: "Full rotation duration in milliseconds.",
+            },
+            {
+              name: "showNotes",
+              type: "boolean",
+              default: "true",
+              description: "Show floating music note animations.",
+            },
+            {
+              name: "noteColor",
+              type: "string",
+              default: '"#a855f7"',
+              description: "Music note color.",
+            },
+            {
+              name: "discColor",
+              type: "string",
+              default: '"#0a0a0a"',
+              description: "Disc background color.",
+            },
+            {
+              name: "centerColor",
+              type: "string",
+              default: '"#171717"',
+              description: "Disc center/label area color.",
+            },
+            {
+              name: "pitchAlignment",
+              type: '"map" | "viewport" | "auto"',
+              default: '"viewport"',
+              description: "How the disc aligns with the map pitch.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes for the disc container.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapAnimatedFootprint */}
+      <DocsSection title="MapAnimatedFootprint">
+        <p>
+          Renders animated footprint steps that walk along a path on the map. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "path",
+              type: "[number, number][]",
+              description: "Array of [longitude, latitude] pairs defining the walking path.",
+            },
+            {
+              name: "color",
+              type: "string",
+              default: '"currentColor"',
+              description: "Footprint icon color.",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "20",
+              description: "Footprint icon size in pixels.",
+            },
+            {
+              name: "stepSpacing",
+              type: "number",
+              default: "48",
+              description: "Distance between steps in meters.",
+            },
+            {
+              name: "staggerDelay",
+              type: "number",
+              default: "200",
+              description: "Delay between revealing each step in milliseconds.",
+            },
+            {
+              name: "duration",
+              type: "number",
+              default: "400",
+              description: "Fade-in duration per step in milliseconds.",
+            },
+            {
+              name: "autoStart",
+              type: "boolean",
+              default: "true",
+              description: "Start animation automatically on mount.",
+            },
+            {
+              name: "loop",
+              type: "boolean",
+              default: "false",
+              description: "Loop the walking animation.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes for each footprint element.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapGrid */}
+      <DocsSection title="MapGrid">
+        <p>
+          Renders a coordinate grid overlay with latitude/longitude lines and labels. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              default: '"map-grid"',
+              description: "Unique identifier prefix for grid sources and layers.",
+            },
+            {
+              name: "latitudeInterval",
+              type: "number",
+              default: "10",
+              description: "Degrees between latitude lines.",
+            },
+            {
+              name: "longitudeInterval",
+              type: "number",
+              default: "10",
+              description: "Degrees between longitude lines.",
+            },
+            {
+              name: "lineColor",
+              type: "string",
+              default: '"#ffffff"',
+              description: "Grid line color.",
+            },
+            {
+              name: "lineOpacity",
+              type: "number",
+              default: "0.3",
+              description: "Grid line opacity (0-1).",
+            },
+            {
+              name: "lineWidth",
+              type: "number",
+              default: "1",
+              description: "Grid line width in pixels.",
+            },
+            {
+              name: "showLabels",
+              type: "boolean",
+              default: "true",
+              description: "Show coordinate labels at line intersections.",
+            },
+            {
+              name: "labelColor",
+              type: "string",
+              default: '"#ffffff"',
+              description: "Label text color.",
+            },
+            {
+              name: "labelSize",
+              type: "number",
+              default: "10",
+              description: "Label font size in pixels.",
+            },
+            {
+              name: "labelBackground",
+              type: "string",
+              default: '"rgba(0, 0, 0, 0.5)"',
+              description: "Label background color.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapRadar */}
+      <DocsSection title="MapRadar">
+        <p>
+          Renders an animated radar sweep signal overlay at map coordinates. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "id",
+              type: "string",
+              description: "Unique identifier for the radar.",
+            },
+            {
+              name: "coordinates",
+              type: "[number, number]",
+              description: "Coordinates [longitude, latitude] for the radar position.",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "200",
+              description: "Radar display size in pixels.",
+            },
+            {
+              name: "color",
+              type: "string",
+              default: '"rgba(0, 255, 70, 1)"',
+              description: "Sweep and ring color.",
+            },
+            {
+              name: "gridColor",
+              type: "string",
+              default: '"rgba(0, 255, 70, 0.3)"',
+              description: "Grid line color.",
+            },
+            {
+              name: "backgroundColor",
+              type: "string",
+              default: '"rgba(0, 20, 0, 0.8)"',
+              description: "Radar background color.",
+            },
+            {
+              name: "duration",
+              type: "number",
+              default: "2000",
+              description: "Full sweep rotation duration in milliseconds.",
+            },
+            {
+              name: "rings",
+              type: "number",
+              default: "4",
+              description: "Number of concentric range rings.",
+            },
+            {
+              name: "showCrosshairs",
+              type: "boolean",
+              default: "true",
+              description: "Show crosshair lines through the center.",
+            },
+          ]}
+        />
+      </DocsSection>
+
+      {/* MapWatermark */}
+      <DocsSection title="MapWatermark">
+        <p>
+          Renders a text watermark overlay on the map with configurable position. Must be used inside{" "}
+          <DocsCode>Map</DocsCode>.
+        </p>
+        <DocsPropTable
+          props={[
+            {
+              name: "children",
+              type: "ReactNode",
+              description: "Watermark content (typically text).",
+            },
+            {
+              name: "position",
+              type: '"center" | "top-left" | "top-right" | "bottom-left" | "bottom-right" | "top" | "bottom" | "left" | "right"',
+              default: '"center"',
+              description: "Watermark position on the map.",
+            },
+            {
+              name: "className",
+              type: "string",
+              default: '"text-[8rem] font-extrabold..."',
+              description: "CSS classes for styling. Defaults to large translucent text.",
+            },
+          ]}
+        />
+      </DocsSection>
+
       {/* MarkerAvatar */}
       <DocsSection title="MarkerAvatar">
         <p>
@@ -2238,7 +3235,7 @@ export default function ApiReferencePage() {
       </DocsSection>
 
       {/* MarkerAvatarPin */}
-      <DocsSection title="MarkerAvatarPin" badge={<NewBadge />}>
+      <DocsSection title="MarkerAvatarPin">
         <p>
           Renders an avatar inside a teardrop/pin shape that points to the exact location. Must be used inside{" "}
           <DocsCode>MarkerContent</DocsCode>.

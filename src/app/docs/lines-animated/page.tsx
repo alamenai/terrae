@@ -29,17 +29,14 @@ const AnimatedLinesPage = () => {
     <DocsLayout
       title="Animated Lines"
       description="Animate line paths being drawn on the map with smooth transitions."
-      prev={{ title: "Animated Circle", href: "/docs/animated-circle" }}
+      prev={{ title: "Animated Arc", href: "/docs/arc-animated" }}
       next={{ title: "Animated Radial Lines", href: "/docs/lines-radial" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the animated line component:</p>
-        <CodeBlock
-          code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-line-animated.json`}
-          language="bash"
-        />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/line-animated.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={basicSource}>
@@ -110,9 +107,9 @@ const AnimatedLinesPage = () => {
           <DocsLink href="https://project-osrm.org/" external>
             OSRM (Open Source Routing Machine)
           </DocsLink>{" "}
-          to fetch actual road-based routes and animate them. This example demonstrates a Paris bike tour using OSRM's
-          cycling profile, which calculates realistic paths following bike lanes and roads rather than straight lines
-          between points.
+          to fetch actual road-based routes and animate them. This example demonstrates a Paris bike tour using
+          OSRM&apos;s cycling profile, which calculates realistic paths following bike lanes and roads rather than
+          straight lines between points.
         </p>
       </DocsSection>
 
@@ -153,7 +150,7 @@ const AnimatedLinesPage = () => {
                   <DocsCode>color</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Route line color</TableCell>
               </TableRow>
               <TableRow>
@@ -201,7 +198,7 @@ const AnimatedLinesPage = () => {
                   <DocsCode>markerColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Marker circle color (used when markerIcon is not provided)</TableCell>
               </TableRow>
               <TableRow>
@@ -260,24 +257,6 @@ const AnimatedLinesPage = () => {
           <div className="rounded-xl border border-border/50 bg-card p-4">
             <h4 className="font-medium text-sm text-foreground">Turn-by-Turn Directions</h4>
             <p className="text-xs text-muted-foreground mt-1">Animated path reveal for navigation and directions</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Storytelling Tours</h4>
-            <p className="text-xs text-muted-foreground mt-1">
-              Journey progression for tours and storytelling applications
-            </p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Fleet Management</h4>
-            <p className="text-xs text-muted-foreground mt-1">Vehicle path history and real-time fleet visualization</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Sports Tracking</h4>
-            <p className="text-xs text-muted-foreground mt-1">Running, cycling, and activity route visualization</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Trip Playback</h4>
-            <p className="text-xs text-muted-foreground mt-1">Historical route playback for trips and travels</p>
           </div>
         </div>
       </DocsSection>

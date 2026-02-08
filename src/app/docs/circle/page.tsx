@@ -25,14 +25,14 @@ const CirclePage = () => {
     <DocsLayout
       title="Circle"
       description="Visualize areas and ranges with radius-based circles."
-      prev={{ title: "Polygon", href: "/docs/polygon" }}
-      next={{ title: "Animated Circle", href: "/docs/animated-circle" }}
+      prev={{ title: "Choropleth", href: "/docs/choropleth" }}
+      next={{ title: "Circle Clusters", href: "/docs/circle-clusters" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the circle component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-circle.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/circle.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={basicCircleSource}>
@@ -115,7 +115,7 @@ const CirclePage = () => {
                   <DocsCode>fillColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Fill color of the circle</TableCell>
               </TableRow>
               <TableRow>
@@ -131,7 +131,7 @@ const CirclePage = () => {
                   <DocsCode>strokeColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Stroke/outline color</TableCell>
               </TableRow>
               <TableRow>
@@ -179,7 +179,7 @@ const CirclePage = () => {
                   <DocsCode>cursor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"grab"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;grab&quot;</TableCell>
                 <TableCell>Cursor style when hovering over draggable circle</TableCell>
               </TableRow>
               <TableRow>
@@ -220,14 +220,6 @@ const CirclePage = () => {
           <div className="rounded-xl border border-border/50 bg-card p-4">
             <h4 className="font-medium text-sm text-foreground">Coverage Areas</h4>
             <p className="text-xs text-muted-foreground mt-1">Display service or signal coverage radius</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Geofencing</h4>
-            <p className="text-xs text-muted-foreground mt-1">Define circular boundaries for alerts and triggers</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Impact Zones</h4>
-            <p className="text-xs text-muted-foreground mt-1">Visualize blast radius or affected areas</p>
           </div>
         </div>
       </DocsSection>

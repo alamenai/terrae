@@ -35,7 +35,7 @@ export default function BasicMapPage() {
       next={{ title: "Controls", href: "/docs/controls" }}
     >
       <DocsSection title="Installation">
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={basicMapSource}>
@@ -62,7 +62,7 @@ export default function BasicMapPage() {
         <p>
           Enable automatic rotation on globe projection with the <DocsCode>autoRotate</DocsCode> prop. Control the
           rotation speed with <DocsCode>rotateSpeed</DocsCode> (degrees per second, default: 3). This only works when{" "}
-          <DocsCode>projection="globe"</DocsCode> is set.
+          <DocsCode>projection=&quot;globe&quot;</DocsCode> is set.
         </p>
       </DocsSection>
 
@@ -215,6 +215,41 @@ export default function BasicMapPage() {
         <CustomLoaderExample />
       </ComponentPreview>
 
+      <DocsSection title="MapLibre GL" id="maplibre">
+        <p>
+          Terrae also supports{" "}
+          <DocsLink href="https://maplibre.org" external>
+            MapLibre GL
+          </DocsLink>{" "}
+          as a free, open-source alternative. To switch, update the imports in <DocsCode>map-library.ts</DocsCode>:
+        </p>
+        <CodeBlock
+          code={`import mapboxgl from "maplibre-gl"
+import "maplibre-gl/dist/maplibre-gl.css"
+
+const detectedLibrary: MapLibraryName = "maplibre"
+const mapgl = mapboxgl
+
+export { mapgl, detectedLibrary }`}
+          language="typescript"
+        />
+        <p className="mt-4">
+          No access token is required. The built-in <DocsCode>defaultMapLibreStyles</DocsCode> preset uses free CARTO
+          basemaps with light and dark variants.
+        </p>
+        <CodeBlock
+          code={`import { Map } from "@/components/ui/map/map"
+import { defaultMapLibreStyles } from "@/components/ui/map/types"
+
+export const MapLibreExample = () => {
+  return (
+    <Map styles={defaultMapLibreStyles} center={[-74.006, 40.7128]} zoom={12} />
+  )
+}`}
+          language="tsx"
+        />
+      </DocsSection>
+
       <DocsSection title="Properties">
         <p>The Map component supports all Mapbox GL JS options. Key properties:</p>
         <div className="mt-4 rounded-md border">
@@ -297,7 +332,7 @@ export default function BasicMapPage() {
                   <DocsCode>projection</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"mercator"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;mercator&quot;</TableCell>
                 <TableCell>
                   Map projection type: mercator, globe, albers, equalEarth, equirectangular, lambertConformalConic,
                   naturalEarth, winkelTripel
@@ -348,7 +383,7 @@ export default function BasicMapPage() {
                 <TableCell className="text-muted-foreground">boolean</TableCell>
                 <TableCell className="text-muted-foreground">false</TableCell>
                 <TableCell>
-                  Enables automatic rotation. Only works with <DocsCode>projection="globe"</DocsCode>.
+                  Enables automatic rotation. Only works with <DocsCode>projection=&quot;globe&quot;</DocsCode>.
                 </TableCell>
               </TableRow>
               <TableRow>

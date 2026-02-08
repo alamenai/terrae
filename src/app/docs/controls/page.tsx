@@ -1,22 +1,22 @@
-import { DocsLayout, DocsSection, DocsCode } from "../_components/docs";
-import { ComponentPreview } from "../_components/component-preview";
-import { CodeBlock } from "../_components/code-block";
-import { MapControlsExample } from "../_components/examples/map-controls-example";
-import { ZoomControlExample } from "../_components/examples/zoom-example";
-import { OrientationControlExample } from "../_components/examples/orientation-example";
-import { FullscreenControlExample } from "../_components/examples/fullscreen-example";
-import { getExampleSource } from "@/lib/get-example-source";
-import { Metadata } from "next";
+import { DocsLayout, DocsSection, DocsCode } from "../_components/docs"
+import { ComponentPreview } from "../_components/component-preview"
+import { CodeBlock } from "../_components/code-block"
+import { MapControlsExample } from "../_components/examples/map-controls-example"
+import { ZoomControlExample } from "../_components/examples/zoom-example"
+import { OrientationControlExample } from "../_components/examples/orientation-example"
+import { FullscreenControlExample } from "../_components/examples/fullscreen-example"
+import { getExampleSource } from "@/lib/get-example-source"
+import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Controls",
-};
+}
 
 export default function ControlsPage() {
-  const controlsSource = getExampleSource("map-controls-example.tsx");
-  const zoomSource = getExampleSource("zoom-example.tsx");
-  const orientationSource = getExampleSource("orientation-example.tsx");
-  const fullscreenSource = getExampleSource("fullscreen-example.tsx");
+  const controlsSource = getExampleSource("map-controls-example.tsx")
+  const zoomSource = getExampleSource("zoom-example.tsx")
+  const orientationSource = getExampleSource("orientation-example.tsx")
+  const fullscreenSource = getExampleSource("fullscreen-example.tsx")
 
   return (
     <DocsLayout
@@ -27,9 +27,9 @@ export default function ControlsPage() {
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the controls component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-controls.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/controls.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={controlsSource}>
@@ -48,8 +48,9 @@ export default function ControlsPage() {
 
       <DocsSection title="Orientation">
         <p>
-          The <DocsCode>MapOrientation</DocsCode> component shows a compass that displays the current map bearing
-          and resets the map orientation when clicked. Try rotating the map (hold Ctrl/Cmd + drag) to see the compass rotate.
+          The <DocsCode>MapOrientation</DocsCode> component shows a compass that displays the current map bearing and
+          resets the map orientation when clicked. Try rotating the map (hold Ctrl/Cmd + drag) to see the compass
+          rotate.
         </p>
       </DocsSection>
 
@@ -67,5 +68,5 @@ export default function ControlsPage() {
         <FullscreenControlExample />
       </ComponentPreview>
     </DocsLayout>
-  );
+  )
 }

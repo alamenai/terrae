@@ -1,4 +1,4 @@
-import { DocsLayout, DocsSection, DocsCode } from "../_components/docs"
+import { DocsLayout, DocsSection } from "../_components/docs"
 import { CodeBlock } from "../_components/code-block"
 import { ComparisonMapExample } from "../_components/examples/comparison-map-example"
 import type { Metadata } from "next"
@@ -145,7 +145,7 @@ const ComparisonPage = () => {
 
       <DocsSection title="Example">
         <p className="mb-4">
-          Let's create a map with a marker, popup, route line, and controls. Both approaches produce the exact same
+          Let&apos;s create a map with a marker, popup, route line, and controls. Both approaches produce the exact same
           result:
         </p>
         <div className="h-75 sm:h-100 w-full rounded-xl overflow-hidden border">

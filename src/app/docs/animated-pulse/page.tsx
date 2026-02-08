@@ -21,17 +21,14 @@ export default function AnimatedPulsePage() {
     <DocsLayout
       title="Animated Pulse"
       description="Create eye-catching pulsing dot animations for map markers."
-      prev={{ title: "Choropleth", href: "/docs/choropleth" }}
-      next={{ title: "Animated Polygon", href: "/docs/animated-polygon" }}
+      prev={{ title: "Animated Markers", href: "/docs/markers-animated" }}
+      next={{ title: "Animated Footprint", href: "/docs/footprint" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the animated pulse component:</p>
-        <CodeBlock
-          code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-marker-animated.json`}
-          language="bash"
-        />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/marker-animated.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={animatedIconSource}>
@@ -101,7 +98,7 @@ export default function AnimatedPulsePage() {
                   <DocsCode>color</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"rgba(0, 100, 255, 1)"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;rgba(0, 100, 255, 1)&quot;</TableCell>
                 <TableCell>Inner circle color (RGBA format)</TableCell>
               </TableRow>
               <TableRow>
@@ -109,7 +106,7 @@ export default function AnimatedPulsePage() {
                   <DocsCode>pulseColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"rgba(0, 100, 255, 0.8)"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;rgba(0, 100, 255, 0.8)&quot;</TableCell>
                 <TableCell>Pulsing outer circle color (RGBA format)</TableCell>
               </TableRow>
               <TableRow>

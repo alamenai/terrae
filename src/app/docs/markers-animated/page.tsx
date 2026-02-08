@@ -21,17 +21,14 @@ export default function AnimatedMarkersPage() {
     <DocsLayout
       title="Animated Markers"
       description="Animate markers smoothly along paths for real-time tracking and visualization."
-      prev={{ title: "Camera Follow", href: "/docs/camera-follow" }}
-      next={{ title: "Circle Clusters", href: "/docs/circle-clusters" }}
+      prev={{ title: "Popup", href: "/docs/popups" }}
+      next={{ title: "Animated Pulse", href: "/docs/animated-pulse" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the animated marker component:</p>
-        <CodeBlock
-          code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-marker-animated.json`}
-          language="bash"
-        />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/marker-animated.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={loopSource}>
@@ -71,7 +68,7 @@ export default function AnimatedMarkersPage() {
                   <DocsCode>color</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Marker color</TableCell>
               </TableRow>
               <TableRow>
@@ -119,7 +116,7 @@ export default function AnimatedMarkersPage() {
                   <DocsCode>pathColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Path line color</TableCell>
               </TableRow>
               <TableRow>
@@ -171,22 +168,6 @@ export default function AnimatedMarkersPage() {
           <div className="rounded-xl border border-border/50 bg-card p-4">
             <h4 className="font-medium text-sm text-foreground">Ride-Sharing</h4>
             <p className="text-xs text-muted-foreground mt-1">Live vehicle location updates for ride-sharing apps</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Fleet Management</h4>
-            <p className="text-xs text-muted-foreground mt-1">Track and visualize fleet vehicles in real-time</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Trip Playback</h4>
-            <p className="text-xs text-muted-foreground mt-1">Historical route playback for past trips and travels</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Activity Tracking</h4>
-            <p className="text-xs text-muted-foreground mt-1">Running, cycling, and sports activity visualization</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Flight Tracking</h4>
-            <p className="text-xs text-muted-foreground mt-1">Animate aircraft along flight paths and routes</p>
           </div>
         </div>
       </DocsSection>

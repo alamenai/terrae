@@ -30,14 +30,14 @@ export default function LinesPage() {
     <DocsLayout
       title="Lines"
       description="Draw lines and paths connecting coordinates on the map."
-      prev={{ title: "MiniMap", href: "/docs/minimap" }}
-      next={{ title: "Polygon", href: "/docs/polygon" }}
+      prev={{ title: "Animated Radial Lines", href: "/docs/lines-radial" }}
+      next={{ title: "Animated Circle", href: "/docs/animated-circle" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the line component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-line.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/line.json`} language="bash" />
       </DocsSection>
 
       <DocsSection title="Basic Line">

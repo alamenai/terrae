@@ -1,4 +1,4 @@
-import { DocsLayout, DocsSection, DocsCode, DocsPropTable, NewBadge } from "../_components/docs"
+import { DocsLayout, DocsSection, DocsCode, DocsPropTable } from "../_components/docs"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { MiniMapExample } from "../_components/examples/minimap-example"
@@ -24,14 +24,14 @@ export default function MiniMapPage() {
     <DocsLayout
       title="MiniMap"
       description="Add a minimap overview to help users understand their location context."
-      prev={{ title: "Targeting Reticle", href: "/docs/targeting-reticle" }}
-      next={{ title: "Lines", href: "/docs/lines" }}
+      prev={{ title: "Heatmaps", href: "/docs/heatmaps" }}
+      next={{ title: "Radar", href: "/docs/radar" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the minimap component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/mini-map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/mini-map.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={miniMapSource} className="h-125">
@@ -48,10 +48,10 @@ export default function MiniMapPage() {
         <MiniMapPositionExample />
       </ComponentPreview>
 
-      <DocsSection title="Rounded" id="rounded" badge={<NewBadge />}>
+      <DocsSection title="Rounded" id="rounded">
         <p>
-          Use the <DocsCode>rounded</DocsCode> prop to customize the border radius. Set to "full" for a circular
-          minimap.
+          Use the <DocsCode>rounded</DocsCode> prop to customize the border radius. Set to &quot;full&quot; for a
+          circular minimap.
         </p>
       </DocsSection>
 
@@ -59,7 +59,7 @@ export default function MiniMapPage() {
         <MiniMapRoundedExample />
       </ComponentPreview>
 
-      <DocsSection title="Draggable" id="draggable" badge={<NewBadge />}>
+      <DocsSection title="Draggable" id="draggable">
         <p>
           Enable the <DocsCode>draggable</DocsCode> prop to let users move the minimap anywhere within the map.
         </p>
@@ -113,7 +113,6 @@ export default function MiniMapPage() {
               name: "styles",
               type: "MapThemeStyles",
               description: "Theme-aware styles object with light/dark variants. Automatically switches based on theme.",
-              isNew: true,
             },
             {
               name: "boxColor",
@@ -132,14 +131,12 @@ export default function MiniMapPage() {
               type: 'number | "full" | "none"',
               default: "8",
               description: 'Border radius in pixels, "full" for circular, or "none".',
-              isNew: true,
             },
             {
               name: "draggable",
               type: "boolean",
               default: "false",
               description: "Allow users to drag the minimap anywhere within the map.",
-              isNew: true,
             },
           ]}
         />

@@ -25,17 +25,14 @@ const AnimatedCirclePage = () => {
     <DocsLayout
       title="Animated Circle"
       description="Animated circles with drawing outline and fill effects."
-      prev={{ title: "Circle", href: "/docs/circle" }}
-      next={{ title: "Animated Lines", href: "/docs/lines-animated" }}
+      prev={{ title: "Lines", href: "/docs/lines" }}
+      next={{ title: "Animated Polygon", href: "/docs/animated-polygon" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the animated circle component:</p>
-        <CodeBlock
-          code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-animated-circle.json`}
-          language="bash"
-        />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/animated-circle.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={basicSource}>
@@ -54,7 +51,7 @@ const AnimatedCirclePage = () => {
 
       <DocsSection title="Fill">
         <p>
-          Set <DocsCode>animationMode="fill"</DocsCode> to animate the fill opacity instead of the outline.
+          Set <DocsCode>animationMode=&quot;fill&quot;</DocsCode> to animate the fill opacity instead of the outline.
         </p>
       </DocsSection>
 
@@ -125,7 +122,7 @@ const AnimatedCirclePage = () => {
                   <DocsCode>strokeColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Stroke/outline color</TableCell>
               </TableRow>
               <TableRow>
@@ -157,7 +154,7 @@ const AnimatedCirclePage = () => {
                   <DocsCode>fillColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Fill color of the circle</TableCell>
               </TableRow>
               <TableRow>
@@ -188,8 +185,8 @@ const AnimatedCirclePage = () => {
                 <TableCell>
                   <DocsCode>animationMode</DocsCode>
                 </TableCell>
-                <TableCell className="text-muted-foreground">"draw" | "fill"</TableCell>
-                <TableCell className="text-muted-foreground">"draw"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;draw&quot; | &quot;fill&quot;</TableCell>
+                <TableCell className="text-muted-foreground">&quot;draw&quot;</TableCell>
                 <TableCell>Animation mode: outline only or outline then fill</TableCell>
               </TableRow>
               <TableRow>
@@ -262,16 +259,6 @@ const AnimatedCirclePage = () => {
           <div className="rounded-xl border border-border/50 bg-card p-4">
             <h4 className="font-medium text-sm text-foreground">Impact Visualization</h4>
             <p className="text-xs text-muted-foreground mt-1">Animate blast radius or impact zones</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Coverage Animation</h4>
-            <p className="text-xs text-muted-foreground mt-1">Show service coverage expanding over time</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Alert Zones</h4>
-            <p className="text-xs text-muted-foreground mt-1">
-              Highlight areas with animated attention-grabbing circles
-            </p>
           </div>
         </div>
       </DocsSection>

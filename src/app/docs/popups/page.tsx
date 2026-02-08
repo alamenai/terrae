@@ -1,4 +1,4 @@
-import { DocsLayout, DocsSection, DocsCode } from "../_components/docs"
+import { DocsLayout, DocsSection } from "../_components/docs"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { StandalonePopupExample } from "../_components/examples/standalone-popup-example"
@@ -19,13 +19,13 @@ export default function PopupsPage() {
       title="Popup"
       description="Display popups anywhere on the map without markers."
       prev={{ title: "Marker", href: "/docs/markers" }}
-      next={{ title: "Blur Area", href: "/docs/blur-area" }}
+      next={{ title: "Animated Markers", href: "/docs/markers-animated" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the popup component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-popup.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/popup.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={popupSource}>

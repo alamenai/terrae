@@ -24,13 +24,13 @@ const RadialLinesPage = () => {
       title="Animated Radial Lines"
       description="Animated lines spreading from a central origin to multiple destinations."
       prev={{ title: "Animated Lines", href: "/docs/lines-animated" }}
-      next={{ title: "Animated Arc", href: "/docs/arc-animated" }}
+      next={{ title: "Lines", href: "/docs/lines" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the radial line component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-line-radial.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/line-radial.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={covidSpreadSource}>
@@ -62,8 +62,8 @@ const RadialLinesPage = () => {
 
       <DocsSection title="Auto Curvature">
         <p>
-          Set <DocsCode>curvature="auto"</DocsCode> to automatically calculate curvature based on the distance between
-          origin and destination. Longer distances get more curve, shorter distances stay straighter. Adjust{" "}
+          Set <DocsCode>curvature=&quot;auto&quot;</DocsCode> to automatically calculate curvature based on the distance
+          between origin and destination. Longer distances get more curve, shorter distances stay straighter. Adjust{" "}
           <DocsCode>curveSegments</DocsCode> to control smoothness (lower values for better performance).
         </p>
       </DocsSection>
@@ -75,8 +75,8 @@ const RadialLinesPage = () => {
       <DocsSection title="Line Curvature">
         <p>
           Control the curvature of lines using the <DocsCode>curvature</DocsCode> prop. A value of 0 creates straight
-          lines, while higher values (0.3-0.5) create more pronounced curves. Set to <DocsCode>"auto"</DocsCode> to
-          automatically calculate curvature based on distance.
+          lines, while higher values (0.3-0.5) create more pronounced curves. Set to{" "}
+          <DocsCode>&quot;auto&quot;</DocsCode> to automatically calculate curvature based on distance.
         </p>
       </DocsSection>
 
@@ -146,7 +146,7 @@ const RadialLinesPage = () => {
                   <DocsCode>color</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Default line color for all lines</TableCell>
               </TableRow>
               <TableRow>
@@ -169,7 +169,7 @@ const RadialLinesPage = () => {
                 <TableCell>
                   <DocsCode>curvature</DocsCode>
                 </TableCell>
-                <TableCell className="text-muted-foreground">number | "auto"</TableCell>
+                <TableCell className="text-muted-foreground">number | &quot;auto&quot;</TableCell>
                 <TableCell className="text-muted-foreground">0.3</TableCell>
                 <TableCell>Line curvature (0 = straight, higher = more curved)</TableCell>
               </TableRow>
@@ -234,7 +234,7 @@ const RadialLinesPage = () => {
                   <DocsCode>originMarkerColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#ef4444"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#ef4444&quot;</TableCell>
                 <TableCell>Color of the origin marker</TableCell>
               </TableRow>
               <TableRow>
@@ -310,28 +310,6 @@ const RadialLinesPage = () => {
             <h4 className="font-medium text-sm text-foreground">Flight Routes</h4>
             <p className="text-xs text-muted-foreground mt-1">
               Show flight connections from a hub airport to destinations
-            </p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Supply Chain</h4>
-            <p className="text-xs text-muted-foreground mt-1">
-              Visualize distribution from warehouses to retail locations
-            </p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Network Topology</h4>
-            <p className="text-xs text-muted-foreground mt-1">Display data flow from central servers to edge nodes</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Migration Patterns</h4>
-            <p className="text-xs text-muted-foreground mt-1">
-              Show population movement from a region to various destinations
-            </p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Trade Routes</h4>
-            <p className="text-xs text-muted-foreground mt-1">
-              Visualize export/import connections from a central port
             </p>
           </div>
         </div>

@@ -19,8 +19,8 @@ export default function RainPage() {
     <DocsLayout
       title="Rain Effect"
       description="Add realistic rain and weather effects to your maps."
-      prev={{ title: "Video", href: "/docs/raster-video" }}
-      next={{ title: "Heatmaps", href: "/docs/heatmaps" }}
+      prev={{ title: "Meteor", href: "/docs/meteor" }}
+      next={{ title: "Sandstorm", href: "/docs/sandstorm" }}
     >
       <DocsNote>
         <strong className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
@@ -31,9 +31,9 @@ export default function RainPage() {
 
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the rain effect component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-rain.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/rain.json`} language="bash" />
         <p className="mt-2">
           This example uses <DocsCode>createZoomInterpolation()</DocsCode> to gradually reveal the rain effect as users
           zoom in, preventing it from being visible at lower zoom levels.
@@ -91,7 +91,7 @@ export default function RainPage() {
                   <DocsCode>color</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#a8adbc"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#a8adbc&quot;</TableCell>
                 <TableCell>Rain droplet color (hex format)</TableCell>
               </TableRow>
               <TableRow>
@@ -115,7 +115,7 @@ export default function RainPage() {
                   <DocsCode>vignetteColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#464646"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#464646&quot;</TableCell>
                 <TableCell>Color for edge darkening</TableCell>
               </TableRow>
               <TableRow>

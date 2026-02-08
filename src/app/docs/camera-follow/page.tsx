@@ -64,17 +64,14 @@ export default function CameraFollowPage() {
     <DocsLayout
       title="Camera Follow"
       description="Animate the camera along a path for immersive fly-through experiences."
-      prev={{ title: "Animated Arc", href: "/docs/arc-animated" }}
-      next={{ title: "Animated Markers", href: "/docs/markers-animated" }}
+      prev={{ title: "Blur Area", href: "/docs/blur-area" }}
+      next={{ title: "Compare", href: "/docs/compare" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the camera follow component:</p>
-        <CodeBlock
-          code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-camera-follow.json`}
-          language="bash"
-        />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/camera-follow.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={cameraFollowSource}>

@@ -27,9 +27,9 @@ export default function CompassPage() {
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the compass component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-compass.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/compass.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={basicSource}>

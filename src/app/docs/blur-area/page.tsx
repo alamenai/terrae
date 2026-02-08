@@ -24,14 +24,14 @@ export default function BlurAreaPage() {
     <DocsLayout
       title="Blur Area"
       description="Obscure specific map regions for privacy, restrictions, or focus."
-      prev={{ title: "Popup", href: "/docs/popups" }}
-      next={{ title: "Targeting Reticle", href: "/docs/targeting-reticle" }}
+      prev={{ title: "Animated Footprint", href: "/docs/footprint" }}
+      next={{ title: "Camera Follow", href: "/docs/camera-follow" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the blur area component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-blur-area.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/blur-area.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={blurAreaSource}>
@@ -39,7 +39,7 @@ export default function BlurAreaPage() {
       </ComponentPreview>
 
       <DocsSection title="Rounded">
-        <p>Use the rounded prop to add border radius. Set to "full" for a circular or pill shape.</p>
+        <p>Use the rounded prop to add border radius. Set to &quot;full&quot; for a circular or pill shape.</p>
       </DocsSection>
 
       <ComponentPreview code={blurAreaRoundedSource}>

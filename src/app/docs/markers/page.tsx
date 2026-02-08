@@ -1,4 +1,4 @@
-import { DocsLayout, DocsSection, DocsCode, NewBadge } from "../_components/docs"
+import { DocsLayout, DocsSection, DocsCode } from "../_components/docs"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { MarkersExample } from "../_components/examples/markers-example"
@@ -31,9 +31,9 @@ export default function MarkersPage() {
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the marker component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-marker.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/marker.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={markersSource}>
@@ -59,7 +59,7 @@ export default function MarkersPage() {
         <AvatarMarkerExample />
       </ComponentPreview>
 
-      <DocsSection title="Avatar Pin Markers" badge={<NewBadge />}>
+      <DocsSection title="Avatar Pin Markers">
         <p>
           Use <DocsCode>MarkerAvatarPin</DocsCode> for a classic map pin shape with a photo inside. The teardrop design
           provides a clear pointer to the exact location while displaying user avatars.

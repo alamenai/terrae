@@ -18,17 +18,14 @@ export default function TargetingReticlePage() {
     <DocsLayout
       title="Targeting Reticle"
       description="Military-style targeting brackets with tracking and lock-on capabilities."
-      prev={{ title: "Blur Area", href: "/docs/blur-area" }}
-      next={{ title: "MiniMap", href: "/docs/minimap" }}
+      prev={{ title: "Sync", href: "/docs/sync" }}
+      next={{ title: "Watermark", href: "/docs/watermark" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the targeting reticle component:</p>
-        <CodeBlock
-          code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-targeting-reticle.json`}
-          language="bash"
-        />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/targeting-reticle.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={staticSource}>

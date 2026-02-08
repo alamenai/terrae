@@ -24,14 +24,14 @@ export default function RadarPage() {
     <DocsLayout
       title="Radar"
       description="Animated radar sweep signal overlay on map coordinates."
-      prev={{ title: "Targeting Reticle", href: "/docs/targeting-reticle" }}
-      next={{ title: "MiniMap", href: "/docs/minimap" }}
+      prev={{ title: "MiniMap", href: "/docs/minimap" }}
+      next={{ title: "Sync", href: "/docs/sync" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the radar component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-radar.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/radar.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={radarSource}>

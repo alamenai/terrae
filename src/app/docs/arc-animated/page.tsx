@@ -1,4 +1,4 @@
-import { DocsLayout, DocsSection, DocsCode, NewBadge } from "../_components/docs"
+import { DocsLayout, DocsSection, DocsCode } from "../_components/docs"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { ArcFlightExample } from "../_components/examples/arc-flight-example"
@@ -27,17 +27,14 @@ const ArcAnimatedPage = () => {
     <DocsLayout
       title="Animated Arc"
       description="Visualize point-to-point connections with animated parabolic arcs."
-      prev={{ title: "Animated Radial Lines", href: "/docs/lines-radial" }}
-      next={{ title: "Camera Follow", href: "/docs/camera-follow" }}
+      prev={{ title: "Watermark", href: "/docs/watermark" }}
+      next={{ title: "Animated Lines", href: "/docs/lines-animated" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the animated arc component:</p>
-        <CodeBlock
-          code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-arc-animated.json`}
-          language="bash"
-        />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/arc-animated.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={flightSource}>
@@ -81,8 +78,9 @@ const ArcAnimatedPage = () => {
       <DocsSection title="Head Types">
         <p>
           Use <DocsCode>headType</DocsCode> to change the shape of the traveling marker. Options are{" "}
-          <DocsCode>"circle"</DocsCode> (default), <DocsCode>"arrow"</DocsCode>, <DocsCode>"square"</DocsCode>, or{" "}
-          <DocsCode>"none"</DocsCode>. Control the size with <DocsCode>headSize</DocsCode>.
+          <DocsCode>&quot;circle&quot;</DocsCode> (default), <DocsCode>&quot;arrow&quot;</DocsCode>,{" "}
+          <DocsCode>&quot;square&quot;</DocsCode>, or <DocsCode>&quot;none&quot;</DocsCode>. Control the size with{" "}
+          <DocsCode>headSize</DocsCode>.
         </p>
       </DocsSection>
 
@@ -143,7 +141,7 @@ const ArcAnimatedPage = () => {
                   <DocsCode>color</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Arc line color</TableCell>
               </TableRow>
               <TableRow>
@@ -222,18 +220,18 @@ const ArcAnimatedPage = () => {
                 <TableCell>
                   <span className="flex items-center gap-2">
                     <DocsCode>headType</DocsCode>
-                    <NewBadge />
                   </span>
                 </TableCell>
-                <TableCell className="text-muted-foreground">"none" | "circle" | "square" | "arrow"</TableCell>
-                <TableCell className="text-muted-foreground">"circle"</TableCell>
+                <TableCell className="text-muted-foreground">
+                  &quot;none&quot; | &quot;circle&quot; | &quot;square&quot; | &quot;arrow&quot;
+                </TableCell>
+                <TableCell className="text-muted-foreground">&quot;circle&quot;</TableCell>
                 <TableCell>Shape of the traveling marker</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>
                   <span className="flex items-center gap-2">
                     <DocsCode>headSize</DocsCode>
-                    <NewBadge />
                   </span>
                 </TableCell>
                 <TableCell className="text-muted-foreground">number</TableCell>
@@ -244,7 +242,6 @@ const ArcAnimatedPage = () => {
                 <TableCell>
                   <span className="flex items-center gap-2">
                     <DocsCode>showOriginMarker</DocsCode>
-                    <NewBadge />
                   </span>
                 </TableCell>
                 <TableCell className="text-muted-foreground">boolean</TableCell>
@@ -255,7 +252,6 @@ const ArcAnimatedPage = () => {
                 <TableCell>
                   <span className="flex items-center gap-2">
                     <DocsCode>originMarkerColor</DocsCode>
-                    <NewBadge />
                   </span>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
@@ -266,7 +262,6 @@ const ArcAnimatedPage = () => {
                 <TableCell>
                   <span className="flex items-center gap-2">
                     <DocsCode>showDestinationMarker</DocsCode>
-                    <NewBadge />
                   </span>
                 </TableCell>
                 <TableCell className="text-muted-foreground">boolean</TableCell>
@@ -277,7 +272,6 @@ const ArcAnimatedPage = () => {
                 <TableCell>
                   <span className="flex items-center gap-2">
                     <DocsCode>destinationMarkerColor</DocsCode>
-                    <NewBadge />
                   </span>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
@@ -309,16 +303,6 @@ const ArcAnimatedPage = () => {
             <h4 className="font-medium text-sm text-foreground">Trade & Logistics</h4>
             <p className="text-xs text-muted-foreground mt-1">
               Visualize import/export flows and supply chain connections.
-            </p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Migration Patterns</h4>
-            <p className="text-xs text-muted-foreground mt-1">Show population or wildlife movement between regions.</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Satellite Links</h4>
-            <p className="text-xs text-muted-foreground mt-1">
-              Represent communication signals between ground stations.
             </p>
           </div>
         </div>

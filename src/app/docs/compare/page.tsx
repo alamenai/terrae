@@ -1,4 +1,4 @@
-import { DocsLayout, DocsSection, DocsCode, NewBadge } from "../_components/docs"
+import { DocsLayout, DocsSection, DocsCode } from "../_components/docs"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { BasicCompareExample } from "../_components/examples/basic-compare-example"
@@ -21,14 +21,14 @@ export default function MapComparePage() {
     <DocsLayout
       title="Compare"
       description="Compare two map views side-by-side or stacked with customizable orientation."
-      prev={{ title: "Animated Polygon", href: "/docs/animated-polygon" }}
-      next={{ title: "Sync", href: "/docs/sync" }}
+      prev={{ title: "Camera Follow", href: "/docs/camera-follow" }}
+      next={{ title: "Grid", href: "/docs/grid" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the compare component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-compare.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/compare.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={basicCompareSource}>
@@ -47,7 +47,7 @@ export default function MapComparePage() {
         <StyleCompareExample />
       </ComponentPreview>
 
-      <DocsSection title="Vertical Orientation" id="vertical-orientation" badge={<NewBadge />}>
+      <DocsSection title="Vertical Orientation" id="vertical-orientation">
         <p>
           Use the <DocsCode>orientation</DocsCode> prop to switch between horizontal (side-by-side) and vertical
           (stacked) layouts. Vertical orientation is useful for comparing maps on narrow screens or when you want to
@@ -83,18 +83,16 @@ export default function MapComparePage() {
                 <TableCell>
                   <span className="flex items-center gap-2">
                     <DocsCode>orientation</DocsCode>
-                    <NewBadge />
                   </span>
                 </TableCell>
-                <TableCell className="text-muted-foreground">"horizontal" | "vertical"</TableCell>
-                <TableCell className="text-muted-foreground">"horizontal"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;horizontal&quot; | &quot;vertical&quot;</TableCell>
+                <TableCell className="text-muted-foreground">&quot;horizontal&quot;</TableCell>
                 <TableCell>Layout orientation for the comparison</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>
                   <span className="flex items-center gap-2">
                     <DocsCode>showLabels</DocsCode>
-                    <NewBadge />
                   </span>
                 </TableCell>
                 <TableCell className="text-muted-foreground">boolean</TableCell>
@@ -154,7 +152,7 @@ export default function MapComparePage() {
                   <DocsCode>projection</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"mercator"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;mercator&quot;</TableCell>
                 <TableCell>Map projection type</TableCell>
               </TableRow>
               <TableRow>
@@ -180,7 +178,10 @@ export default function MapComparePage() {
           <li>
             Labels are hidden by default - use <DocsCode>showLabels</DocsCode> to display them
           </li>
-          <li>Vertical orientation uses "Top" and "Bottom" labels instead of "Before" and "After"</li>
+          <li>
+            Vertical orientation uses &quot;Top&quot; and &quot;Bottom&quot; labels instead of &quot;Before&quot; and
+            &quot;After&quot;
+          </li>
         </ul>
       </DocsSection>
     </DocsLayout>

@@ -27,14 +27,14 @@ export default function MapSyncPage() {
     <DocsLayout
       title="Sync"
       description="Synchronized multi-map component where panning, zooming, or rotating one map updates all others in real-time."
-      prev={{ title: "Compare", href: "/docs/compare" }}
-      next={{ title: "Image", href: "/docs/image" }}
+      prev={{ title: "Radar", href: "/docs/radar" }}
+      next={{ title: "Targeting Reticle", href: "/docs/targeting-reticle" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the sync component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-sync.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/sync.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={basicSyncSource}>
@@ -43,8 +43,8 @@ export default function MapSyncPage() {
 
       <DocsSection title="Vertical Layout">
         <p>
-          Use <DocsCode>layout="vertical"</DocsCode> to stack maps vertically. This works well for narrow containers or
-          when comparing maps that benefit from a top-bottom view.
+          Use <DocsCode>layout=&quot;vertical&quot;</DocsCode> to stack maps vertically. This works well for narrow
+          containers or when comparing maps that benefit from a top-bottom view.
         </p>
       </DocsSection>
 
@@ -54,8 +54,8 @@ export default function MapSyncPage() {
 
       <DocsSection title="Four-Map Grid">
         <p>
-          Pass four maps with <DocsCode>layout="grid"</DocsCode> to create a 2x2 grid. This allows comparing multiple
-          styles simultaneously - street, satellite, light, and dark themes all synced together.
+          Pass four maps with <DocsCode>layout=&quot;grid&quot;</DocsCode> to create a 2x2 grid. This allows comparing
+          multiple styles simultaneously - street, satellite, light, and dark themes all synced together.
         </p>
       </DocsSection>
 
@@ -124,8 +124,10 @@ export default function MapSyncPage() {
                 <TableCell>
                   <DocsCode>layout</DocsCode>
                 </TableCell>
-                <TableCell className="text-muted-foreground">"horizontal" | "vertical" | "grid"</TableCell>
-                <TableCell className="text-muted-foreground">"horizontal"</TableCell>
+                <TableCell className="text-muted-foreground">
+                  &quot;horizontal&quot; | &quot;vertical&quot; | &quot;grid&quot;
+                </TableCell>
+                <TableCell className="text-muted-foreground">&quot;horizontal&quot;</TableCell>
                 <TableCell>Layout arrangement for the maps</TableCell>
               </TableRow>
               <TableRow>
@@ -173,7 +175,7 @@ export default function MapSyncPage() {
                   <DocsCode>projection</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"mercator"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;mercator&quot;</TableCell>
                 <TableCell>Map projection type</TableCell>
               </TableRow>
               <TableRow>
@@ -234,7 +236,7 @@ export default function MapSyncPage() {
           <li>Each map is a separate Mapbox instance, which means billing applies per map</li>
           <li>Synchronization is bidirectional - interact with any map to update all others</li>
           <li>The grid layout requires exactly 4 maps; 2 maps work with horizontal or vertical layouts</li>
-          <li>Movement sync uses Mapbox's move event for smooth, real-time updates</li>
+          <li>Movement sync uses Mapbox&apos;s move event for smooth, real-time updates</li>
           <li>Custom labels can be set per map, or use the default position-based labels</li>
         </ul>
       </DocsSection>

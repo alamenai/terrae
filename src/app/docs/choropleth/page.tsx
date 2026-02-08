@@ -23,14 +23,14 @@ const ChoroplethPage = () => {
     <DocsLayout
       title="Choropleth"
       description="Visualize data by coloring geographic regions based on values."
-      prev={{ title: "Circle Clusters", href: "/docs/circle-clusters" }}
-      next={{ title: "Animated Pulse", href: "/docs/animated-pulse" }}
+      prev={{ title: "Animated Polygon", href: "/docs/animated-polygon" }}
+      next={{ title: "Circle", href: "/docs/circle" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the choropleth component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-choropleth.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/choropleth.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={basicSource}>
@@ -139,7 +139,7 @@ const ChoroplethPage = () => {
                   <DocsCode>strokeColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground hidden sm:table-cell">"#ffffff"</TableCell>
+                <TableCell className="text-muted-foreground hidden sm:table-cell">&quot;#ffffff&quot;</TableCell>
                 <TableCell>Border color between regions</TableCell>
               </TableRow>
               <TableRow>
@@ -179,7 +179,7 @@ const ChoroplethPage = () => {
                   <DocsCode>hoverStrokeColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground hidden sm:table-cell">"#000000"</TableCell>
+                <TableCell className="text-muted-foreground hidden sm:table-cell">&quot;#000000&quot;</TableCell>
                 <TableCell>Border color when hovered</TableCell>
               </TableRow>
               <TableRow>
@@ -220,7 +220,7 @@ const ChoroplethPage = () => {
                 </TableCell>
                 <TableCell className="text-muted-foreground">string[]</TableCell>
                 <TableCell className="text-muted-foreground hidden sm:table-cell">
-                  ["#00ffff", "#a855f7", ...]
+                  [&quot;#00ffff&quot;, &quot;#a855f7&quot;, ...]
                 </TableCell>
                 <TableCell>Colors to cycle through for the neon gradient</TableCell>
               </TableRow>
@@ -261,8 +261,8 @@ const ChoroplethPage = () => {
                 <TableCell>
                   <DocsCode>interpolation</DocsCode>
                 </TableCell>
-                <TableCell className="text-muted-foreground">"linear" | "step"</TableCell>
-                <TableCell className="text-muted-foreground hidden sm:table-cell">"linear"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;linear&quot; | &quot;step&quot;</TableCell>
+                <TableCell className="text-muted-foreground hidden sm:table-cell">&quot;linear&quot;</TableCell>
                 <TableCell>How to interpolate colors between stops</TableCell>
               </TableRow>
               <TableRow>
@@ -270,7 +270,7 @@ const ChoroplethPage = () => {
                   <DocsCode>nullColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground hidden sm:table-cell">"#cccccc"</TableCell>
+                <TableCell className="text-muted-foreground hidden sm:table-cell">&quot;#cccccc&quot;</TableCell>
                 <TableCell>Color for regions with null/missing values</TableCell>
               </TableRow>
             </TableBody>

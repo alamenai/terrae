@@ -19,17 +19,14 @@ const AnimatedPolygonPage = () => {
     <DocsLayout
       title="Animated Polygon"
       description="Animated polygons that draw their outline and fill with smooth transitions."
-      prev={{ title: "Animated Pulse", href: "/docs/animated-pulse" }}
-      next={{ title: "Compare", href: "/docs/compare" }}
+      prev={{ title: "Animated Circle", href: "/docs/animated-circle" }}
+      next={{ title: "Choropleth", href: "/docs/choropleth" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the animated polygon component:</p>
-        <CodeBlock
-          code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-animated-polygon.json`}
-          language="bash"
-        />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/animated-polygon.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={outlineSource}>
@@ -38,8 +35,8 @@ const AnimatedPolygonPage = () => {
 
       <DocsSection title="With Fill">
         <p>
-          Use <DocsCode>animationMode="draw-then-fill"</DocsCode> to first draw the outline, then animate the fill
-          opacity. Set <DocsCode>fillColor</DocsCode> and <DocsCode>fillOpacity</DocsCode> to customize the fill
+          Use <DocsCode>animationMode=&quot;draw-then-fill&quot;</DocsCode> to first draw the outline, then animate the
+          fill opacity. Set <DocsCode>fillColor</DocsCode> and <DocsCode>fillOpacity</DocsCode> to customize the fill
           appearance.
         </p>
       </DocsSection>
@@ -96,7 +93,7 @@ const AnimatedPolygonPage = () => {
                   <DocsCode>strokeColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Color of the polygon outline</TableCell>
               </TableRow>
               <TableRow>
@@ -120,7 +117,7 @@ const AnimatedPolygonPage = () => {
                   <DocsCode>fillColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Color of the polygon fill</TableCell>
               </TableRow>
               <TableRow>
@@ -151,8 +148,10 @@ const AnimatedPolygonPage = () => {
                 <TableCell>
                   <DocsCode>animationMode</DocsCode>
                 </TableCell>
-                <TableCell className="text-muted-foreground">"draw" | "fill" | "draw-then-fill"</TableCell>
-                <TableCell className="text-muted-foreground">"draw-then-fill"</TableCell>
+                <TableCell className="text-muted-foreground">
+                  &quot;draw&quot; | &quot;fill&quot; | &quot;draw-then-fill&quot;
+                </TableCell>
+                <TableCell className="text-muted-foreground">&quot;draw-then-fill&quot;</TableCell>
                 <TableCell>Animation sequence mode</TableCell>
               </TableRow>
               <TableRow>
@@ -220,26 +219,6 @@ const AnimatedPolygonPage = () => {
             <h4 className="font-medium text-sm text-foreground">Risk Assessment</h4>
             <p className="text-xs text-muted-foreground mt-1">Display flood zones, seismic risk, or hazard areas</p>
           </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Service Coverage</h4>
-            <p className="text-xs text-muted-foreground mt-1">
-              Show delivery zones, network coverage, or service areas
-            </p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Property Boundaries</h4>
-            <p className="text-xs text-muted-foreground mt-1">
-              Highlight parcels, districts, or administrative regions
-            </p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Conservation Areas</h4>
-            <p className="text-xs text-muted-foreground mt-1">Display protected zones, parks, or wildlife reserves</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Urban Planning</h4>
-            <p className="text-xs text-muted-foreground mt-1">Visualize zoning districts or development boundaries</p>
-          </div>
         </div>
       </DocsSection>
 
@@ -247,7 +226,7 @@ const AnimatedPolygonPage = () => {
         <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground mt-2">
           <li>Keep polygon vertices under 100 points for smooth animation</li>
           <li>
-            Use <DocsCode>animationMode="fill"</DocsCode> for simpler animations with less CPU usage
+            Use <DocsCode>animationMode=&quot;fill&quot;</DocsCode> for simpler animations with less CPU usage
           </li>
           <li>
             Increase <DocsCode>loopDelay</DocsCode> to reduce continuous animation overhead

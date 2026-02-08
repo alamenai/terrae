@@ -19,14 +19,14 @@ export default function ImagePage() {
     <DocsLayout
       title="Image"
       description="Overlay images on specific map coordinates."
-      prev={{ title: "Sync", href: "/docs/sync" }}
-      next={{ title: "Video", href: "/docs/raster-video" }}
+      prev={{ title: "Polygon", href: "/docs/polygon" }}
+      next={{ title: "Music Disc", href: "/docs/music-disc" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the image component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-image.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/image.json`} language="bash" />
       </DocsSection>
 
       <DocsSection title="Basic Example">

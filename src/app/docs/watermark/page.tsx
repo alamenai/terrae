@@ -20,14 +20,14 @@ const WatermarkPage = () => {
     <DocsLayout
       title="Watermark"
       description="Text watermark overlay for maps with configurable position and styling."
-      prev={{ title: "Radar", href: "/docs/radar" }}
-      next={{ title: "MiniMap", href: "/docs/minimap" }}
+      prev={{ title: "Targeting Reticle", href: "/docs/targeting-reticle" }}
+      next={{ title: "Animated Arc", href: "/docs/arc-animated" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the watermark component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-watermark.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/watermark.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={watermarkSource}>

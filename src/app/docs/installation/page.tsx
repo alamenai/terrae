@@ -1,14 +1,12 @@
-import { DocsCode, DocsLayout, DocsLink, DocsNote, DocsSection, NewBadge } from "../_components/docs"
+import { DocsCode, DocsLayout, DocsLink, DocsNote, DocsSection } from "../_components/docs"
 import { CodeBlock } from "../_components/code-block"
 import { Metadata } from "next"
 import { Card } from "@/components/ui/card"
 import { Map, MapMarker, MarkerContent } from "@/registry/map"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "site-url-here"
-
 const envCode = `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your_mapbox_token_here`
 
-const mapLibreInstallCode = `npx shadcn@latest add https://terrae.vercel.app/maps/map-maplibre.json`
+const mapLibreInstallCode = `npx shadcn@latest add https://www.terrae.dev/maplibre.json`
 
 const mapLibraryCode = `// map-library.ts — change these 3 lines:
 import mapboxgl from "maplibre-gl"
@@ -80,7 +78,7 @@ export default function InstallationPage() {
         <CodeBlock code={envCode} language="bash" />
       </DocsSection>
 
-      <DocsSection title="Using MapLibre GL" id="using-maplibre-gl" badge={<NewBadge />}>
+      <DocsSection title="Using MapLibre GL" id="using-maplibre-gl">
         <p>
           To use{" "}
           <DocsLink href="https://maplibre.org/" external>
@@ -116,10 +114,10 @@ export default function InstallationPage() {
 
       <DocsSection title="Add Components">
         <p>Start with the base map component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
 
         <p className="mt-4">Then add the specific components you need. For example, to add markers:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-marker.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/marker.json`} language="bash" />
 
         <p className="mt-4">
           Visit the <DocsLink href="/docs/components">components page</DocsLink> to see all available components and

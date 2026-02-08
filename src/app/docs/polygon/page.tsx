@@ -23,14 +23,14 @@ const PolygonPage = () => {
     <DocsLayout
       title="Polygon"
       description="Draw filled polygons on the map."
-      prev={{ title: "Lines", href: "/docs/lines" }}
-      next={{ title: "Circle", href: "/docs/circle" }}
+      prev={{ title: "Circle Clusters", href: "/docs/circle-clusters" }}
+      next={{ title: "Image", href: "/docs/image" }}
     >
       <DocsSection title="Installation">
         <p>First, make sure you have the base map component installed:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/map.json`} language="bash" />
         <p className="mt-4">Then install the polygon component:</p>
-        <CodeBlock code={`npx shadcn@latest add https://terrae.vercel.app/maps/map-polygon.json`} language="bash" />
+        <CodeBlock code={`npx shadcn@latest add https://www.terrae.dev/polygon.json`} language="bash" />
       </DocsSection>
 
       <ComponentPreview code={basicPolygonSource}>
@@ -93,7 +93,7 @@ const PolygonPage = () => {
                   <DocsCode>fillColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Fill color of the polygon</TableCell>
               </TableRow>
               <TableRow>
@@ -109,7 +109,7 @@ const PolygonPage = () => {
                   <DocsCode>strokeColor</DocsCode>
                 </TableCell>
                 <TableCell className="text-muted-foreground">string</TableCell>
-                <TableCell className="text-muted-foreground">"#3b82f6"</TableCell>
+                <TableCell className="text-muted-foreground">&quot;#3b82f6&quot;</TableCell>
                 <TableCell>Stroke/outline color</TableCell>
               </TableRow>
               <TableRow>
@@ -150,14 +150,6 @@ const PolygonPage = () => {
           <div className="rounded-xl border border-border/50 bg-card p-4">
             <h4 className="font-medium text-sm text-foreground">Coverage Areas</h4>
             <p className="text-xs text-muted-foreground mt-1">Display service coverage or delivery zones</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Property Boundaries</h4>
-            <p className="text-xs text-muted-foreground mt-1">Show land parcels or property lines</p>
-          </div>
-          <div className="rounded-xl border border-border/50 bg-card p-4">
-            <h4 className="font-medium text-sm text-foreground">Restricted Zones</h4>
-            <p className="text-xs text-muted-foreground mt-1">Highlight no-fly zones or restricted areas</p>
           </div>
         </div>
       </DocsSection>
