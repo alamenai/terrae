@@ -113,7 +113,7 @@ const navigation: NavGroup[] = [
       { title: "Grid", href: "/docs/grid", icon: Grid3x3, badge: "new" },
       { title: "Heatmaps", href: "/docs/heatmaps", icon: Flame },
       { title: "MiniMap", href: "/docs/minimap", icon: MapIcon },
-      { title: "Radar", href: "/docs/radar", icon: Radar },
+      { title: "Radar", href: "/docs/radar", icon: Radar, badge: "updated" },
       { title: "Sync", href: "/docs/sync", icon: Link2 },
       { title: "Targeting Reticle", href: "/docs/targeting-reticle", icon: Crosshair },
       { title: "Watermark", href: "/docs/watermark", icon: Stamp },

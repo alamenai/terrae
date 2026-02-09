@@ -5,12 +5,16 @@ import { cn } from "@/lib/utils"
 type DocsHeaderProps = {
   title: string
   description: string
+  badge?: React.ReactNode
 }
 
-export const DocsHeader = ({ title, description }: DocsHeaderProps) => {
+export const DocsHeader = ({ title, description, badge }: DocsHeaderProps) => {
   return (
     <div className="space-y-2 sm:space-y-3">
-      <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">{title}</h1>
+      <div className="flex items-center gap-3">
+        <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">{title}</h1>
+        {badge}
+      </div>
       <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">{description}</p>
     </div>
   )
@@ -24,15 +28,16 @@ type DocsNavLink = {
 type DocsLayoutProps = {
   title: string
   description: string
+  badge?: React.ReactNode
   children: React.ReactNode
   prev?: DocsNavLink
   next?: DocsNavLink
 }
 
-export const DocsLayout = ({ title, description, children, prev, next }: DocsLayoutProps) => {
+export const DocsLayout = ({ title, description, badge, children, prev, next }: DocsLayoutProps) => {
   return (
     <div>
-      <DocsHeader title={title} description={description} />
+      <DocsHeader title={title} description={description} badge={badge} />
 
       <div className="mt-6 sm:mt-10 space-y-6 sm:space-y-10">{children}</div>
 
