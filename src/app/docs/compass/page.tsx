@@ -1,11 +1,14 @@
 import { DocsLayout, DocsSection, DocsPropTable } from "../_components/docs"
+import { CoverageBadge } from "../_components/coverage-badge"
 import { ComponentPreview } from "../_components/component-preview"
 import { CodeBlock } from "../_components/code-block"
 import { CompassExample } from "../_components/examples/compass-example"
 import { CompassSizesExample } from "../_components/examples/compass-sizes-example"
 import { CompassMinimalExample } from "../_components/examples/compass-minimal-example"
+import { CompassBearingExample } from "../_components/examples/compass-bearing-example"
 import { CompassAutoRotateExample } from "../_components/examples/compass-auto-rotate-example"
 import { getExampleSource } from "@/lib/get-example-source"
+import { getCoveragePercentage } from "@/lib/get-coverage"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -13,15 +16,18 @@ export const metadata: Metadata = {
 }
 
 export default function CompassPage() {
+  const coverage = getCoveragePercentage("compass")
   const basicSource = getExampleSource("compass-example.tsx")
   const sizesSource = getExampleSource("compass-sizes-example.tsx")
   const minimalSource = getExampleSource("compass-minimal-example.tsx")
+  const bearingSource = getExampleSource("compass-bearing-example.tsx")
   const autoRotateSource = getExampleSource("compass-auto-rotate-example.tsx")
 
   return (
     <DocsLayout
       title="Compass"
       description="Interactive compass with drag-to-rotate functionality."
+      badge={coverage !== null ? <CoverageBadge percentage={coverage} /> : undefined}
       prev={{ title: "Controls", href: "/docs/controls" }}
       next={{ title: "Marker", href: "/docs/markers" }}
     >
@@ -53,6 +59,14 @@ export default function CompassPage() {
 
       <ComponentPreview code={minimalSource}>
         <CompassMinimalExample />
+      </ComponentPreview>
+
+      <DocsSection title="Bearing Display">
+        <p>Enable showBearing to display the current rotation angle in degrees below the compass.</p>
+      </DocsSection>
+
+      <ComponentPreview code={bearingSource}>
+        <CompassBearingExample />
       </ComponentPreview>
 
       <DocsSection title="Auto Rotate">
@@ -108,7 +122,7 @@ export default function CompassPage() {
             {
               name: "autoRotateSpeed",
               type: "number",
-              default: "1",
+              default: "2",
               description: "Speed of auto rotation in degrees per frame.",
             },
             {

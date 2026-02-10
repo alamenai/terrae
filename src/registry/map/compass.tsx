@@ -18,6 +18,10 @@ type MapCompassProps = {
   className?: string
 }
 
+type CardinalLabelsProps = {
+  fontSize: number
+}
+
 const DEFAULT_SIZE: MapCompassSize = "md"
 const DEFAULT_POSITION: MapControlPosition = "top-right"
 const DEFAULT_SHOW_CARDINALS = true
@@ -47,85 +51,25 @@ const resolveSize = (size: MapCompassSize | number): number => {
   return SIZE_MAP[size]
 }
 
-const CompassRing = () => {
-  const majorAngles = [0, 45, 90, 135, 180, 225, 270, 315]
-  const minorAngles = [15, 30, 60, 75, 105, 120, 150, 165, 195, 210, 240, 255, 285, 300, 330, 345]
-
-  const createTick = (angle: number, isMajor: boolean) => {
-    const rad = (angle * Math.PI) / 180
-    const innerRadius = isMajor ? 40 : 42
-    const outerRadius = 46
-    const x1 = 50 + innerRadius * Math.sin(rad)
-    const y1 = 50 - innerRadius * Math.cos(rad)
-    const x2 = 50 + outerRadius * Math.sin(rad)
-    const y2 = 50 - outerRadius * Math.cos(rad)
-
-    return (
-      <line key={angle} x1={x1} y1={y1} x2={x2} y2={y2} className="stroke-border" strokeWidth={isMajor ? 1.5 : 0.75} />
-    )
+const calculateAngleFromCenter = (clientX: number, clientY: number, element: HTMLElement): number => {
+  const rect = element.getBoundingClientRect()
+  const centerX = rect.left + rect.width / 2
+  const centerY = rect.top + rect.height / 2
+  const deltaX = clientX - centerX
+  const deltaY = clientY - centerY
+  let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 90
+  if (angle < 0) {
+    angle += 360
   }
-
-  return (
-    <g>
-      <circle cx="50" cy="50" r="46" fill="none" className="stroke-border" strokeWidth="1" />
-      {majorAngles.map((angle) => {
-        return createTick(angle, true)
-      })}
-      {minorAngles.map((angle) => {
-        return createTick(angle, false)
-      })}
-    </g>
-  )
+  return angle
 }
 
-const CompassRose = () => {
-  return (
-    <g>
-      <path d="M50 14 L56 50 L50 46 Z" className="fill-red-500" />
-      <path d="M50 14 L44 50 L50 46 Z" className="fill-red-400" />
-
-      <path d="M50 86 L56 50 L50 54 Z" className="fill-muted-foreground/50" />
-      <path d="M50 86 L44 50 L50 54 Z" className="fill-muted-foreground/30" />
-
-      <path d="M86 50 L50 44 L54 50 Z" className="fill-muted-foreground/30" />
-      <path d="M86 50 L50 56 L54 50 Z" className="fill-muted-foreground/20" />
-
-      <path d="M14 50 L50 44 L46 50 Z" className="fill-muted-foreground/30" />
-      <path d="M14 50 L50 56 L46 50 Z" className="fill-muted-foreground/20" />
-    </g>
-  )
-}
-
-type CardinalLabelsProps = {
-  fontSize: number
-}
-
-const CardinalLabels = ({ fontSize }: CardinalLabelsProps) => {
-  return (
-    <g className="font-sans font-bold" style={{ fontSize }}>
-      <text x="50" y="28" textAnchor="middle" dominantBaseline="middle" className="fill-red-500">
-        N
-      </text>
-      <text x="50" y="76" textAnchor="middle" dominantBaseline="middle" className="fill-muted-foreground">
-        S
-      </text>
-      <text x="76" y="52" textAnchor="middle" dominantBaseline="middle" className="fill-muted-foreground">
-        E
-      </text>
-      <text x="24" y="52" textAnchor="middle" dominantBaseline="middle" className="fill-muted-foreground">
-        W
-      </text>
-    </g>
-  )
-}
-
-const CenterPivot = () => {
-  return (
-    <g>
-      <circle cx="50" cy="50" r="4" className="fill-background stroke-border" strokeWidth="1" />
-      <circle cx="50" cy="50" r="2" className="fill-muted-foreground/60" />
-    </g>
-  )
+const normalizeRotation = (degrees: number): number => {
+  let normalized = degrees % 360
+  if (normalized < 0) {
+    normalized += 360
+  }
+  return normalized
 }
 
 export const MapCompass = ({
@@ -139,80 +83,68 @@ export const MapCompass = ({
   className,
 }: MapCompassProps) => {
   const { map, isLoaded } = useMap()
+
   const compassRef = useRef<HTMLDivElement | null>(null)
   const animationRef = useRef<number | null>(null)
+  const rotationRef = useRef(0)
+  const startAngleRef = useRef(0)
+  const isDraggingRef = useRef(false)
+  const mapRef = useRef(map)
+
   const [rotation, setRotation] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
-  const [startAngle, setStartAngle] = useState(0)
 
-  const calculateAngle = (event: React.MouseEvent | MouseEvent) => {
-    const compass = compassRef.current
-    if (!compass) {
-      return 0
+  mapRef.current = map
+  rotationRef.current = rotation
+
+  useEffect(() => {
+    const onDragMove = (event: MouseEvent) => {
+      if (!isDraggingRef.current || !compassRef.current) {
+        return
+      }
+      const currentAngle = calculateAngleFromCenter(event.clientX, event.clientY, compassRef.current)
+      const newRotation = normalizeRotation(currentAngle - startAngleRef.current)
+      rotationRef.current = newRotation
+      setRotation(newRotation)
+      mapRef.current?.setBearing(-newRotation)
     }
 
-    const rect = compass.getBoundingClientRect()
-    const centerX = rect.left + rect.width / 2
-    const centerY = rect.top + rect.height / 2
-
-    const mouseX = event.clientX - centerX
-    const mouseY = event.clientY - centerY
-
-    let angle = Math.atan2(mouseY, mouseX) * (180 / Math.PI)
-    angle = angle + 90
-
-    if (angle < 0) {
-      angle += 360
+    const onDragEnd = () => {
+      isDraggingRef.current = false
+      setIsDragging(false)
     }
 
-    return angle
-  }
+    window.addEventListener("mousemove", onDragMove)
+    window.addEventListener("mouseup", onDragEnd)
 
-  const handleMouseDown = (event: React.MouseEvent | MouseEvent) => {
-    event.preventDefault()
-    setIsDragging(true)
+    return () => {
+      window.removeEventListener("mousemove", onDragMove)
+      window.removeEventListener("mouseup", onDragEnd)
+    }
+  }, [])
 
-    const angle = calculateAngle(event)
-    setStartAngle(angle - rotation)
-  }
-
-  const handleMouseMove = (event: React.MouseEvent | MouseEvent) => {
-    if (!isDragging) {
+  useEffect(() => {
+    if (!map || !isLoaded || autoRotate) {
       return
     }
 
-    const currentAngle = calculateAngle(event)
-    let newRotation = currentAngle - startAngle
-
-    if (newRotation < 0) {
-      newRotation += 360
+    const syncBearing = () => {
+      if (isDraggingRef.current) {
+        return
+      }
+      // Negate bearing so the compass rotates opposite to the map
+      const bearing = -map.getBearing()
+      const normalized = normalizeRotation(bearing)
+      rotationRef.current = normalized
+      setRotation(normalized)
     }
-    if (newRotation >= 360) {
-      newRotation -= 360
-    }
 
-    setRotation(newRotation)
-
-    if (map) {
-      map.setBearing(-newRotation)
-    }
-  }
-
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
-
-  useEffect(() => {
-    if (isDragging) {
-      window.addEventListener("mousemove", handleMouseMove)
-      window.addEventListener("mouseup", handleMouseUp)
-    }
+    map.on("rotate", syncBearing)
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("mouseup", handleMouseUp)
+      map.off("rotate", syncBearing)
     }
-  }, [isDragging, startAngle, rotation])
+  }, [map, isLoaded, autoRotate])
 
   useEffect(() => {
     if (!autoRotate || isDragging) {
@@ -224,22 +156,10 @@ export const MapCompass = ({
     }
 
     const animate = () => {
-      setRotation((prev) => {
-        let newRotation = prev + autoRotateSpeed
-        if (newRotation >= 360) {
-          newRotation -= 360
-        }
-        if (newRotation < 0) {
-          newRotation += 360
-        }
-
-        if (map) {
-          map.setBearing(-newRotation)
-        }
-
-        return newRotation
-      })
-
+      const newRotation = normalizeRotation(rotationRef.current + autoRotateSpeed)
+      rotationRef.current = newRotation
+      setRotation(newRotation)
+      mapRef.current?.setBearing(-newRotation)
       animationRef.current = requestAnimationFrame(animate)
     }
 
@@ -250,7 +170,18 @@ export const MapCompass = ({
         cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [autoRotate, autoRotateSpeed, isDragging, map])
+  }, [autoRotate, autoRotateSpeed, isDragging])
+
+  const handleMouseDown = (event: React.MouseEvent) => {
+    event.preventDefault()
+    if (!compassRef.current) {
+      return
+    }
+    isDraggingRef.current = true
+    setIsDragging(true)
+    const angle = calculateAngleFromCenter(event.clientX, event.clientY, compassRef.current)
+    startAngleRef.current = angle - rotationRef.current
+  }
 
   if (!isLoaded) {
     return null
@@ -289,5 +220,87 @@ export const MapCompass = ({
         </div>
       )}
     </div>
+  )
+}
+
+const CompassRing = () => {
+  const majorAngles = [0, 45, 90, 135, 180, 225, 270, 315]
+  const minorAngles = [15, 30, 60, 75, 105, 120, 150, 165, 195, 210, 240, 255, 285, 300, 330, 345]
+
+  const createTick = (angle: number, isMajor: boolean) => {
+    const angleRadians = (angle * Math.PI) / 180
+    const innerRadius = isMajor ? 40 : 42
+    const outerRadius = 46
+    const innerX = 50 + innerRadius * Math.sin(angleRadians)
+    const innerY = 50 - innerRadius * Math.cos(angleRadians)
+    const outerX = 50 + outerRadius * Math.sin(angleRadians)
+    const outerY = 50 - outerRadius * Math.cos(angleRadians)
+
+    return (
+      <line
+        key={angle}
+        x1={innerX}
+        y1={innerY}
+        x2={outerX}
+        y2={outerY}
+        className="stroke-border"
+        strokeWidth={isMajor ? 1.5 : 0.75}
+      />
+    )
+  }
+
+  return (
+    <g>
+      <circle cx="50" cy="50" r="46" fill="none" className="stroke-border" strokeWidth="1" />
+      {majorAngles.map((angle) => {
+        return createTick(angle, true)
+      })}
+      {minorAngles.map((angle) => {
+        return createTick(angle, false)
+      })}
+    </g>
+  )
+}
+
+const CompassRose = () => {
+  return (
+    <g>
+      <path d="M50 14 L56 50 L50 46 Z" className="fill-red-500" />
+      <path d="M50 14 L44 50 L50 46 Z" className="fill-red-400" />
+      <path d="M50 86 L56 50 L50 54 Z" className="fill-muted-foreground/50" />
+      <path d="M50 86 L44 50 L50 54 Z" className="fill-muted-foreground/30" />
+      <path d="M86 50 L50 44 L54 50 Z" className="fill-muted-foreground/30" />
+      <path d="M86 50 L50 56 L54 50 Z" className="fill-muted-foreground/20" />
+      <path d="M14 50 L50 44 L46 50 Z" className="fill-muted-foreground/30" />
+      <path d="M14 50 L50 56 L46 50 Z" className="fill-muted-foreground/20" />
+    </g>
+  )
+}
+
+const CardinalLabels = ({ fontSize }: CardinalLabelsProps) => {
+  return (
+    <g className="font-sans font-bold" style={{ fontSize }}>
+      <text x="50" y="28" textAnchor="middle" dominantBaseline="middle" className="fill-red-500">
+        N
+      </text>
+      <text x="50" y="76" textAnchor="middle" dominantBaseline="middle" className="fill-muted-foreground">
+        S
+      </text>
+      <text x="76" y="52" textAnchor="middle" dominantBaseline="middle" className="fill-muted-foreground">
+        E
+      </text>
+      <text x="24" y="52" textAnchor="middle" dominantBaseline="middle" className="fill-muted-foreground">
+        W
+      </text>
+    </g>
+  )
+}
+
+const CenterPivot = () => {
+  return (
+    <g>
+      <circle cx="50" cy="50" r="4" className="fill-background stroke-border" strokeWidth="1" />
+      <circle cx="50" cy="50" r="2" className="fill-muted-foreground/60" />
+    </g>
   )
 }
