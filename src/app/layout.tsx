@@ -25,7 +25,7 @@ const siteDescription =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "terrae - Beautiful maps made simple",
+    default: "terrae - Composable map components for React",
     template: "%s - terrae",
   },
   description: siteDescription,
@@ -62,20 +62,20 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: siteName,
-    title: "terrae - Beautiful maps made simple",
+    title: "terrae - Composable map components for React",
     description: siteDescription,
     images: [
       {
         url: "/banner.png",
         width: 1200,
         height: 630,
-        alt: "terrae - Beautiful maps, made simple",
+        alt: "terrae - Composable map components for React",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "terrae - Beautiful maps made simple",
+    title: "terrae - Composable map components for React",
     description: siteDescription,
     creator: creator,
     images: ["/banner.png"],
@@ -95,6 +95,30 @@ const RootLayout = ({
     <html lang="en" className={`${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  name: siteName,
+                  url: siteUrl,
+                  description: siteDescription,
+                  publisher: { "@type": "Organization", name: siteName, url: siteUrl },
+                },
+                {
+                  "@type": "Organization",
+                  name: siteName,
+                  url: siteUrl,
+                  logo: `${siteUrl}/banner.png`,
+                  sameAs: ["https://github.com/alamenai/terrae"],
+                },
+              ],
+            }),
+          }}
+        />
       </head>
       <body className="font-sans antialiased">
         <ThemeProvider>
