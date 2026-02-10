@@ -5,6 +5,7 @@ const COVERAGE_SUMMARY_PATH = path.resolve("coverage/coverage-summary.json")
 const OUTPUT_DIR = path.resolve("src/data/coverage")
 
 const COMPONENT_MAP = {
+  compass: "src/registry/map/compass.tsx",
   radar: "src/registry/map/radar.tsx",
 }
 
