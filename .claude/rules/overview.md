@@ -6,7 +6,7 @@
 
 ## Description
 
-Beautiful Mapbox GL components, made simple. A collection of free and open-source map components built with React, TypeScript, Tailwind CSS, and Mapbox GL JS. Perfect companion for shadcn/ui.
+Composable map components for React. A collection of open-source animated map components built with React, TypeScript, and Tailwind CSS. Compatible with Mapbox GL JS and MapLibre GL. Perfect companion for shadcn/ui.
 
 ## Tech Stack
 
