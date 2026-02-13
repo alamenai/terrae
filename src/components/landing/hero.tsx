@@ -36,8 +36,8 @@ export const Hero = () => {
         </h1>
 
         <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto px-4">
-          Declarative, composable map components that replace imperative layers with simple props. The perfect companion
-          for React.
+          Composable and animated components that replace imperative layers with simple props. The perfect companion for
+          shadcn/ui.
         </p>
       </div>
 
