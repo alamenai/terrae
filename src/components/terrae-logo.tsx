@@ -7,10 +7,21 @@ type TerraeLogoProps = {
 export const TerraeLogo = ({ className }: TerraeLogoProps) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={cn("size-6", className)}>
-      <g transform="rotate(-15, 12, 12)">
-        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M 12 2 A 10 10 0 0 0 12 22 Z" fill="currentColor" />
-      </g>
+      <mask id="t-cutout">
+        <rect width="24" height="24" fill="white" />
+        <text
+          x="12"
+          y="18"
+          textAnchor="middle"
+          fill="black"
+          fontSize="18"
+          fontWeight="600"
+          fontFamily="system-ui, sans-serif"
+        >
+          t
+        </text>
+      </mask>
+      <circle cx="12" cy="12" r="11" fill="currentColor" mask="url(#t-cutout)" />
     </svg>
   )
 }
