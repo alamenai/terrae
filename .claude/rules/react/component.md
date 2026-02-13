@@ -1,3 +1,9 @@
+---
+paths:
+  - "src/registry/**/*.{ts,tsx}"
+  - "src/components/**/*.{ts,tsx}"
+---
+
 # React Component Structure Guidelines
 
 ## File Structure

@@ -1,3 +1,8 @@
+---
+paths:
+  - "src/app/**/*.{ts,tsx}"
+---
+
 # Next.js Guidelines
 
 ## App Router Folder Structure

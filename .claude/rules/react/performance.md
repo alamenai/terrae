@@ -1,3 +1,9 @@
+---
+paths:
+  - "src/registry/**/*.{ts,tsx}"
+  - "src/components/**/*.{ts,tsx}"
+---
+
 # React Performance Rules
 
 ## Resource Cleanup
