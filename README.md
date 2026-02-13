@@ -1,9 +1,8 @@
 <div align="center">
   <h1>Terrae</h1>
-  <p><strong>Map library for Design Engineers</strong></p>
+  <p><strong>Where Components Replace Layers</strong></p>
   <p>
-    Beautiful map components built with React, TypeScript, Tailwind CSS, Mapbox GL JS, and MapLibre GL.<br />
-    Perfect companion for shadcn/ui.
+   Composable and animated components that replace imperative layers with simple props. The perfect companion for shadcn/ui.
   </p>
 </div>
 
