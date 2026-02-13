@@ -72,9 +72,11 @@ const FeatureSection = ({ title, items, color, badge }: FeatureSectionProps) => 
               {item.href && (
                 <Link
                   href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   className="text-xs font-medium bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent hover:opacity-80 flex items-center gap-1 shrink-0 transition-opacity"
                 >
-                  View docs
+                  {item.href.startsWith("http") ? "View issue" : "View docs"}
                   <ArrowRight className="size-3 text-purple-500" />
                 </Link>
               )}
@@ -90,6 +92,35 @@ const FeatureSection = ({ title, items, color, badge }: FeatureSectionProps) => 
 const changelogs: Changelog[] = [
   {
     upcoming: true,
+  },
+  {
+    date: "February 13, 2026",
+    properties: [
+      {
+        component: "Radar",
+        title: "pitchAlignment",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">pitchAlignment</code> prop for flat (viewport) or
+            tilted (map) radar rendering. Added test coverage for rendering and marker lifecycle.
+          </>
+        ),
+        href: "/docs/radar",
+      },
+    ],
+    fixes: [
+      {
+        component: "Compass",
+        title: "Rotation Sync",
+        description: (
+          <>
+            Fixed compass rotation not staying in sync with the map bearing. Refactored internals and added tests for
+            rendering, rotation sync, and positioning.
+          </>
+        ),
+        href: "https://github.com/alamenai/terrae/issues/1",
+      },
+    ],
   },
   {
     date: "February 9, 2026",
