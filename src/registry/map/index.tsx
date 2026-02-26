@@ -52,6 +52,7 @@ export { MapSnow, useSnowControl } from "./snow"
 export { MapMeteor, useMeteorControl } from "./meteor"
 export { MapLightning, useLightningControl } from "./lightning"
 export { MapGrid } from "./grid"
+export { MapVolcano, useVolcanoControl } from "./volcano"
 export { useMap } from "./hooks"
 export {
   defaultMapStyles,

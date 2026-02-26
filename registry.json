@@ -667,6 +667,22 @@
           "target": "components/ui/map/grid.tsx"
         }
       ]
+    },
+    {
+      "name": "volcano",
+      "type": "registry:ui",
+      "title": "Map Volcano",
+      "description": "Animated volcanic eruption with lava, ash plume, and particle effects.",
+      "dependencies": ["mapbox-gl"],
+      "devDependencies": ["@types/mapbox-gl"],
+      "registryDependencies": ["https://www.terrae.dev/map.json"],
+      "files": [
+        {
+          "path": "src/registry/map/volcano.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/map/volcano.tsx"
+        }
+      ]
     }
   ]
 }
