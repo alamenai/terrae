@@ -42,6 +42,8 @@ import {
   Orbit,
   Zap,
   Grid3x3,
+  Heart,
+  Mountain,
   type LucideIcon,
 } from "lucide-react"
 
@@ -77,6 +79,7 @@ const navigation: NavGroup[] = [
     title: "Explore",
     items: [
       { title: "Story", href: "/docs/story", icon: BookMarked },
+      { title: "Sponsors", href: "/docs/sponsors", icon: Heart, badge: "new" },
       { title: "Changelog", href: "/docs/changelog", icon: Sparkles },
     ],
   },
@@ -106,14 +109,14 @@ const navigation: NavGroup[] = [
     items: [
       { title: "Animated Markers", href: "/docs/markers-animated", icon: Play },
       { title: "Animated Pulse", href: "/docs/animated-pulse", icon: Sparkles },
-      { title: "Animated Footprint", href: "/docs/footprint", icon: Footprints, badge: "new" },
+      { title: "Animated Footprint", href: "/docs/footprint", icon: Footprints },
       { title: "Blur Area", href: "/docs/blur-area", icon: EyeOff },
       { title: "Camera Follow", href: "/docs/camera-follow", icon: Play },
       { title: "Compare", href: "/docs/compare", icon: ArrowLeftRight },
-      { title: "Grid", href: "/docs/grid", icon: Grid3x3, badge: "new" },
+      { title: "Grid", href: "/docs/grid", icon: Grid3x3 },
       { title: "Heatmaps", href: "/docs/heatmaps", icon: Flame },
       { title: "MiniMap", href: "/docs/minimap", icon: MapIcon },
-      { title: "Radar", href: "/docs/radar", icon: Radar, badge: "updated" },
+      { title: "Radar", href: "/docs/radar", icon: Radar },
       { title: "Sync", href: "/docs/sync", icon: Link2 },
       { title: "Targeting Reticle", href: "/docs/targeting-reticle", icon: Crosshair },
       { title: "Watermark", href: "/docs/watermark", icon: Stamp },
@@ -143,23 +146,24 @@ const navigation: NavGroup[] = [
     title: "Media",
     items: [
       { title: "Image", href: "/docs/image", icon: Image },
-      { title: "Music Disc", href: "/docs/music-disc", icon: Disc3, badge: "new" },
+      { title: "Music Disc", href: "/docs/music-disc", icon: Disc3 },
       { title: "Video", href: "/docs/raster-video", icon: Video },
     ],
   },
   {
     title: "Environment",
     items: [
-      { title: "Cyclone", href: "/docs/cyclone", icon: Wind, badge: "new" },
-      { title: "Explosion", href: "/docs/explosion", icon: Sparkles, badge: "new" },
-      { title: "Fire", href: "/docs/fire", icon: Flame, badge: "new" },
-      { title: "Lightning", href: "/docs/lightning", icon: Zap, badge: "new" },
-      { title: "Meteor", href: "/docs/meteor", icon: Orbit, badge: "new" },
+      { title: "Cyclone", href: "/docs/cyclone", icon: Wind },
+      { title: "Explosion", href: "/docs/explosion", icon: Sparkles },
+      { title: "Fire", href: "/docs/fire", icon: Flame },
+      { title: "Lightning", href: "/docs/lightning", icon: Zap },
+      { title: "Meteor", href: "/docs/meteor", icon: Orbit },
       { title: "Rain", href: "/docs/rain", icon: CloudRain },
-      { title: "Sandstorm", href: "/docs/sandstorm", icon: SunDim, badge: "new" },
-      { title: "Snow", href: "/docs/snow", icon: Snowflake, badge: "new" },
-      { title: "Steam", href: "/docs/steam", icon: CloudFog, badge: "new" },
-      { title: "Tsunami", href: "/docs/tsunami", icon: Waves, badge: "new" },
+      { title: "Sandstorm", href: "/docs/sandstorm", icon: SunDim },
+      { title: "Snow", href: "/docs/snow", icon: Snowflake },
+      { title: "Steam", href: "/docs/steam", icon: CloudFog },
+      { title: "Tsunami", href: "/docs/tsunami", icon: Waves },
+      { title: "Volcano", href: "/docs/volcano", icon: Mountain, badge: "new" },
     ],
   },
 ]
@@ -185,7 +189,9 @@ export const DocsSidebar = () => {
       <SidebarContent className="pt-6">
         {navigation.map((group) => (
           <SidebarGroup key={group.title}>
-            <SidebarGroupLabel className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-4 mb-2">
+            <SidebarGroupLabel
+              className={"text-xs font-semibold uppercase tracking-wider px-4 mb-2 text-muted-foreground"}
+            >
               {group.title}
             </SidebarGroupLabel>
             <SidebarGroupContent>

@@ -17,6 +17,7 @@ const NAV_ITEMS = [
   { href: "/docs/story", label: "Story" },
   { href: "/docs", label: "Docs" },
   { href: "/docs/components", label: "Components" },
+  { href: "/docs/sponsors", label: "Sponsors" },
   { href: "/blog", label: "Blog" },
   { href: "/docs/changelog", label: "Changelog" },
 ]
@@ -60,11 +61,7 @@ export const HeaderNav = ({ className, leftContent, children }: HeaderNavProps) 
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={cn(
-                    "relative text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap",
-                    item.label === "Changelog" &&
-                      "bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-semibold"
-                  )}
+                  className="relative text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
                 >
                   {item.label}
                 </Link>
@@ -84,12 +81,7 @@ export const HeaderNav = ({ className, leftContent, children }: HeaderNavProps) 
                   key={item.href}
                   href={item.href}
                   onClick={handleCloseMobileMenu}
-                  className={cn(
-                    "relative px-3 py-2 rounded-md text-sm transition-colors",
-                    item.label === "Changelog"
-                      ? "bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-semibold"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  )}
+                  className="relative px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
                 >
                   {item.label}
                 </Link>

@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 
 import { ThemeProvider } from "@/components/theme-provider"
-import { WarningBanner } from "@/components/warning-banner"
 import "./globals.css"
 
 const geist = Geist({
@@ -122,7 +121,6 @@ const RootLayout = ({
       </head>
       <body className="font-sans antialiased">
         <ThemeProvider>
-          <WarningBanner />
           {children}
           <Analytics />
         </ThemeProvider>

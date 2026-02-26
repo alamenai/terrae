@@ -10,6 +10,7 @@ const PRODUCT_LINKS = [
 
 const RESOURCES_LINKS = [
   { href: "/docs/story", label: "Story" },
+  { href: "/docs/sponsors", label: "Sponsors" },
   { href: "/blog", label: "Blog" },
   { href: "/docs/api-reference", label: "API Reference" },
   { href: "/docs/hooks", label: "Hooks" },
@@ -32,7 +33,8 @@ export const Footer = () => {
               <span className="font-semibold tracking-tight">terrae</span>
             </Link>
             <p className="text-xs text-muted-foreground max-w-48">
-              Composable map components for React. The perfect companion for shadcn/ui.
+              Composable and animated React components that replace hundreds of lines of imperative map code with
+              simple, declarative props.
             </p>
           </div>
 

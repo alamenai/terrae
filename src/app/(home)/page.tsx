@@ -2,13 +2,14 @@ import Link from "next/link"
 import { Hero } from "@/components/landing/hero"
 import { PerspectiveCard } from "@/components/landing/perspective-card"
 import { DemoCard } from "@/components/landing/demo-card"
-import { RadarDemo } from "@/components/landing/radar-demo"
+import { CycloneDemo } from "@/components/landing/cyclone-demo"
 import { MeteorDemo } from "@/components/landing/meteor-demo"
 import { LightningDemo } from "@/components/landing/lightning-demo"
 import { FootprintDemo } from "@/components/landing/footprint-demo"
 import { FireDemo } from "@/components/landing/fire-demo"
 import { TargetAudience } from "@/components/landing/target-audience"
 import { CodeComparison } from "@/components/landing/code-comparison"
+import { Backers, Sponsors } from "@/components/landing/sponsors"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 
@@ -18,12 +19,16 @@ const Page = () => {
       <section className="max-w-5xl w-full mx-auto">
         <Hero />
       </section>
-      <section className="max-w-7xl w-full mx-auto mt-2 sm:mt-3">
+      <section className="max-w-7xl w-full mx-auto mt-2 sm:mt-3 relative">
         <PerspectiveCard>
           <DemoCard label="Cyclone Tracking" className="h-128 sm:h-144 lg:h-160">
-            <RadarDemo />
+            <CycloneDemo />
           </DemoCard>
         </PerspectiveCard>
+        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-linear-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl rounded-full pointer-events-none" />
+      </section>
+      <section className="max-w-7xl w-full mx-auto mt-16 sm:mt-24 mb-16 sm:mb-24">
+        <Sponsors />
       </section>
       <section className="max-w-7xl w-full mx-auto mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
         <DemoCard label="Meteor Impact" className="h-112 sm:h-128 lg:h-144">
@@ -60,6 +65,9 @@ const Page = () => {
           </p>
         </div>
         <CodeComparison />
+      </section>
+      <section className="max-w-7xl w-full mx-auto mt-16 sm:mt-24 mb-16 sm:mb-24">
+        <Backers />
       </section>
     </main>
   )

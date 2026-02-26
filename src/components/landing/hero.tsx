@@ -1,43 +1,35 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Heart } from "lucide-react"
 import Link from "next/link"
 
 export const Hero = () => {
   return (
-    <div className="space-y-8">
-      <div className="text-center space-y-6">
+    <div className="relative space-y-8">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-100 bg-linear-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl rounded-full pointer-events-none animate-fade-in" />
+
+      <div className="relative text-center space-y-6">
         <Link
-          href="/docs/components#environment"
-          className="relative inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          href="/docs/volcano"
+          className="relative inline-flex items-center text-sm text-muted-foreground hover:opacity-90 transition-opacity"
         >
           <span className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500 via-purple-500 to-pink-500" />
           <span className="absolute inset-[1px] rounded-full bg-background" />
           <span className="relative px-3 py-1 flex items-center gap-1.5">
-            Introducing Environment Components
+            Introducing Volcano Component
             <ArrowRight className="size-3" />
           </span>
         </Link>
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight">
-          Components, not{" "}
-          <span className="relative inline-block">
-            <span className="absolute top-[0.15em] left-[0.15em] text-pink-500/20 select-none" aria-hidden="true">
-              layers
-            </span>
-            <span className="absolute top-[0.08em] left-[0.08em] text-purple-500/40 select-none" aria-hidden="true">
-              layers
-            </span>
-            <span className="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              layers
-            </span>
+          Map components that{" "}
+          <span className="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            just work
           </span>
         </h1>
 
-        <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto px-4">
-          Composable and animated components that replace imperative layers with simple props. The perfect companion for
-          shadcn/ui.
+        <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto px-4">
+          Composable and animated React components that replace hundreds of lines of imperative map code with simple,
+          declarative props.
         </p>
       </div>
 
@@ -47,7 +39,10 @@ export const Hero = () => {
           size="lg"
           className="rounded-full bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 text-white hover:opacity-90 w-full sm:w-auto px-8"
         >
-          <Link href="/docs/installation">Start Building</Link>
+          <Link href="/docs/sponsors">
+            <Heart className="size-4 mr-1" />
+            Become a Sponsor
+          </Link>
         </Button>
         <Button variant="outline" asChild size="lg" className="rounded-full w-full sm:w-auto px-8">
           <Link href="/docs/components">Browse Components</Link>
