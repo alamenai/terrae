@@ -94,6 +94,27 @@ const changelogs: Changelog[] = [
     upcoming: true,
   },
   {
+    date: "February 27, 2026",
+    components: [
+      {
+        title: "Volcano",
+        description: (
+          <>
+            New <code className="rounded bg-muted px-1 py-0.5 text-xs">MapVolcano</code> component for animated volcano
+            effects with eruption phases and lava spread. Supports three phases:{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">dormant</code>,{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">rumbling</code>, and{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">erupting</code> with smooth transitions between each.
+            Features customizable intensity, colors, lava spread radius, and spread speed. Includes{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">useVolcanoControl</code> hook for programmatic phase
+            control and spread progress tracking.
+          </>
+        ),
+        href: "/docs/volcano",
+      },
+    ],
+  },
+  {
     date: "February 13, 2026",
     properties: [
       {

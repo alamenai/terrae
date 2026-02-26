@@ -35,6 +35,7 @@ import {
   Orbit,
   Zap,
   Grid3x3,
+  Mountain,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -215,7 +216,6 @@ const components: ComponentItem[] = [
     icon: Grid3x3,
     category: "features",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/grid.json",
-    isNew: true,
   },
   {
     title: "Image",
@@ -297,7 +297,6 @@ const components: ComponentItem[] = [
     icon: Footprints,
     category: "features",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/animated-footprint.json",
-    isNew: true,
   },
   {
     title: "Cyclone",
@@ -306,7 +305,6 @@ const components: ComponentItem[] = [
     icon: Wind,
     category: "environment",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/cyclone.json",
-    isNew: true,
   },
   {
     title: "Explosion",
@@ -315,7 +313,6 @@ const components: ComponentItem[] = [
     icon: Sparkles,
     category: "environment",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/explosion.json",
-    isNew: true,
   },
   {
     title: "Fire",
@@ -324,7 +321,6 @@ const components: ComponentItem[] = [
     icon: Flame,
     category: "environment",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/fire.json",
-    isNew: true,
   },
   {
     title: "Lightning",
@@ -333,7 +329,6 @@ const components: ComponentItem[] = [
     icon: Zap,
     category: "environment",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/lightning.json",
-    isNew: true,
   },
   {
     title: "Meteor",
@@ -342,7 +337,6 @@ const components: ComponentItem[] = [
     icon: Orbit,
     category: "environment",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/meteor.json",
-    isNew: true,
   },
   {
     title: "Music Disc",
@@ -351,7 +345,6 @@ const components: ComponentItem[] = [
     icon: Disc3,
     category: "media",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/music-disc.json",
-    isNew: true,
   },
   {
     title: "Sandstorm",
@@ -360,7 +353,6 @@ const components: ComponentItem[] = [
     icon: SunDim,
     category: "environment",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/sandstorm.json",
-    isNew: true,
   },
   {
     title: "Snow",
@@ -369,7 +361,6 @@ const components: ComponentItem[] = [
     icon: Snowflake,
     category: "environment",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/snow.json",
-    isNew: true,
   },
   {
     title: "Steam",
@@ -378,7 +369,6 @@ const components: ComponentItem[] = [
     icon: CloudFog,
     category: "environment",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/steam.json",
-    isNew: true,
   },
   {
     title: "Tsunami",
@@ -387,7 +377,15 @@ const components: ComponentItem[] = [
     icon: Waves,
     category: "environment",
     installCommand: "npx shadcn@latest add https://www.terrae.dev/tsunami.json",
+  },
+  {
+    title: "Volcano",
+    href: "/docs/volcano",
+    description: "Animated volcanic eruption with lava, ash plume, and particle effects",
+    icon: Mountain,
+    category: "environment",
     isNew: true,
+    installCommand: "npx shadcn@latest add https://www.terrae.dev/volcano.json",
   },
 ]
 
@@ -479,7 +477,6 @@ const ComponentsPage = () => {
   const environmentComponents = components.filter((component) => {
     return component.category === "environment"
   })
-
   return (
     <DocsLayout
       title="Components"
