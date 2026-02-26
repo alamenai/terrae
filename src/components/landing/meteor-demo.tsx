@@ -6,7 +6,7 @@ import { InfoPanel } from "./info-panel"
 
 export const MeteorDemo = () => {
   return (
-    <div className="w-full h-full relative pointer-events-none">
+    <div className="w-full h-full relative">
       <InfoPanel title="Meteor Alert">
         <div className="font-medium mt-1">Impact detected</div>
         <div className="flex items-center gap-1 mt-1">
@@ -22,6 +22,8 @@ export const MeteorDemo = () => {
         <MapMeteor id="landing-meteor-4" target={[-112.0, 35.8]} loop loopDelay={2500} size={180} angle={60} />
         <MapMeteor id="landing-meteor-5" target={[-112.6, 36.4]} loop loopDelay={3500} size={220} angle={40} />
       </Map>
+
+      <div className="absolute inset-0 z-10" />
     </div>
   )
 }

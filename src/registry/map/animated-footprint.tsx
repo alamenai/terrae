@@ -120,6 +120,7 @@ const createMarkers = (steps: FootprintStep[], map: mapboxgl.Map): MarkerEntry[]
     const container = document.createElement("div")
     container.style.opacity = "0"
     container.style.visibility = "hidden"
+    container.style.pointerEvents = "none"
 
     const marker = new mapgl.Marker({
       element: container,
@@ -128,6 +129,7 @@ const createMarkers = (steps: FootprintStep[], map: mapboxgl.Map): MarkerEntry[]
       .setLngLat(step.coordinates)
       .addTo(map)
 
+    marker.getElement().style.pointerEvents = "none"
     markers.push({ marker, element: container })
   }
 

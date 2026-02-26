@@ -162,7 +162,6 @@ export const MapCyclone = ({
 }: MapCycloneProps) => {
   const { map, isLoaded } = useMap()
   const animationFrameRef = useRef<number | null>(null)
-  const retryFrameRef = useRef<number | null>(null)
   const rendererRef = useRef<CycloneRenderer | null>(null)
   const movementStartTimeRef = useRef<number>(0)
   const isMovingRef = useRef<boolean>(false)
@@ -266,47 +265,6 @@ export const MapCyclone = ({
     }
   }
 
-  const addCycloneLayers = (initialCoordinates: MapCoordinates) => {
-    if (!map) {
-      return
-    }
-
-    if (!map.isStyleLoaded() || !map.hasImage(id)) {
-      retryFrameRef.current = requestAnimationFrame(() => {
-        return addCycloneLayers(initialCoordinates)
-      })
-      return
-    }
-
-    if (!map.getSource(sourceId)) {
-      map.addSource(sourceId, {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: [
-            {
-              type: "Feature",
-              geometry: { type: "Point", coordinates: initialCoordinates },
-              properties: {},
-            },
-          ],
-        },
-      })
-    }
-
-    if (!map.getLayer(layerId)) {
-      map.addLayer({
-        id: layerId,
-        type: "symbol",
-        source: sourceId,
-        layout: {
-          "icon-image": id,
-          "icon-allow-overlap": true,
-        },
-      })
-    }
-  }
-
   useEffect(() => {
     if (!isLoaded || !map) {
       return
@@ -327,6 +285,38 @@ export const MapCyclone = ({
       map.addImage(id, cycloneRenderer, { pixelRatio: 2 })
     }
 
+    const initialCoordinates = path && path.length >= 2 ? path[0] : coordinates
+
+    const addSourceAndLayer = () => {
+      if (!map.getSource(sourceId)) {
+        map.addSource(sourceId, {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                geometry: { type: "Point", coordinates: initialCoordinates },
+                properties: {},
+              },
+            ],
+          },
+        })
+      }
+      if (!map.getLayer(layerId)) {
+        map.addLayer({
+          id: layerId,
+          type: "symbol",
+          source: sourceId,
+          layout: {
+            "icon-image": id,
+            "icon-allow-overlap": true,
+          },
+        })
+      }
+    }
+
+    addSourceAndLayer()
     registerControl()
 
     if (autoStart) {
@@ -355,6 +345,7 @@ export const MapCyclone = ({
       if (!map.hasImage(id)) {
         map.addImage(id, cycloneRenderer, { pixelRatio: 2 })
       }
+      addSourceAndLayer()
     }
 
     map.on("style.load", handleStyleLoad)
@@ -368,46 +359,36 @@ export const MapCyclone = ({
       if (!map || !map.getStyle()) {
         return
       }
-      if (map.hasImage(id)) {
-        map.removeImage(id)
-      }
-    }
-  }, [map, isLoaded, id, size, intensity, scale, particleCount, funnelColor, debrisColor, autoStart])
-
-  useEffect(() => {
-    rendererRef.current?.setRotationSpeed(rotationSpeed)
-  }, [rotationSpeed])
-
-  useEffect(() => {
-    if (!isLoaded || !map) {
-      return
-    }
-
-    const initialCoordinates = path && path.length >= 2 ? path[0] : coordinates
-    addCycloneLayers(initialCoordinates)
-
-    const handleStyleLoad = () => {
-      addCycloneLayers(initialCoordinates)
-    }
-
-    map.on("style.load", handleStyleLoad)
-
-    return () => {
-      map.off("style.load", handleStyleLoad)
-      if (retryFrameRef.current) {
-        cancelAnimationFrame(retryFrameRef.current)
-      }
-      if (!map || !map.getStyle()) {
-        return
-      }
       if (map.getLayer(layerId)) {
         map.removeLayer(layerId)
       }
       if (map.getSource(sourceId)) {
         map.removeSource(sourceId)
       }
+      if (map.hasImage(id)) {
+        map.removeImage(id)
+      }
     }
-  }, [map, isLoaded, coordinates, path, id, sourceId, layerId])
+  }, [
+    map,
+    isLoaded,
+    id,
+    size,
+    intensity,
+    scale,
+    particleCount,
+    funnelColor,
+    debrisColor,
+    autoStart,
+    coordinates,
+    path,
+    sourceId,
+    layerId,
+  ])
+
+  useEffect(() => {
+    rendererRef.current?.setRotationSpeed(rotationSpeed)
+  }, [rotationSpeed])
 
   return null
 }

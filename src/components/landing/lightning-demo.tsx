@@ -6,7 +6,7 @@ import { InfoPanel } from "./info-panel"
 
 export const LightningDemo = () => {
   return (
-    <div className="w-full h-full relative pointer-events-none">
+    <div className="w-full h-full relative">
       <InfoPanel title="Storm Warning">
         <div className="font-medium mt-1">Electrical storm</div>
         <div className="flex items-center gap-1 mt-1">
@@ -18,6 +18,8 @@ export const LightningDemo = () => {
       <Map accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""} center={[-95.7, 37.1]} zoom={4}>
         <MapLightning id="landing-lightning" coordinates={[-95.7, 37.1]} size={300} autoStrike strikeInterval={2000} />
       </Map>
+
+      <div className="absolute inset-0 z-10" />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, type ReactNode } from "react"
+import { useEffect, useRef, useState, type ReactNode } from "react"
 import { codeToHtml } from "shiki"
 import { cn } from "@/lib/utils"
 
@@ -1124,7 +1124,7 @@ type CodePanelProps = {
 
 const CodePanel = ({ label, html, fallback }: CodePanelProps) => {
   return (
-    <div className="flex-1 min-w-0 min-h-0 flex flex-col">
+    <div className="flex flex-col h-full">
       <div className="shrink-0 px-4 py-2.5 border-b">
         <span className="text-xs font-medium text-muted-foreground">{label}</span>
       </div>
@@ -1144,9 +1144,13 @@ const CodePanel = ({ label, html, fallback }: CodePanelProps) => {
   )
 }
 
+const INTERSECTION_THRESHOLD = 0.15
+
 export const CodeComparison = () => {
   const [activeTab, setActiveTab] = useState(0)
   const [highlighted, setHighlighted] = useState<HighlightedExample[]>([])
+  const [isVisible, setIsVisible] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const highlight = async () => {
@@ -1165,12 +1169,40 @@ export const CodeComparison = () => {
     highlight()
   }, [])
 
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: INTERSECTION_THRESHOLD }
+    )
+
+    observer.observe(container)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
   const active = EXAMPLES[activeTab]
   const activeHighlighted = highlighted[activeTab]
 
   return (
-    <div className="rounded-xl border bg-card overflow-hidden">
-      <div className="flex items-center gap-1 px-4 py-2.5 border-b overflow-x-auto scrollbar-none md:justify-center">
+    <div ref={containerRef} className="rounded-xl border bg-card overflow-hidden">
+      <div
+        className={cn(
+          "flex items-center gap-1 px-4 py-2.5 border-b overflow-x-auto scrollbar-none md:justify-center transition-all duration-700 ease-out",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"
+        )}
+      >
         {EXAMPLES.map((example, index) => {
           return (
             <button
@@ -1189,25 +1221,44 @@ export const CodeComparison = () => {
         })}
       </div>
       <div className="flex flex-col md:flex-row h-125 sm:h-140 md:h-150">
-        <CodePanel
-          label={<span className="font-semibold">Mapbox GL JS</span>}
-          html={activeHighlighted?.mapboxHtml || ""}
-          fallback={active.mapbox}
+        <div
+          className={cn(
+            "flex-1 min-w-0 min-h-0 transition-all duration-700 ease-out delay-200",
+            isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
+          )}
+        >
+          <CodePanel
+            label={<span className="font-semibold">Mapbox GL JS</span>}
+            html={activeHighlighted?.mapboxHtml || ""}
+            fallback={active.mapbox}
+          />
+        </div>
+        <div
+          className={cn(
+            "border-b md:border-b-0 md:border-l transition-opacity duration-500 delay-500",
+            isVisible ? "opacity-100" : "opacity-0"
+          )}
         />
-        <div className="border-b md:border-b-0 md:border-l" />
-        <CodePanel
-          label={
-            <span className="relative inline-flex items-center">
-              <span className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500 via-purple-500 to-pink-500" />
-              <span className="absolute inset-px rounded-full bg-card" />
-              <span className="relative px-2 py-0.5 font-semibold bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                Terrae
+        <div
+          className={cn(
+            "flex-1 min-w-0 min-h-0 transition-all duration-700 ease-out delay-400",
+            isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
+          )}
+        >
+          <CodePanel
+            label={
+              <span className="relative inline-flex items-center">
+                <span className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500 via-purple-500 to-pink-500" />
+                <span className="absolute inset-px rounded-full bg-card" />
+                <span className="relative px-2 py-0.5 font-semibold bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                  Terrae
+                </span>
               </span>
-            </span>
-          }
-          html={activeHighlighted?.terraeHtml || ""}
-          fallback={active.terrae}
-        />
+            }
+            html={activeHighlighted?.terraeHtml || ""}
+            fallback={active.terrae}
+          />
+        </div>
       </div>
     </div>
   )

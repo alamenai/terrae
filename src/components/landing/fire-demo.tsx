@@ -6,7 +6,7 @@ import { InfoPanel } from "./info-panel"
 
 export const FireDemo = () => {
   return (
-    <div className="w-full h-full relative pointer-events-none">
+    <div className="w-full h-full relative">
       <InfoPanel title="Wildfire Alert">
         <div className="font-medium mt-1">Paradise, CA</div>
         <div className="flex items-center gap-1 mt-1">
@@ -18,6 +18,8 @@ export const FireDemo = () => {
       <Map accessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || ""} center={[-121.606, 39.7596]} zoom={12}>
         <MapFire id="landing-fire" coordinates={[-121.606, 39.7596]} spread spreadSpeed={2} autoStart />
       </Map>
+
+      <div className="absolute inset-0 z-10" />
     </div>
   )
 }
