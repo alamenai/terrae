@@ -94,7 +94,7 @@ const changelogs: Changelog[] = [
     upcoming: true,
   },
   {
-    date: "February 27, 2026",
+    date: "April 3, 2026",
     components: [
       {
         title: "Volcano",
