@@ -27,7 +27,7 @@ const SponsorsPage = () => {
         </p>
       </DocsSection>
 
-      <DocsSection title="For Backers">
+      <DocsSection title="For Backers — $5 / month">
         <p>
           If Terrae has saved you time, helped you build something great, or you simply like the project and see its
           potential, consider sponsoring to help keep it going.{" "}
@@ -41,7 +41,7 @@ const SponsorsPage = () => {
             asChild
             className="rounded-full bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 text-white hover:opacity-90 px-8"
           >
-            <Link href={INDIVIDUAL_SPONSOR_URL}>
+            <Link href={INDIVIDUAL_SPONSOR_URL} target="_blank" rel="noopener noreferrer">
               <Heart className="size-4 mr-1" />
               Become a Backer
             </Link>
@@ -49,7 +49,7 @@ const SponsorsPage = () => {
         </div>
       </DocsSection>
 
-      <DocsSection title="For Companies">
+      <DocsSection title="For Companies — $200 / month">
         <p>
           <span className="text-foreground font-medium">
             Companies that sponsor Terrae get their logo featured on the website.
@@ -62,7 +62,7 @@ const SponsorsPage = () => {
             asChild
             className="rounded-full bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 text-white hover:opacity-90 px-8"
           >
-            <Link href={COMPANY_SPONSOR_URL}>
+            <Link href={COMPANY_SPONSOR_URL} target="_blank" rel="noopener noreferrer">
               <Heart className="size-4 mr-1" />
               Sponsor as Company
             </Link>
