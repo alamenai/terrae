@@ -1,8 +1,14 @@
+import Image from "next/image"
 import Link from "next/link"
 import { Plus } from "lucide-react"
+import { cn } from "@/lib/utils"
 import { individualSponsors, companySponsors } from "./data"
 
-const AddButton = ({ href }: { href: string }) => {
+type AddButtonProps = {
+  href: string
+}
+
+const AddButton = ({ href }: AddButtonProps) => {
   return (
     <Link
       href={href}
@@ -20,7 +26,7 @@ type ShowcaseProps = {
 
 export const BackersShowcase = ({ align = "center" }: ShowcaseProps) => {
   return (
-    <div className={`flex flex-wrap gap-4 ${align === "center" ? "justify-center" : "justify-start"}`}>
+    <div className={cn("flex flex-wrap gap-4", align === "center" ? "justify-center" : "justify-start")}>
       {individualSponsors.map((sponsor) => {
         return (
           <a
@@ -31,9 +37,11 @@ export const BackersShowcase = ({ align = "center" }: ShowcaseProps) => {
             className="group"
             title={sponsor.name}
           >
-            <img
+            <Image
               src={`https://github.com/${sponsor.github}.png`}
               alt={sponsor.name}
+              width={96}
+              height={96}
               className="size-24 rounded-full ring-2 ring-border group-hover:ring-purple-500 transition-all"
             />
           </a>
@@ -46,7 +54,7 @@ export const BackersShowcase = ({ align = "center" }: ShowcaseProps) => {
 
 export const SponsorsShowcase = ({ align = "center" }: ShowcaseProps) => {
   return (
-    <div className={`flex flex-wrap gap-4 ${align === "center" ? "justify-center" : "justify-start"}`}>
+    <div className={cn("flex flex-wrap gap-4", align === "center" ? "justify-center" : "justify-start")}>
       {companySponsors.map((sponsor) => {
         return (
           <a
@@ -57,9 +65,11 @@ export const SponsorsShowcase = ({ align = "center" }: ShowcaseProps) => {
             className="hover:opacity-80 transition-opacity"
             title={sponsor.name}
           >
-            <img
+            <Image
               src={sponsor.logo}
               alt={sponsor.name}
+              width={0}
+              height={32}
               className="h-8 w-auto object-contain grayscale hover:grayscale-0 transition-all"
             />
           </a>
