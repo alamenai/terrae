@@ -1,8 +1,10 @@
 import Image from "next/image"
-import Link from "next/link"
 import { Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { individualSponsors, companySponsors } from "./data"
+
+const INDIVIDUAL_SPONSOR_URL = process.env.NEXT_PUBLIC_LEMON_SQUEEZY_INDIVIDUAL_URL || "/docs/sponsors"
+const COMPANY_SPONSOR_URL = process.env.NEXT_PUBLIC_LEMON_SQUEEZY_COMPANY_URL || "/docs/sponsors"
 
 type AddButtonProps = {
   href: string
@@ -10,13 +12,15 @@ type AddButtonProps = {
 
 const AddButton = ({ href }: AddButtonProps) => {
   return (
-    <Link
+    <a
       href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       className="size-24 rounded-full border-2 border-dashed border-border hover:border-purple-500 flex items-center justify-center transition-colors"
-      title="Become a backer"
+      title="Become a sponsor"
     >
       <Plus className="size-8 text-muted-foreground" />
-    </Link>
+    </a>
   )
 }
 
@@ -47,7 +51,7 @@ export const BackersShowcase = ({ align = "center" }: ShowcaseProps) => {
           </a>
         )
       })}
-      <AddButton href="/docs/sponsors" />
+      <AddButton href={INDIVIDUAL_SPONSOR_URL} />
     </div>
   )
 }
@@ -75,7 +79,7 @@ export const SponsorsShowcase = ({ align = "center" }: ShowcaseProps) => {
           </a>
         )
       })}
-      <AddButton href="/docs/sponsors" />
+      <AddButton href={COMPANY_SPONSOR_URL} />
     </div>
   )
 }
