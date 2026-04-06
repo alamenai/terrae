@@ -9,13 +9,13 @@ export const Hero = () => {
 
       <div className="relative text-center space-y-6">
         <Link
-          href="/docs/volcano"
+          href="/blocks"
           className="relative inline-flex items-center text-sm text-muted-foreground hover:opacity-90 transition-opacity"
         >
           <span className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500 via-purple-500 to-pink-500" />
           <span className="absolute inset-[1px] rounded-full bg-background" />
           <span className="relative px-3 py-1 flex items-center gap-1.5">
-            Introducing Volcano Component
+            Introducing Blocks
             <ArrowRight className="size-3" />
           </span>
         </Link>
